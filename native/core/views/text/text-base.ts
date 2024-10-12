@@ -48,7 +48,7 @@ export class TextBase extends ViewBase {
     return {
       width: this.measure(
         constrainedWidth,
-        Math.ceil(size.width + 10),
+        Math.ceil(size.width),
         widthMode
       ),
       height: this.measure(
