@@ -14,8 +14,7 @@ function App() {
         NSWindowStyleMask.Titled |
         NSWindowStyleMask.Closable |
         NSWindowStyleMask.Miniaturizable |
-        NSWindowStyleMask.Resizable |
-        NSWindowStyleMask.FullSizeContentView
+        NSWindowStyleMask.Resizable
       }
       transparentTitleBar={false}
       title="Nativescript"
@@ -33,9 +32,13 @@ function App() {
           }}
         >
           <view
-            style={{ width: '100%', height:  '100%', backgroundColor: "aliceblue" }}
+            style={{
+              width: "100%",
+              height: "100%",
+              backgroundColor: "aliceblue",
+            }}
           >
-            <text>Home</text>
+            
           </view>
         </side-bar>
         <content-list>

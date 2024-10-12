@@ -7,13 +7,13 @@ import { ViewBase } from "./view-base.ts";
   tagName: "view",
 })
 export class View extends ViewBase {
-  nativeView?: NSView = undefined;
-  public initNativeView(): NSView | undefined {
+  override nativeView?: NSView = undefined;
+  public override initNativeView(): NSView | undefined {
     this.nativeView = NSView.alloc().init();
     return this.nativeView;
   }
 
-  public disposeNativeView(): void {
+  public override disposeNativeView(): void {
     if (!this.nativeView?.superview) {
 
       this.nativeView?.dealloc();
