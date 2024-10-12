@@ -1,0 +1,9 @@
+{
+    "imports": {
+      "@jsx/jsx-runtime": "./jsx/index.d.ts",
+      "undom-ng": "./vendor/undom-ng/src/undom-ng.js",
+      "dom": "./native/core/dom/index.ts",
+      "app": "./dist/out.js"
+    }
+  }
+  

@@ -1,0 +1,21 @@
+{
+    "tasks": {
+      "start": "deno task bundle && deno task run-native",
+      "bundle": "deno run -A ./scripts/bundle-solidjs.ts \"src/app.tsx\" \"dist/out.js\"",
+      "run-native": "deno run -A --unstable-sloppy-imports ./native/index.ts"
+    },
+    "importMap": "./import_map.json",
+    "lint": {
+      "rules": {
+        "exclude": ["no-explicit-any", "no-var", "no-empty-interface", "ban-types"]
+      }
+    },
+    "compilerOptions": {
+      "jsxImportSource": "@jsx",
+      "jsx": "react-jsx",
+      "experimentalDecorators": true,
+      "emitDecoratorMetadata": true,
+      "noImplicitOverride": false
+    }
+  }
+  
