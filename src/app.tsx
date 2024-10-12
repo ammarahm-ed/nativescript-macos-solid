@@ -7,8 +7,8 @@ function App() {
       style={{
         width: 800,
         height: 600,
-        justifyContent:'center',
-        alignItems: 'center'
+        justifyContent: "center",
+        alignItems: "center",
       }}
       styleMask={
         NSWindowStyleMask.Titled |
@@ -20,13 +20,35 @@ function App() {
       transparentTitleBar={false}
       title="Nativescript"
     >
-      <view
+      <split-view
         style={{
-          width: 100,
-          height: 100,
-          backgroundColor: "aliceblue",
+          flexDirection: "row",
         }}
-      />
+        vertical={true}
+      >
+        <side-bar
+          style={{
+            maxWidth: 250,
+            minWidth: 150,
+          }}
+        >
+          <view
+            style={{ width: '100%', height:  '100%', backgroundColor: "aliceblue" }}
+          >
+            <text>Home</text>
+          </view>
+        </side-bar>
+        <content-list>
+          <view
+            style={{
+              width: 100,
+              height: 100,
+              backgroundColor: "aliceblue",
+            }}
+          >
+          </view>
+        </content-list>
+      </split-view>
     </window>
   );
 }

@@ -8,6 +8,18 @@ interface ViewAttributes {
   [name: string]: any;
 }
 
+interface SplitViewAttributes extends ViewAttributes {
+  vertical?: boolean;
+}
+
+interface SplitViewItemAttributes {
+  ref?: unknown | ((e: unknown) => void);
+  style?: ViewStyle;
+  minWidth?: number;
+  maxWidth?: number;
+  [name: string]: any;
+}
+
 interface WindowAttributes extends ViewAttributes {
     title?: string;
     transparentTitleBar?: boolean;
@@ -25,6 +37,9 @@ interface WindowAttributes extends ViewAttributes {
 
 // Define elements here
 interface JSXIntrinsicElements {
+  "split-view": SplitViewAttributes;
+  "side-bar": SplitViewItemAttributes;
+  "content-list": SplitViewItemAttributes;
   view: ViewAttributes;
   window: WindowAttributes
 }
