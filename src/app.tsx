@@ -38,7 +38,7 @@ function App() {
               backgroundColor: "aliceblue",
             }}
           >
-            
+            <text>Home</text>
           </view>
         </side-bar>
         <content-list>
