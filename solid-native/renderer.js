@@ -26,11 +26,9 @@ export const {
     if (value === prev) return;
 
     if (name.startsWith("on")) {
-      const event = name.slice(2).toLowerCase();
-      if (node.events?.includes(event)) {
-        if (prev) node.removeEventListener(event, prev);
-        node.addEventListener(event, value);
-      }
+      const event = name.slice(2,3).toLowerCase() + name.slice(3);
+      if (prev) node.removeEventListener(event, prev);
+      node.addEventListener(event, value);
       return;
     }
 
