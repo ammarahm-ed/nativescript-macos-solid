@@ -31,6 +31,13 @@ declare global {
 
   // Register your view here if needed, this is not required for JSX since JSX Intrinsic elements
   // are registered separately in jsx/index.d.ts
+  interface HTMlTextElement extends Text {}
+
+  var HTMlTextElement: {
+    new (): HTMlTextElement;
+    prototype: HTMlTextElement;
+  };
+  
   interface HTMLSliderElement extends Slider {}
   var HTMLSliderElement: {
     new (): HTMLSliderElement;
