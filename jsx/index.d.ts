@@ -1,11 +1,18 @@
 import { JSX as SolidJSX } from "npm:solid-js";
 import { ViewStyle } from "../native/core/style/index.ts";
 import { WindowResizeEvent } from "../native/core/views/window/native-window.ts";
+import type { SliderChangeEvent } from "../native/core/views/slider/slider.ts";
 
 interface ViewAttributes {
   ref?: unknown | ((e: unknown) => void);
   style?: ViewStyle;
   [name: string]: any;
+}
+
+interface SliderAttributes extends ViewAttributes {
+  numberOfTickMarks?: number;
+  allowsTickMarkValuesOnly?: boolean;
+  onSliderChanged?: (event: SliderChangeEvent) => void;
 }
 
 interface SplitViewAttributes extends ViewAttributes {
@@ -37,6 +44,7 @@ interface WindowAttributes extends ViewAttributes {
 
 // Define elements here
 interface JSXIntrinsicElements {
+  slider: SliderAttributes;
   "split-view": SplitViewAttributes;
   "side-bar": SplitViewItemAttributes;
   "content-list": SplitViewItemAttributes;

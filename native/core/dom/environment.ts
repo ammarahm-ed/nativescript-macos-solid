@@ -11,10 +11,10 @@ const {
 } = createEnvironment({
   silent: true,
   initDocument: initDocument,
-  onSetTextContent(text: string) {
+  onSetTextContent(_text: string) {
     this.updateTextContent?.();
   },
-  onSetData(data: any) {
+  onSetData(_data: any) {
     if (this.parentNode) {
       let parentElement = this.parentNode;
       while(parentElement.nodeType !== 1) {
