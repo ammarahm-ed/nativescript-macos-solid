@@ -26,7 +26,7 @@ export default class SplitView extends ViewBase {
   public override initNativeView(): NSSplitView | undefined {
     this.viewController = SplitViewController.new();
     this.nativeView = this.viewController.splitView;
-    this.viewController.currentSplitView = this;
+    this.viewController._owner = new WeakRef(this);
     return this.nativeView;
   }
 

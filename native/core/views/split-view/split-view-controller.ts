@@ -11,7 +11,7 @@ export class SplitViewController
   static {
     NativeClass(this);
   }
-  public currentSplitView?: HTMLViewBaseElement;
+  _owner?: WeakRef<HTMLViewBaseElement>;
 
   override viewDidLayout(): void {
     super.viewDidLayout();
@@ -28,7 +28,7 @@ export class SplitViewController
     viewController.view.autoresizesSubviews = true;
     this.resizeSubViews();
   }
-  
+
   animateDismissalOfViewControllerFromViewController(
     viewController: NSViewController,
     _fromViewController: NSViewController
@@ -43,7 +43,8 @@ export class SplitViewController
   }
 
   resizeSubViews() {
-    let child = this.currentSplitView?.firstChild as any;
+    const owner = this._owner?.deref();
+    let child = owner?.firstChild as any;
     while (child) {
       child.adjustSize();
       child = child.nextSibling as any;
