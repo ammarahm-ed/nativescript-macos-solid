@@ -46,6 +46,13 @@ function App() {
               backgroundColor: "aliceblue",
             }}
           >
+            <slider
+              numberOfTickMarks={10}
+              allowsTickMarkValuesOnly={true}
+              onSliderChanged={(event) => {
+                console.log(event.value);
+              }}
+            ></slider>
           </view>
         </content-list>
       </split-view>

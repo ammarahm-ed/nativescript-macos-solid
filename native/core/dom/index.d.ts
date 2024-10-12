@@ -1,5 +1,6 @@
 import { ViewBase } from "../views/view/view-base.ts";
 import { View } from "../views/view/view.ts";
+import type { Slider } from "../views/slider/slider.ts";
 
 declare global {
   // undom
@@ -30,6 +31,12 @@ declare global {
 
   // Register your view here if needed, this is not required for JSX since JSX Intrinsic elements
   // are registered separately in jsx/index.d.ts
+  interface HTMLSliderElement extends Slider {}
+  var HTMLSliderElement: {
+    new (): HTMLSliderElement;
+    prototype: HTMLSliderElement;
+  };
+
   interface HTMLElementTagNameMap {
     view: HTMLViewElement;
   }
