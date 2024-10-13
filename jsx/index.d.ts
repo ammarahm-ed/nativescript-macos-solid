@@ -1,5 +1,5 @@
 import { JSX as SolidJSX } from "npm:solid-js";
-import { ViewStyle } from "../native/core/style/index.ts";
+import { ViewStyle, type TextStyle } from "../native/core/style/index.ts";
 import { WindowResizeEvent } from "../native/core/views/window/native-window.ts";
 import type { SliderChangeEvent } from "../native/core/views/slider/slider.ts";
 
@@ -8,6 +8,18 @@ interface ViewAttributes {
   style?: ViewStyle;
   [name: string]: any;
 }
+
+interface ImageAttributes {
+  src?: string | URL;
+  symbol?: string;
+  ref?: unknown | ((e: unknown) => void);
+  style?: TextStyle;
+  [name: string]: any;
+}
+
+interface OutlineAttributes extends ViewAttributes {}
+
+interface ScrollViewAtributes extends ViewAttributes {}
 
 interface SliderAttributes extends ViewAttributes {
   numberOfTickMarks?: number;
@@ -28,28 +40,31 @@ interface SplitViewItemAttributes {
 }
 
 interface WindowAttributes extends ViewAttributes {
-    title?: string;
-    transparentTitleBar?: boolean;
-    /**
-     * NSWindowStyleMask
-     */
-    styleMask?: number;
-    isReleasedWhenClosed?: boolean;
-    onResize?: (event: WindowResizeEvent) => void;
-    onClose?: (event: Event) => void;
-    onFocus?: (event: Event) => void;
-    [name: string]: any;
-  
-  }
+  title?: string;
+  transparentTitleBar?: boolean;
+  /**
+   * NSWindowStyleMask
+   */
+  styleMask?: number;
+  isReleasedWhenClosed?: boolean;
+  onResize?: (event: WindowResizeEvent) => void;
+  onClose?: (event: Event) => void;
+  onFocus?: (event: Event) => void;
+  [name: string]: any;
+}
 
 // Define elements here
 interface JSXIntrinsicElements {
+  "content-list": SplitViewItemAttributes;
+  image: ImageAttributes;
+  outline: OutlineAttributes;
+  "scroll-view": ScrollViewAtributes;
+  "side-bar": SplitViewItemAttributes;
   slider: SliderAttributes;
   "split-view": SplitViewAttributes;
-  "side-bar": SplitViewItemAttributes;
-  "content-list": SplitViewItemAttributes;
+  "table-cell": ViewAttributes;
   view: ViewAttributes;
-  window: WindowAttributes
+  window: WindowAttributes;
 }
 
 export namespace JSX {
