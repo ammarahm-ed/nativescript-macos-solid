@@ -31,6 +31,34 @@ declare global {
 
   // Register your view here if needed, this is not required for JSX since JSX Intrinsic elements
   // are registered separately in jsx/index.d.ts
+  interface HTMLScrollViewElement extends View {}
+
+  var HTMLScrollViewElement: {
+    new (): HTMLScrollViewElement;
+    prototype: HTMLViewBaseElement;
+  };
+  
+  interface HTMLImageElement extends View {}
+
+  var HTMLImageElement: {
+    new (): HTMLImageElement;
+    prototype: HTMLImageElement;
+  };
+
+  interface HTMLTableCellElement extends View {}
+
+  var HTMLTableCellElement: {
+    new (): HTMLTableCellElement;
+    prototype: HTMLTableCellElement;
+  };
+
+  interface HTMLOutlineElement extends View {}
+
+  var HTMLOutlineElement: {
+    new (): HTMLOutlineElement;
+    prototype: HTMLOutlineElement;
+  };
+
   interface HTMlTextElement extends Text {}
 
   var HTMlTextElement: {

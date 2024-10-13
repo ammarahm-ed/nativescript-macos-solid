@@ -28,18 +28,44 @@ function App() {
         <side-bar
           style={{
             maxWidth: 250,
-            minWidth: 150,
+            minWidth: 200,
           }}
         >
-          <view
-            style={{
-              width: "100%",
-              height: "100%",
-              backgroundColor: "aliceblue",
-            }}
-          >
-            <text>Home</text>
-          </view>
+          <scroll-view>
+            <outline>
+              <table-cell>
+                <image symbol="house"></image>
+                <text>Getting Started</text>
+
+                <table-cell>
+                  <image symbol="lightbulb.max"></image>
+                  <text>Overview</text>
+                </table-cell>
+                <table-cell>
+                  <image symbol="gear.badge.checkmark"></image>
+                  <text>Setup</text>
+                </table-cell>
+              </table-cell>
+
+              <table-cell>
+                <image symbol="list.star"></image>
+                <text>Components</text>
+
+                <table-cell>
+                  <image symbol="photo"></image>
+                  <text>Image</text>
+                </table-cell>
+                <table-cell>
+                  <image symbol="slider.horizontal.3"></image>
+                  <text>Slider</text>
+                </table-cell>
+                <table-cell>
+                  <image symbol="textformat"></image>
+                  <text>Text</text>
+                </table-cell>
+              </table-cell>
+            </outline>
+          </scroll-view>
         </side-bar>
         <content-list>
           <view
