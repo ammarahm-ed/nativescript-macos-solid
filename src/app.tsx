@@ -17,7 +17,7 @@ function App() {
         NSWindowStyleMask.Resizable
       }
       transparentTitleBar={false}
-      title="Develop macOS with Solid"
+      title="Solid macOS"
     >
       <split-view
         style={{

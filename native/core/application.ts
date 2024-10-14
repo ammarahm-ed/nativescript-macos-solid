@@ -5,7 +5,7 @@ objc.import("AppKit");
 
 @NativeClass
 class AppDelegate extends NSObject implements NSApplicationDelegate {
-  window?: NativeWindow
+  window?: NativeWindow;
   running = true;
   isActive = true;
   static windowTitle: string;
@@ -22,7 +22,8 @@ class AppDelegate extends NSObject implements NSApplicationDelegate {
     NSApp.activateIgnoringOtherApps(false);
     NSApp.stop(this);
     // Allow users to customize the app's Touch Bar items
-    NSApplication.sharedApplication.isAutomaticCustomizeTouchBarMenuItemEnabled = true;
+    NSApplication.sharedApplication.isAutomaticCustomizeTouchBarMenuItemEnabled =
+      true;
     RunLoop();
   }
 
@@ -31,7 +32,9 @@ class AppDelegate extends NSObject implements NSApplicationDelegate {
   }
 
   openDiscord(_id: this) {
-    NSWorkspace.sharedWorkspace.openURL(NSURL.URLWithString('https://discord.com/invite/solidjs'));
+    NSWorkspace.sharedWorkspace.openURL(
+      NSURL.URLWithString("https://discord.com/invite/solidjs")
+    );
   }
 }
 
@@ -78,7 +81,6 @@ export default class Application {
   static ensure60FPS: boolean;
 
   static launch() {
-
     if (!(document.body instanceof HTMLElement)) {
       throw new Error("document.body instance of NSView");
     }
@@ -105,21 +107,40 @@ export default class Application {
     const menu = NSMenu.new();
     menu.delegate = Application.delegate;
     NSApp.mainMenu = menu;
-    const appMenuItem = NSMenuItem.alloc().initWithTitleActionKeyEquivalent('Solid macOS', '', '');
+    const appMenuItem = NSMenuItem.alloc().initWithTitleActionKeyEquivalent(
+      "Solid macOS",
+      "",
+      ""
+    );
     menu.addItem(appMenuItem);
     const submenu = NSMenu.new();
     appMenuItem.submenu = submenu;
-    submenu.addItem(NSMenuItem.alloc().initWithTitleActionKeyEquivalent('Quit', 'terminate:', 'q'))
+    submenu.addItem(
+      NSMenuItem.alloc().initWithTitleActionKeyEquivalent(
+        "Quit",
+        "terminate:",
+        "q"
+      )
+    );
 
     const helpMenu = NSMenu.new();
     helpMenu.delegate = Application.delegate;
     NSApp.helpMenu = helpMenu;
-    const helpMenuItem = NSMenuItem.alloc().initWithTitleActionKeyEquivalent('Help', '', '');
+    const helpMenuItem = NSMenuItem.alloc().initWithTitleActionKeyEquivalent(
+      "Help",
+      "",
+      ""
+    );
     menu.addItem(helpMenuItem);
     const helpSubmenu = NSMenu.new();
     helpMenuItem.submenu = helpSubmenu;
-    helpSubmenu.addItem(NSMenuItem.alloc().initWithTitleActionKeyEquivalent('Discord', 'openDiscord', 'd'))
-
+    helpSubmenu.addItem(
+      NSMenuItem.alloc().initWithTitleActionKeyEquivalent(
+        "Discord",
+        "openDiscord",
+        "d"
+      )
+    );
   }
 }
 
