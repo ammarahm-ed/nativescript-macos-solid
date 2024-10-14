@@ -14,9 +14,14 @@ export class Window extends ViewBase {
   isRoot = true;
   public shouldAttachToParentNativeView: boolean = false;
   declare nativeView?: NativeWindow;
+  declare toolbar: NSToolbar;
 
   public initNativeView() {
     this.nativeView = NativeWindow.new();
+    this.toolbar = NSToolbar.alloc().initWithIdentifier('main')
+    this.toolbar.allowsUserCustomization = true;
+    this.toolbar.delegate = this.nativeView;
+    this.nativeView.toolbar = this.toolbar;
     return this.nativeView;
   }
 

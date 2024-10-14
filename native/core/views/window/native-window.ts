@@ -23,13 +23,19 @@ export class WindowResizeEvent extends Event {
   }
 }
 
-export class NativeWindow extends NSWindow implements NSWindowDelegate {
-  static ObjCProtocols = [NSWindowDelegate];
+type ToolbarIdentifier = 'docs' | 'github' | 'discord';
+
+export class NativeWindow
+  extends NSWindow
+  implements NSWindowDelegate, NSToolbarDelegate
+{
+  static ObjCProtocols = [NSWindowDelegate, NSToolbarDelegate];
   static {
     NativeClass(this);
   }
 
   public appWindow?: Window;
+  toolbarIdentifiers: Array<ToolbarIdentifier> = ['docs', 'github', 'discord'];
 
   windowDidResize(_notification: NSNotification): void {
     const event = new WindowResizeEvent();
@@ -51,5 +57,103 @@ export class NativeWindow extends NSWindow implements NSWindowDelegate {
   windowWillClose(_notification: NSNotification): void {
     const event = createEvent("close");
     this.appWindow?.dispatchEvent(event);
+  }
+
+  toolbarItemForItemIdentifierWillBeInsertedIntoToolbar(
+    _toolbar: NSToolbar,
+    itemIdentifier: ToolbarIdentifier,
+    _flag: boolean
+  ): NSToolbarItem {
+    let toolbarItem: NSToolbarItem | undefined;
+    switch (itemIdentifier) {
+      case 'docs': {
+        const view = NSView.alloc().init();
+        const label = NSTextField.new();
+        label.stringValue = "Docs";
+        view.addSubview(label);
+        toolbarItem = this.customToolbarItem(
+          itemIdentifier,
+          "Docs",
+          "Docs",
+          "Solid Docs",
+          view
+        );
+        break;
+      }
+      case 'github': {
+        const view = NSView.alloc().init();
+        const label = NSTextField.new();
+        label.stringValue = "GitHub";
+        view.addSubview(label);
+        toolbarItem = this.customToolbarItem(
+          itemIdentifier,
+          "GitHub",
+          "GitHub",
+          "Solid GitHub",
+          view
+        );
+        break;
+      }
+      case 'discord': {
+        const view = NSView.alloc().init();
+        const label = NSTextField.new();
+        label.stringValue = "Discord";
+        view.addSubview(label);
+        toolbarItem = this.customToolbarItem(
+          itemIdentifier,
+          "Discord",
+          "Discord",
+          "Solid Community Discord",
+          view
+        );
+        break;
+      }
+      default: {
+        toolbarItem = NSToolbarItem.alloc().initWithItemIdentifier(itemIdentifier);
+        break;
+      }
+    }
+    
+    return toolbarItem;
+  }
+
+  toolbarDefaultItemIdentifiers(_toolbar: NSToolbar): NSArray {
+    return this.toolbarIdentifiers as any;
+  }
+
+  toolbarAllowedItemIdentifiers(toolbar: NSToolbar): NSArray {
+    return this.toolbarDefaultItemIdentifiers(toolbar);
+  }
+
+  customToolbarItem(
+    itemIdentifier: string,
+    label: string,
+    paletteLabel: string,
+    toolTip: string,
+    itemContent: any
+  ): NSToolbarItem {
+    const toolbarItem =
+      NSToolbarItem.alloc().initWithItemIdentifier(itemIdentifier);
+
+    toolbarItem.label = label;
+    toolbarItem.paletteLabel = paletteLabel;
+    toolbarItem.toolTip = toolTip;
+    toolbarItem.target = this;
+
+    // Set the right attribute, depending on if we were given an image or a view.
+    if (itemContent instanceof NSImage) {
+      toolbarItem.image = itemContent;
+    } else if (itemContent instanceof NSView) {
+      toolbarItem.view = itemContent;
+    }
+
+    // We actually need an NSMenuItem here, so we construct one.
+    const menuItem: NSMenuItem = NSMenuItem.new();
+    // @ts-ignore: typings
+    menuItem.submenu = null;
+    menuItem.title = label;
+    toolbarItem.menuFormRepresentation = menuItem;
+
+    return toolbarItem;
   }
 }
