@@ -33,6 +33,11 @@ export class NativeWindow
   static {
     NativeClass(this);
   }
+  static ObjCExposedMethods = {
+    openDocs: { returns: interop.types.void, params: [interop.types.id] },
+    openGitHub: { returns: interop.types.void, params: [interop.types.id] },
+    openDiscord: { returns: interop.types.void, params: [interop.types.id] },
+  };
 
   public appWindow?: Window;
   toolbarIdentifiers: Array<ToolbarIdentifier> = ['docs', 'github', 'discord'];
@@ -76,6 +81,7 @@ export class NativeWindow
           "Docs",
           "Docs",
           "Solid Docs",
+          'openDocs',
           view
         );
         break;
@@ -90,6 +96,7 @@ export class NativeWindow
           "GitHub",
           "GitHub",
           "Solid GitHub",
+          'openGitHub',
           view
         );
         break;
@@ -104,6 +111,7 @@ export class NativeWindow
           "Discord",
           "Discord",
           "Solid Community Discord",
+          'openDiscord',
           view
         );
         break;
@@ -130,8 +138,13 @@ export class NativeWindow
     label: string,
     paletteLabel: string,
     toolTip: string,
+    action: string,
     itemContent: any
   ): NSToolbarItem {
+    // const group = NSToolbarItemGroup.alloc().initWithItemIdentifier(itemIdentifier);
+    // group.title = label;
+    // group.label = label;
+    // group.setSelectedAtIndex(true, 0);
     const toolbarItem =
       NSToolbarItem.alloc().initWithItemIdentifier(itemIdentifier);
 
@@ -139,6 +152,7 @@ export class NativeWindow
     toolbarItem.paletteLabel = paletteLabel;
     toolbarItem.toolTip = toolTip;
     toolbarItem.target = this;
+    toolbarItem.action = action;
 
     // Set the right attribute, depending on if we were given an image or a view.
     if (itemContent instanceof NSImage) {
@@ -155,5 +169,17 @@ export class NativeWindow
     toolbarItem.menuFormRepresentation = menuItem;
 
     return toolbarItem;
+  }
+
+  openDocs(_id: this) {
+    NSWorkspace.sharedWorkspace.openURL(NSURL.URLWithString('https://docs.solidjs.com/'));
+  }
+
+  openGitHub(_id: this) {
+    NSWorkspace.sharedWorkspace.openURL(NSURL.URLWithString('https://github.com/solidjs/solid'));
+  }
+
+  openDiscord(_id: this) {
+    NSWorkspace.sharedWorkspace.openURL(NSURL.URLWithString('https://discord.com/invite/solidjs'));
   }
 }
