@@ -1,10 +1,10 @@
 /// <reference lib="dom" />
-import { render } from "../solid-native/renderer.js";
 import { For } from "npm:solid-js";
+import { render } from "../solid-native/renderer.js";
 import {
   setSelectedView,
-  sidebarItems,
   setSidebarItems,
+  sidebarItems,
   sidebarItemsData,
 } from "./state.ts";
 
