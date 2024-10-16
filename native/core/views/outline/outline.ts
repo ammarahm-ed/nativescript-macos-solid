@@ -1,8 +1,17 @@
 import "npm:@nativescript/macos-node-api@~0.1.1";
-import { view } from "../decorators/view.ts";
-import { View } from "../view/view.ts";
+import { Event } from "../../dom/dom-utils.ts";
 import { native } from "../decorators/native.ts";
+import { view } from "../decorators/view.ts";
 import { TableCell } from "../table/table-cell.ts";
+import { View } from "../view/view.ts";
+
+export class OutlineClickEvent extends Event {
+  declare index: number;
+  constructor(index: number, eventDict?: EventInit) {
+    super("click", eventDict);
+    this.index = index;
+  }
+}
 
 @NativeClass
 class OutlineViewDataSource
@@ -68,6 +77,14 @@ class OutlineViewDataSource
   ) {
     return item;
   }
+
+  outlineViewSelectionDidChange(notification: NSNotification): void {
+    const outlineView = notification.object as NSOutlineView;
+    const owner = this.outline;
+    if (owner && outlineView) {
+      owner.dispatchEvent(new OutlineClickEvent(outlineView.selectedRow));
+    }
+  }
 }
 
 @view({
@@ -86,7 +103,6 @@ export class Outline extends View {
 
     // @ts-expect-error It's nullable
     outline.headerView = null;
-    outline.autosaveExpandedItems = true;
     outline.indentationPerLevel = 10;
     outline.allowsColumnReordering = false;
     outline.allowsColumnResizing = false;
@@ -102,8 +118,6 @@ export class Outline extends View {
     outline.outlineTableColumn = tableColumn;
 
     this.nativeView = outline;
-    // expand all items by default
-    this.nativeView.expandItemExpandChildren(null, true);
 
     return this.nativeView;
   }
@@ -126,7 +140,12 @@ export class Outline extends View {
   })
   declare rowSizeStyle: (typeof NSTableViewRowSizeStyle)[keyof typeof NSTableViewRowSizeStyle];
 
-  public addNativeChild(_child: any) {}
+  public addNativeChild(_child: any) {
+    this.nativeView?.reloadData();
+    this.nativeView?.expandItem(_child);
+  }
 
-  public removeNativeChild(_child: any): void {}
+  public removeNativeChild(_child: any): void {
+    this.nativeView?.reloadData();
+  }
 }

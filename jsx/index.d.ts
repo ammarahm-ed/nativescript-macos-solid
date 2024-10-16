@@ -1,6 +1,6 @@
 import { JSX as SolidJSX } from "npm:solid-js";
 import { ViewStyle, type TextStyle } from "../native/core/style/index.ts";
-import { WindowResizeEvent } from "../native/core/views/window/native-window.ts";
+import { ToolbarEvent, WindowResizeEvent } from "../native/core/views/window/native-window.ts";
 import type { SliderChangeEvent } from "../native/core/views/slider/slider.ts";
 
 interface ViewAttributes {
@@ -17,7 +17,9 @@ interface ImageAttributes {
   [name: string]: any;
 }
 
-interface OutlineAttributes extends ViewAttributes {}
+interface OutlineAttributes extends ViewAttributes {
+  onClick?: (item: any) => void;
+}
 
 interface ScrollViewAtributes extends ViewAttributes {}
 
@@ -50,6 +52,7 @@ interface WindowAttributes extends ViewAttributes {
   onResize?: (event: WindowResizeEvent) => void;
   onClose?: (event: Event) => void;
   onFocus?: (event: Event) => void;
+  onToolbarSelected?: (event: ToolbarEvent) => void;
   [name: string]: any;
 }
 

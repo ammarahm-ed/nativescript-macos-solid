@@ -37,7 +37,7 @@ declare global {
     new (): HTMLScrollViewElement;
     prototype: HTMLViewBaseElement;
   };
-  
+
   interface HTMLImageElement extends View {}
 
   var HTMLImageElement: {
@@ -65,7 +65,7 @@ declare global {
     new (): HTMlTextElement;
     prototype: HTMlTextElement;
   };
-  
+
   interface HTMLSliderElement extends Slider {}
   var HTMLSliderElement: {
     new (): HTMLSliderElement;
@@ -86,4 +86,4 @@ declare global {
   }
 }
 
-export { };
+export {};

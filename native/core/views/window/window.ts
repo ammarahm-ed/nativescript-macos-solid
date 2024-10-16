@@ -4,7 +4,7 @@ import { native } from "../decorators/native.ts";
 import { overrides } from "../decorators/overrides.ts";
 import { view } from "../decorators/view.ts";
 import { ViewBase } from "../view/view-base.ts";
-import { NativeWindow } from "./native-window.ts";
+import { NativeWindow, MainWindowController } from "./native-window.ts";
 
 @view({
   name: "HTMLWindowElement",
@@ -14,26 +14,27 @@ export class Window extends ViewBase {
   isRoot = true;
   public shouldAttachToParentNativeView: boolean = false;
   declare nativeView?: NativeWindow;
+  declare mainWindowCtrl: MainWindowController;
 
   public initNativeView() {
     this.nativeView = NativeWindow.new();
-    return this.nativeView;
-  }
 
-  public prepareNativeView(nativeView: NativeWindow): void {
-    nativeView.windowController =
-      NSWindowController.alloc().initWithWindow(nativeView);
+    this.mainWindowCtrl = MainWindowController.initWithOwner(new WeakRef(this));
+    this.mainWindowCtrl.window = this.nativeView;
+    this.nativeView.windowController = this.mainWindowCtrl;
 
-    nativeView.contentViewController = NSViewController.new();
-    this.viewController = nativeView.contentViewController;
+    this.nativeView.contentViewController = NSViewController.new();
+    this.viewController = this.nativeView.contentViewController;
 
     // This view will become the main window if no other window is present;
     if (!NativeScriptApplication.window) {
       NativeScriptApplication.window = this;
     }
 
-    nativeView.appWindow = this;
-    nativeView.delegate = nativeView;
+    this.nativeView.appWindow = this;
+    this.mainWindowCtrl.configureToolbar();
+    this.nativeView.delegate = this.nativeView;
+    return this.nativeView;
   }
 
   public disposeNativeView() {
