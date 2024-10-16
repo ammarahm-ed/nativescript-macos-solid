@@ -1,7 +1,9 @@
 import { createSignal } from "npm:solid-js";
 
 export const [selectedView, setSelectedView] = createSignal(0);
-export const [selectedContentId, setSelectedContentId] = createSignal(null);
+export const [selectedContentId, setSelectedContentId] = createSignal<
+  string | null
+>(null);
 
 interface SidebarBaseItem {
   id: string;
@@ -83,19 +85,19 @@ export const sidebarItemsData: Array<Array<SidebarItem>> = [
           id: crypto.randomUUID(),
           icon: "person.crop.circle.fill",
           title: "Ammar Ahmed",
-          url: 'https://github.com/ammarahm-ed'
+          url: "https://github.com/ammarahm-ed",
         },
         {
           id: crypto.randomUUID(),
           icon: "person.crop.circle.fill",
           title: "Diljit Singh",
-          url: 'https://github.com/DjDeveloperr'
+          url: "https://github.com/DjDeveloperr",
         },
         {
           id: crypto.randomUUID(),
           icon: "person.crop.circle.fill",
           title: "Nathan Walker",
-          url: 'https://github.com/NathanWalker'
+          url: "https://github.com/NathanWalker",
         },
       ],
     },
@@ -105,13 +107,39 @@ export const [sidebarItems, setSidebarItems] = createSignal(
   sidebarItemsData[0]
 );
 
+export function changeToolbar(index: number) {
+  setSelectedView(index);
+  setSidebarItems(sidebarItemsData[index]);
+}
+
 export function changeContent(index: number) {
+  const barItems = getFlattenedSidebarItems();
+  const selection = barItems[index];
+  if (selection?.id !== selectedContentId()) {
+    setSelectedContentId(selection.id);
+    console.log("selected content:", selection);
+  }
+}
+
+function getFlattenedSidebarItems() {
   const items = [...sidebarItems()];
   const barItems = [];
   for (const item of items) {
-    barItems.push(item);
-    barItems.push(item.children);
+    barItems.push({
+      id: item.id,
+      icon: item.icon,
+      title: item.title,
+    });
+    if (item.children) {
+      for (const child of item.children) {
+        barItems.push({
+          id: child.id,
+          icon: child.icon,
+          title: child.title,
+          url: child.url
+        });
+      }
+    }
   }
-  const selection = barItems[index];
-  console.log('selection:', selection)
+  return barItems;
 }

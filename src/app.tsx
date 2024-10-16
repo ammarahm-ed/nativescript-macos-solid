@@ -8,6 +8,7 @@ import {
   sidebarItemsData,
   selectedView,
   changeContent,
+  changeToolbar,
 } from "./state.ts";
 
 function App() {
@@ -30,9 +31,7 @@ function App() {
       transparentTitleBar={false}
       onToolbarSelected={(event) => {
         try {
-          console.log("onToolbarSelected", event.selectedIndex);
-          setSelectedView(event.selectedIndex);
-          setSidebarItems(sidebarItemsData[event.selectedIndex]);
+          changeToolbar(event.selectedIndex);
         } catch (err) {
           console.error(err);
         }
@@ -52,8 +51,8 @@ function App() {
         >
           <scroll-view>
             <outline
-              onClick={(index) => {
-                changeContent(index);
+              onClick={(event) => {
+                changeContent(event.index);
               }}
             >
               <For each={sidebarItems()}>

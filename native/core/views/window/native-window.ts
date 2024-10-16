@@ -32,7 +32,7 @@ export class ToolbarEvent extends Event {
   }
 }
 
-type ToolbarIdentifier = string; // "docs" | "github" | "discord";
+type ToolbarIdentifier = string;
 
 @NativeClass
 export class MainWindowController
@@ -68,9 +68,6 @@ export class MainWindowController
     "view",
     "flexibleSpace",
     "misc",
-    // "docs",
-    // "github",
-    // "discord",
   ];
   declare toolbar: NSToolbar;
   declare _owner: WeakRef<ViewBase>;
