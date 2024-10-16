@@ -117,14 +117,6 @@ export class MainWindowController
     //   return true;
     // }
 
-    // //  Maybe you want to not enable the share menu if nothing in your app
-    // //  is selected. Set your condition inside this `if`.
-    // if (
-    //   item.itemIdentifier == NSToolbarItem.Identifier.toolbarShareButtonItem
-    // ) {
-    //   return true;
-    // }
-
     // //  Return false (to disable) this toolbar item if we never create a
     // //  titlebar accessory view. This is an example of a conditional
     // //  example.

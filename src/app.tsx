@@ -1,11 +1,13 @@
 /// <reference lib="dom" />
-import { For } from "npm:solid-js";
 import { render } from "../solid-native/renderer.js";
+import { For, Show } from "npm:solid-js";
 import {
   setSelectedView,
-  setSidebarItems,
   sidebarItems,
+  setSidebarItems,
   sidebarItemsData,
+  selectedView,
+  changeContent,
 } from "./state.ts";
 
 function App() {
@@ -49,7 +51,11 @@ function App() {
           }}
         >
           <scroll-view>
-            <outline>
+            <outline
+              onClick={(index) => {
+                changeContent(index);
+              }}
+            >
               <For each={sidebarItems()}>
                 {(item, _index) => (
                   <table-cell>
@@ -70,27 +76,57 @@ function App() {
             </outline>
           </scroll-view>
         </side-bar>
+        
+        {/* Requires flag above, but does not work with Show component
         <content-list style={{
           flex: 1,
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
-        }}>
-          <view
-            style={{
-              width: 100,
-              height: 100,
-              backgroundColor: "gray",
-            }}
-          >
-            <slider
-              numberOfTickMarks={10}
-              allowsTickMarkValuesOnly={true}
-              onSliderChanged={(event) => {
-                console.log(event.value);
+        }}> */}
+        <content-list>
+          <Show when={selectedView() === 0}>
+            <view
+              style={{
+                width: "100%",
+                height: "100%",
+                paddingTop: 55,
+                backgroundColor: "gray",
               }}
-            ></slider>
-          </view>
+            >
+              <slider
+                numberOfTickMarks={10}
+                allowsTickMarkValuesOnly={true}
+                onSliderChanged={(event) => {
+                  console.log(event.value);
+                }}
+              ></slider>
+            </view>
+          </Show>
+          <Show when={selectedView() === 1}>
+            <view
+              style={{
+                width: "100%",
+                height: "100%",
+                paddingTop: 55,
+                backgroundColor: "gray",
+              }}
+            >
+              <text>Hello</text>
+            </view>
+          </Show>
+          <Show when={selectedView() === 2}>
+            <view
+              style={{
+                width: "100%",
+                height: "100%",
+                paddingTop: 55,
+                backgroundColor: "gray",
+              }}
+            >
+              <text>Yes</text>
+            </view>
+          </Show>
         </content-list>
       </split-view>
     </window>

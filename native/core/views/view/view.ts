@@ -15,7 +15,6 @@ export class View extends ViewBase {
 
   public override disposeNativeView(): void {
     if (!this.nativeView?.superview) {
-      this.nativeView?.dealloc();
       this.nativeView = undefined;
     } else {
       console.warn(

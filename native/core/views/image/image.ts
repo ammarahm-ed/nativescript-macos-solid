@@ -17,7 +17,6 @@ export class Image extends ViewBase {
 
   public disposeNativeView(): void {
     if (!this.nativeView?.superview) {
-      this.nativeView?.dealloc();
       this.nativeView = undefined;
     } else {
       console.warn(

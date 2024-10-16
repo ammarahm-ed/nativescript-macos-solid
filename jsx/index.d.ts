@@ -17,7 +17,9 @@ interface ImageAttributes {
   [name: string]: any;
 }
 
-interface OutlineAttributes extends ViewAttributes {}
+interface OutlineAttributes extends ViewAttributes {
+  onClick?: (item: any) => void;
+}
 
 interface ScrollViewAtributes extends ViewAttributes {}
 

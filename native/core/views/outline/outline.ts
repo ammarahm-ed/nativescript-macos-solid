@@ -1,8 +1,17 @@
 import "npm:@nativescript/macos-node-api@~0.1.1";
+import { Event } from "../../dom/dom-utils.ts";
 import { native } from "../decorators/native.ts";
 import { view } from "../decorators/view.ts";
 import { TableCell } from "../table/table-cell.ts";
 import { View } from "../view/view.ts";
+
+export class OutlineClickEvent extends Event {
+  declare index: number;
+  constructor(index: number, eventDict?: EventInit) {
+    super("click", eventDict);
+    this.index = index;
+  }
+}
 
 @NativeClass
 class OutlineViewDataSource
@@ -67,6 +76,14 @@ class OutlineViewDataSource
     item: interop.Object | null
   ) {
     return item;
+  }
+
+  outlineViewSelectionDidChange(notification: NSNotification): void {
+    const outlineView = notification.object as NSOutlineView;
+    const owner = this.outline;
+    if (owner && outlineView) {
+      owner.dispatchEvent(new OutlineClickEvent(outlineView.selectedRow));
+    }
   }
 }
 
