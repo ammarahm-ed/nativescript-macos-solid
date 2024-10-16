@@ -82,7 +82,7 @@ export class MainWindowController
       this.toolbar.delegate = this;
       // this.toolbar.allowsUserCustomization = true;
       // this.toolbar.autosavesConfiguration = true;
-      this.toolbar.displayMode = NSToolbarDisplayMode.Default;
+      this.toolbar.displayMode = NSToolbarDisplayMode.IconOnly;
 
       // Example on center-pinning a toolbar item
       // newToolbar.centeredItemIdentifier = NSToolbarItem.Identifier.toolbarPickerItem
