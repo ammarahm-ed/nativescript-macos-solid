@@ -32,7 +32,7 @@ export class ToolbarEvent extends Event {
   }
 }
 
-type ToolbarIdentifier = "space" | "flexibleSpace" | "view" | "misc"; // "docs" | "github" | "discord";
+type ToolbarIdentifier = string; // "docs" | "github" | "discord";
 
 @NativeClass
 export class MainWindowController
@@ -62,6 +62,8 @@ export class MainWindowController
     },
   };
   toolbarIdentifiers: Array<ToolbarIdentifier> = [
+    NSToolbarToggleSidebarItemIdentifier,
+    NSToolbarSidebarTrackingSeparatorItemIdentifier,
     "space",
     "view",
     "flexibleSpace",
@@ -101,7 +103,7 @@ export class MainWindowController
     }
   }
 
-  validateToolbarItem(item: NSToolbarItem): boolean {
+  validateToolbarItem(_item: NSToolbarItem): boolean {
     // console.log(`Validating ${item.itemIdentifier}`);
 
     // Use this method to enable/disable toolbar items as user takes certain

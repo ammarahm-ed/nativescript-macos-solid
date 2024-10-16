@@ -22,7 +22,8 @@ function App() {
         NSWindowStyleMask.Titled |
         NSWindowStyleMask.Closable |
         NSWindowStyleMask.Miniaturizable |
-        NSWindowStyleMask.Resizable
+        NSWindowStyleMask.Resizable | 
+        NSWindowStyleMask.FullSizeContentView
       }
       transparentTitleBar={false}
       onToolbarSelected={(event) => {
@@ -69,12 +70,17 @@ function App() {
             </outline>
           </scroll-view>
         </side-bar>
-        <content-list>
+        <content-list style={{
+          flex: 1,
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+        }}>
           <view
             style={{
               width: 100,
               height: 100,
-              backgroundColor: "aliceblue",
+              backgroundColor: "gray",
             }}
           >
             <slider
