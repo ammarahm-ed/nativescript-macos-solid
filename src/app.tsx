@@ -1,9 +1,17 @@
 /// <reference lib="dom" />
 import { render } from "../solid-native/renderer.js";
+import { For } from "npm:solid-js";
+import {
+  setSelectedView,
+  sidebarItems,
+  setSidebarItems,
+  sidebarItemsData,
+} from "./state.ts";
 
 function App() {
   return (
     <window
+      title="Solid macOS"
       style={{
         width: 800,
         height: 600,
@@ -17,7 +25,15 @@ function App() {
         NSWindowStyleMask.Resizable
       }
       transparentTitleBar={false}
-      title="Solid macOS"
+      onToolbarSelected={(event) => {
+        try {
+          console.log("onToolbarSelected", event.selectedIndex);
+          setSelectedView(event.selectedIndex);
+          setSidebarItems(sidebarItemsData[event.selectedIndex]);
+        } catch (err) {
+          console.error(err);
+        }
+      }}
     >
       <split-view
         style={{
@@ -33,37 +49,23 @@ function App() {
         >
           <scroll-view>
             <outline>
-              <table-cell>
-                <image symbol="house"></image>
-                <text>Getting Started</text>
+              <For each={sidebarItems()}>
+                {(item, _index) => (
+                  <table-cell>
+                    <image symbol={item.icon}></image>
+                    <text>{item.title}</text>
 
-                <table-cell>
-                  <image symbol="lightbulb.max"></image>
-                  <text>Overview</text>
-                </table-cell>
-                <table-cell>
-                  <image symbol="gear.badge.checkmark"></image>
-                  <text>Setup</text>
-                </table-cell>
-              </table-cell>
-
-              <table-cell>
-                <image symbol="list.star"></image>
-                <text>Components</text>
-
-                <table-cell>
-                  <image symbol="photo"></image>
-                  <text>Image</text>
-                </table-cell>
-                <table-cell>
-                  <image symbol="slider.horizontal.3"></image>
-                  <text>Slider</text>
-                </table-cell>
-                <table-cell>
-                  <image symbol="textformat"></image>
-                  <text>Text</text>
-                </table-cell>
-              </table-cell>
+                    <For each={item.children}>
+                      {(child, _index) => (
+                        <table-cell>
+                          <image symbol={child.icon}></image>
+                          <text>{child.title}</text>
+                        </table-cell>
+                      )}
+                    </For>
+                  </table-cell>
+                )}
+              </For>
             </outline>
           </scroll-view>
         </side-bar>

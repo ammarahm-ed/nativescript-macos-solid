@@ -19,7 +19,7 @@ export class Window extends ViewBase {
   public initNativeView() {
     this.nativeView = NativeWindow.new();
 
-    this.mainWindowCtrl = MainWindowController.new();
+    this.mainWindowCtrl = MainWindowController.initWithOwner(new WeakRef(this));
     this.mainWindowCtrl.window = this.nativeView;
     this.nativeView.windowController = this.mainWindowCtrl;
 

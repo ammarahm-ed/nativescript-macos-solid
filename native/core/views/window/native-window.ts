@@ -1,6 +1,7 @@
 import "npm:@nativescript/macos-node-api@~0.1.1";
 import { createEvent, Event } from "../../dom/dom-utils.ts";
 import type { Window } from "./window.ts";
+import type { ViewBase } from "../view/view-base.ts";
 
 export class WindowResizeEvent extends Event {
   declare width: number;
@@ -23,7 +24,15 @@ export class WindowResizeEvent extends Event {
   }
 }
 
-type ToolbarIdentifier = "flexibleSpace" | "view" | "misc"; // "docs" | "github" | "discord";
+export class ToolbarEvent extends Event {
+  declare selectedIndex: number;
+  constructor(selectedIndex: number, eventDict?: EventInit) {
+    super("toolbarSelected", eventDict);
+    this.selectedIndex = selectedIndex;
+  }
+}
+
+type ToolbarIdentifier = "space" | "flexibleSpace" | "view" | "misc"; // "docs" | "github" | "discord";
 
 @NativeClass
 export class MainWindowController
@@ -33,6 +42,11 @@ export class MainWindowController
   static ObjCProtocols = [NSToolbarDelegate, NSSearchFieldDelegate];
   static {
     NativeClass(this);
+  }
+  static initWithOwner(owner: WeakRef<ViewBase>) {
+    const win = MainWindowController.new();
+    win._owner = owner;
+    return win;
   }
   static ObjCExposedMethods = {
     openDocs: { returns: interop.types.void, params: [interop.types.id] },
@@ -48,7 +62,7 @@ export class MainWindowController
     },
   };
   toolbarIdentifiers: Array<ToolbarIdentifier> = [
-    "flexibleSpace",
+    "space",
     "view",
     "flexibleSpace",
     "misc",
@@ -57,6 +71,7 @@ export class MainWindowController
     // "discord",
   ];
   declare toolbar: NSToolbar;
+  declare _owner: WeakRef<ViewBase>;
 
   configureToolbar() {
     const win = this.window;
@@ -141,13 +156,6 @@ export class MainWindowController
     switch (itemIdentifier) {
       case "view": {
         const titles = ["Building", "Examples", "Credits"];
-
-        // This will either be a segmented control or a drop down depending
-        // on your available space.
-        //
-        // NOTE: When you set the target as nil and use the string method
-        // to define the Selector, it will go down the Responder Chain,
-        // which in this app, this method is in AppDelegate. Neat!
         toolbarItem =
           NSToolbarItemGroup.groupWithItemIdentifierTitlesSelectionModeLabelsTargetAction(
             itemIdentifier,
@@ -187,51 +195,6 @@ export class MainWindowController
         toolbarItem.toolTip = "Continue your learning";
         break;
       }
-      // case "docs": {
-      //   const view = NSView.alloc().init();
-      //   const label = NSTextField.new();
-      //   label.stringValue = "Docs";
-      //   view.addSubview(label);
-      //   toolbarItem = this.customToolbarItem(
-      //     itemIdentifier,
-      //     "Docs",
-      //     "Docs",
-      //     "Solid Docs",
-      //     "openDocs",
-      //     view
-      //   );
-      //   break;
-      // }
-      // case "github": {
-      //   const view = NSView.alloc().init();
-      //   const label = NSTextField.new();
-      //   label.stringValue = "GitHub";
-      //   view.addSubview(label);
-      //   toolbarItem = this.customToolbarItem(
-      //     itemIdentifier,
-      //     "GitHub",
-      //     "GitHub",
-      //     "Solid GitHub",
-      //     "openGitHub",
-      //     view
-      //   );
-      //   break;
-      // }
-      // case "discord": {
-      //   const view = NSView.alloc().init();
-      //   const label = NSTextField.new();
-      //   label.stringValue = "Discord";
-      //   view.addSubview(label);
-      //   toolbarItem = this.customToolbarItem(
-      //     itemIdentifier,
-      //     "Discord",
-      //     "Discord",
-      //     "Solid Community Discord",
-      //     "openDiscord",
-      //     view
-      //   );
-      //   break;
-      // }
       default: {
         toolbarItem =
           NSToolbarItem.alloc().initWithItemIdentifier(itemIdentifier);
@@ -243,19 +206,19 @@ export class MainWindowController
   }
 
   toolbarViewTypeDidSelectItem(sender: NSToolbarItemGroup) {
-    console.log(`toolbar item group selected index: ${sender.selectedIndex}`);
-    switch (sender.selectedIndex) {
-      case 0:
-        break;
-      case 1:
-        break;
-      case 2:
-        break;
+    console.log(
+      `toolbarViewTypeDidSelectItem selected index: ${sender.selectedIndex}`
+    );
+    const owner = this._owner?.deref();
+    if (owner) {
+      owner.dispatchEvent(new ToolbarEvent(sender.selectedIndex));
     }
   }
 
   toolbarMiscDidSelectItem(sender: NSToolbarItemGroup) {
-    console.log(`toolbar item group selected index: ${sender.selectedIndex}`);
+    console.log(
+      `toolbarMiscDidSelectItem selected index: ${sender.selectedIndex}`
+    );
     switch (sender.selectedIndex) {
       case 0:
         this.openDocs();
