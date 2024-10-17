@@ -7,6 +7,7 @@ export const [selectedContentId, setSelectedContentId] = createSignal<
 const defaultCredit = "https://www.solidjs.com/contributors";
 export const [activeCredit, setActiveCredit] =
   createSignal<string>(defaultCredit);
+export const [selectedComponent, setSelectedComponent] = createSignal<string | undefined>('');
 
 interface SidebarBaseItem {
   id: string;
@@ -41,6 +42,11 @@ export const sidebarItemsData: Array<Array<SidebarItem>> = [
       icon: "list.star",
       title: "Components",
       children: [
+        {
+          id: crypto.randomUUID(),
+          icon: "button.horizontal.top.press",
+          title: "Button",
+        },
         {
           id: crypto.randomUUID(),
           icon: "photo",
@@ -118,6 +124,12 @@ export function changeToolbar(index: number) {
 export function changeContent(index: number) {
   const barItems = getFlattenedSidebarItems();
   const selection = barItems[index];
+  if (selectedView() === 0) {
+    if (index > 3) {
+      // anything below 'Components' will be component snippets
+      setSelectedComponent(selection?.title?.toLowerCase());
+    }
+  }
   if (selection?.id !== selectedContentId()) {
     setSelectedContentId(selection.id);
     console.log("selected content:", selection);
