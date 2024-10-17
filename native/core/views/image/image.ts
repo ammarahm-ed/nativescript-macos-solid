@@ -3,6 +3,7 @@ import { view } from "../decorators/view.ts";
 import { ViewBase } from "../view/view-base.ts";
 import { native } from "../decorators/native.ts";
 
+export type ImageStretch = "none" | "fit" | "fill" | "aspectFit";
 @view({
   name: "HTMLImageElement",
   tagName: "image",
@@ -21,16 +22,21 @@ export class Image extends ViewBase {
     } else {
       console.warn(
         "Trying to dispose a view that is still attached to it's parent",
-        new Error().stack,
+        new Error().stack
       );
     }
   }
 
   @native({
     setNative(view: Image, _key, value) {
-      const img = NSImage.alloc().initWithContentsOfFile(
-        value instanceof URL ? value.pathname : value,
-      );
+      let img: NSImage;
+      if (typeof value === "string" && value?.indexOf("http") > -1) {
+        img = NSImage.alloc().initWithContentsOfURL(NSURL.URLWithString(value));
+      } else {
+        img = NSImage.alloc().initWithContentsOfFile(
+          value instanceof URL ? value.pathname : value
+        );
+      }
       view.nativeView!.image = img;
     },
   })
@@ -40,10 +46,34 @@ export class Image extends ViewBase {
     setNative(view: Image, _key, value) {
       const img = NSImage.imageWithSystemSymbolNameAccessibilityDescription(
         value,
-        null,
+        null
       );
       view.nativeView!.image = img;
     },
   })
   declare symbol: string;
+
+  @native({
+    setNative(view: Image, _key, value: ImageStretch) {
+      if (view.nativeView) {
+        switch (value) {
+          case "aspectFit":
+            view.nativeView.imageScaling =
+              NSImageScaling.ImageScaleProportionallyUpOrDown;
+            break;
+          case "fill":
+            view.nativeView.imageScaling =
+              NSImageScaling.ImageScaleAxesIndependently;
+            break;
+          case "fit":
+            view.nativeView.imageScaling = NSImageScaling.ScaleToFit;
+            break;
+          default:
+            view.nativeView.imageScaling = NSImageScaling.ScaleNone;
+            break;
+        }
+      }
+    },
+  })
+  declare stretch: ImageStretch;
 }

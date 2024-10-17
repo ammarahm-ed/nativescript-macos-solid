@@ -10,6 +10,7 @@ import {
   changeContent,
   changeToolbar,
   activeCredit,
+  selectedComponent,
 } from "./state.ts";
 
 function App() {
@@ -94,13 +95,54 @@ function App() {
                 backgroundColor: "gray",
               }}
             >
-              <slider
-                numberOfTickMarks={10}
-                allowsTickMarkValuesOnly={true}
-                onSliderChanged={(event) => {
-                  console.log(event.value);
-                }}
-              ></slider>
+              <Show when={selectedComponent() === "button"}>
+                <button
+                  style={{
+                    width: 200,
+                    height: 100,
+                    backgroundColor: "blue",
+                    color: "white",
+                  }}
+                  onClick={(_event) => {
+                    console.log("Button clicked");
+                  }}
+                >
+                  Tap Me
+                </button>
+              </Show>
+              <Show when={selectedComponent() === "image"}>
+                <image
+                  style={{
+                    width: 200,
+                    height: 200,
+                    backgroundColor: "yellow",
+                  }}
+                  stretch="fill"
+                  src="https://www.solidjs.com/img/logo/without-wordmark/logo.jpg"
+                ></image>
+              </Show>
+              <Show when={selectedComponent() === "slider"}>
+                <slider
+                  style={{
+                    width: 200,
+                    height: 100,
+                  }}
+                  numberOfTickMarks={10}
+                  allowsTickMarkValuesOnly={true}
+                  onSliderChanged={(event) => {
+                    console.log(event.value);
+                  }}
+                ></slider>
+              </Show>
+              <Show when={selectedComponent() === "text"}>
+                <text
+                  style={{
+                    padding: 50,
+                  }}
+                >
+                  Hello macOS, ❤️ Solid
+                </text>
+              </Show>
             </view>
           </Show>
           <Show when={selectedView() === 1}>

@@ -3,6 +3,8 @@ import { ViewStyle, type TextStyle } from "../native/core/style/index.ts";
 import { ToolbarEvent, WindowResizeEvent } from "../native/core/views/window/native-window.ts";
 import type { SliderChangeEvent } from "../native/core/views/slider/slider.ts";
 import type { LoadFinishedEvent, LoadStartedEvent } from "../native/core/views/webview/webview.ts";
+import type { NSBezelStyleType, NSButtonType } from "../native/core/views/button/button.ts";
+import type { ImageStretch } from "../native/core/views/image/image.ts";
 
 interface ViewAttributes {
   ref?: unknown | ((e: unknown) => void);
@@ -10,11 +12,25 @@ interface ViewAttributes {
   [name: string]: any;
 }
 
+interface TextAttributes {
+  ref?: unknown | ((e: unknown) => void);
+  style?: TextStyle;
+  [name: string]: any;
+}
+
+interface ButtonAttributes extends TextAttributes {
+  title?: string;
+  bezelStyle?: NSBezelStyleType;
+  buttonType?: NSButtonType;
+  onClick?: (event: Event) => void
+}
+
 interface ImageAttributes {
   src?: string | URL;
   symbol?: string;
   ref?: unknown | ((e: unknown) => void);
   style?: TextStyle;
+  stretch?: ImageStretch;
   [name: string]: any;
 }
 
@@ -65,6 +81,7 @@ interface WebviewAttributes extends ViewAttributes {
 
 // Define elements here
 interface JSXIntrinsicElements {
+  button: ButtonAttributes;
   "content-list": SplitViewItemAttributes;
   image: ImageAttributes;
   outline: OutlineAttributes;
@@ -73,6 +90,7 @@ interface JSXIntrinsicElements {
   slider: SliderAttributes;
   "split-view": SplitViewAttributes;
   "table-cell": ViewAttributes;
+  text: TextAttributes;
   view: ViewAttributes;
   webview: WebviewAttributes;
   window: WindowAttributes;
