@@ -110,6 +110,21 @@ function App() {
                   Tap Me
                 </button>
               </Show>
+              <Show when={selectedComponent() === "checkbox"}>
+                <checkbox
+                  style={{
+                    width: 200,
+                    height: 100,
+                    backgroundColor: "blue",
+                    color: "white",
+                  }}
+                  onClick={(event) => {
+                    console.log("Checkbox clicked", event.state);
+                  }}
+                >
+                  Check me if you ❤️ Solid
+                </checkbox>
+              </Show>
               <Show when={selectedComponent() === "image"}>
                 <image
                   style={{

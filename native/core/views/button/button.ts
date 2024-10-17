@@ -1,3 +1,4 @@
+import { Event } from "../../dom/dom-utils.ts";
 import { Color } from "../../style/utils/color.ts";
 import { native } from "../decorators/native.ts";
 import type { NativePropertyConfig } from "../decorators/native.ts";
@@ -5,6 +6,14 @@ import { overrides } from "../decorators/overrides.ts";
 import { view } from "../decorators/view.ts";
 import { TextBase } from "../text/text-base.ts";
 import { NativeButton } from "./native-button.ts";
+
+export class ButtonClickEvent extends Event {
+    declare state?: boolean;
+    constructor(state: boolean, eventDict?: EventInit) {
+      super("click", eventDict);
+      this.state = state;
+    } 
+  }
 
 export type NSBezelStyleType =
   | "automatic"

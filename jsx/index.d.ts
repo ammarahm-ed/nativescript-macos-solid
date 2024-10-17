@@ -3,7 +3,7 @@ import { ViewStyle, type TextStyle } from "../native/core/style/index.ts";
 import { ToolbarEvent, WindowResizeEvent } from "../native/core/views/window/native-window.ts";
 import type { SliderChangeEvent } from "../native/core/views/slider/slider.ts";
 import type { LoadFinishedEvent, LoadStartedEvent } from "../native/core/views/webview/webview.ts";
-import type { NSBezelStyleType, NSButtonType } from "../native/core/views/button/button.ts";
+import type { ButtonClickEvent, NSBezelStyleType, NSButtonType } from "../native/core/views/button/button.ts";
 import type { ImageStretch } from "../native/core/views/image/image.ts";
 
 interface ViewAttributes {
@@ -22,7 +22,7 @@ interface ButtonAttributes extends TextAttributes {
   title?: string;
   bezelStyle?: NSBezelStyleType;
   buttonType?: NSButtonType;
-  onClick?: (event: Event) => void
+  onClick?: (event: ButtonClickEvent) => void
 }
 
 interface ImageAttributes {
@@ -82,6 +82,7 @@ interface WebviewAttributes extends ViewAttributes {
 // Define elements here
 interface JSXIntrinsicElements {
   button: ButtonAttributes;
+  checkbox: ButtonAttributes;
   "content-list": SplitViewItemAttributes;
   image: ImageAttributes;
   outline: OutlineAttributes;
