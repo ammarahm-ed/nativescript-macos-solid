@@ -2,6 +2,7 @@ import { JSX as SolidJSX } from "npm:solid-js";
 import { ViewStyle, type TextStyle } from "../native/core/style/index.ts";
 import { ToolbarEvent, WindowResizeEvent } from "../native/core/views/window/native-window.ts";
 import type { SliderChangeEvent } from "../native/core/views/slider/slider.ts";
+import type { LoadFinishedEvent, LoadStartedEvent } from "../native/core/views/webview/webview.ts";
 
 interface ViewAttributes {
   ref?: unknown | ((e: unknown) => void);
@@ -56,6 +57,12 @@ interface WindowAttributes extends ViewAttributes {
   [name: string]: any;
 }
 
+interface WebviewAttributes extends ViewAttributes {
+  src?: string | URL;
+  onLoadStarted?: (event: LoadStartedEvent) => void;
+  onLoadFinished?: (event: LoadFinishedEvent) => void;
+}
+
 // Define elements here
 interface JSXIntrinsicElements {
   "content-list": SplitViewItemAttributes;
@@ -67,6 +74,7 @@ interface JSXIntrinsicElements {
   "split-view": SplitViewAttributes;
   "table-cell": ViewAttributes;
   view: ViewAttributes;
+  webview: WebviewAttributes;
   window: WindowAttributes;
 }
 
