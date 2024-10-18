@@ -3,7 +3,8 @@ import { ViewStyle, type TextStyle } from "../native/core/style/index.ts";
 import { ToolbarEvent, WindowResizeEvent } from "../native/core/views/window/native-window.ts";
 import type { SliderChangeEvent } from "../native/core/views/slider/slider.ts";
 import type { LoadFinishedEvent, LoadStartedEvent } from "../native/core/views/webview/webview.ts";
-import type { ButtonClickEvent, NSBezelStyleType, NSButtonType } from "../native/core/views/button/button.ts";
+import type { NSBezelStyleType, NSButtonType } from "../native/core/views/button/button.ts";
+import type { ButtonClickEvent } from '../native/core/views/button/native-button.ts';
 import type { ImageStretch } from "../native/core/views/image/image.ts";
 
 interface ViewAttributes {

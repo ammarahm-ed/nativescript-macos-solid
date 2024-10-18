@@ -1,5 +1,13 @@
 import "npm:@nativescript/macos-node-api@~0.1.1";
-import { ButtonClickEvent } from "./button.ts";
+import { Event } from "../../dom/dom-utils.ts";
+
+export class ButtonClickEvent extends Event {
+  declare state?: boolean;
+  constructor(state: boolean, eventDict?: EventInit) {
+    super("click", eventDict);
+    this.state = state;
+  }
+}
 
 export class NativeButton extends NSButton {
   static ObjCExposedMethods = {
