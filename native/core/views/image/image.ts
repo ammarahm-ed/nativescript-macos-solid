@@ -11,6 +11,11 @@ export type ImageStretch = "none" | "fit" | "fill" | "aspectFit";
 export class Image extends ViewBase {
   nativeView?: NSImageView = undefined;
 
+  override get isLeaf(): boolean {
+    // Text is always a leaf node.
+    return true;
+  }
+
   public initNativeView(): NSImageView | undefined {
     this.nativeView = NSImageView.alloc().init();
     return this.nativeView;

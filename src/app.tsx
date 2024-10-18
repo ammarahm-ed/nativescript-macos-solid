@@ -128,11 +128,10 @@ function App() {
               <Show when={selectedComponent() === "image"}>
                 <image
                   style={{
-                    width: 200,
-                    height: 200,
-                    backgroundColor: "yellow",
+                    width: '100%',
+                    height: '100%',
                   }}
-                  stretch="fill"
+                  stretch="aspectFit"
                   src="https://www.solidjs.com/img/logo/without-wordmark/logo.jpg"
                 ></image>
               </Show>
