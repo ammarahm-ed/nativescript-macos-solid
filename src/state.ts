@@ -4,6 +4,9 @@ export const [selectedView, setSelectedView] = createSignal(0);
 export const [selectedContentId, setSelectedContentId] = createSignal<
   string | null
 >(null);
+const defaultCredit = "https://www.solidjs.com/contributors";
+export const [activeCredit, setActiveCredit] =
+  createSignal<string>(defaultCredit);
 
 interface SidebarBaseItem {
   id: string;
@@ -118,6 +121,7 @@ export function changeContent(index: number) {
   if (selection?.id !== selectedContentId()) {
     setSelectedContentId(selection.id);
     console.log("selected content:", selection);
+    setActiveCredit(selection.url || defaultCredit);
   }
 }
 
@@ -136,7 +140,7 @@ function getFlattenedSidebarItems() {
           id: child.id,
           icon: child.icon,
           title: child.title,
-          url: child.url
+          url: child.url,
         });
       }
     }

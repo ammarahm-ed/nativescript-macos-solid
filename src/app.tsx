@@ -9,6 +9,7 @@ import {
   selectedView,
   changeContent,
   changeToolbar,
+  activeCredit,
 } from "./state.ts";
 
 function App() {
@@ -25,7 +26,7 @@ function App() {
         NSWindowStyleMask.Titled |
         NSWindowStyleMask.Closable |
         NSWindowStyleMask.Miniaturizable |
-        NSWindowStyleMask.Resizable | 
+        NSWindowStyleMask.Resizable |
         NSWindowStyleMask.FullSizeContentView
       }
       transparentTitleBar={false}
@@ -75,7 +76,7 @@ function App() {
             </outline>
           </scroll-view>
         </side-bar>
-        
+
         {/* Requires flag above, but does not work with Show component
         <content-list style={{
           flex: 1,
@@ -89,7 +90,7 @@ function App() {
               style={{
                 width: "100%",
                 height: "100%",
-                paddingTop: 55,
+                paddingTop: 52,
                 backgroundColor: "gray",
               }}
             >
@@ -107,7 +108,7 @@ function App() {
               style={{
                 width: "100%",
                 height: "100%",
-                paddingTop: 55,
+                paddingTop: 52,
                 backgroundColor: "gray",
               }}
             >
@@ -119,11 +120,23 @@ function App() {
               style={{
                 width: "100%",
                 height: "100%",
-                paddingTop: 55,
+                paddingTop: 52,
                 backgroundColor: "gray",
               }}
             >
-              <text>Yes</text>
+              <webview
+                style={{
+                  width: "100%",
+                  height: "100%",
+                }}
+                src={activeCredit()}
+                onLoadStarted={(e) => {
+                  console.log(e.url);
+                }}
+                onLoadFinished={(e) => {
+                  console.log(e.url);
+                }}
+              ></webview>
             </view>
           </Show>
         </content-list>
