@@ -49,6 +49,11 @@ export const sidebarItemsData: Array<Array<SidebarItem>> = [
         },
         {
           id: crypto.randomUUID(),
+          icon: "checkmark.square.fill",
+          title: "Checkbox",
+        },
+        {
+          id: crypto.randomUUID(),
           icon: "photo",
           title: "Image",
         },

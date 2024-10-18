@@ -110,14 +110,28 @@ function App() {
                   Tap Me
                 </button>
               </Show>
+              <Show when={selectedComponent() === "checkbox"}>
+                <checkbox
+                  style={{
+                    width: 200,
+                    height: 100,
+                    backgroundColor: "blue",
+                    color: "white",
+                  }}
+                  onClick={(event) => {
+                    console.log("Checkbox clicked", event.state);
+                  }}
+                >
+                  Check me if you ❤️ Solid
+                </checkbox>
+              </Show>
               <Show when={selectedComponent() === "image"}>
                 <image
                   style={{
-                    width: 200,
-                    height: 200,
-                    backgroundColor: "yellow",
+                    width: '100%',
+                    height: '100%',
                   }}
-                  stretch="fill"
+                  stretch="aspectFit"
                   src="https://www.solidjs.com/img/logo/without-wordmark/logo.jpg"
                 ></image>
               </Show>

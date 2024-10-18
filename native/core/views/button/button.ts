@@ -76,6 +76,10 @@ export class Button extends TextBase {
   override supportedNodeTypes = [Node.TEXT_NODE];
   declare nativeView?: NativeButton;
 
+  override get isLeaf(): boolean {
+    return true;
+  }
+
   public override initNativeView(): NativeButton {
     this.nativeView = NativeButton.new();
     return this.nativeView;
@@ -147,7 +151,8 @@ export type NSButtonType =
   | "momentaryChange"
   | "onOff"
   | "momentaryPushIn"
-  | "accelerator" | "multiLevelAccelerator";
+  | "accelerator"
+  | "multiLevelAccelerator";
 
 function getNSButtonTypeValue(type: NSButtonType): number {
   const typeMap: { [key in NSButtonType]: number } = {
