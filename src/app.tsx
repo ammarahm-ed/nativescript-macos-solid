@@ -138,15 +138,13 @@ function App() {
                   onChange={(event) => {
                     console.log("ComboBox change", comboItems[event.index]);
                   }}
-                >
-                  Check me if you ❤️ Solid
-                </combobox>
+                ></combobox>
               </Show>
               <Show when={selectedComponent() === "image"}>
                 <image
                   style={{
-                    width: '100%',
-                    height: '100%',
+                    width: "100%",
+                    height: "100%",
                   }}
                   stretch="aspectFit"
                   src="https://www.solidjs.com/img/logo/without-wordmark/logo.jpg"
