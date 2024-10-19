@@ -1,6 +1,7 @@
 import "npm:@nativescript/macos-node-api@~0.1.1";
 import type { Style, StylePropertyConfig } from "./index.ts";
 import { Color } from "./utils/color.ts";
+import { Layout } from "../layout/index.ts";
 
 export function BackgroundColorNativeSet(
   style: Style,
@@ -59,6 +60,47 @@ export function ColorNativeSet(style: Style, key: string, value: NSColor) {
 export const ColorStyle: StylePropertyConfig = {
   setNative: ColorNativeSet,
   converter: {
-    toNative: (key, value) => !value ? value : new Color(value).toNSColor(),
-  }
+    toNative: (key, value) => (!value ? value : new Color(value).toNSColor()),
+  },
+};
+
+export function BorderRadiusNativeSet(style: Style, key: string, value: any) {
+  if (!style.node.nativeView) return;
+  style.node.nativeView.wantsLayer = true;
+  const nativeView = style.node.nativeView as NSView;
+  nativeView.layer.cornerRadius = value;
+}
+
+export const BorderRadiusStyle: StylePropertyConfig = {
+  setNative: BorderRadiusNativeSet,
+  shouldLayout: true,
+};
+
+export function BorderColorSetNative(style: Style, key: string, value: any) {
+  if (!style.node.nativeView) return;
+  style.node.nativeView.wantsLayer = true;
+  const nativeView = style.node.nativeView as NSView;
+  nativeView.layer.borderColor = value;
+}
+
+export const BorderColorStyle: StylePropertyConfig = {
+  setNative: BorderColorSetNative,
+  converter: {
+    toNative: (key, value) =>
+      !value ? value : new Color(value).toNSColor().CGColor,
+  },
+};
+
+export function BorderWidthSetNative(style: Style, key: string, value: any) {
+  if (!style.node.nativeView) return;
+  const nativeView = style.node.nativeView as NSView;
+  nativeView.wantsLayer = true;
+  nativeView.layer.borderWidth = value;
+  //@ts-ignore
+  Layout.Setters[key](style.node.yogaNode, value);
+}
+
+export const BorderWidthStyle: StylePropertyConfig = {
+  setNative: BorderWidthSetNative,
+  shouldLayout: true,
 };
