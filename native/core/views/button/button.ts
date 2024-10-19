@@ -1,61 +1,11 @@
+import { Layout, type YogaNodeLayout } from "../../layout/index.ts";
 import { Color } from "../../style/utils/color.ts";
-import { native } from "../decorators/native.ts";
 import type { NativePropertyConfig } from "../decorators/native.ts";
+import { native } from "../decorators/native.ts";
 import { overrides } from "../decorators/overrides.ts";
 import { view } from "../decorators/view.ts";
 import { TextBase } from "../text/text-base.ts";
 import { NativeButton } from "./native-button.ts";
-
-export type NSBezelStyleType =
-  | "automatic"
-  | "push"
-  | "flexible-push"
-  | "disclosure"
-  | "circular"
-  | "help-button"
-  | "small-square"
-  | "toolbar"
-  | "accessory-bar-action"
-  | "accessory-bar"
-  | "push-disclosure"
-  | "badge"
-  | "shadowless-square"
-  | "textured-square"
-  | "rounded"
-  | "regular-square"
-  | "textured-rounded"
-  | "round-rect"
-  | "recessed"
-  | "rounded-disclosure"
-  | "inline";
-
-function getNSBezelStyleValue(style: NSBezelStyleType): number {
-  const styleMap: { [key in NSBezelStyleType]: number } = {
-    automatic: NSBezelStyle.Automatic,
-    push: NSBezelStyle.Push,
-    "flexible-push": NSBezelStyle.FlexiblePush,
-    disclosure: NSBezelStyle.Disclosure,
-    circular: NSBezelStyle.Circular,
-    "help-button": NSBezelStyle.HelpButton,
-    "small-square": NSBezelStyle.SmallSquare,
-    toolbar: NSBezelStyle.Toolbar,
-    "accessory-bar-action": NSBezelStyle.AccessoryBarAction,
-    "accessory-bar": NSBezelStyle.AccessoryBar,
-    "push-disclosure": NSBezelStyle.PushDisclosure,
-    badge: NSBezelStyle.Badge,
-    "shadowless-square": NSBezelStyle.ShadowlessSquare,
-    "textured-square": NSBezelStyle.TexturedSquare,
-    rounded: NSBezelStyle.Rounded,
-    "regular-square": NSBezelStyle.RegularSquare,
-    "textured-rounded": NSBezelStyle.TexturedRounded,
-    "round-rect": NSBezelStyle.RoundRect,
-    recessed: NSBezelStyle.Recessed,
-    "rounded-disclosure": NSBezelStyle.RoundedDisclosure,
-    inline: NSBezelStyle.Inline,
-  };
-
-  return styleMap[style];
-}
 
 const TitleProperty: NativePropertyConfig = {
   setNative: (view: Button, _key, value) => {
@@ -95,6 +45,7 @@ export class Button extends TextBase {
   override updateTextContent() {
     if (this.nativeView && this.firstChild) {
       this.nativeView.setTitle(this.textContent || "");
+      Layout.computeAndLayout(this);
     }
   }
 
@@ -120,53 +71,43 @@ export class Button extends TextBase {
     if (this.nativeView) {
       const nativeValue = !value ? undefined : new Color(value).toNSColor();
       this.nativeView.bezelColor = nativeValue || NSColor.lightGrayColor;
+
+      if (
+        this.nativeView.bezelStyle === NSBezelStyle.TexturedSquare ||
+        this.nativeView.bezelStyle === NSBezelStyle.Rounded
+      ) {
+        this.nativeView.wantsLayer = true;
+        this.nativeView.layer.backgroundColor = nativeValue?.CGColor as any;
+      }
     }
   }
 
   @native({
     setNative(view: Button, _key, value) {
       if (view.nativeView) {
-        view.nativeView.bezelStyle = getNSBezelStyleValue(value);
+        view.nativeView.bezelStyle = value;
       }
     },
   })
-  declare bezelStyle: NSBezelStyleType;
+  declare bezelStyle: number;
 
   @native({
     setNative(view: Button, _key, value) {
       if (view.nativeView) {
-        view.nativeView.setButtonType(getNSButtonTypeValue(value));
+        view.nativeView.setButtonType(value);
       }
     },
   })
-  declare buttonType: NSButtonType;
-}
+  declare buttonType: number;
 
-export type NSButtonType =
-  | "momentaryLight"
-  | "pushOnPushOff"
-  | "toggle"
-  | "switch"
-  | "radio"
-  | "momentaryChange"
-  | "onOff"
-  | "momentaryPushIn"
-  | "accelerator"
-  | "multiLevelAccelerator";
+  onMeasureFunction(width: number, widthMode: any, height: number, heightMode: any): { width: number; height: number; } {
+    return super.onMeasureFunction(width, widthMode, height, heightMode);
+  }
 
-function getNSButtonTypeValue(type: NSButtonType): number {
-  const typeMap: { [key in NSButtonType]: number } = {
-    momentaryLight: NSButtonType.MomentaryLight,
-    pushOnPushOff: NSButtonType.PushOnPushOff,
-    toggle: NSButtonType.Toggle,
-    switch: NSButtonType.Switch,
-    radio: NSButtonType.Radio,
-    momentaryChange: NSButtonType.MomentaryChange,
-    onOff: NSButtonType.OnOff,
-    momentaryPushIn: NSButtonType.MomentaryPushIn,
-    accelerator: NSButtonType.Accelerator,
-    multiLevelAccelerator: NSButtonType.MultiLevelAccelerator,
-  };
-
-  return typeMap[type];
+  applyLayout(parentLayout?: YogaNodeLayout): void {
+    super.applyLayout(parentLayout);
+    if (this.nativeView) {
+      this.nativeView.translatesAutoresizingMaskIntoConstraints = true;
+    }
+  }
 }
