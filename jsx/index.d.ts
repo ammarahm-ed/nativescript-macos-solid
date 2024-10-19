@@ -1,13 +1,12 @@
 import { JSX as SolidJSX } from "npm:solid-js";
 import { ViewStyle, type TextStyle } from "../native/core/style/index.ts";
-import { ToolbarEvent, WindowResizeEvent } from "../native/core/views/window/native-window.ts";
+import type { ButtonClickEvent } from '../native/core/views/button/native-button.ts';
+import type { ComboBoxChangeEvent } from "../native/core/views/combobox/native-combobox.ts";
+import type { ImageStretch } from "../native/core/views/image/image.ts";
+import type { OutlineClickEvent } from "../native/core/views/outline/outline.ts";
 import type { SliderChangeEvent } from "../native/core/views/slider/slider.ts";
 import type { LoadFinishedEvent, LoadStartedEvent } from "../native/core/views/webview/webview.ts";
-import type { NSBezelStyleType, NSButtonType } from "../native/core/views/button/button.ts";
-import type { ButtonClickEvent } from '../native/core/views/button/native-button.ts';
-import type { ImageStretch } from "../native/core/views/image/image.ts";
-import type { ComboBoxChangeEvent } from "../native/core/views/combobox/native-combobox.ts";
-import type { OutlineClickEvent } from "../native/core/views/outline/outline.ts";
+import { ToolbarEvent, WindowResizeEvent } from "../native/core/views/window/native-window.ts";
 
 interface ViewAttributes {
   ref?: unknown | ((e: unknown) => void);
@@ -23,8 +22,14 @@ interface TextAttributes {
 
 interface ButtonAttributes extends TextAttributes {
   title?: string;
-  bezelStyle?: NSBezelStyleType;
-  buttonType?: NSButtonType;
+  /**
+   * NSBezelStyle
+   */
+  bezelStyle?: number;
+  /**
+   * NSButtonType
+   */
+  buttonType?: number
   onClick?: (event: ButtonClickEvent) => void
 }
 
