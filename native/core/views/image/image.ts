@@ -1,7 +1,8 @@
 import "npm:@nativescript/macos-node-api@~0.1.1";
+import type { YogaNodeLayout } from "../../layout/index.ts";
+import { native } from "../decorators/native.ts";
 import { view } from "../decorators/view.ts";
 import { ViewBase } from "../view/view-base.ts";
-import { native } from "../decorators/native.ts";
 
 export type ImageStretch = "none" | "fit" | "fill" | "aspectFit";
 @view({
@@ -81,4 +82,13 @@ export class Image extends ViewBase {
     },
   })
   declare stretch: ImageStretch;
+
+  applyLayout(parentLayout?: YogaNodeLayout): void {
+    super.applyLayout(parentLayout);
+    if (this.nativeView) {
+      this.nativeView.translatesAutoresizingMaskIntoConstraints =
+        true;
+    }
+  }
+
 }
