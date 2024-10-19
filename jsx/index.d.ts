@@ -7,6 +7,7 @@ import type { NSBezelStyleType, NSButtonType } from "../native/core/views/button
 import type { ButtonClickEvent } from '../native/core/views/button/native-button.ts';
 import type { ImageStretch } from "../native/core/views/image/image.ts";
 import type { ComboBoxChangeEvent } from "../native/core/views/combobox/native-combobox.ts";
+import type { OutlineClickEvent } from "../native/core/views/outline/outline.ts";
 
 interface ViewAttributes {
   ref?: unknown | ((e: unknown) => void);
@@ -43,7 +44,7 @@ interface ImageAttributes {
 }
 
 interface OutlineAttributes extends ViewAttributes {
-  onClick?: (item: any) => void;
+  onClick?: (item: OutlineClickEvent) => void;
 }
 
 interface ScrollViewAtributes extends ViewAttributes {}

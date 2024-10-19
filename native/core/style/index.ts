@@ -5,6 +5,9 @@ import {
   ColorStyle,
   FontSizeStyle,
   ZIndexStyle,
+  BorderRadiusStyle,
+  BorderColorStyle,
+  BorderWidthStyle
 } from "./properties.ts";
 import { colors } from "./utils/color.ts";
 
@@ -99,6 +102,9 @@ export function flex() {
 
 export interface ViewStyle extends FlexStyle {
   backgroundColor?: `${Lowercase<keyof typeof colors>}` | {} & string;
+  borderColor?: `${Lowercase<keyof typeof colors>}` | {} & string;
+  borderRadius?: number | undefined;
+
 }
 
 export interface TextStyle extends ViewStyle {
@@ -156,19 +162,19 @@ export class Style extends Map {
   @flex()
   declare aspectRatio: FlexStyle["aspectRatio"];
 
-  @flex()
-  declare borderLeftWidth: FlexStyle["borderLeftWidth"];
+  // @flex()
+  // declare borderLeftWidth: FlexStyle["borderLeftWidth"];
 
-  @flex()
-  declare borderRightWidth: FlexStyle["borderRightWidth"];
+  // @flex()
+  // declare borderRightWidth: FlexStyle["borderRightWidth"];
 
-  @flex()
-  declare borderTopWidth: FlexStyle["borderTopWidth"];
+  // @flex()
+  // declare borderTopWidth: FlexStyle["borderTopWidth"];
 
-  @flex()
-  declare borderBottomWidth: FlexStyle["borderBottomWidth"];
+  // @flex()
+  // declare borderBottomWidth: FlexStyle["borderBottomWidth"];
 
-  @flex()
+  @style(BorderWidthStyle)
   declare borderWidth: FlexStyle["borderWidth"];
 
   @flex()
@@ -316,11 +322,43 @@ export class Style extends Map {
   declare backgroundColor: ViewStyle["backgroundColor"];
 
   @style(ZIndexStyle)
-  declare zIndex: number;
+  declare zIndex: ViewStyle["zIndex"];
 
   @style(FontSizeStyle)
-  declare fontSize: string | number;
+  declare fontSize: TextStyle["fontSize"];
 
   @style(ColorStyle)
   declare color: TextStyle["color"];
+
+  @style(BorderRadiusStyle)
+  declare borderRadius: ViewStyle["borderRadius"];
+
+  // @style(BorderRadiusStyle)
+  // declare borderTopRightRadius: number;
+
+  // @style(BorderRadiusStyle)
+  // declare borderTopLeftRadius: number;
+
+  // @style(BorderRadiusStyle)
+  // declare borderBottomRightRadius: number;
+
+  // @style(BorderRadiusStyle)
+  // declare borderBottomLeftRadius: number;
+
+  @style(BorderColorStyle)
+  declare borderColor: ViewStyle["borderColor"];
+
+  // @style(BorderColorStyle)
+  // declare borderTopColor: string;
+
+  // @style(BorderColorStyle)
+  // declare borderBottomColor: string;
+
+  // @style(BorderColorStyle)
+  // declare borderLeftColor: string;
+
+  // @style(BorderColorStyle)
+  // declare borderRightColor: string;
+
+
 }
