@@ -274,6 +274,7 @@ export class ViewBase extends HTMLElement {
   }
 
   public connectedCallback() {
+
     if (this.parentNode && !this.parentNode?.isConnected) {
       return;
     }
@@ -285,8 +286,22 @@ export class ViewBase extends HTMLElement {
       this.prepareNativeView(nativeView);
     }
 
-    if (this.isRoot || !this._rootView || this._rootView === this) {
-      this.pauseLayoutUpdates = true;
+    let parentHasUpdatesPaused = false;
+    this.pauseLayoutUpdates = true;
+    let current = this.parentNode;
+    // Find a parent that has updates paused.
+    // If such parent is found, we won't call layout updates
+    // from this node as we want to do a single layout pass once
+    // all nodes are loaded.
+    if (!this.isRoot) {
+      while (current) {
+        if (current.pauseLayoutUpdates) {
+          parentHasUpdatesPaused = true;
+          break;
+        }
+        // Break where a root is found.
+        current = current.isRoot ? null : current.parentNode;
+      }
     }
 
     for (let i = 0; i < this.children.length; i++) {
@@ -302,14 +317,17 @@ export class ViewBase extends HTMLElement {
     if (this.parentNode && this.shouldAttachToParentNativeView) {
       this.viewController =
         this.viewController || (this.parentNode as ViewBase).viewController;
-
       (this.parentNode as any).addNativeChild(this);
     }
 
     this.setNativeProperties();
     if (this.pauseLayoutUpdates) {
       this.pauseLayoutUpdates = false;
-      Layout.computeAndLayout(this);
+      // If parentHasUpdatesPaused is true, some parent has paused layout updates, so we don't need to layout now.
+      // the parent will do it eventually.
+      if (!parentHasUpdatesPaused) {
+        Layout.computeAndLayout(this);
+      }
     }
   }
 
