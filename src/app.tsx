@@ -13,6 +13,8 @@ import {
   selectedComponent,
 } from "./state.ts";
 
+const comboItems = ["Angular", "React", "Solid", "Svelte", "Vue"];
+
 function App() {
   return (
     <window
@@ -124,6 +126,21 @@ function App() {
                 >
                   Check me if you ❤️ Solid
                 </checkbox>
+              </Show>
+              <Show when={selectedComponent() === "combobox"}>
+                <combobox
+                  items={comboItems}
+                  selectedIndex={2}
+                  style={{
+                    width: 200,
+                    height: 100,
+                  }}
+                  onChange={(event) => {
+                    console.log("ComboBox change", comboItems[event.index]);
+                  }}
+                >
+                  Check me if you ❤️ Solid
+                </combobox>
               </Show>
               <Show when={selectedComponent() === "image"}>
                 <image
