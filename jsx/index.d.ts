@@ -6,6 +6,7 @@ import type { LoadFinishedEvent, LoadStartedEvent } from "../native/core/views/w
 import type { NSBezelStyleType, NSButtonType } from "../native/core/views/button/button.ts";
 import type { ButtonClickEvent } from '../native/core/views/button/native-button.ts';
 import type { ImageStretch } from "../native/core/views/image/image.ts";
+import type { ComboBoxChangeEvent } from "../native/core/views/combobox/native-combobox.ts";
 
 interface ViewAttributes {
   ref?: unknown | ((e: unknown) => void);
@@ -24,6 +25,12 @@ interface ButtonAttributes extends TextAttributes {
   bezelStyle?: NSBezelStyleType;
   buttonType?: NSButtonType;
   onClick?: (event: ButtonClickEvent) => void
+}
+
+interface ComboBoxAttributes extends ViewAttributes {
+  items?: Array<string>;
+  selectedIndex?: number;
+  onChange?: (event: ComboBoxChangeEvent) => void
 }
 
 interface ImageAttributes {
@@ -84,6 +91,7 @@ interface WebviewAttributes extends ViewAttributes {
 interface JSXIntrinsicElements {
   button: ButtonAttributes;
   checkbox: ButtonAttributes;
+  combobox: ComboBoxAttributes;
   "content-list": SplitViewItemAttributes;
   image: ImageAttributes;
   outline: OutlineAttributes;

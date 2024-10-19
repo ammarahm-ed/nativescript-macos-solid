@@ -54,6 +54,11 @@ export const sidebarItemsData: Array<Array<SidebarItem>> = [
         },
         {
           id: crypto.randomUUID(),
+          icon: "filemenu.and.selection",
+          title: "ComboBox",
+        },
+        {
+          id: crypto.randomUUID(),
           icon: "photo",
           title: "Image",
         },
