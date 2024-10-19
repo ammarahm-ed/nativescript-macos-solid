@@ -19,14 +19,23 @@ import {
   }
   
   function computeAndLayout(node: any) {
+
+    if (node.isLeaf && node.yogaNode)  {
+      node.yogaNode.markDirty();
+    }
+  
+
     if (!node?.rootYogaNode) {
       return;
     }
-  
+
+   
     const rootView: HTMLViewElement = node._rootView || node;
-  
+
     if (rootView.pauseLayoutUpdates) return;
-  
+
+   
+    
     node.rootYogaNode?.calculateLayout(
       node.rootYogaNode.getWidth().value,
       node.rootYogaNode.getHeight().value,
