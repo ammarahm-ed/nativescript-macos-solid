@@ -35,10 +35,6 @@ export class SplitViewItem extends ViewBase {
     }
   }
 
-  public override connectedCallback(): void {
-    super.connectedCallback();
-  }
-
   @overrides("width")
   setWidth(
     key: string,
