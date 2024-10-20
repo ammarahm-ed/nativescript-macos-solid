@@ -181,6 +181,15 @@ export class WebView extends View {
     }
   }
 
+  executeJavaScript(src: string) {
+    this.nativeView?.evaluateJavaScriptCompletionHandler(src, (result, error) => {
+      console.log('evaluateJavaScript result:', result);
+      if (error) {
+        console.error(error);
+      }
+    })
+  }
+
   @native({
     setNative(view: WebView, _key, value) {
       view.loadURL(value);

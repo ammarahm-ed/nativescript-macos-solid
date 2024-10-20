@@ -1,4 +1,6 @@
 import { Component, Show } from "npm:solid-js";
+import { createSignal } from "npm:solid-js";
+import type { WebView } from '../native/core/views/webview/webview.ts';
 
 const comboItems = [
   "Ryan Carniato",
@@ -15,6 +17,8 @@ interface SnippetProps {
 
 const Snippet: Component<SnippetProps> = (props) => {
   const url = `file://${Deno.cwd()}/snippets/dist/index.html`;
+  let webRef: WebView;
+
   return (
     <view style={{ width: "100%", height: "100%" }}>
       <view
@@ -24,6 +28,7 @@ const Snippet: Component<SnippetProps> = (props) => {
         }}
       >
         <webview
+            ref={(el: WebView) => webRef = el}
           style={{
             width: "100%",
             height: "100%",
@@ -34,6 +39,7 @@ const Snippet: Component<SnippetProps> = (props) => {
           }}
           onLoadFinished={(e) => {
             console.log(e.url);
+            webRef.executeJavaScript(`document.body.style.backgroundColor = "yellow";`);
           }}
         ></webview>
       </view>
