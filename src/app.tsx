@@ -1,6 +1,6 @@
 /// <reference lib="dom" />
 import { render } from "../solid-native/renderer.js";
-import { For, Show } from "npm:solid-js";
+import { For, Show, Switch, Match } from "npm:solid-js";
 import {
   sidebarItems,
   selectedView,
@@ -8,7 +8,6 @@ import {
   changeToolbar,
   activeCredit,
   selectedComponent,
-  isSnippetActive,
 } from "./state.ts";
 import Snippet from "./snippet.tsx";
 
@@ -94,39 +93,7 @@ function App() {
                 backgroundColor: "gray",
               }}
             >
-              <Show when={selectedComponent() === "getting started"}>
-                <webview
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                  }}
-                  src="https://docs.solidjs.com/quick-start"
-                ></webview>
-              </Show>
-              <Show when={selectedComponent() === "overview"}>
-                <webview
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                  }}
-                  src="https://docs.solidjs.com/#overview"
-                ></webview>
-              </Show>
-              <Show when={selectedComponent() === "setup"}>
-                <webview
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                  }}
-                  src="https://www.solidjs.com/tutorial/introduction_basics"
-                ></webview>
-              </Show>
-              <Show when={isSnippetActive()}>
-                <Snippet type={selectedComponent()} />
-              </Show>
-
-              {/* does not work yet */}
-              {/* <Switch fallback={<Snippet type={selectedComponent()} />}>
+              <Switch fallback={<Snippet type={selectedComponent()} />}>
                 <Match when={selectedComponent() === "getting started"}>
                   <webview
                     style={{
@@ -154,7 +121,16 @@ function App() {
                     src="https://www.solidjs.com/tutorial/introduction_basics"
                   ></webview>
                 </Match>
-              </Switch> */}
+                <Match when={selectedComponent() === "components"}>
+                  <webview
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                    }}
+                    src="https://nativescript.org"
+                  ></webview>
+                </Match>
+              </Switch>
             </view>
           </Show>
           <Show when={selectedView() === 1}>
