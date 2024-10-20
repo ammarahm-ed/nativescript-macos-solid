@@ -2,6 +2,8 @@
 import { MeasureMode } from "npm:yoga-layout/load";
 import { Layout, YogaNode, YogaNodeLayout } from "../../layout/index.ts";
 import { CombinedStyle, Style } from "../../style/index.ts";
+import { native, type NativePropertyConfig } from "../decorators/native.ts";
+import { overrides } from "../decorators/overrides.ts";
 
 export class ViewBase extends HTMLElement {
   static register() {
@@ -103,6 +105,7 @@ export class ViewBase extends HTMLElement {
           height,
         },
       };
+
       this.applyLayoutToChildern(layout);
     }
   }
@@ -274,7 +277,6 @@ export class ViewBase extends HTMLElement {
   }
 
   public connectedCallback() {
-
     if (this.parentNode && !this.parentNode?.isConnected) {
       return;
     }
@@ -383,4 +385,58 @@ export class ViewBase extends HTMLElement {
   }
 
   propertyChangedCallback(_property: string, _value: any, _oldValue: any) {}
+
+  applySafeAreaPaddings() {
+    if (this._safeAreaPadding) {
+      let topSafeAreaPadding = 0;
+      let window = this.nativeView.window;
+      // Find nearest window element
+      if (this.nodeName !== "WINDOW" && !window) {
+        let currentNode: any = this.parentNode;
+        while (window == null && currentNode !== null) {
+          if (currentNode.nodeName === "WINDOW") {
+            window = currentNode.nativeView;
+            break;
+          }
+          currentNode = currentNode.parentNode;
+        }
+      }
+
+      if (this.nodeName === "WINDOW") {
+         window = this.nativeView;
+      }
+
+      if (window) {
+        const frame = window.frame;
+        const contentRect = window.contentLayoutRect;
+        topSafeAreaPadding = frame.size.height - contentRect.size.height;
+      }
+
+      Layout.Setters.paddingTop(this.yogaNode, topSafeAreaPadding);
+    } else {
+      Layout.Setters.paddingTop(
+        this.yogaNode,
+        parseInt(this.getAttribute("paddingTop") || "")
+      );
+    }
+  }
+
+  _safeAreaPadding: boolean = false;
+  @native({
+    setNative(view, key, value) {
+      view._safeAreaPadding = value;
+      view.applySafeAreaPaddings();
+    },
+    shouldLayout: true,
+  })
+  declare enableSafeAreaPaddings: boolean;
+
+  @overrides("paddingTop")
+  setPaddingTop(key: string, value: any, config: NativePropertyConfig) {
+    if (this._safeAreaPadding) {
+      this.applySafeAreaPaddings();
+      return;
+    }
+    config.setNative?.(this, key, value, config);
+  }
 }
