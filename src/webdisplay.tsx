@@ -6,9 +6,10 @@ interface WebDisplayProps {
 
 const WebDisplay: Component<WebDisplayProps> = (props) => {
   return (
-    <view style={{ width: "100%", height: "100%" }}>
-      <webview src={props.url}></webview>
-    </view>
+    <webview
+      src={props.url}
+      style={{ width: "100%", height: "100%" }}
+    ></webview>
   );
 };
 
