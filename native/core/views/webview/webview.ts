@@ -154,6 +154,10 @@ export class WebView extends View {
     this.delegate = WebViewDelegate.initWithOwner(new WeakRef(this));
     this.nativeView.UIDelegate = this.delegate;
     this.nativeView.navigationDelegate = this.delegate;
+    this.nativeView.configuration.preferences.setValueForKey(
+      true,
+      "allowFileAccessFromFileURLs"
+    );
     return this.nativeView;
   }
 
@@ -162,13 +166,18 @@ export class WebView extends View {
     this.nativeView!.translatesAutoresizingMaskIntoConstraints = true;
   }
 
-  loadURL(url: string | URL) {
+  loadURL(value: string | URL) {
     if (this.nativeView) {
-      this.nativeView.loadRequest(
-        NSURLRequest.requestWithURL(
-          NSURL.URLWithString(typeof url === "string" ? url : url.href)
-        )
-      );
+      const url = typeof value === "string" ? value : value.href;
+      const nsUrl = NSURL.URLWithString(url);
+      if (url?.indexOf("http") > -1) {
+        this.nativeView.loadRequest(NSURLRequest.requestWithURL(nsUrl));
+      } else {
+        this.nativeView.loadFileURLAllowingReadAccessToURL(
+          nsUrl,
+          nsUrl.URLByDeletingLastPathComponent
+        );
+      }
     }
   }
 
