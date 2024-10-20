@@ -10,9 +10,8 @@ export const [activeCredit, setActiveCredit] =
 export const [selectedComponent, setSelectedComponent] = createSignal<
   string | undefined
 >("");
-export const [isSnippetActive, setIsSnippetActive] = createSignal<
-  boolean
->(false);
+export const [isSnippetActive, setIsSnippetActive] =
+  createSignal<boolean>(false);
 
 interface SidebarBaseItem {
   id: string;
@@ -82,6 +81,11 @@ export const sidebarItemsData: Array<Array<SidebarItem>> = [
           icon: "network",
           title: "WebView",
         },
+        {
+          id: crypto.randomUUID(),
+          icon: "slowmo",
+          title: "Progress",
+        },
       ],
     },
   ],
@@ -148,7 +152,9 @@ export function changeContent(index: number) {
     // anything below 'Components' will be component snippets
     const title = selection.title?.toLowerCase() as string;
     setSelectedComponent(title);
-    setIsSnippetActive(!['getting started', 'overview', 'setup', 'components'].includes(title));
+    setIsSnippetActive(
+      !["getting started", "overview", "setup", "components"].includes(title)
+    );
   }
   if (selection?.id !== selectedContentId()) {
     setSelectedContentId(selection.id);

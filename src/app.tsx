@@ -83,91 +83,37 @@ function App() {
           justifyContent: "center",
           alignItems: "center",
         }}> */}
-        <content-list>
+        <content-list
+          style={{
+            justifyContent: "center",
+            alignItems: "center",
+            width: "100%",
+            height: "100%",
+          }}
+          enableSafeAreaPaddings={true}
+        >
           <Show when={selectedView() === 0}>
-            <view
-              style={{
-                width: "100%",
-                height: "100%",
-                paddingTop: 52,
-                backgroundColor: "gray",
-              }}
-            >
-              <Switch fallback={<Snippet type={selectedComponent()} />}>
-                <Match when={selectedComponent() === "getting started"}>
-                  <webview
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                    }}
-                    src="https://docs.solidjs.com/quick-start"
-                  ></webview>
-                </Match>
-                <Match when={selectedComponent() === "overview"}>
-                  <webview
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                    }}
-                    src="https://docs.solidjs.com/#overview"
-                  ></webview>
-                </Match>
-                <Match when={selectedComponent() === "setup"}>
-                  <webview
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                    }}
-                    src="https://www.solidjs.com/tutorial/introduction_basics"
-                  ></webview>
-                </Match>
-                <Match when={selectedComponent() === "components"}>
-                  <webview
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                    }}
-                    src="https://nativescript.org"
-                  ></webview>
-                </Match>
-              </Switch>
+            <view>
+              
             </view>
           </Show>
           <Show when={selectedView() === 1}>
-            <view
-              style={{
-                width: "100%",
-                height: "100%",
-                paddingTop: 52,
-                backgroundColor: "gray",
-              }}
-            >
-              <text>Hello</text>
-            </view>
+            <text>Hello</text>
           </Show>
           <Show when={selectedView() === 2}>
-            <view
+            <webview
               style={{
                 width: "100%",
                 height: "100%",
-                paddingTop: 52,
-                backgroundColor: "gray",
               }}
-            >
-              <webview
-                style={{
-                  width: "100%",
-                  height: "100%",
-                }}
-                src={activeCredit()}
-                onLoadStarted={(e) => {
-                  console.log(e.url);
-                }}
-                onLoadFinished={(e) => {
-                  console.log(e.url);
-                }}
-              ></webview>
-            </view>
+              src={activeCredit()}
+              onLoadStarted={(e) => {
+                console.log(e.url);
+              }}
+              onLoadFinished={(e) => {
+                console.log(e.url);
+              }}
+            ></webview>
           </Show>
         </content-list>
       </split-view>
