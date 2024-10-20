@@ -2,18 +2,15 @@
 import { render } from "../solid-native/renderer.js";
 import { For, Show } from "npm:solid-js";
 import {
-  setSelectedView,
   sidebarItems,
-  setSidebarItems,
-  sidebarItemsData,
   selectedView,
   changeContent,
   changeToolbar,
   activeCredit,
   selectedComponent,
+  isSnippetActive,
 } from "./state.ts";
-
-const comboItems = ["Angular", "React", "Solid", "Svelte", "Vue"];
+import Snippet from "./snippet.tsx";
 
 function App() {
   return (
@@ -97,81 +94,67 @@ function App() {
                 backgroundColor: "gray",
               }}
             >
-              <Show when={selectedComponent() === "button"}>
-                <button
-                  style={{
-                    width: 200,
-                    height: 100,
-                    backgroundColor: "blue",
-                    color: "white",
-                  }}
-                  onClick={(_event) => {
-                    console.log("Button clicked");
-                  }}
-                >
-                  Tap Me
-                </button>
-              </Show>
-              <Show when={selectedComponent() === "checkbox"}>
-                <checkbox
-                  style={{
-                    width: 200,
-                    height: 100,
-                    backgroundColor: "blue",
-                    color: "white",
-                  }}
-                  onClick={(event) => {
-                    console.log("Checkbox clicked", event.state);
-                  }}
-                >
-                  Check me if you ❤️ Solid
-                </checkbox>
-              </Show>
-              <Show when={selectedComponent() === "combobox"}>
-                <combobox
-                  items={comboItems}
-                  selectedIndex={2}
-                  style={{
-                    width: 200,
-                    height: 100,
-                  }}
-                  onChange={(event) => {
-                    console.log("ComboBox change", comboItems[event.index]);
-                  }}
-                ></combobox>
-              </Show>
-              <Show when={selectedComponent() === "image"}>
-                <image
+              <Show when={selectedComponent() === "getting started"}>
+                <webview
                   style={{
                     width: "100%",
                     height: "100%",
                   }}
-                  stretch="aspectFit"
-                  src="https://www.solidjs.com/img/logo/without-wordmark/logo.jpg"
-                ></image>
+                  src="https://docs.solidjs.com/quick-start"
+                ></webview>
               </Show>
-              <Show when={selectedComponent() === "slider"}>
-                <slider
+              <Show when={selectedComponent() === "overview"}>
+                <webview
                   style={{
-                    width: 200,
-                    height: 100,
+                    width: "100%",
+                    height: "100%",
                   }}
-                  numberOfTickMarks={10}
-                  allowsTickMarkValuesOnly={true}
-                  onSliderChanged={(event) => {
-                    console.log(event.value);
-                  }}
-                ></slider>
+                  src="https://docs.solidjs.com/#overview"
+                ></webview>
               </Show>
-              <Show when={selectedComponent() === "text"}>
-                <text
+              <Show when={selectedComponent() === "setup"}>
+                <webview
                   style={{
-                    padding: 50,
+                    width: "100%",
+                    height: "100%",
                   }}
-                >
-                  Hello macOS, ❤️ Solid
-                </text>
+                  src="https://www.solidjs.com/tutorial/introduction_basics"
+                ></webview>
               </Show>
+              <Show when={isSnippetActive()}>
+                <Snippet type={selectedComponent()} />
+              </Show>
+
+              {/* does not work yet */}
+              {/* <Switch fallback={<Snippet type={selectedComponent()} />}>
+                <Match when={selectedComponent() === "getting started"}>
+                  <webview
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                    }}
+                    src="https://docs.solidjs.com/quick-start"
+                  ></webview>
+                </Match>
+                <Match when={selectedComponent() === "overview"}>
+                  <webview
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                    }}
+                    src="https://docs.solidjs.com/#overview"
+                  ></webview>
+                </Match>
+                <Match when={selectedComponent() === "setup"}>
+                  <webview
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                    }}
+                    src="https://www.solidjs.com/tutorial/introduction_basics"
+                  ></webview>
+                </Match>
+              </Switch> */}
             </view>
           </Show>
           <Show when={selectedView() === 1}>
