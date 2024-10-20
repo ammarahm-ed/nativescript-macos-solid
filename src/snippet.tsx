@@ -14,7 +14,7 @@ interface SnippetProps {
 }
 
 const Snippet: Component<SnippetProps> = (props) => {
-    const url = `file://${Deno.cwd()}/snippets/dist/index.html`;
+  const url = `file://${Deno.cwd()}/snippets/dist/index.html`;
   return (
     <view style={{ width: "100%", height: "100%" }}>
       <view
