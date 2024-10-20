@@ -1,19 +1,16 @@
 /// <reference lib="dom" />
 import { render } from "../solid-native/renderer.js";
-import { For, Show } from "npm:solid-js";
+import { For, Show, Switch, Match } from "npm:solid-js";
 import {
-  setSelectedView,
   sidebarItems,
-  setSidebarItems,
-  sidebarItemsData,
   selectedView,
   changeContent,
   changeToolbar,
   activeCredit,
   selectedComponent,
-} from "./state.ts";
-
-const comboItems = ["Angular", "React", "Solid", "Svelte", "Vue"];
+} from "./state.tsx";
+import Snippet from "./snippet.tsx";
+import WebDisplay from "./webdisplay.tsx";
 
 function App() {
   return (
@@ -97,99 +94,26 @@ function App() {
           enableSafeAreaPaddings={true}
         >
           <Show when={selectedView() === 0}>
-            <view>
-              <Show when={selectedComponent() === "button"}>
-                <button
-                  style={{
-                    backgroundColor: "blue",
-                    color: "white",
-                  }}
-                  onClick={(_event) => {
-                    console.log("Button clicked");
-                  }}
-                >
-                  Tap Me
-                </button>
-              </Show>
-              <Show when={selectedComponent() === "checkbox"}>
-                <checkbox
-                  style={{
-                    color: "white",
-                  }}
-                  onClick={(event) => {
-                    console.log("Checkbox clicked", event.state);
-                  }}
-                >
-                  Check me if you ❤️ Solid
-                </checkbox>
-              </Show>
-              <Show when={selectedComponent() === "combobox"}>
-                <combobox
-                  items={comboItems}
-                  selectedIndex={2}
-                  onChange={(event) => {
-                    console.log("ComboBox change", comboItems[event.index]);
-                  }}
-                ></combobox>
-              </Show>
-              <Show when={selectedComponent() === "image"}>
-                <image
-                  style={{
-                    width: 100,
-                    height: 100,
-                    borderRadius: 10,
-                  }}
-                  stretch="aspectFit"
-                  src="https://www.solidjs.com/img/logo/without-wordmark/logo.jpg"
-                ></image>
-              </Show>
-              <Show when={selectedComponent() === "slider"}>
-                <slider
-                  numberOfTickMarks={10}
-                  allowsTickMarkValuesOnly={true}
-                  onSliderChanged={(event) => {
-                    console.log(event.value);
-                  }}
-                ></slider>
-              </Show>
-              <Show when={selectedComponent() === "text"}>
-                <text
-                  style={{
-                    padding: 50,
-                  }}
-                >
-                  Hello macOS, ❤️ Solid
-                </text>
-              </Show>
-
-              <Show when={selectedComponent() === "progress"}>
-                <progress
-                  style={{
-                    width: 100,
-                    height: 10,
-                  }}
-                  indeterminate
-                />
-              </Show>
-            </view>
+            <Switch fallback={<Snippet type={selectedComponent()} />}>
+              <Match when={selectedComponent() === "getting started"}>
+                <WebDisplay url="https://docs.solidjs.com/quick-start" />
+              </Match>
+              <Match when={selectedComponent() === "overview"}>
+                <WebDisplay url="https://docs.solidjs.com/#overview" />
+              </Match>
+              <Match when={selectedComponent() === "setup"}>
+                <WebDisplay url="https://www.solidjs.com/tutorial/introduction_basics" />
+              </Match>
+              <Match when={selectedComponent() === "components"}>
+                <WebDisplay url="https://nativescript.org" />
+              </Match>
+            </Switch>
           </Show>
           <Show when={selectedView() === 1}>
             <text>Hello</text>
           </Show>
           <Show when={selectedView() === 2}>
-            <webview
-              style={{
-                width: "100%",
-                height: "100%",
-              }}
-              src={activeCredit()}
-              onLoadStarted={(e) => {
-                console.log(e.url);
-              }}
-              onLoadFinished={(e) => {
-                console.log(e.url);
-              }}
-            ></webview>
+            <WebDisplay url={activeCredit()} />
           </Show>
         </content-list>
       </split-view>

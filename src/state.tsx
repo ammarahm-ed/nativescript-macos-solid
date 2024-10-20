@@ -7,7 +7,14 @@ export const [selectedContentId, setSelectedContentId] = createSignal<
 const defaultCredit = "https://www.solidjs.com/contributors";
 export const [activeCredit, setActiveCredit] =
   createSignal<string>(defaultCredit);
-export const [selectedComponent, setSelectedComponent] = createSignal<string | undefined>('');
+export const [selectedComponent, setSelectedComponent] = createSignal<
+  string | undefined
+>("");
+export const [isSnippetActive, setIsSnippetActive] =
+  createSignal<boolean>(false);
+export const [currentSnippet, setCurrentSnippet] = createSignal<JSX.Element>(
+  <></>
+);
 
 interface SidebarBaseItem {
   id: string;
@@ -64,6 +71,11 @@ export const sidebarItemsData: Array<Array<SidebarItem>> = [
         },
         {
           id: crypto.randomUUID(),
+          icon: "slowmo",
+          title: "Progress",
+        },
+        {
+          id: crypto.randomUUID(),
           icon: "slider.horizontal.3",
           title: "Slider",
         },
@@ -72,10 +84,11 @@ export const sidebarItemsData: Array<Array<SidebarItem>> = [
           icon: "textformat",
           title: "Text",
         },
+
         {
           id: crypto.randomUUID(),
-          icon: "slowmo",
-          title: "Progress",
+          icon: "network",
+          title: "WebView",
         },
       ],
     },
@@ -140,10 +153,12 @@ export function changeContent(index: number) {
   const barItems = getFlattenedSidebarItems();
   const selection = barItems[index];
   if (selectedView() === 0) {
-    if (index > 3) {
-      // anything below 'Components' will be component snippets
-      setSelectedComponent(selection?.title?.toLowerCase());
-    }
+    // anything below 'Components' will be component snippets
+    const title = selection.title?.toLowerCase() as string;
+    setSelectedComponent(title);
+    setIsSnippetActive(
+      !["getting started", "overview", "setup", "components"].includes(title)
+    );
   }
   if (selection?.id !== selectedContentId()) {
     setSelectedContentId(selection.id);

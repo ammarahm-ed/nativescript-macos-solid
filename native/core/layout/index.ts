@@ -20,7 +20,7 @@ import {
   
   function computeAndLayout(node: any) {
 
-    if (node.isLeaf && node.yogaNode)  {
+    if (node?.isLeaf && node?.yogaNode)  {
       node.yogaNode.markDirty();
     }
   
