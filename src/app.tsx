@@ -87,21 +87,20 @@ function App() {
           justifyContent: "center",
           alignItems: "center",
         }}> */}
-        <content-list>
+        <content-list
+          style={{
+            justifyContent: "center",
+            alignItems: "center",
+            width: "100%",
+            height: "100%",
+          }}
+          enableSafeAreaPaddings={true}
+        >
           <Show when={selectedView() === 0}>
-            <view
-              style={{
-                width: "100%",
-                height: "100%",
-                paddingTop: 52,
-                backgroundColor: "gray",
-              }}
-            >
+            <view>
               <Show when={selectedComponent() === "button"}>
                 <button
                   style={{
-                    width: 200,
-                    height: 100,
                     backgroundColor: "blue",
                     color: "white",
                   }}
@@ -115,9 +114,6 @@ function App() {
               <Show when={selectedComponent() === "checkbox"}>
                 <checkbox
                   style={{
-                    width: 200,
-                    height: 100,
-                    backgroundColor: "blue",
                     color: "white",
                   }}
                   onClick={(event) => {
@@ -131,10 +127,6 @@ function App() {
                 <combobox
                   items={comboItems}
                   selectedIndex={2}
-                  style={{
-                    width: 200,
-                    height: 100,
-                  }}
                   onChange={(event) => {
                     console.log("ComboBox change", comboItems[event.index]);
                   }}
@@ -143,8 +135,9 @@ function App() {
               <Show when={selectedComponent() === "image"}>
                 <image
                   style={{
-                    width: "100%",
-                    height: "100%",
+                    width: 100,
+                    height: 100,
+                    borderRadius: 10,
                   }}
                   stretch="aspectFit"
                   src="https://www.solidjs.com/img/logo/without-wordmark/logo.jpg"
@@ -152,10 +145,6 @@ function App() {
               </Show>
               <Show when={selectedComponent() === "slider"}>
                 <slider
-                  style={{
-                    width: 200,
-                    height: 100,
-                  }}
                   numberOfTickMarks={10}
                   allowsTickMarkValuesOnly={true}
                   onSliderChanged={(event) => {
@@ -175,40 +164,22 @@ function App() {
             </view>
           </Show>
           <Show when={selectedView() === 1}>
-            <view
-              style={{
-                width: "100%",
-                height: "100%",
-                paddingTop: 52,
-                backgroundColor: "gray",
-              }}
-            >
-              <text>Hello</text>
-            </view>
+            <text>Hello</text>
           </Show>
           <Show when={selectedView() === 2}>
-            <view
+            <webview
               style={{
                 width: "100%",
                 height: "100%",
-                paddingTop: 52,
-                backgroundColor: "gray",
               }}
-            >
-              <webview
-                style={{
-                  width: "100%",
-                  height: "100%",
-                }}
-                src={activeCredit()}
-                onLoadStarted={(e) => {
-                  console.log(e.url);
-                }}
-                onLoadFinished={(e) => {
-                  console.log(e.url);
-                }}
-              ></webview>
-            </view>
+              src={activeCredit()}
+              onLoadStarted={(e) => {
+                console.log(e.url);
+              }}
+              onLoadFinished={(e) => {
+                console.log(e.url);
+              }}
+            ></webview>
           </Show>
         </content-list>
       </split-view>

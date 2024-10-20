@@ -12,6 +12,7 @@ interface ViewAttributes {
   ref?: unknown | ((e: unknown) => void);
   style?: ViewStyle;
   [name: string]: any;
+  enableSafeAreaPaddings?: boolean;
 }
 
 interface TextAttributes {
