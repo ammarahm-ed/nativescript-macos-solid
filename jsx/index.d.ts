@@ -16,6 +16,8 @@ import type {
   ImageStretch,
 } from "../native/core/views/image/image.ts";
 import type { ToolbarItemClickEvent } from "../native/core/views/toolbar/toolbar-item.ts";
+import type { OutlineClickEvent } from "../native/core/views/outline/outline.ts";
+import type { ComboBoxChangeEvent } from "../native/core/views/combobox/native-combobox.ts";
 
 interface ViewAttributes {
   ref?: unknown | ((e: unknown) => void);
