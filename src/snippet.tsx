@@ -9,11 +9,11 @@ const comboItems = [
   "Nikhil Saraf",
 ];
 
-interface GreetingProps {
+interface SnippetProps {
   type: string | undefined;
 }
 
-const Greeting: Component<GreetingProps> = (props) => {
+const Snippet: Component<SnippetProps> = (props) => {
     const url = `file://${Deno.cwd()}/snippets/dist/index.html`;
   return (
     <view style={{ width: "100%", height: "100%" }}>
@@ -140,4 +140,4 @@ const Greeting: Component<GreetingProps> = (props) => {
   );
 };
 
-export default Greeting;
+export default Snippet;
