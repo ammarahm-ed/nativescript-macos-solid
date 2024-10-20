@@ -94,6 +94,14 @@ interface WebviewAttributes extends ViewAttributes {
   onLoadFinished?: (event: LoadFinishedEvent) => void;
 }
 
+interface ProgressAttributes extends ViewAttributes {
+  progress?: number;
+  indeterminate?: boolean;
+  minValue?: number;
+  maxValue?: number;
+  type?: "bar" | "spinner"
+}
+
 // Define elements here
 interface JSXIntrinsicElements {
   button: ButtonAttributes;
@@ -111,6 +119,7 @@ interface JSXIntrinsicElements {
   view: ViewAttributes;
   webview: WebviewAttributes;
   window: WindowAttributes;
+  progress: ProgressAttributes
 }
 
 export namespace JSX {

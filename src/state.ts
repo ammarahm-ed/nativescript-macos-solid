@@ -72,6 +72,11 @@ export const sidebarItemsData: Array<Array<SidebarItem>> = [
           icon: "textformat",
           title: "Text",
         },
+        {
+          id: crypto.randomUUID(),
+          icon: "slowmo",
+          title: "Progress",
+        },
       ],
     },
   ],
