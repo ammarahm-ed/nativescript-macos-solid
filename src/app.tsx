@@ -161,6 +161,16 @@ function App() {
                   Hello macOS, ❤️ Solid
                 </text>
               </Show>
+
+              <Show when={selectedComponent() === "progress"}>
+                <progress
+                  style={{
+                    width: 100,
+                    height: 10,
+                  }}
+                  indeterminate
+                />
+              </Show>
             </view>
           </Show>
           <Show when={selectedView() === 1}>

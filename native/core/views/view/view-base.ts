@@ -216,13 +216,13 @@ export class ViewBase extends HTMLElement {
       const constrainedHeight =
         heightMode === MeasureMode.Undefined ? Number.MAX_VALUE : height;
 
-      this.nativeView.sizeToFit();
+      const fittingSize = this.nativeView?.fittingSize;
 
-      const fittingSize = this.nativeView.frame.size;
-      let size = this.nativeView?.sizeThatFits({
+
+      let size = this.nativeView?.sizeThatFits?.({
         width: constrainedWidth,
         height: constrainedHeight,
-      }) || { width: 0, height: 0 };
+      }) || fittingSize || {width: 0, height: 0};
 
       size = {
         width: Math.max(size.width, fittingSize.width),

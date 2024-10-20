@@ -1,6 +1,7 @@
 import { ViewBase } from "../views/view/view-base.ts";
 import { View } from "../views/view/view.ts";
 import type { Slider } from "../views/slider/slider.ts";
+import type { Progress } from "../views/progress/progress.ts";
 
 declare global {
   // undom
@@ -79,9 +80,16 @@ declare global {
     prototype: HTMLSliderElement;
   };
 
+  interface HTMLProgressElement extends Progress {}
+  var HTMLProgressElement: {
+    new (): HTMLProgressElement;
+    prototype: HTMLProgressElement;
+  };
+
   interface HTMLElementTagNameMap {
     view: HTMLViewElement;
   }
+  
 
   function registerElement(tagName: string, element: any): void;
   function createElement(tagName: string): Node;
