@@ -4,9 +4,9 @@ import { For, Show, Switch, Match } from "npm:solid-js";
 import {
   sidebarItems,
   selectedView,
+  activeCredit,
   changeContent,
   changeToolbar,
-  activeCredit,
   selectedComponent,
 } from "./state.tsx";
 import Snippet from "./snippet.tsx";
@@ -16,28 +16,40 @@ function App() {
   return (
     <window
       title="Solid macOS"
+      subtitle="Develop macOS with Solid"
       style={{
         width: 800,
         height: 600,
         justifyContent: "center",
         alignItems: "center",
       }}
-      styleMask={
-        NSWindowStyleMask.Titled |
+      styleMask={NSWindowStyleMask.Titled |
         NSWindowStyleMask.Closable |
         NSWindowStyleMask.Miniaturizable |
         NSWindowStyleMask.Resizable |
-        NSWindowStyleMask.FullSizeContentView
-      }
+        NSWindowStyleMask.FullSizeContentView}
       transparentTitleBar={false}
-      onToolbarSelected={(event) => {
-        try {
-          changeToolbar(event.selectedIndex);
-        } catch (err) {
-          console.error(err);
-        }
-      }}
     >
+      <toolbar
+        onSelected={(event) => {
+          try {
+            changeToolbar(event.selectedIndex);
+          } catch (err) {
+            console.error(err);
+          }
+        }}
+      >
+        <toolbar-toggle-sidebar />
+
+        <toolbar-flexible-space />
+
+        <toolbar-item onClick={() => console.log("Certainly works!")}>
+          <image symbol="play.fill" />
+        </toolbar-item>
+
+        <toolbar-sidebar-tracking-separator />
+      </toolbar>
+
       <split-view
         style={{
           flexDirection: "row",
