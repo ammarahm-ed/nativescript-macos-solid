@@ -12,6 +12,9 @@ export const [selectedComponent, setSelectedComponent] = createSignal<
 >("");
 export const [isSnippetActive, setIsSnippetActive] =
   createSignal<boolean>(false);
+export const [currentSnippet, setCurrentSnippet] = createSignal<JSX.Element>(
+  <></>
+);
 
 interface SidebarBaseItem {
   id: string;
@@ -68,6 +71,11 @@ export const sidebarItemsData: Array<Array<SidebarItem>> = [
         },
         {
           id: crypto.randomUUID(),
+          icon: "slowmo",
+          title: "Progress",
+        },
+        {
+          id: crypto.randomUUID(),
           icon: "slider.horizontal.3",
           title: "Slider",
         },
@@ -76,15 +84,11 @@ export const sidebarItemsData: Array<Array<SidebarItem>> = [
           icon: "textformat",
           title: "Text",
         },
+
         {
           id: crypto.randomUUID(),
           icon: "network",
           title: "WebView",
-        },
-        {
-          id: crypto.randomUUID(),
-          icon: "slowmo",
-          title: "Progress",
         },
       ],
     },

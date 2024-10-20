@@ -6,6 +6,7 @@ import 'prismjs/components/prism-jsx';
 import { BiSolidCopy, BiSolidCheckCircle } from 'solid-icons/bi';
 
 interface CodeSnippetProps {
+  title: string;
   language: string;
   code: string;
   index: number;
@@ -33,10 +34,7 @@ const CodeSnippet = (props: CodeSnippetProps) => {
       <div class="shadow-md rounded-lg overflow-hidden">
         <div class="bg-gray-800 px-4 py-2 flex justify-between items-center">
           <div class="text-lg font-semibold text-white">
-            {props.language.charAt(0).toUpperCase() +
-              props.language.slice(1) +
-              ' '}
-            Snippet
+            {props.title}
           </div>
           <button
             onClick={copyToClipboard}

@@ -86,9 +86,11 @@ export function flex() {
         console.error(`Flex property ${key} is not supported`);
         return;
       }
-      //@ts-ignore
-      Layout.Setters[key](style.node.yogaNode, value);
-      Layout.computeAndLayout(style.node);
+      if (style.node) {
+        //@ts-ignore
+        Layout.Setters[key](style.node.yogaNode, value);
+        Layout.computeAndLayout(style.node);
+      }
     },
     hasChanged: (oldValue, newValue) => oldValue !== newValue,
     converter: {

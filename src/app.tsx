@@ -8,8 +8,9 @@ import {
   changeToolbar,
   activeCredit,
   selectedComponent,
-} from "./state.ts";
+} from "./state.tsx";
 import Snippet from "./snippet.tsx";
+import WebDisplay from "./webdisplay.tsx";
 
 function App() {
   return (
@@ -93,27 +94,26 @@ function App() {
           enableSafeAreaPaddings={true}
         >
           <Show when={selectedView() === 0}>
-            <view>
-              
-            </view>
+            <Switch fallback={<Snippet type={selectedComponent()} />}>
+              <Match when={selectedComponent() === "getting started"}>
+                <WebDisplay url="https://docs.solidjs.com/quick-start" />
+              </Match>
+              <Match when={selectedComponent() === "overview"}>
+                <WebDisplay url="https://docs.solidjs.com/#overview" />
+              </Match>
+              <Match when={selectedComponent() === "setup"}>
+                <WebDisplay url="https://www.solidjs.com/tutorial/introduction_basics" />
+              </Match>
+              <Match when={selectedComponent() === "components"}>
+                <WebDisplay url="https://nativescript.org" />
+              </Match>
+            </Switch>
           </Show>
           <Show when={selectedView() === 1}>
             <text>Hello</text>
           </Show>
           <Show when={selectedView() === 2}>
-            <webview
-              style={{
-                width: "100%",
-                height: "100%",
-              }}
-              src={activeCredit()}
-              onLoadStarted={(e) => {
-                console.log(e.url);
-              }}
-              onLoadFinished={(e) => {
-                console.log(e.url);
-              }}
-            ></webview>
+            <WebDisplay url={activeCredit()} />
           </Show>
         </content-list>
       </split-view>

@@ -1,6 +1,127 @@
-import { Component, Show } from "npm:solid-js";
-import { createSignal } from "npm:solid-js";
-import type { WebView } from '../native/core/views/webview/webview.ts';
+import { Component } from "npm:solid-js";
+import type { WebView } from "../native/core/views/webview/webview.ts";
+import { currentSnippet, setCurrentSnippet } from "./state.tsx";
+import { createEffect } from "npm:solid-js";
+
+interface SnippetProps {
+  type: string | undefined;
+}
+const url = `file://${Deno.cwd()}/snippets/dist/index.html`;
+let webRef: WebView;
+
+function updateSnippetJSX(type: string | undefined) {
+  switch (type) {
+    case "button":
+      setCurrentSnippet(
+        <button
+          style={{
+            backgroundColor: "blue",
+            color: "white",
+          }}
+          onClick={(_event) => {
+            console.log("Button clicked");
+          }}
+        >
+          Tap Me
+        </button>
+      );
+      break;
+    case "checkbox":
+      setCurrentSnippet(
+        <checkbox
+          style={{
+            color: "white",
+          }}
+          onClick={(event) => {
+            console.log("Checkbox clicked", event.state);
+          }}
+        >
+          Check me if you ❤️ Solid
+        </checkbox>
+      );
+      break;
+    case "combobox":
+      setCurrentSnippet(
+        <combobox
+          items={comboItems}
+          selectedIndex={0}
+          onChange={(event) => {
+            console.log("ComboBox change", comboItems[event.index]);
+          }}
+        ></combobox>
+      );
+      break;
+    case "image":
+      setCurrentSnippet(
+        <image
+          style={{
+            width: 100,
+            height: 100,
+            borderRadius: 10,
+          }}
+          stretch="aspectFit"
+          src="https://www.solidjs.com/img/logo/without-wordmark/logo.jpg"
+        ></image>
+      );
+      break;
+    case "progress":
+      setCurrentSnippet(
+        <progress
+          style={{
+            width: "100%",
+            height: 20,
+          }}
+          indeterminate={true}
+        />
+      );
+      break;
+    case "slider":
+      setCurrentSnippet(
+        <slider
+          numberOfTickMarks={10}
+          allowsTickMarkValuesOnly={true}
+          onSliderChanged={(event) => {
+            console.log(event.value);
+          }}
+        ></slider>
+      );
+      break;
+    case "text":
+      setCurrentSnippet(
+        <text
+          style={{
+            padding: 50,
+          }}
+        >
+          Hello macOS, ❤️ Solid
+        </text>
+      );
+      break;
+    case "webview":
+      setCurrentSnippet(
+        <webview
+          src="https://solidjs.com"
+          onLoadStarted={(e) => {
+            console.log(e.url);
+          }}
+          onLoadFinished={(e) => {
+            console.log(e.url);
+          }}
+        ></webview>
+      );
+      break;
+  }
+  console.log("updating snippet:", type);
+  updateSnippetPreview(type);
+}
+
+function updateSnippetPreview(type: string | undefined) {
+  webRef?.executeJavaScript(
+    `window.updateSnippet('${type}', '${
+      (currentSnippet() as HTMLElement)?.outerHTML
+    }')`
+  );
+}
 
 const comboItems = [
   "Ryan Carniato",
@@ -11,14 +132,10 @@ const comboItems = [
   "Nikhil Saraf",
 ];
 
-interface SnippetProps {
-  type: string | undefined;
-}
-
 const Snippet: Component<SnippetProps> = (props) => {
-  const url = `file://${Deno.cwd()}/snippets/dist/index.html`;
-  let webRef: WebView;
-
+  createEffect(() => {
+    updateSnippetJSX(props.type);
+  });
   return (
     <view style={{ width: "100%", height: "100%" }}>
       <view
@@ -28,18 +145,14 @@ const Snippet: Component<SnippetProps> = (props) => {
         }}
       >
         <webview
-            ref={(el: WebView) => webRef = el}
-          style={{
-            width: "100%",
-            height: "100%",
-          }}
+          ref={(el: WebView) => (webRef = el)}
           src={url}
           onLoadStarted={(e) => {
             console.log(e.url);
           }}
           onLoadFinished={(e) => {
             console.log(e.url);
-            webRef.executeJavaScript(`document.body.style.backgroundColor = "yellow";`);
+            updateSnippetPreview(props.type);
           }}
         ></webview>
       </view>
@@ -47,100 +160,10 @@ const Snippet: Component<SnippetProps> = (props) => {
         style={{
           width: "100%",
           height: "50%",
-          paddingTop: 52,
           backgroundColor: "gray",
         }}
       >
-        <Show when={props.type === "button"}>
-          <button
-            style={{
-              width: 200,
-              height: 100,
-              backgroundColor: "blue",
-              color: "white",
-            }}
-            onClick={(_event) => {
-              console.log("Button clicked");
-            }}
-          >
-            Tap Me
-          </button>
-        </Show>
-        <Show when={props.type === "checkbox"}>
-          <checkbox
-            style={{
-              width: 200,
-              height: 100,
-              backgroundColor: "blue",
-              color: "white",
-            }}
-            onClick={(event) => {
-              console.log("Checkbox clicked", event.state);
-            }}
-          >
-            Check me if you ❤️ Solid
-          </checkbox>
-        </Show>
-        <Show when={props.type === "combobox"}>
-          <combobox
-            items={comboItems}
-            selectedIndex={0}
-            style={{
-              width: 200,
-              height: 100,
-            }}
-            onChange={(event) => {
-              console.log("ComboBox change", comboItems[event.index]);
-            }}
-          ></combobox>
-        </Show>
-        <Show when={props.type === "image"}>
-          <image
-            style={{
-              width: "100%",
-              height: "100%",
-            }}
-            stretch="aspectFit"
-            src="https://www.solidjs.com/img/logo/without-wordmark/logo.jpg"
-          ></image>
-        </Show>
-        <Show when={props.type === "slider"}>
-          <slider
-            style={{
-              width: 200,
-              height: 100,
-            }}
-            numberOfTickMarks={10}
-            allowsTickMarkValuesOnly={true}
-            onSliderChanged={(event) => {
-              console.log(event.value);
-            }}
-          ></slider>
-        </Show>
-        <Show when={props.type === "text"}>
-          <text
-            style={{
-              padding: 50,
-            }}
-          >
-            Hello macOS, ❤️ Solid
-          </text>
-        </Show>
-        <Show when={props.type === "webview"}>
-          <webview
-            style={{
-              width: "100%",
-              height: "100%",
-            }}
-            src="https://solidjs.com"
-            onLoadStarted={(e) => {
-              console.log(e.url);
-            }}
-            onLoadFinished={(e) => {
-              console.log(e.url);
-            }}
-          ></webview>
-        </Show>
+        {currentSnippet()}
       </view>
     </view>
   );
