@@ -207,7 +207,7 @@ export class ViewBase extends HTMLElement {
     height: number,
     heightMode: MeasureMode
   ) {
-    if (this.nativeView?.sizeThatFits || this.nativeView.sizeToFit) {
+    if (this.nativeView?.sizeThatFits || this.nativeView?.sizeToFit) {
       const constrainedWidth =
         widthMode === MeasureMode.Undefined ? Number.MAX_VALUE : width;
       const constrainedHeight =
