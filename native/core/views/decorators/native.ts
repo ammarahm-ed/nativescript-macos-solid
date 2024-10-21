@@ -51,10 +51,10 @@ export function native(config: NativePropertyConfig) {
         if (config.getNative && config.converter?.fromNative) {
           return config.converter.fromNative(property, config.getNative(this));
         }
-        return getAttributeNS(this, property) ?? config.defaultValue;
+        return getAttributeNS(this, null, property) ?? config.defaultValue;
       },
       set(value: any) {
-        const oldValue = getAttributeNS(this, property) ?? config.defaultValue;
+        const oldValue = getAttributeNS(this, null, property) ?? config.defaultValue;
 
         const hasChanged = !config.hasChanged
           ? oldValue !== value
@@ -62,7 +62,7 @@ export function native(config: NativePropertyConfig) {
 
         if (!hasChanged) return;
 
-        setAttributeNS(this, property, value);
+        setAttributeNS(this, null, property, value);
 
         const SetNativeKey = `${property}SetNative`;
 
