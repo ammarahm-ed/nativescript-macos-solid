@@ -33,12 +33,6 @@ function App() {
       <toolbar>
         <toolbar-toggle-sidebar />
 
-        <toolbar-flexible-space />
-
-        <toolbar-item onClick={() => console.log("Certainly works!")}>
-          <image symbol="play.fill" />
-        </toolbar-item>
-
         <toolbar-sidebar-tracking-separator />
 
         <toolbar-flexible-space />
