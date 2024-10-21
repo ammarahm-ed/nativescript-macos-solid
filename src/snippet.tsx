@@ -12,6 +12,7 @@ import {
   saveFilePath,
   setSaveFilePath,
 } from "./state.tsx";
+import type { ButtonClickEvent } from "../native/core/views/button/native-button.ts";
 
 interface SnippetProps {
   type: string | undefined;
@@ -191,6 +192,32 @@ function updateSnippetJSX(type: string | undefined) {
           }}
           indeterminate={true}
         />
+      );
+      break;
+    case "radiobutton":
+      setCurrentSnippet(
+        <view>
+          <radiobutton
+            style={{
+              color: "white",
+            }}
+            onClick={(event: ButtonClickEvent) => {
+              console.log("RadioButton clicked", event.state);
+            }}
+          >
+            Select me if you ❤️ Solid
+          </radiobutton>
+          <radiobutton
+            style={{
+              color: "white",
+            }}
+            onClick={(event: ButtonClickEvent) => {
+              console.log("RadioButton clicked", event.state);
+            }}
+          >
+            Select me if you ❤️ NativeScript
+          </radiobutton>
+        </view>
       );
       break;
     case "save dialog":

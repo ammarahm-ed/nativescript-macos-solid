@@ -167,6 +167,7 @@ interface JSXIntrinsicElements {
   webview: WebviewAttributes;
   window: WindowAttributes;
   progress: ProgressAttributes;
+  radiobutton: ButtonAttributes;
   "toolbar-item": ToolbarItemAttributes;
   toolbar: ToolbarAttributes;
   "toolbar-sidebar-tracking-separator":
