@@ -6,6 +6,13 @@ interface FileDialogOptions {
   directoryUrl?: NSURL;
 }
 let fileDialog: NSOpenPanel;
+interface SaveFileDialogOptions {
+  createDirectories?: boolean;
+  filename?: string;
+  fileTypes?: Array<string>;
+  directoryUrl?: NSURL;
+}
+let saveDialog: NSSavePanel;
 
 export function openFileDialog(options: FileDialogOptions) {
   return new Promise<Array<string | null>>((resolve, reject) => {
@@ -36,6 +43,33 @@ export function openFileDialog(options: FileDialogOptions) {
       resolve(urls);
     } else {
       reject([]);
+    }
+  });
+}
+
+export function saveFileDialog(options: SaveFileDialogOptions) {
+  return new Promise<string | undefined>((resolve, reject) => {
+    saveDialog = NSSavePanel.new();
+    saveDialog.canCreateDirectories = options?.createDirectories || false;
+    saveDialog.nameFieldStringValue = options?.filename || '';
+    saveDialog.allowedFileTypes = options?.fileTypes || ["*"];
+    if (options?.directoryUrl) {
+      saveDialog.directoryURL = options.directoryUrl;
+    } else {
+      saveDialog.directoryURL = NSURL.fileURLWithPath(
+        NSSearchPathForDirectoriesInDomains(
+          NSSearchPathDirectory.Desktop,
+          NSSearchPathDomainMask.UserDomain,
+          true
+        ).firstObject
+      );
+    }
+
+    const response = saveDialog.runModal();
+    if (response === NSModalResponseOK) {
+      resolve(saveDialog.URL.absoluteString);
+    } else {
+      reject();
     }
   });
 }

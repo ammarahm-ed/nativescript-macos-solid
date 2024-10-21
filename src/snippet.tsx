@@ -1,11 +1,16 @@
 import { Component, Show, createEffect } from "npm:solid-js";
-import { openFileDialog } from "../native/core/dialogs/file/file-dialog.ts";
+import {
+  openFileDialog,
+  saveFileDialog,
+} from "../native/core/dialogs/file/file-dialog.ts";
 import type { WebView } from "../native/core/views/webview/webview.ts";
 import {
   currentSnippet,
   setCurrentSnippet,
   chosenFiles,
   setChosenFiles,
+  saveFilePath,
+  setSaveFilePath,
 } from "./state.tsx";
 
 interface SnippetProps {
@@ -38,14 +43,51 @@ function promptFileDialog() {
       "js",
       "jsx",
     ],
-  }).then((urls) => {
-    console.log("Chosen files", urls);
-    createEffect(() => {
-      setChosenFiles(urls.join("\n"));
-    });
-  }).catch(err => {
-    console.error(err);
   })
+    .then((urls) => {
+      console.log("Chosen files", urls);
+      createEffect(() => {
+        setChosenFiles(urls.join("\n"));
+      });
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+}
+
+function promptSaveFileDialog() {
+  saveFileDialog({
+    createDirectories: true,
+    filename: "newfile.txt",
+    fileTypes: [
+      "txt",
+      "md",
+      "pdf",
+      "png",
+      "jpg",
+      "jpeg",
+      "doc",
+      "docx",
+      "xls",
+      "xlsx",
+      "ppt",
+      "pptx",
+      "zip",
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+    ],
+  })
+    .then((url) => {
+      console.log("Save file", url);
+      createEffect(() => {
+        setSaveFilePath(url);
+      });
+    })
+    .catch((err) => {
+      console.error(err);
+    });
 }
 
 function updateSnippetJSX(type: string | undefined) {
@@ -149,6 +191,43 @@ function updateSnippetJSX(type: string | undefined) {
           }}
           indeterminate={true}
         />
+      );
+      break;
+    case "save dialog":
+      setCurrentSnippet(
+        <view
+          style={{
+            width: "100%",
+            height: "100%",
+          }}
+        >
+          <button
+            style={{
+              width: 100,
+              height: 75,
+              backgroundColor: "blue",
+              color: "white",
+            }}
+            onClick={(_event) => {
+              promptSaveFileDialog();
+            }}
+          >
+            Save File
+          </button>
+          <view>
+            <Show when={saveFilePath()}>
+              <text
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  padding: 50,
+                }}
+              >
+                {saveFilePath()}
+              </text>
+            </Show>
+          </view>
+        </view>
       );
       break;
     case "slider":
