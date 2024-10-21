@@ -1,4 +1,4 @@
-import "npm:@nativescript/macos-node-api@~0.1.1";
+import "@nativescript/macos-node-api";
 import { Event } from "../../dom/dom-utils.ts";
 import { native } from "../decorators/native.ts";
 import { view } from "../decorators/view.ts";
@@ -14,10 +14,8 @@ export class OutlineClickEvent extends Event {
 }
 
 @NativeClass
-class OutlineViewDataSource
-  extends NSObject
-  implements NSOutlineViewDataSource, NSOutlineViewDelegate
-{
+class OutlineViewDataSource extends NSObject
+  implements NSOutlineViewDataSource, NSOutlineViewDelegate {
   static ObjCProtocols = [NSOutlineViewDataSource, NSOutlineViewDelegate];
 
   static initWithOwner(owner: WeakRef<Outline>) {
@@ -34,7 +32,7 @@ class OutlineViewDataSource
 
   outlineViewNumberOfChildrenOfItem(
     _outlineView: NSOutlineView,
-    item: View | null
+    item: View | null,
   ): number {
     if (item) {
       return item.children.length - 2;
@@ -46,14 +44,14 @@ class OutlineViewDataSource
   outlineViewViewForTableColumnItem(
     _outlineView: NSOutlineView,
     _tableColumn: NSTableColumn | null,
-    item: TableCell
+    item: TableCell,
   ): NSView {
     return item.nativeView!;
   }
 
   outlineViewIsItemExpandable(
     _outlineView: NSOutlineView,
-    item: View
+    item: View,
   ): boolean {
     return item.children.length > 2;
   }
@@ -61,7 +59,7 @@ class OutlineViewDataSource
   outlineViewChildOfItem(
     _outlineView: NSOutlineView,
     index: number,
-    item: View | null
+    item: View | null,
   ) {
     if (item) {
       return item.children[index + 2];
@@ -73,7 +71,7 @@ class OutlineViewDataSource
   outlineViewObjectValueForTableColumnByItem(
     _outlineView: NSOutlineView,
     _tableColumn: NSTableColumn | null,
-    item: interop.Object | null
+    item: interop.Object | null,
   ) {
     return item;
   }
@@ -138,7 +136,8 @@ export class Outline extends View {
       }
     },
   })
-  declare rowSizeStyle: (typeof NSTableViewRowSizeStyle)[keyof typeof NSTableViewRowSizeStyle];
+  declare rowSizeStyle:
+    (typeof NSTableViewRowSizeStyle)[keyof typeof NSTableViewRowSizeStyle];
 
   public addNativeChild(_child: any) {
     this.nativeView?.reloadData();

@@ -4,9 +4,9 @@ import { For, Show, Switch, Match } from "npm:solid-js";
 import {
   sidebarItems,
   selectedView,
+  activeCredit,
   changeContent,
   changeToolbar,
-  activeCredit,
   selectedComponent,
 } from "./state.tsx";
 import Snippet from "./snippet.tsx";
@@ -16,28 +16,56 @@ function App() {
   return (
     <window
       title="Solid macOS"
+      subtitle="Develop macOS with Solid"
       style={{
         width: 800,
         height: 600,
         justifyContent: "center",
         alignItems: "center",
       }}
-      styleMask={
-        NSWindowStyleMask.Titled |
+      styleMask={NSWindowStyleMask.Titled |
         NSWindowStyleMask.Closable |
         NSWindowStyleMask.Miniaturizable |
         NSWindowStyleMask.Resizable |
-        NSWindowStyleMask.FullSizeContentView
-      }
+        NSWindowStyleMask.FullSizeContentView}
       transparentTitleBar={false}
-      onToolbarSelected={(event) => {
-        try {
-          changeToolbar(event.selectedIndex);
-        } catch (err) {
-          console.error(err);
-        }
-      }}
     >
+      <toolbar>
+        <toolbar-toggle-sidebar />
+
+        <toolbar-sidebar-tracking-separator />
+
+        <toolbar-flexible-space />
+
+        <toolbar-group
+          selectionMode="selectOne"
+          titles={["Building", "Examples", "Credits"]}
+          label="View"
+          paletteLabel="View"
+          toolTip="Change the selected view"
+          selectedIndex={0}
+          onSelected={(event) => changeToolbar(event.selectedIndex)}
+        />
+
+        <toolbar-item />
+
+        <toolbar-group
+          selectionMode="momentary"
+          titles={["Docs", "GitHub", "Discord"]}
+          label="Learn More"
+          paletteLabel="Learn More"
+          toolTip="Continue your learning"
+          onSelected={(event) =>
+            NSWorkspace.sharedWorkspace.openURL(NSURL.URLWithString(
+              ({
+                0: "https://docs.solidjs.com",
+                1: "https://github.com/solidjs/solid",
+                2: "https://discord.gg/solidjs",
+              })[event.selectedIndex]!,
+            ))}
+        />
+      </toolbar>
+
       <split-view
         style={{
           flexDirection: "row",

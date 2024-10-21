@@ -1,4 +1,4 @@
-import "npm:@nativescript/macos-node-api@~0.1.1";
+import "@nativescript/macos-node-api";
 import type { NativeWindow } from "./views/window/native-window.ts";
 import type { Window } from "./views/window/window.ts";
 objc.import("AppKit");
@@ -22,8 +22,8 @@ class AppDelegate extends NSObject implements NSApplicationDelegate {
     NSApp.activateIgnoringOtherApps(false);
     NSApp.stop(this);
     // Allow users to customize the app's Touch Bar items
-    NSApplication.sharedApplication.isAutomaticCustomizeTouchBarMenuItemEnabled =
-      true;
+    NSApplication.sharedApplication
+      .isAutomaticCustomizeTouchBarMenuItemEnabled = true;
     RunLoop();
   }
 
@@ -33,7 +33,7 @@ class AppDelegate extends NSObject implements NSApplicationDelegate {
 
   openDiscord(_id: this) {
     NSWorkspace.sharedWorkspace.openURL(
-      NSURL.URLWithString("https://discord.com/invite/solidjs")
+      NSURL.URLWithString("https://discord.com/invite/solidjs"),
     );
   }
 }
@@ -46,7 +46,7 @@ function RunLoop() {
       NSEventMask.Any,
       null,
       "kCFRunLoopDefaultMode",
-      true
+      true,
     );
 
     const timeSinceLastEvent = Date.now() - lastEventTime;
@@ -55,14 +55,13 @@ function RunLoop() {
       delay = timeSinceLastEvent < 32 ? 2 : 8;
       lastEventTime = Date.now();
     } else {
-      delay =
-        timeSinceLastEvent > 6000
-          ? 128
-          : timeSinceLastEvent > 4000
-          ? 64
-          : timeSinceLastEvent > 2000
-          ? 16
-          : 8;
+      delay = timeSinceLastEvent > 6000
+        ? 128
+        : timeSinceLastEvent > 4000
+        ? 64
+        : timeSinceLastEvent > 2000
+        ? 16
+        : 8;
     }
 
     if (NativeScriptApplication.delegate.running) {
@@ -110,7 +109,7 @@ export default class Application {
     const appMenuItem = NSMenuItem.alloc().initWithTitleActionKeyEquivalent(
       "Solid macOS",
       "",
-      ""
+      "",
     );
     menu.addItem(appMenuItem);
     const submenu = NSMenu.new();
@@ -119,8 +118,8 @@ export default class Application {
       NSMenuItem.alloc().initWithTitleActionKeyEquivalent(
         "Quit",
         "terminate:",
-        "q"
-      )
+        "q",
+      ),
     );
 
     const helpMenu = NSMenu.new();
@@ -129,7 +128,7 @@ export default class Application {
     const helpMenuItem = NSMenuItem.alloc().initWithTitleActionKeyEquivalent(
       "Help",
       "",
-      ""
+      "",
     );
     menu.addItem(helpMenuItem);
     const helpSubmenu = NSMenu.new();
@@ -138,8 +137,8 @@ export default class Application {
       NSMenuItem.alloc().initWithTitleActionKeyEquivalent(
         "Discord",
         "openDiscord",
-        "d"
-      )
+        "d",
+      ),
     );
   }
 }

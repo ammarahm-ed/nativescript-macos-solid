@@ -1,10 +1,24 @@
-import "npm:@nativescript/macos-node-api@~0.1.1";
+import "@nativescript/macos-node-api";
 import type { YogaNodeLayout } from "../../layout/index.ts";
 import { native } from "../decorators/native.ts";
 import { view } from "../decorators/view.ts";
 import { ViewBase } from "../view/view-base.ts";
+import { Event } from "../../dom/dom-utils.ts";
+
+export class ImageLoadEvent extends Event {
+  constructor(eventDict?: EventInit) {
+    super("load", eventDict);
+  }
+}
+
+export class ImageErrorEvent extends Event {
+  constructor(eventDict?: EventInit) {
+    super("error", eventDict);
+  }
+}
 
 export type ImageStretch = "none" | "fit" | "fill" | "aspectFit";
+
 @view({
   name: "HTMLImageElement",
   tagName: "image",
@@ -28,8 +42,21 @@ export class Image extends ViewBase {
     } else {
       console.warn(
         "Trying to dispose a view that is still attached to it's parent",
-        new Error().stack
+        new Error().stack,
       );
+    }
+  }
+
+  private setImage(value: NSImage | null) {
+    if (this.nativeView) {
+      // @ts-expect-error it can be null
+      this.nativeView.image = value;
+
+      if (value) {
+        this.dispatchEvent(new ImageLoadEvent());
+      } else {
+        this.dispatchEvent(new ImageErrorEvent());
+      }
     }
   }
 
@@ -40,10 +67,11 @@ export class Image extends ViewBase {
         img = NSImage.alloc().initWithContentsOfURL(NSURL.URLWithString(value));
       } else {
         img = NSImage.alloc().initWithContentsOfFile(
-          value instanceof URL ? value.pathname : value
+          value instanceof URL ? value.pathname : value,
         );
       }
-      view.nativeView!.image = img;
+
+      view.setImage(img);
     },
   })
   declare src: string | URL;
@@ -52,9 +80,10 @@ export class Image extends ViewBase {
     setNative(view: Image, _key, value) {
       const img = NSImage.imageWithSystemSymbolNameAccessibilityDescription(
         value,
-        null
+        null,
       );
-      view.nativeView!.image = img;
+
+      view.setImage(img);
     },
   })
   declare symbol: string;
@@ -86,9 +115,7 @@ export class Image extends ViewBase {
   applyLayout(parentLayout?: YogaNodeLayout): void {
     super.applyLayout(parentLayout);
     if (this.nativeView) {
-      this.nativeView.translatesAutoresizingMaskIntoConstraints =
-        true;
+      this.nativeView.translatesAutoresizingMaskIntoConstraints = true;
     }
   }
-
 }

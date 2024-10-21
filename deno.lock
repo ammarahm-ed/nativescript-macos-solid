@@ -2,6 +2,7 @@
   "version": "4",
   "specifiers": {
     "npm:@nativescript/macos-node-api@~0.1.1": "0.1.1",
+    "npm:@nativescript/macos-node-api@~0.1.2": "0.1.2",
     "npm:@types/node@*": "22.5.4",
     "npm:esbuild-plugin-solid@*": "0.6.0_esbuild@0.23.1_solid-js@1.8.22__seroval@1.1.1_@babel+core@7.25.2",
     "npm:esbuild@*": "0.23.1",
@@ -348,6 +349,12 @@
     },
     "@nativescript/macos-node-api@0.1.1": {
       "integrity": "sha512-caJmPsb6864SJZpCYbFkO6YFy8izmuYzlnYNFO/JINoYz3MH4EAMOXCU5bWHeUABnE9BZxzbzv38uBYPgg3yMw==",
+      "dependencies": [
+        "@nativescript/objc-node-api"
+      ]
+    },
+    "@nativescript/macos-node-api@0.1.2": {
+      "integrity": "sha512-fw0Qv7yIWPHmd8GLGy0fLT19bu6PkYqBzxTLW/GKco3zIVrNTQbRdHU89uFkWgdtvQRe31ul961XJgRumEiB0Q==",
       "dependencies": [
         "@nativescript/objc-node-api"
       ]

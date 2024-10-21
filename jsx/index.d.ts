@@ -1,12 +1,26 @@
 import { JSX as SolidJSX } from "npm:solid-js";
-import { ViewStyle, type TextStyle } from "../native/core/style/index.ts";
-import type { ButtonClickEvent } from '../native/core/views/button/native-button.ts';
-import type { ComboBoxChangeEvent } from "../native/core/views/combobox/native-combobox.ts";
-import type { ImageStretch } from "../native/core/views/image/image.ts";
-import type { OutlineClickEvent } from "../native/core/views/outline/outline.ts";
+import { type TextStyle, ViewStyle } from "../native/core/style/index.ts";
+import {
+  WindowResizeEvent,
+} from "../native/core/views/window/native-window.ts";
 import type { SliderChangeEvent } from "../native/core/views/slider/slider.ts";
-import type { LoadFinishedEvent, LoadStartedEvent } from "../native/core/views/webview/webview.ts";
-import { ToolbarEvent, WindowResizeEvent } from "../native/core/views/window/native-window.ts";
+import type {
+  LoadFinishedEvent,
+  LoadStartedEvent,
+} from "../native/core/views/webview/webview.ts";
+import type { ButtonClickEvent } from "../native/core/views/button/native-button.ts";
+import type {
+  ImageErrorEvent,
+  ImageLoadEvent,
+  ImageStretch,
+} from "../native/core/views/image/image.ts";
+import type { ToolbarItemClickEvent } from "../native/core/views/toolbar/toolbar-item.ts";
+import type { OutlineClickEvent } from "../native/core/views/outline/outline.ts";
+import type { ComboBoxChangeEvent } from "../native/core/views/combobox/native-combobox.ts";
+import type {
+  ToolbarGroupSelectedEvent,
+  ToolbarGroupSelectionMode,
+} from "../native/core/views/toolbar/toolbar-group.ts";
 
 interface ViewAttributes {
   ref?: unknown | ((e: unknown) => void);
@@ -30,14 +44,14 @@ interface ButtonAttributes extends TextAttributes {
   /**
    * NSButtonType
    */
-  buttonType?: number
-  onClick?: (event: ButtonClickEvent) => void
+  buttonType?: number;
+  onClick?: (event: ButtonClickEvent) => void;
 }
 
 interface ComboBoxAttributes extends ViewAttributes {
   items?: Array<string>;
   selectedIndex?: number;
-  onChange?: (event: ComboBoxChangeEvent) => void
+  onChange?: (event: ComboBoxChangeEvent) => void;
 }
 
 interface ImageAttributes {
@@ -46,6 +60,8 @@ interface ImageAttributes {
   ref?: unknown | ((e: unknown) => void);
   style?: TextStyle;
   stretch?: ImageStretch;
+  onLoad?: (event: ImageLoadEvent) => void;
+  onError?: (event: ImageErrorEvent) => void;
   [name: string]: any;
 }
 
@@ -75,6 +91,7 @@ interface SplitViewItemAttributes {
 
 interface WindowAttributes extends ViewAttributes {
   title?: string;
+  subtitle?: string;
   transparentTitleBar?: boolean;
   /**
    * NSWindowStyleMask
@@ -84,7 +101,6 @@ interface WindowAttributes extends ViewAttributes {
   onResize?: (event: WindowResizeEvent) => void;
   onClose?: (event: Event) => void;
   onFocus?: (event: Event) => void;
-  onToolbarSelected?: (event: ToolbarEvent) => void;
   [name: string]: any;
 }
 
@@ -99,7 +115,38 @@ interface ProgressAttributes extends ViewAttributes {
   indeterminate?: boolean;
   minValue?: number;
   maxValue?: number;
-  type?: "bar" | "spinner"
+  type?: "bar" | "spinner";
+}
+
+interface ToolbarItemAttributes {
+  onClick?: (event: ToolbarItemClickEvent) => void;
+  label?: string;
+  paletteLabel?: string;
+  title?: string;
+  toolTip?: string;
+  bordered?: boolean;
+  navigational?: boolean;
+  enabled?: boolean;
+  [name: string]: any;
+}
+
+interface ToolbarGroupAttributes extends ToolbarItemAttributes {
+  onSelected?: (event: ToolbarGroupSelectedEvent) => void;
+  selectedIndex?: number;
+  selectionMode?: ToolbarGroupSelectionMode;
+  titles?: string[];
+}
+
+interface ToolbarSidebarTrackingSeparatorAttributes {}
+
+interface ToolbarToggleSidebarAttributes {}
+
+interface ToolbarFlexibleSpaceAttributes {}
+
+interface ToolbarSpaceAttributes {}
+
+interface ToolbarAttributes {
+  [name: string]: any;
 }
 
 // Define elements here
@@ -119,7 +166,15 @@ interface JSXIntrinsicElements {
   view: ViewAttributes;
   webview: WebviewAttributes;
   window: WindowAttributes;
-  progress: ProgressAttributes
+  progress: ProgressAttributes;
+  "toolbar-item": ToolbarItemAttributes;
+  toolbar: ToolbarAttributes;
+  "toolbar-sidebar-tracking-separator":
+    ToolbarSidebarTrackingSeparatorAttributes;
+  "toolbar-toggle-sidebar": ToolbarToggleSidebarAttributes;
+  "toolbar-flexible-space": ToolbarFlexibleSpaceAttributes;
+  "toolbar-group": ToolbarGroupAttributes;
+  "toolbar-space": ToolbarSpaceAttributes;
 }
 
 export namespace JSX {
@@ -132,22 +187,22 @@ export namespace JSX {
   }
 
   export function mapElementTag<K extends keyof IntrinsicElements>(
-    tag: K
+    tag: K,
   ): IntrinsicElements[K];
 
   export function createElement<
     Element extends IntrinsicElements,
-    Key extends keyof IntrinsicElements
+    Key extends keyof IntrinsicElements,
   >(element: Key | undefined | null, attrs: Element[Key]): Element[Key];
 
   export function createElement<
     Element extends IntrinsicElements,
     Key extends keyof IntrinsicElements,
-    T
+    T,
   >(
     element: Key | undefined | null,
     attrsEnhancers: T,
-    attrs: Element[Key] & T
+    attrs: Element[Key] & T,
   ): Element[Key];
 
   export type Element = SolidJSX.Element;
@@ -190,22 +245,22 @@ declare global {
     }
 
     export function mapElementTag<K extends keyof IntrinsicElements>(
-      tag: K
+      tag: K,
     ): IntrinsicElements[K];
 
     export function createElement<
       Element extends IntrinsicElements,
-      Key extends keyof IntrinsicElements
+      Key extends keyof IntrinsicElements,
     >(element: Key | undefined | null, attrs: Element[Key]): Element[Key];
 
     export function createElement<
       Element extends IntrinsicElements,
       Key extends keyof IntrinsicElements,
-      T
+      T,
     >(
       element: Key | undefined | null,
       attrsEnhancers: T,
-      attrs: Element[Key] & T
+      attrs: Element[Key] & T,
     ): Element[Key];
 
     export type Element = SolidJSX.Element;

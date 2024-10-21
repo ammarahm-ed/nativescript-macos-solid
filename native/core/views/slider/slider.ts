@@ -1,4 +1,4 @@
-import "npm:@nativescript/macos-node-api@~0.1.1";
+import "@nativescript/macos-node-api";
 import { Event } from "../../dom/dom-utils.ts";
 import { native } from "../decorators/native.ts";
 import { view } from "../decorators/view.ts";
@@ -9,7 +9,7 @@ export class SliderChangeEvent extends Event {
   constructor(value: number, eventDict?: EventInit) {
     super("sliderChanged", eventDict);
     this.value = value;
-  } 
+  }
 }
 
 export class NSSliderAutoResizable extends NSSlider {
@@ -33,7 +33,7 @@ export class NSSliderAutoResizable extends NSSlider {
     const owner = this._owner.deref();
     if (owner) {
       owner.dispatchEvent(
-        new SliderChangeEvent(owner.nativeView?.doubleValue || 0)
+        new SliderChangeEvent(owner.nativeView?.doubleValue || 0),
       );
     }
   }
