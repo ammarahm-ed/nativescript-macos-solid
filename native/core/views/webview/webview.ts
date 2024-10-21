@@ -14,7 +14,7 @@ export class WebviewNavigationEvent extends Event {
     type: string,
     url: string | URL,
     navigationType: WebViewNavigationType,
-    eventDict?: EventInit,
+    eventDict?: EventInit
   ) {
     super(type, eventDict);
     this.url = url;
@@ -26,7 +26,7 @@ export class LoadStartedEvent extends WebviewNavigationEvent {
   constructor(
     url: string | URL,
     navigationType: WebViewNavigationType,
-    eventDict?: EventInit,
+    eventDict?: EventInit
   ) {
     super("loadStarted", url, navigationType, eventDict);
   }
@@ -48,8 +48,10 @@ type WebViewNavigationType =
   | undefined;
 
 @NativeClass
-class WebViewDelegate extends NSObject
-  implements WKUIDelegate, WKNavigationDelegate {
+class WebViewDelegate
+  extends NSObject
+  implements WKUIDelegate, WKNavigationDelegate
+{
   static ObjCProtocols = [WKUIDelegate, WKNavigationDelegate];
 
   declare _owner: WeakRef<WebView>;
@@ -63,7 +65,7 @@ class WebViewDelegate extends NSObject
     webView: WKWebView,
     _configuration: WKWebViewConfiguration,
     navigationAction: WKNavigationAction,
-    _windowFeatures: WKWindowFeatures,
+    _windowFeatures: WKWindowFeatures
   ): WKWebView {
     if (
       navigationAction &&
@@ -76,56 +78,58 @@ class WebViewDelegate extends NSObject
     return webView;
   }
 
-  // webViewDecidePolicyForNavigationActionDecisionHandler(
-  //   _webView: WKWebView,
-  //   navigationAction: WKNavigationAction,
-  //   decisionHandler: (p1: interop.Enum<typeof WKNavigationActionPolicy>) => void
-  // ): void {
-  //   const owner = this._owner?.deref();
-  //   if (owner && navigationAction.request.URL) {
-  //     let navType: WebViewNavigationType = "other";
+  webViewDecidePolicyForNavigationActionDecisionHandler(
+    _webView: WKWebView,
+    navigationAction: WKNavigationAction,
+    decisionHandler: (p1: interop.Enum<typeof WKNavigationActionPolicy>) => void
+  ): void {
+    const owner = this._owner?.deref();
+    if (owner && navigationAction.request.URL) {
+      let navType: WebViewNavigationType = "other";
 
-  //     switch (navigationAction.navigationType) {
-  //       case WKNavigationType.LinkActivated:
-  //         navType = "linkClicked";
-  //         break;
-  //       case WKNavigationType.FormSubmitted:
-  //         navType = "formSubmitted";
-  //         break;
-  //       case WKNavigationType.BackForward:
-  //         navType = "backForward";
-  //         break;
-  //       case WKNavigationType.Reload:
-  //         navType = "reload";
-  //         break;
-  //       case WKNavigationType.FormResubmitted:
-  //         navType = "formResubmitted";
-  //         break;
-  //     }
-  //     decisionHandler(WKNavigationActionPolicy.Allow);
+      switch (navigationAction.navigationType) {
+        case WKNavigationType.LinkActivated:
+          navType = "linkClicked";
+          break;
+        case WKNavigationType.FormSubmitted:
+          navType = "formSubmitted";
+          break;
+        case WKNavigationType.BackForward:
+          navType = "backForward";
+          break;
+        case WKNavigationType.Reload:
+          navType = "reload";
+          break;
+        case WKNavigationType.FormResubmitted:
+          navType = "formResubmitted";
+          break;
+      }
+      decisionHandler(WKNavigationActionPolicy.Allow);
 
-  //     owner.dispatchEvent(
-  //       createEvent("loadStarted", {
-  //         detail: {
-  //           type: navType,
-  //         },
-  //       })
-  //     );
-  //   }
-  // }
+      const url = navigationAction.request.URL.absoluteString;
+      if (owner.src === url) {
+        owner.dispatchEvent(
+          new LoadStartedEvent(
+            navigationAction.request.URL.absoluteString,
+            navType
+          )
+        );
+      }
+    }
+  }
 
   webViewDidFinishNavigation(
     webView: WKWebView,
-    _navigation: WKNavigation,
+    _navigation: WKNavigation
   ): void {
     const owner = this._owner?.deref();
-
     if (owner) {
-      let src = owner.src;
+      const src = owner.src;
       if (webView.URL) {
-        src = webView.URL.absoluteString;
+        if (src === webView.URL.absoluteString) {
+          owner.dispatchEvent(new LoadFinishedEvent(src));
+        }
       }
-      owner.dispatchEvent(new LoadFinishedEvent(src));
     }
   }
 }
@@ -147,7 +151,7 @@ export class WebView extends View {
     const config = WKWebViewConfiguration.new();
     this.nativeView = WKWebView.alloc().initWithFrameConfiguration(
       CGRectZero,
-      config,
+      config
     );
     this.delegate = WebViewDelegate.initWithOwner(new WeakRef(this));
     this.nativeView.UIDelegate = this.delegate;
@@ -180,12 +184,15 @@ export class WebView extends View {
   }
 
   executeJavaScript(src: string) {
-    this.nativeView?.evaluateJavaScriptCompletionHandler(src, (result, error) => {
-      console.log('evaluateJavaScript result:', result);
-      if (error) {
-        console.error(error);
+    this.nativeView?.evaluateJavaScriptCompletionHandler(
+      src,
+      (result, error) => {
+        console.log("evaluateJavaScript result:", result);
+        if (error) {
+          console.error(error);
+        }
       }
-    })
+    );
   }
 
   @native({
