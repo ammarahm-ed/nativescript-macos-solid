@@ -1,7 +1,6 @@
 import { JSX as SolidJSX } from "npm:solid-js";
 import { type TextStyle, ViewStyle } from "../native/core/style/index.ts";
 import {
-  ToolbarEvent,
   WindowResizeEvent,
 } from "../native/core/views/window/native-window.ts";
 import type { SliderChangeEvent } from "../native/core/views/slider/slider.ts";
@@ -18,6 +17,10 @@ import type {
 import type { ToolbarItemClickEvent } from "../native/core/views/toolbar/toolbar-item.ts";
 import type { OutlineClickEvent } from "../native/core/views/outline/outline.ts";
 import type { ComboBoxChangeEvent } from "../native/core/views/combobox/native-combobox.ts";
+import type {
+  ToolbarGroupSelectedEvent,
+  ToolbarGroupSelectionMode,
+} from "../native/core/views/toolbar/toolbar-group.ts";
 
 interface ViewAttributes {
   ref?: unknown | ((e: unknown) => void);
@@ -117,7 +120,21 @@ interface ProgressAttributes extends ViewAttributes {
 
 interface ToolbarItemAttributes {
   onClick?: (event: ToolbarItemClickEvent) => void;
+  label?: string;
+  paletteLabel?: string;
+  title?: string;
+  toolTip?: string;
+  bordered?: boolean;
+  navigational?: boolean;
+  enabled?: boolean;
   [name: string]: any;
+}
+
+interface ToolbarGroupAttributes extends ToolbarItemAttributes {
+  onSelected?: (event: ToolbarGroupSelectedEvent) => void;
+  selectedIndex?: number;
+  selectionMode?: ToolbarGroupSelectionMode;
+  titles?: string[];
 }
 
 interface ToolbarSidebarTrackingSeparatorAttributes {}
@@ -127,7 +144,6 @@ interface ToolbarToggleSidebarAttributes {}
 interface ToolbarFlexibleSpaceAttributes {}
 
 interface ToolbarAttributes {
-  onSelected?: (event: ToolbarEvent) => void;
   [name: string]: any;
 }
 
@@ -155,6 +171,7 @@ interface JSXIntrinsicElements {
     ToolbarSidebarTrackingSeparatorAttributes;
   "toolbar-toggle-sidebar": ToolbarToggleSidebarAttributes;
   "toolbar-flexible-space": ToolbarFlexibleSpaceAttributes;
+  "toolbar-group": ToolbarGroupAttributes;
 }
 
 export namespace JSX {

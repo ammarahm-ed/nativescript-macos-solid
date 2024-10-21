@@ -1,9 +1,7 @@
-import "npm:@nativescript/macos-node-api@~0.1.1";
+import "@nativescript/macos-node-api";
 
-export class SplitViewController
-  extends NSSplitViewController
-  implements NSSplitViewDelegate
-{
+export class SplitViewController extends NSSplitViewController
+  implements NSSplitViewDelegate {
   static ObjCProtocols = [
     NSSplitViewDelegate,
     NSViewControllerPresentationAnimator,
@@ -20,7 +18,7 @@ export class SplitViewController
 
   animatePresentationOfViewControllerFromViewController(
     viewController: NSViewController,
-    fromViewController: NSViewController
+    fromViewController: NSViewController,
   ): void {
     fromViewController.view.addSubview(viewController.view);
     viewController.view.alphaValue = 1.0;
@@ -31,7 +29,7 @@ export class SplitViewController
 
   animateDismissalOfViewControllerFromViewController(
     viewController: NSViewController,
-    _fromViewController: NSViewController
+    _fromViewController: NSViewController,
   ): void {
     // Animate to the final state
     viewController.view.animator().alphaValue = 0.0;

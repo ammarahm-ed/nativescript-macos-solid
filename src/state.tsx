@@ -162,7 +162,6 @@ export function changeContent(index: number) {
   }
   if (selection?.id !== selectedContentId()) {
     setSelectedContentId(selection.id);
-    console.log("selected content:", selection);
     setActiveCredit(selection.url || defaultCredit);
   }
 }

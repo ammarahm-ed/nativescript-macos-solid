@@ -1,4 +1,4 @@
-import "npm:@nativescript/macos-node-api@~0.1.1";
+import "@nativescript/macos-node-api";
 import { Event } from "../../dom/dom-utils.ts";
 
 export class ButtonClickEvent extends Event {
@@ -37,15 +37,16 @@ export class NativeButton extends NSButton {
   }
 
   updateButtonTitleStyle() {
-    if (!this._attributedTitle)
+    if (!this._attributedTitle) {
       this._attributedTitle = NSMutableAttributedString.alloc().init();
+    }
 
     this._attributedTitle.mutableString.setString(this._title || "");
     this._attributedTitle.setAttributesRange(
       {
         [NSForegroundColorAttributeName]: this._color,
       },
-      { location: 0, length: this._title?.length || 0 }
+      { location: 0, length: this._title?.length || 0 },
     );
 
     this.attributedTitle = this._attributedTitle;

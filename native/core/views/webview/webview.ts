@@ -1,4 +1,4 @@
-import "npm:@nativescript/macos-node-api@~0.1.1";
+import "@nativescript/macos-node-api";
 import { Event } from "../../dom/dom-utils.ts";
 import { YogaNodeLayout } from "../../layout/index.ts";
 import { native } from "../decorators/native.ts";
@@ -14,7 +14,7 @@ export class WebviewNavigationEvent extends Event {
     type: string,
     url: string | URL,
     navigationType: WebViewNavigationType,
-    eventDict?: EventInit
+    eventDict?: EventInit,
   ) {
     super(type, eventDict);
     this.url = url;
@@ -26,7 +26,7 @@ export class LoadStartedEvent extends WebviewNavigationEvent {
   constructor(
     url: string | URL,
     navigationType: WebViewNavigationType,
-    eventDict?: EventInit
+    eventDict?: EventInit,
   ) {
     super("loadStarted", url, navigationType, eventDict);
   }
@@ -48,10 +48,8 @@ type WebViewNavigationType =
   | undefined;
 
 @NativeClass
-class WebViewDelegate
-  extends NSObject
-  implements WKUIDelegate, WKNavigationDelegate
-{
+class WebViewDelegate extends NSObject
+  implements WKUIDelegate, WKNavigationDelegate {
   static ObjCProtocols = [WKUIDelegate, WKNavigationDelegate];
 
   declare _owner: WeakRef<WebView>;
@@ -65,7 +63,7 @@ class WebViewDelegate
     webView: WKWebView,
     _configuration: WKWebViewConfiguration,
     navigationAction: WKNavigationAction,
-    _windowFeatures: WKWindowFeatures
+    _windowFeatures: WKWindowFeatures,
   ): WKWebView {
     if (
       navigationAction &&
@@ -118,7 +116,7 @@ class WebViewDelegate
 
   webViewDidFinishNavigation(
     webView: WKWebView,
-    _navigation: WKNavigation
+    _navigation: WKNavigation,
   ): void {
     const owner = this._owner?.deref();
 
@@ -149,7 +147,7 @@ export class WebView extends View {
     const config = WKWebViewConfiguration.new();
     this.nativeView = WKWebView.alloc().initWithFrameConfiguration(
       CGRectZero,
-      config
+      config,
     );
     this.delegate = WebViewDelegate.initWithOwner(new WeakRef(this));
     this.nativeView.UIDelegate = this.delegate;

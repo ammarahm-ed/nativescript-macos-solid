@@ -1,4 +1,4 @@
-import "npm:@nativescript/macos-node-api@~0.1.1";
+import "@nativescript/macos-node-api";
 import type { Style, StylePropertyConfig } from "./index.ts";
 import { Color } from "./utils/color.ts";
 import { Layout } from "../layout/index.ts";
@@ -6,7 +6,7 @@ import { Layout } from "../layout/index.ts";
 export function BackgroundColorNativeSet(
   style: Style,
   key: string,
-  value: CGColor
+  value: CGColor,
 ) {
   if (!style.node.nativeView) return;
   const nativeView = style.node.nativeView;

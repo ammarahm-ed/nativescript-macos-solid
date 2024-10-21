@@ -1,4 +1,4 @@
-import "npm:@nativescript/macos-node-api@~0.1.1";
+import "@nativescript/macos-node-api";
 import { view } from "../decorators/view.ts";
 import { ViewBase } from "../view/view-base.ts";
 

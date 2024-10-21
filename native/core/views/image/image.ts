@@ -1,4 +1,4 @@
-import "npm:@nativescript/macos-node-api@~0.1.1";
+import "@nativescript/macos-node-api";
 import type { YogaNodeLayout } from "../../layout/index.ts";
 import { native } from "../decorators/native.ts";
 import { view } from "../decorators/view.ts";
@@ -70,7 +70,7 @@ export class Image extends ViewBase {
           value instanceof URL ? value.pathname : value,
         );
       }
-      
+
       view.setImage(img);
     },
   })
@@ -82,7 +82,7 @@ export class Image extends ViewBase {
         value,
         null,
       );
-      
+
       view.setImage(img);
     },
   })
@@ -115,9 +115,7 @@ export class Image extends ViewBase {
   applyLayout(parentLayout?: YogaNodeLayout): void {
     super.applyLayout(parentLayout);
     if (this.nativeView) {
-      this.nativeView.translatesAutoresizingMaskIntoConstraints =
-        true;
+      this.nativeView.translatesAutoresizingMaskIntoConstraints = true;
     }
   }
-
 }

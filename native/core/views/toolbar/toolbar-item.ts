@@ -1,8 +1,9 @@
-import "npm:@nativescript/macos-node-api@~0.1.1";
+import "@nativescript/macos-node-api";
 import { view } from "../decorators/view.ts";
 import { ViewBase } from "../view/view-base.ts";
-import { type Image, ImageLoadEvent } from "../image/image.ts";
+import { ImageLoadEvent } from "../image/image.ts";
 import { Event } from "../../dom/dom-utils.ts";
+import { native } from "../decorators/native.ts";
 
 export class ToolbarItemClickEvent extends Event {
   constructor(eventDict?: EventInit) {
@@ -11,17 +12,21 @@ export class ToolbarItemClickEvent extends Event {
 }
 
 @NativeClass
-class ToolbarItemTarget extends NSObject {
+export class NativeToolbarItem extends NSToolbarItem {
   static ObjCExposedMethods = {
     click: { returns: interop.types.void, params: [interop.types.id] },
   };
 
   private _owner?: WeakRef<ToolbarItem>;
 
-  public static initWithOwner(owner: WeakRef<ToolbarItem>): ToolbarItemTarget {
-    const target = ToolbarItemTarget.new() as ToolbarItemTarget;
-    target._owner = owner;
-    return target;
+  public static initWithOwner(owner: WeakRef<ToolbarItem>): NativeToolbarItem {
+    const item = NativeToolbarItem.alloc().initWithItemIdentifier(
+      crypto.randomUUID(),
+    );
+    item._owner = owner;
+    item.target = item;
+    item.action = "click";
+    return item;
   }
 
   public click() {
@@ -37,18 +42,10 @@ class ToolbarItemTarget extends NSObject {
   tagName: "toolbar-item",
 })
 export class ToolbarItem extends ViewBase {
-  static idCounter = 0;
-
   override nativeView?: NSToolbarItem = undefined;
-  toolbarItemTarget?: ToolbarItemTarget;
 
   public override initNativeView(): NSToolbarItem | undefined {
-    this.nativeView = NSToolbarItem.alloc().initWithItemIdentifier(
-      (++ToolbarItem.idCounter).toString(),
-    );
-    this.toolbarItemTarget = ToolbarItemTarget.initWithOwner(new WeakRef(this));
-    this.nativeView.target = this.toolbarItemTarget;
-    this.nativeView.action = "click";
+    this.nativeView = NativeToolbarItem.initWithOwner(new WeakRef(this));
     return this.nativeView;
   }
 
@@ -58,7 +55,7 @@ export class ToolbarItem extends ViewBase {
 
   onImageLoad?: (e: ImageLoadEvent) => void;
 
-  public addNativeChild(child: Image): void {
+  public addNativeChild(child: ViewBase): void {
     if (child.nodeName === "IMAGE") {
       if (this.nativeView) {
         this.onImageLoad = () => {
@@ -74,10 +71,8 @@ export class ToolbarItem extends ViewBase {
 
         child.addEventListener("load", this.onImageLoad);
       }
-    } else {
-      throw new Error(
-        `Invalid child type added to toolbar-item: ${child.nodeName}`,
-      );
+    } else if (this.nativeView) {
+      this.nativeView.view = child.nativeView;
     }
   }
 
@@ -90,10 +85,72 @@ export class ToolbarItem extends ViewBase {
           child.removeEventListener("load", this.onImageLoad);
         }
       }
-    } else {
-      throw new Error(
-        `Invalid child type removed from toolbar-item: ${child.nodeName}`,
-      );
+    } else if (this.nativeView) {
+      // @ts-expect-error it can be null
+      this.nativeView.view = null;
     }
   }
+
+  @native({
+    setNative: (view: ToolbarItem, _key, value) => {
+      if (view.nativeView) {
+        view.nativeView.label = value;
+      }
+    },
+  })
+  declare label: string;
+
+  @native({
+    setNative: (view: ToolbarItem, _key, value) => {
+      if (view.nativeView) {
+        view.nativeView.paletteLabel = value;
+      }
+    },
+  })
+  declare paletteLabel: string;
+
+  @native({
+    setNative: (view: ToolbarItem, _key, value) => {
+      if (view.nativeView) {
+        view.nativeView.title = value;
+      }
+    },
+  })
+  declare title: string;
+
+  @native({
+    setNative: (view: ToolbarItem, _key, value) => {
+      if (view.nativeView) {
+        view.nativeView.toolTip = value;
+      }
+    },
+  })
+  declare toolTip: string;
+
+  @native({
+    setNative: (view: ToolbarItem, _key, value) => {
+      if (view.nativeView) {
+        view.nativeView.isBordered = value;
+      }
+    },
+  })
+  declare bordered: boolean;
+
+  @native({
+    setNative: (view: ToolbarItem, _key, value) => {
+      if (view.nativeView) {
+        view.nativeView.isNavigational = value;
+      }
+    },
+  })
+  declare navigational: boolean;
+
+  @native({
+    setNative: (view: ToolbarItem, _key, value) => {
+      if (view.nativeView) {
+        view.nativeView.isEnabled = value;
+      }
+    },
+  })
+  declare enabled: boolean;
 }

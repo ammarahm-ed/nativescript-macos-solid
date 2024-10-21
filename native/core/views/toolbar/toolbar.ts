@@ -1,8 +1,7 @@
-import "npm:@nativescript/macos-node-api@~0.1.1";
+import "@nativescript/macos-node-api";
 import { view } from "../decorators/view.ts";
 import { ViewBase } from "../view/view-base.ts";
 import type { ToolbarItem } from "./toolbar-item.ts";
-import { ToolbarEvent } from "../window/native-window.ts";
 import type { ToolbarToggleSidebar } from "./toolbar-toggle-sidebar.ts";
 import type { ToolbarSidebarTrackingSeparator } from "./toolbar-sidebar-tracking-separator.ts";
 
@@ -21,34 +20,6 @@ class ToolbarDelegate extends NSObject implements NSToolbarDelegate {
   }
 
   validateToolbarItem(_item: NSToolbarItem): boolean {
-    // Use this method to enable/disable toolbar items as user takes certain
-    // actions. For example, so items may not be applicable if a certain UI
-    // element is selected. This is called on your behalf. Return false if
-    // the toolbar item needs to be disabled.
-
-    // Maybe you want to not enable more actions if nothing in your app
-    // is selected. Set your condition inside this `if`.
-    // if (item.itemIdentifier == NSToolbarItem.Identifier.toolbarMoreActions) {
-    //   return true;
-    // }
-
-    // Return false (to disable) this toolbar item if we never create a
-    // titlebar accessory view. This is an example of a conditional
-    // example.
-    // if (
-    //   item.itemIdentifier ==
-    //   NSToolbarItem.Identifier.toolbarItemToggleTitlebarAccessory
-    // ) {
-    //   return self.titlebarAccessoryViewController != nil;
-    // }
-
-    // Example of returning false to demonstrate a disabled toolbar item.
-    // if (item.itemIdentifier == NSToolbarItem.Identifier.toolbarItemMoreInfo) {
-    //   return false;
-    // }
-
-    //  Feel free to add more conditions for your other toolbar items here...
-
     return true;
   }
 
@@ -58,89 +29,9 @@ class ToolbarDelegate extends NSObject implements NSToolbarDelegate {
     _flag: boolean,
   ): NSToolbarItem {
     return this.items.find((item) => item.itemIdentifier === itemIdentifier)!;
-
-    // let toolbarItem: NSToolbarItem | undefined;
-    // switch (itemIdentifier) {
-    //   case "view": {
-    //     const titles = ["Building", "Examples", "Credits"];
-    //     toolbarItem =
-    //       NSToolbarItemGroup.groupWithItemIdentifierTitlesSelectionModeLabelsTargetAction(
-    //         itemIdentifier,
-    //         titles,
-    //         NSToolbarItemGroupSelectionMode.SelectOne,
-    //         titles,
-    //         this,
-    //         "toolbarViewTypeDidSelectItem"
-    //       );
-    //     (toolbarItem as NSToolbarItemGroup).controlRepresentation =
-    //       NSToolbarItemGroupControlRepresentation.Automatic;
-    //     (toolbarItem as NSToolbarItemGroup).selectionMode =
-    //       NSToolbarItemGroupSelectionMode.SelectOne;
-    //     toolbarItem.label = "View";
-    //     toolbarItem.paletteLabel = "View";
-    //     toolbarItem.toolTip = "Change the selected view";
-    //     (toolbarItem as NSToolbarItemGroup).selectedIndex = 0;
-    //     break;
-    //   }
-    //   case "misc": {
-    //     const miscTitles = ["Docs", "GitHub", "Discord"];
-    //     toolbarItem =
-    //       NSToolbarItemGroup.groupWithItemIdentifierTitlesSelectionModeLabelsTargetAction(
-    //         itemIdentifier,
-    //         miscTitles,
-    //         NSToolbarItemGroupSelectionMode.Momentary,
-    //         miscTitles,
-    //         this,
-    //         "toolbarMiscDidSelectItem"
-    //       );
-    //     (toolbarItem as NSToolbarItemGroup).controlRepresentation =
-    //       NSToolbarItemGroupControlRepresentation.Automatic;
-    //     (toolbarItem as NSToolbarItemGroup).selectionMode =
-    //       NSToolbarItemGroupSelectionMode.Momentary;
-    //     toolbarItem.label = "Learn More";
-    //     toolbarItem.paletteLabel = "Learn More";
-    //     toolbarItem.toolTip = "Continue your learning";
-    //     break;
-    //   }
-    //   default: {
-    //     toolbarItem =
-    //       NSToolbarItem.alloc().initWithItemIdentifier(itemIdentifier);
-    //     break;
-    //   }
-    // }
-
-    // return toolbarItem;
   }
-
-  toolbarViewTypeDidSelectItem(sender: NSToolbarItemGroup) {
-    const owner = this._owner?.deref();
-    if (owner) {
-      owner.dispatchEvent(new ToolbarEvent(sender.selectedIndex));
-    }
-  }
-
-  // toolbarMiscDidSelectItem(sender: NSToolbarItemGroup) {
-  //   console.log(
-  //     `toolbarMiscDidSelectItem selected index: ${sender.selectedIndex}`
-  //   );
-  //   switch (sender.selectedIndex) {
-  //     case 0:
-  //       this.openDocs();
-  //       break;
-  //     case 1:
-  //       this.openGitHub();
-  //       break;
-  //     case 2:
-  //       this.openDiscord();
-  //       break;
-  //   }
-  // }
 
   toolbarDefaultItemIdentifiers(_toolbar: NSToolbar): NSArray {
-    console.log(
-      "toolbarDefaultItemIdentifiers",
-      this.items.map((item) => item.itemIdentifier),
-    );
     return this.items.map((item) => item.itemIdentifier) as any;
   }
 
@@ -154,6 +45,8 @@ class ToolbarDelegate extends NSObject implements NSToolbarDelegate {
   tagName: "toolbar",
 })
 export class Toolbar extends ViewBase {
+  _isEnabled: boolean = false;
+
   override nativeView?: NSToolbar = undefined;
 
   toolbarDelegate?: ToolbarDelegate;
@@ -177,12 +70,12 @@ export class Toolbar extends ViewBase {
   public addNativeChild(
     child: ToolbarItem | ToolbarToggleSidebar | ToolbarSidebarTrackingSeparator,
   ): void {
-    console.log(child.nativeView);
     if (
       child.nodeName === "TOOLBAR-ITEM" ||
       child.nodeName === "TOOLBAR-TOGGLE-SIDEBAR" ||
       child.nodeName === "TOOLBAR-SIDEBAR-TRACKING-SEPARATOR" ||
-      child.nodeName === "TOOLBAR-FLEXIBLE-SPACE"
+      child.nodeName === "TOOLBAR-FLEXIBLE-SPACE" ||
+      child.nodeName === "TOOLBAR-GROUP"
     ) {
       this.toolbarDelegate!.items.push(child.nativeView!);
       this.reloadToolbar();
@@ -198,7 +91,8 @@ export class Toolbar extends ViewBase {
       child.nodeName === "TOOLBAR-ITEM" ||
       child.nodeName === "TOOLBAR-TOGGLE-SIDEBAR" ||
       child.nodeName === "TOOLBAR-SIDEBAR-TRACKING-SEPARATOR" ||
-      child.nodeName === "TOOLBAR-FLEXIBLE-SPACE"
+      child.nodeName === "TOOLBAR-FLEXIBLE-SPACE" ||
+      child.nodeName === "TOOLBAR-GROUP"
     ) {
       const index = this.toolbarDelegate!.items.indexOf(child.nativeView!);
       if (index !== -1) {
