@@ -87,6 +87,11 @@ export const sidebarItemsData: Array<Array<SidebarItem>> = [
         },
         {
           id: crypto.randomUUID(),
+          icon: "checklist.unchecked",
+          title: "RadioButton",
+        },
+        {
+          id: crypto.randomUUID(),
           icon: "checkmark.circle.fill",
           title: "Save Dialog",
         },
