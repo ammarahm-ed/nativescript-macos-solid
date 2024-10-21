@@ -143,6 +143,8 @@ interface ToolbarToggleSidebarAttributes {}
 
 interface ToolbarFlexibleSpaceAttributes {}
 
+interface ToolbarSpaceAttributes {}
+
 interface ToolbarAttributes {
   [name: string]: any;
 }
@@ -172,6 +174,7 @@ interface JSXIntrinsicElements {
   "toolbar-toggle-sidebar": ToolbarToggleSidebarAttributes;
   "toolbar-flexible-space": ToolbarFlexibleSpaceAttributes;
   "toolbar-group": ToolbarGroupAttributes;
+  "toolbar-space": ToolbarSpaceAttributes;
 }
 
 export namespace JSX {

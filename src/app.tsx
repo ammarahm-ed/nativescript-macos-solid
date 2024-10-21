@@ -53,7 +53,7 @@ function App() {
           onSelected={(event) => changeToolbar(event.selectedIndex)}
         />
 
-        <toolbar-flexible-space />
+        <toolbar-item />
 
         <toolbar-group
           selectionMode="momentary"
