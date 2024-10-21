@@ -1,13 +1,52 @@
-import { Component } from "npm:solid-js";
+import { Component, Show, createEffect } from "npm:solid-js";
+import { openFileDialog } from "../native/core/dialogs/file/file-dialog.ts";
 import type { WebView } from "../native/core/views/webview/webview.ts";
-import { currentSnippet, setCurrentSnippet } from "./state.tsx";
-import { createEffect } from "npm:solid-js";
+import {
+  currentSnippet,
+  setCurrentSnippet,
+  chosenFiles,
+  setChosenFiles,
+} from "./state.tsx";
 
 interface SnippetProps {
   type: string | undefined;
 }
 const url = `file://${Deno.cwd()}/snippets/dist/index.html`;
 let webRef: WebView;
+
+function promptFileDialog() {
+  openFileDialog({
+    chooseFiles: true,
+    chooseDirectories: false,
+    multiple: true,
+    fileTypes: [
+      "txt",
+      "md",
+      "pdf",
+      "png",
+      "jpg",
+      "jpeg",
+      "doc",
+      "docx",
+      "xls",
+      "xlsx",
+      "ppt",
+      "pptx",
+      "zip",
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+    ],
+  }).then((urls) => {
+    console.log("Chosen files", urls);
+    createEffect(() => {
+      setChosenFiles(urls.join("\n"));
+    });
+  }).catch(err => {
+    console.error(err);
+  })
+}
 
 function updateSnippetJSX(type: string | undefined) {
   switch (type) {
@@ -49,6 +88,43 @@ function updateSnippetJSX(type: string | undefined) {
             console.log("ComboBox change", comboItems[event.index]);
           }}
         ></combobox>
+      );
+      break;
+    case "filedialog":
+      setCurrentSnippet(
+        <view
+          style={{
+            width: "100%",
+            height: "100%",
+          }}
+        >
+          <button
+            style={{
+              width: 100,
+              height: 75,
+              backgroundColor: "blue",
+              color: "white",
+            }}
+            onClick={(_event) => {
+              promptFileDialog();
+            }}
+          >
+            Open File Dialog...
+          </button>
+          <view>
+            <Show when={chosenFiles()}>
+              <text
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  padding: 50,
+                }}
+              >
+                {chosenFiles()}
+              </text>
+            </Show>
+          </view>
+        </view>
       );
       break;
     case "image":
