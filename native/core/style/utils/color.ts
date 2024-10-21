@@ -1,4 +1,4 @@
-import "npm:@nativescript/macos-node-api@~0.1.1";
+import "@nativescript/macos-node-api";
 
 export const colors = {
   Transparent: 0x00000000,
@@ -323,7 +323,7 @@ export class Color {
     let idx;
     if (
       (idx = colorNames.findIndex(
-        (c) => c.toLowerCase() === name.toLowerCase()
+        (c) => c.toLowerCase() === name.toLowerCase(),
       )) !== -1
     ) {
       const prop = colorNames[idx];
@@ -339,7 +339,7 @@ export class Color {
       this.red,
       this.green,
       this.blue,
-      this.alpha
+      this.alpha,
     );
   }
 
@@ -349,8 +349,8 @@ export class Color {
     this.blue = color.blueComponent;
     this.alpha = color.alphaComponent;
 
-    return `rgba(${this.red * 255}, ${this.green * 255}, ${this.blue * 255}, ${
-      this.alpha
-    })`;
+    return `rgba(${this.red * 255}, ${this.green * 255}, ${
+      this.blue * 255
+    }, ${this.alpha})`;
   }
 }

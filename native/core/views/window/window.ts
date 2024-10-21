@@ -4,7 +4,7 @@ import { native } from "../decorators/native.ts";
 import { overrides } from "../decorators/overrides.ts";
 import { view } from "../decorators/view.ts";
 import { ViewBase } from "../view/view-base.ts";
-import { NativeWindow, MainWindowController } from "./native-window.ts";
+import { MainWindowController, NativeWindow } from "./native-window.ts";
 
 @view({
   name: "HTMLWindowElement",
@@ -32,7 +32,16 @@ export class Window extends ViewBase {
     }
 
     this.nativeView.appWindow = this;
-    this.mainWindowCtrl.configureToolbar();
+
+    // The toolbar style is best set to .automatic
+    // But it appears to go as .unifiedCompact if
+    // you set as .automatic and titleVisibility as
+    // .hidden
+    this.nativeView.toolbarStyle = NSWindowToolbarStyle.Automatic;
+
+    // Set this property to .hidden to gain more toolbar space
+    this.nativeView.titleVisibility = NSWindowTitleVisibility.Visible;
+
     this.nativeView.delegate = this.nativeView;
     return this.nativeView;
   }
@@ -86,23 +95,32 @@ export class Window extends ViewBase {
   }
 
   insertBefore<T extends Node>(node: T, child: Node | null): T {
-    if (!this.firstChild) {
-      super.insertBefore(node, child);
-    } else {
-      throw new Error("Window can only have one child");
-    }
+    // if (!this.firstChild) {
+    super.insertBefore(node, child);
+    // } else {
+    //   throw new Error("Window can only have one child");
+    // }
     return node;
   }
 
   public addNativeChild(child: ViewBase): void {
     if (this.nativeView) {
-      this.nativeView.contentViewController.view.addSubview(child.nativeView);
+      if (child.nodeName === "TOOLBAR") {
+        this.nativeView.toolbar = child.nativeView;
+      } else {
+        this.nativeView.contentViewController.view.addSubview(child.nativeView);
+      }
     }
   }
 
   public removeNativeChild(child: ViewBase): void {
     if (this.nativeView) {
-      child.nativeView.removeFromSuperview();
+      if (child.nodeName === "TOOLBAR") {
+        // @ts-expect-error it can be null
+        this.nativeView.toolbar = null;
+      } else {
+        child.nativeView.removeFromSuperview();
+      }
     }
   }
 
@@ -123,6 +141,15 @@ export class Window extends ViewBase {
     },
   })
   declare title: string;
+
+  @native({
+    setNative(view: Window, _key, value: string) {
+      if (view.nativeView) {
+        view.nativeView.subtitle = value;
+      }
+    },
+  })
+  declare subtitle: string;
 
   @overrides("backgroundColor")
   onSetBackgroundColor(_key: string, value: any) {

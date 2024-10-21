@@ -312,6 +312,9 @@ export class ViewBase extends HTMLElement {
         child.connectedCallback?.();
       }
     }
+
+    this.setNativeProperties();
+
     /**
      * Some views might not want to attach to the parent native view.
      * For example, the window element.
@@ -322,7 +325,6 @@ export class ViewBase extends HTMLElement {
       (this.parentNode as any).addNativeChild(this);
     }
 
-    this.setNativeProperties();
     if (this.pauseLayoutUpdates) {
       this.pauseLayoutUpdates = false;
       // If parentHasUpdatesPaused is true, some parent has paused layout updates, so we don't need to layout now.

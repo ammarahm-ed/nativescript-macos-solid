@@ -1,4 +1,4 @@
-import "npm:@nativescript/macos-node-api@~0.1.1";
+import "@nativescript/macos-node-api";
 import { Event } from "../../dom/dom-utils.ts";
 import type { ComboBox } from "./combobox.ts";
 
@@ -11,10 +11,8 @@ export class ComboBoxChangeEvent extends Event {
 }
 
 @NativeClass
-export class NativeComboBoxDelegate
-  extends NSObject
-  implements NSComboBoxDelegate
-{
+export class NativeComboBoxDelegate extends NSObject
+  implements NSComboBoxDelegate {
   static ObjCProtocols = [NSComboBoxDelegate];
 
   declare _owner: WeakRef<NativeComboBox>;
@@ -55,7 +53,7 @@ export class NativeComboBox extends NSComboBox {
     this.addItemsWithObjectValues(items);
     const owner = this._owner?.deref();
     if (owner) {
-      if (typeof owner.selectedIndex === 'number') {
+      if (typeof owner.selectedIndex === "number") {
         this.selectItemAtIndex(owner.selectedIndex);
       }
     }
