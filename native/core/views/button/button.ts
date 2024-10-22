@@ -31,14 +31,13 @@ export class Button extends TextBase {
   }
 
   public override initNativeView(): NativeButton {
-    this.nativeView = NativeButton.new();
+    this.nativeView = NativeButton.initWithOwner(new WeakRef(this));
     return this.nativeView;
   }
 
   public override prepareNativeView(nativeView: NativeButton): void {
     nativeView.target = this.nativeView;
     nativeView.action = "clicked";
-    nativeView.button = this;
     nativeView.bezelStyle = NSBezelStyle.Recessed;
   }
 

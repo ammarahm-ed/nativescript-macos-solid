@@ -22,10 +22,16 @@ import { ToolbarSidebarTrackingSeparator } from "../views/toolbar/toolbar-sideba
 import { ToolbarFlexibleSpace } from "../views/toolbar/toolbar-flexible-space.ts";
 import { ToolbarGroup } from "../views/toolbar/toolbar-group.ts";
 import { RadioButton } from "../views/radiobutton/radiobutton.ts";
+import { FileOpenButton } from "../views/fileopenbutton/fileopenbutton.ts";
+import { ColorOpenButton } from "../views/coloropenbutton/coloropenbutton.ts";
+import { FileSaveButton } from "../views/filesavebutton/filesavebutton.ts";
 Button.register();
 Checkbox.register();
+ColorOpenButton.register();
 ComboBox.register();
 ContentList.register();
+FileOpenButton.register();
+FileSaveButton.register();
 Image.register();
 Outline.register();
 Progress.register();
