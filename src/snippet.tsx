@@ -1,8 +1,4 @@
 import { Component, Show, createEffect } from "npm:solid-js";
-import {
-  openFileDialog,
-  saveFileDialog,
-} from "../native/core/dialogs/file/file-dialog.ts";
 import type { WebView } from "../native/core/views/webview/webview.ts";
 import {
   currentSnippet,
@@ -11,6 +7,8 @@ import {
   setChosenFiles,
   saveFilePath,
   setSaveFilePath,
+  chosenColor,
+  setChosenColor,
 } from "./state.tsx";
 import type { ButtonClickEvent } from "../native/core/views/button/native-button.ts";
 
@@ -19,77 +17,6 @@ interface SnippetProps {
 }
 const url = `file://${Deno.cwd()}/snippets/dist/index.html`;
 let webRef: WebView;
-
-function promptFileDialog() {
-  openFileDialog({
-    chooseFiles: true,
-    chooseDirectories: false,
-    multiple: true,
-    fileTypes: [
-      "txt",
-      "md",
-      "pdf",
-      "png",
-      "jpg",
-      "jpeg",
-      "doc",
-      "docx",
-      "xls",
-      "xlsx",
-      "ppt",
-      "pptx",
-      "zip",
-      "ts",
-      "tsx",
-      "js",
-      "jsx",
-    ],
-  })
-    .then((urls) => {
-      console.log("Chosen files", urls);
-      createEffect(() => {
-        setChosenFiles(urls.join("\n"));
-      });
-    })
-    .catch((err) => {
-      console.error(err);
-    });
-}
-
-function promptSaveFileDialog() {
-  saveFileDialog({
-    createDirectories: true,
-    filename: "newfile.txt",
-    fileTypes: [
-      "txt",
-      "md",
-      "pdf",
-      "png",
-      "jpg",
-      "jpeg",
-      "doc",
-      "docx",
-      "xls",
-      "xlsx",
-      "ppt",
-      "pptx",
-      "zip",
-      "ts",
-      "tsx",
-      "js",
-      "jsx",
-    ],
-  })
-    .then((url) => {
-      console.log("Save file", url);
-      createEffect(() => {
-        setSaveFilePath(url);
-      });
-    })
-    .catch((err) => {
-      console.error(err);
-    });
-}
 
 function updateSnippetJSX(type: string | undefined) {
   switch (type) {
@@ -133,7 +60,49 @@ function updateSnippetJSX(type: string | undefined) {
         ></combobox>
       );
       break;
-    case "filedialog":
+    case "image":
+      setCurrentSnippet(
+        <image
+          style={{
+            width: 100,
+            height: 100,
+            borderRadius: 10,
+          }}
+          stretch="aspectFit"
+          src="https://www.solidjs.com/img/logo/without-wordmark/logo.jpg"
+        ></image>
+      );
+      break;
+    case "open color dialog":
+      setCurrentSnippet(
+        <view
+          style={{
+            width: "100%",
+            height: "100%",
+            backgroundColor: chosenColor(),
+          }}
+        >
+          <coloropenbutton
+            style={{
+              width: 100,
+              height: 75,
+              backgroundColor: "blue",
+              color: "white",
+            }}
+            options={{
+              change: (color) => {
+                createEffect(() => {
+                  setChosenColor(color);
+                });
+              },
+            }}
+          >
+            Open Color Dialog
+          </coloropenbutton>
+        </view>
+      );
+      break;
+    case "open file dialog":
       setCurrentSnippet(
         <view
           style={{
@@ -141,19 +110,40 @@ function updateSnippetJSX(type: string | undefined) {
             height: "100%",
           }}
         >
-          <button
-            style={{
-              width: 100,
-              height: 75,
-              backgroundColor: "blue",
-              color: "white",
+          <fileopenbutton
+            options={{
+              chooseFiles: true,
+              chooseDirectories: false,
+              multiple: true,
+              fileTypes: [
+                "txt",
+                "md",
+                "pdf",
+                "png",
+                "jpg",
+                "jpeg",
+                "doc",
+                "docx",
+                "xls",
+                "xlsx",
+                "ppt",
+                "pptx",
+                "zip",
+                "ts",
+                "tsx",
+                "js",
+                "jsx",
+              ],
             }}
-            onClick={(_event) => {
-              promptFileDialog();
+            onFileChosen={(event) => {
+              console.log("Chosen files", event.paths);
+              createEffect(() => {
+                setChosenFiles(event.paths?.join("\n"));
+              });
             }}
           >
             Open File Dialog...
-          </button>
+          </fileopenbutton>
           <view>
             <Show when={chosenFiles()}>
               <text
@@ -168,19 +158,6 @@ function updateSnippetJSX(type: string | undefined) {
             </Show>
           </view>
         </view>
-      );
-      break;
-    case "image":
-      setCurrentSnippet(
-        <image
-          style={{
-            width: 100,
-            height: 100,
-            borderRadius: 10,
-          }}
-          stretch="aspectFit"
-          src="https://www.solidjs.com/img/logo/without-wordmark/logo.jpg"
-        ></image>
       );
       break;
     case "progress":
@@ -220,7 +197,7 @@ function updateSnippetJSX(type: string | undefined) {
         </view>
       );
       break;
-    case "save dialog":
+    case "save file dialog":
       setCurrentSnippet(
         <view
           style={{
@@ -228,19 +205,27 @@ function updateSnippetJSX(type: string | undefined) {
             height: "100%",
           }}
         >
-          <button
+          <filesavebutton
             style={{
               width: 100,
               height: 75,
               backgroundColor: "blue",
               color: "white",
             }}
-            onClick={(_event) => {
-              promptSaveFileDialog();
+            options={{
+              filename: "sample.txt",
+              fileTypes: ["txt"],
+              createDirectories: true,
+            }}
+            onFileSave={(event) => {
+              console.log("Save file", event.path);
+              createEffect(() => {
+                setSaveFilePath(event.path);
+              });
             }}
           >
             Save File
-          </button>
+          </filesavebutton>
           <view>
             <Show when={saveFilePath()}>
               <text

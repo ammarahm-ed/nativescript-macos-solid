@@ -1,5 +1,6 @@
 import "@nativescript/macos-node-api";
 import { Event } from "../../dom/dom-utils.ts";
+import type { Button } from "./button.ts";
 
 export class ButtonClickEvent extends Event {
   declare state?: boolean;
@@ -16,14 +17,21 @@ export class NativeButton extends NSButton {
   _attributedTitle?: NSMutableAttributedString;
   _color?: NSColor;
   _title?: string;
+  _owner?: WeakRef<Button>;
   static {
     NativeClass(this);
   }
-
-  public button?: HTMLViewBaseElement;
+  static initWithOwner(owner: WeakRef<Button>) {
+    const button = NativeButton.new();
+    button._owner = owner;
+    return button;
+  }
 
   clicked(_id: this) {
-    this.button?.dispatchEvent(new ButtonClickEvent(this.state === NSOnState));
+    const owner = this._owner?.deref();
+    if (owner) {
+      owner.dispatchEvent(new ButtonClickEvent(this.state === NSOnState));
+    }
   }
 
   setTitle(title: string) {

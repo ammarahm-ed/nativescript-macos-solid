@@ -1,4 +1,4 @@
-interface FileDialogOptions {
+export interface FileDialogOptions {
   chooseFiles?: boolean;
   chooseDirectories?: boolean;
   multiple?: boolean;
@@ -6,7 +6,7 @@ interface FileDialogOptions {
   directoryUrl?: NSURL;
 }
 let fileDialog: NSOpenPanel;
-interface SaveFileDialogOptions {
+export interface SaveFileDialogOptions {
   createDirectories?: boolean;
   filename?: string;
   fileTypes?: Array<string>;

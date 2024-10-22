@@ -15,12 +15,15 @@ export const [isSnippetActive, setIsSnippetActive] =
 export const [currentSnippet, setCurrentSnippet] = createSignal<JSX.Element>(
   <></>
 );
-export const [chosenFiles, setChosenFiles] = createSignal<
-  string | undefined
->("");
-export const [saveFilePath, setSaveFilePath] = createSignal<
-  string | undefined
->("");
+export const [chosenFiles, setChosenFiles] = createSignal<string | undefined>(
+  ""
+);
+export const [saveFilePath, setSaveFilePath] = createSignal<string | undefined>(
+  ""
+);
+export const [chosenColor, setChosenColor] = createSignal<string | undefined>(
+  "#ccc"
+);
 
 interface SidebarBaseItem {
   id: string;
@@ -72,13 +75,18 @@ export const sidebarItemsData: Array<Array<SidebarItem>> = [
         },
         {
           id: crypto.randomUUID(),
-          icon: "filemenu.and.cursorarrow",
-          title: "FileDialog",
+          icon: "photo",
+          title: "Image",
         },
         {
           id: crypto.randomUUID(),
-          icon: "photo",
-          title: "Image",
+          icon: "rainbow",
+          title: "Open Color Dialog",
+        },
+        {
+          id: crypto.randomUUID(),
+          icon: "filemenu.and.cursorarrow",
+          title: "Open File Dialog",
         },
         {
           id: crypto.randomUUID(),
@@ -93,7 +101,7 @@ export const sidebarItemsData: Array<Array<SidebarItem>> = [
         {
           id: crypto.randomUUID(),
           icon: "checkmark.circle.fill",
-          title: "Save Dialog",
+          title: "Save File Dialog",
         },
         {
           id: crypto.randomUUID(),
