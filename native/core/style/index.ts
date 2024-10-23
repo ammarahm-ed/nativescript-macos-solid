@@ -110,7 +110,6 @@ export interface ViewStyle extends FlexStyle {
   borderColor?: `${Lowercase<keyof typeof colors>}` | {} & string;
   borderRadius?: number;
   opacity?: number;
-
 }
 
 export interface TextStyle extends ViewStyle {

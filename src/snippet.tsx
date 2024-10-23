@@ -28,7 +28,7 @@ function updateSnippetJSX(type: string | undefined) {
           }}
         >
           Tap Me
-        </button>
+        </button>,
       );
       break;
     case "checkbox":
@@ -39,7 +39,7 @@ function updateSnippetJSX(type: string | undefined) {
           }}
         >
           Check me if you ❤️ Solid
-        </checkbox>
+        </checkbox>,
       );
       break;
     case "combobox":
@@ -50,7 +50,8 @@ function updateSnippetJSX(type: string | undefined) {
           onChange={(event) => {
             console.log("ComboBox change", comboItems[event.index]);
           }}
-        ></combobox>
+        >
+        </combobox>,
       );
       break;
     case "image":
@@ -63,7 +64,8 @@ function updateSnippetJSX(type: string | undefined) {
           }}
           stretch="aspectFit"
           src="https://www.solidjs.com/img/logo/without-wordmark/logo.jpg"
-        ></image>
+        >
+        </image>,
       );
       break;
     case "open color dialog":
@@ -92,7 +94,7 @@ function updateSnippetJSX(type: string | undefined) {
           >
             Open Color Dialog
           </coloropenbutton>
-        </view>
+        </view>,
       );
       break;
     case "open file dialog":
@@ -154,7 +156,7 @@ function updateSnippetJSX(type: string | undefined) {
               </text>
             </Show>
           </view>
-        </view>
+        </view>,
       );
       break;
     case "progress":
@@ -165,7 +167,7 @@ function updateSnippetJSX(type: string | undefined) {
             height: 20,
           }}
           indeterminate={true}
-        />
+        />,
       );
       break;
     case "radiobutton":
@@ -185,7 +187,7 @@ function updateSnippetJSX(type: string | undefined) {
           >
             Select me if you ❤️ NativeScript
           </radiobutton>
-        </view>
+        </view>,
       );
       break;
     case "save file dialog":
@@ -232,7 +234,7 @@ function updateSnippetJSX(type: string | undefined) {
               </text>
             </Show>
           </view>
-        </view>
+        </view>,
       );
       break;
     case "slider":
@@ -243,7 +245,8 @@ function updateSnippetJSX(type: string | undefined) {
           onSliderChanged={(event) => {
             console.log(event.value);
           }}
-        ></slider>
+        >
+        </slider>,
       );
       break;
     case "text":
@@ -254,7 +257,7 @@ function updateSnippetJSX(type: string | undefined) {
           }}
         >
           Hello macOS, ❤️ Solid
-        </text>
+        </text>,
       );
       break;
     case "webview":
@@ -267,7 +270,8 @@ function updateSnippetJSX(type: string | undefined) {
           onLoadFinished={(e) => {
             console.log(e.url);
           }}
-        ></webview>
+        >
+        </webview>,
       );
       break;
   }
@@ -538,7 +542,8 @@ const Snippet: Component<SnippetProps> = (props) => {
             console.log(e.url);
             updateSnippetPreview(props.type);
           }}
-        ></webview>
+        >
+        </webview>
       </view>
       <view
         style={{
