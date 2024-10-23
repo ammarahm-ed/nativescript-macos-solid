@@ -23,3 +23,17 @@ jobs:
 
       - name: Lint
         run: deno lint
+
+  test-build:
+    runs-on: macos-latest
+    steps:
+      - name: Setup repo
+        uses: actions/checkout@v2
+
+      - name: Setup Deno
+        uses: denoland/setup-deno@main
+        with:
+          deno-version: 'v2.x'
+
+      - name: Build
+        run: deno task bundle
