@@ -1,13 +1,13 @@
 /// <reference lib="dom" />
 import { render } from "../solid-native/renderer.js";
-import { For, Show, Switch, Match } from "npm:solid-js";
+import { For, Match, Show, Switch } from "npm:solid-js";
 import {
-  sidebarItems,
-  selectedView,
   activeCredit,
   changeContent,
   changeToolbar,
   selectedComponent,
+  selectedView,
+  sidebarItems,
 } from "./state.tsx";
 import Snippet from "./snippet.tsx";
 import WebDisplay from "./webdisplay.tsx";
@@ -105,13 +105,15 @@ function App() {
           </scroll-view>
         </side-bar>
 
-        {/* Requires flag above, but does not work with Show component
+        {
+          /* Requires flag above, but does not work with Show component
         <content-list style={{
           flex: 1,
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
-        }}> */}
+        }}> */
+        }
         <content-list
           style={{
             justifyContent: "center",

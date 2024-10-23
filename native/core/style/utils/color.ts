@@ -178,11 +178,11 @@ function hsvToRgb(h: number, s: number, v: number) {
   let r = 1,
     g = 1,
     b = 1;
-  let i = Math.floor(h * 6);
-  let f = h * 6 - i;
-  let p = v * (1 - s);
-  let q = v * (1 - f * s);
-  let t = v * (1 - (1 - f) * s);
+  const i = Math.floor(h * 6);
+  const f = h * 6 - i;
+  const p = v * (1 - s);
+  const q = v * (1 - f * s);
+  const t = v * (1 - (1 - f) * s);
   switch (i % 6) {
     case 0:
       (r = v), (g = t), (b = p);
@@ -223,8 +223,8 @@ function hslToRgb(h: number, s: number, l: number) {
       if (t < 2 / 3) return p + (q - p) * (2 / 3 - t) * 6;
       return p;
     };
-    let q = l < 0.5 ? l * (1 + s) : l + s - l * s;
-    let p = 2 * l - q;
+    const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+    const p = 2 * l - q;
     r = hue2rgb(p, q, h + 1 / 3);
     g = hue2rgb(p, q, h);
     b = hue2rgb(p, q, h - 1 / 3);
@@ -318,7 +318,6 @@ export class Color {
   }
 
   private parseColorName(name: string) {
-    //@ts-ignore
     const colorNames = Object.keys(colors);
     let idx;
     if (
@@ -327,8 +326,7 @@ export class Color {
       )) !== -1
     ) {
       const prop = colorNames[idx];
-      //@ts-ignore
-      this.parseIntColor(colors[prop]);
+      this.parseIntColor(colors[prop as keyof typeof colors]);
     } else {
       console.error("Unknown color name");
     }

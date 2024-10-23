@@ -1,4 +1,4 @@
-import { Show, type Component, createSignal } from "npm:solid-js";
+import { type Component, createSignal, Show } from "npm:solid-js";
 
 interface WebDisplayProps {
   url: string;
@@ -26,7 +26,8 @@ const WebDisplay: Component<WebDisplayProps> = (props) => {
         onLoadFinished={() => {
           setIsLoading(false);
         }}
-      ></webview>
+      >
+      </webview>
     </view>
   );
 };

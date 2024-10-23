@@ -6,7 +6,7 @@ export type NativePropertyConfig<T = any> = {
     view: any,
     key: string,
     value: T,
-    config: NativePropertyConfig<T>
+    config: NativePropertyConfig<T>,
   ) => void;
   getNative?: (view: any) => any;
   shouldLayout?: boolean;
@@ -54,7 +54,8 @@ export function native(config: NativePropertyConfig) {
         return getAttributeNS(this, null, property) ?? config.defaultValue;
       },
       set(value: any) {
-        const oldValue = getAttributeNS(this, null, property) ?? config.defaultValue;
+        const oldValue = getAttributeNS(this, null, property) ??
+          config.defaultValue;
 
         const hasChanged = !config.hasChanged
           ? oldValue !== value
@@ -68,10 +69,10 @@ export function native(config: NativePropertyConfig) {
 
         const pendingSetNative = function (this: any) {
           if (this[SetNativeKey]) {
-            this[SetNativeKey].call(this, property, value, config)
+            this[SetNativeKey].call(this, property, value, config);
           } else {
-            const nativeValue =
-              config.converter?.toNative?.(property, value) ?? value;
+            const nativeValue = config.converter?.toNative?.(property, value) ??
+              value;
             config.setNative(this, property, nativeValue, config);
           }
 

@@ -37,5 +37,4 @@ export class NativeColorOpenButton extends NativeButton {
         });
     }
   }
-  
 }

@@ -6,6 +6,12 @@
   },
   "importMap": "./import_map.json",
   "lint": {
+    "include": [
+      "jsx",
+      "native",
+      "scripts",
+      "src"
+    ],
     "rules": {
       "exclude": [
         "no-explicit-any",
@@ -14,6 +20,17 @@
         "ban-types"
       ]
     }
+  },
+  "fmt": {
+    "include": [
+      "jsx",
+      "native",
+      "scripts",
+      "src",
+      "deno.json",
+      "import_map.json",
+      "README.md"
+    ]
   },
   "compilerOptions": {
     "jsxImportSource": "@jsx",

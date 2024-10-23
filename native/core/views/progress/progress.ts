@@ -44,7 +44,6 @@ export class Progress extends ViewBase {
     nativeView.isIndeterminate = false;
   }
 
-
   @native(ProgressProperty)
   declare progress: number;
 
@@ -72,10 +71,9 @@ export class Progress extends ViewBase {
   @native({
     setNative(view: Progress, _key, value) {
       if (view.nativeView) {
-        view.nativeView.style =
-          value === "bar"
-            ? NSProgressIndicatorStyle.Bar
-            : NSProgressIndicatorStyle.Spinning;
+        view.nativeView.style = value === "bar"
+          ? NSProgressIndicatorStyle.Bar
+          : NSProgressIndicatorStyle.Spinning;
       }
     },
   })

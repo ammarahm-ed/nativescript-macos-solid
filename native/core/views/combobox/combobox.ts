@@ -28,7 +28,9 @@ export class ComboBox extends ViewBase {
 
   public override initNativeView(): NativeComboBox {
     this.nativeView = NativeComboBox.initWithOwner(new WeakRef(this));
-    this.delegate = NativeComboBoxDelegate.initWithOwner(new WeakRef(this.nativeView));
+    this.delegate = NativeComboBoxDelegate.initWithOwner(
+      new WeakRef(this.nativeView),
+    );
     this.nativeView.delegate = this.delegate;
     return this.nativeView;
   }

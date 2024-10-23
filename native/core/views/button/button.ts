@@ -65,7 +65,7 @@ export class Button extends TextBase {
   setBackgroundColor(
     _key: string,
     value: string,
-    _config: NativePropertyConfig<string>
+    _config: NativePropertyConfig<string>,
   ) {
     if (this.nativeView) {
       const nativeValue = !value ? undefined : new Color(value).toNSColor();
@@ -99,7 +99,12 @@ export class Button extends TextBase {
   })
   declare buttonType: number;
 
-  onMeasureFunction(width: number, widthMode: any, height: number, heightMode: any): { width: number; height: number; } {
+  onMeasureFunction(
+    width: number,
+    widthMode: any,
+    height: number,
+    heightMode: any,
+  ): { width: number; height: number } {
     return super.onMeasureFunction(width, widthMode, height, heightMode);
   }
 
