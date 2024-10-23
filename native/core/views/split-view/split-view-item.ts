@@ -134,6 +134,5 @@ export class SplitViewItem extends ViewBase {
       (this.parentNode as HTMLViewElement).nativeView?.frame.size[type] ||
       NativeScriptApplication.window.nativeView?.frame.size[type] || 0
     );
-
   }
 }

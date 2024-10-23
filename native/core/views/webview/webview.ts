@@ -79,7 +79,9 @@ class WebViewDelegate extends NSObject
   webViewDecidePolicyForNavigationActionDecisionHandler(
     _webView: WKWebView,
     navigationAction: WKNavigationAction,
-    decisionHandler: (p1: interop.Enum<typeof WKNavigationActionPolicy>) => void
+    decisionHandler: (
+      p1: interop.Enum<typeof WKNavigationActionPolicy>,
+    ) => void,
   ): void {
     const owner = this._owner?.deref();
     if (owner && navigationAction.request.URL) {
@@ -109,8 +111,8 @@ class WebViewDelegate extends NSObject
         owner.dispatchEvent(
           new LoadStartedEvent(
             navigationAction.request.URL.absoluteString,
-            navType
-          )
+            navType,
+          ),
         );
       }
     }
@@ -156,7 +158,7 @@ export class WebView extends View {
     this.nativeView.navigationDelegate = this.delegate;
     this.nativeView.configuration.preferences.setValueForKey(
       true,
-      "allowFileAccessFromFileURLs"
+      "allowFileAccessFromFileURLs",
     );
     return this.nativeView;
   }
@@ -175,7 +177,7 @@ export class WebView extends View {
       } else {
         this.nativeView.loadFileURLAllowingReadAccessToURL(
           nsUrl,
-          nsUrl.URLByDeletingLastPathComponent
+          nsUrl.URLByDeletingLastPathComponent,
         );
       }
     }
@@ -189,7 +191,7 @@ export class WebView extends View {
         if (error) {
           console.error(error);
         }
-      }
+      },
     );
   }
 

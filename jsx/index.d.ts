@@ -19,7 +19,10 @@ import type {
   ToolbarGroupSelectedEvent,
   ToolbarGroupSelectionMode,
 } from "../native/core/views/toolbar/toolbar-group.ts";
-import type { FileDialogOptions, SaveFileDialogOptions } from "../native/core/dialogs/file/file-dialog.ts";
+import type {
+  FileDialogOptions,
+  SaveFileDialogOptions,
+} from "../native/core/dialogs/file/file-dialog.ts";
 import type { FileChosenEvent } from "../native/core/views/fileopenbutton/native-fileopenbutton.ts";
 import type { FileSaveEvent } from "../native/core/views/filesavebutton/native-filesavebutton.ts";
 import type { ColorDialogOptions } from "../native/core/dialogs/color/color-dialog.ts";
@@ -191,7 +194,8 @@ interface JSXIntrinsicElements {
   radiobutton: ButtonAttributes;
   "toolbar-item": ToolbarItemAttributes;
   toolbar: ToolbarAttributes;
-  "toolbar-sidebar-tracking-separator": ToolbarSidebarTrackingSeparatorAttributes;
+  "toolbar-sidebar-tracking-separator":
+    ToolbarSidebarTrackingSeparatorAttributes;
   "toolbar-toggle-sidebar": ToolbarToggleSidebarAttributes;
   "toolbar-flexible-space": ToolbarFlexibleSpaceAttributes;
   "toolbar-group": ToolbarGroupAttributes;
@@ -208,22 +212,22 @@ export namespace JSX {
   }
 
   export function mapElementTag<K extends keyof IntrinsicElements>(
-    tag: K
+    tag: K,
   ): IntrinsicElements[K];
 
   export function createElement<
     Element extends IntrinsicElements,
-    Key extends keyof IntrinsicElements
+    Key extends keyof IntrinsicElements,
   >(element: Key | undefined | null, attrs: Element[Key]): Element[Key];
 
   export function createElement<
     Element extends IntrinsicElements,
     Key extends keyof IntrinsicElements,
-    T
+    T,
   >(
     element: Key | undefined | null,
     attrsEnhancers: T,
-    attrs: Element[Key] & T
+    attrs: Element[Key] & T,
   ): Element[Key];
 
   export type Element = SolidJSX.Element;
@@ -266,22 +270,22 @@ declare global {
     }
 
     export function mapElementTag<K extends keyof IntrinsicElements>(
-      tag: K
+      tag: K,
     ): IntrinsicElements[K];
 
     export function createElement<
       Element extends IntrinsicElements,
-      Key extends keyof IntrinsicElements
+      Key extends keyof IntrinsicElements,
     >(element: Key | undefined | null, attrs: Element[Key]): Element[Key];
 
     export function createElement<
       Element extends IntrinsicElements,
       Key extends keyof IntrinsicElements,
-      T
+      T,
     >(
       element: Key | undefined | null,
       attrsEnhancers: T,
-      attrs: Element[Key] & T
+      attrs: Element[Key] & T,
     ): Element[Key];
 
     export type Element = SolidJSX.Element;

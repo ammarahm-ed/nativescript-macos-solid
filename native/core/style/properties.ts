@@ -5,7 +5,7 @@ import { Layout } from "../layout/index.ts";
 
 export function BackgroundColorNativeSet(
   style: Style,
-  key: string,
+  _key: string,
   value: CGColor,
 ) {
   if (!style.node.nativeView) return;
@@ -22,13 +22,13 @@ export const BackgroundColorStyle: StylePropertyConfig = {
   setNative: BackgroundColorNativeSet,
   defaultValue: undefined,
   converter: {
-    toNative: (key, value) => {
+    toNative: (_key, value) => {
       return !value ? value : new Color(value).toNSColor().CGColor;
     },
   },
 };
 
-export function ZIndexNativeSet(style: Style, key: string, value: any) {
+export function ZIndexNativeSet(style: Style, _key: string, value: any) {
   if (!style.node.nativeView) return;
   const nativeView = style.node.nativeView as NSView;
   nativeView.wantsLayer = true;
@@ -40,7 +40,7 @@ export const ZIndexStyle: StylePropertyConfig = {
   shouldLayout: true,
 };
 
-export function FontSizeNativeSet(style: Style, key: string, value: any) {
+export function FontSizeNativeSet(style: Style, _key: string, value: any) {
   if (!style.node.nativeView) return;
   const nativeView = style.node.nativeView as NSText;
   nativeView.font = nativeView.font.fontWithSize(value);
@@ -51,7 +51,7 @@ export const FontSizeStyle: StylePropertyConfig = {
   shouldLayout: true,
 };
 
-export function ColorNativeSet(style: Style, key: string, value: NSColor) {
+export function ColorNativeSet(style: Style, _key: string, value: NSColor) {
   if (!style.node.nativeView) return;
   const nativeView = style.node.nativeView as NSText;
   nativeView.textColor = value;
@@ -60,11 +60,11 @@ export function ColorNativeSet(style: Style, key: string, value: NSColor) {
 export const ColorStyle: StylePropertyConfig = {
   setNative: ColorNativeSet,
   converter: {
-    toNative: (key, value) => (!value ? value : new Color(value).toNSColor()),
+    toNative: (_key, value) => (!value ? value : new Color(value).toNSColor()),
   },
 };
 
-export function BorderRadiusNativeSet(style: Style, key: string, value: any) {
+export function BorderRadiusNativeSet(style: Style, _key: string, value: any) {
   if (!style.node.nativeView) return;
   style.node.nativeView.wantsLayer = true;
   const nativeView = style.node.nativeView as NSView;
@@ -76,7 +76,7 @@ export const BorderRadiusStyle: StylePropertyConfig = {
   shouldLayout: true,
 };
 
-export function BorderColorSetNative(style: Style, key: string, value: any) {
+export function BorderColorSetNative(style: Style, _key: string, value: any) {
   if (!style.node.nativeView) return;
   style.node.nativeView.wantsLayer = true;
   const nativeView = style.node.nativeView as NSView;
@@ -86,7 +86,7 @@ export function BorderColorSetNative(style: Style, key: string, value: any) {
 export const BorderColorStyle: StylePropertyConfig = {
   setNative: BorderColorSetNative,
   converter: {
-    toNative: (key, value) =>
+    toNative: (_key, value) =>
       !value ? value : new Color(value).toNSColor().CGColor,
   },
 };
@@ -96,7 +96,7 @@ export function BorderWidthSetNative(style: Style, key: string, value: any) {
   const nativeView = style.node.nativeView as NSView;
   nativeView.wantsLayer = true;
   nativeView.layer.borderWidth = value;
-  //@ts-ignore
+  // @ts-expect-error dynamic access of setters
   Layout.Setters[key](style.node.yogaNode, value);
 }
 

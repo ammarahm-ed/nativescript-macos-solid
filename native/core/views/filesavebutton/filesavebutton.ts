@@ -1,5 +1,5 @@
 import { view } from "../decorators/view.ts";
-import type { SaveFileDialogOptions } from '../../dialogs/file/file-dialog.ts';
+import type { SaveFileDialogOptions } from "../../dialogs/file/file-dialog.ts";
 import { Button } from "../button/button.ts";
 import { NativeFileSaveButton } from "./native-filesavebutton.ts";
 

@@ -52,7 +52,7 @@ export default class SplitView extends ViewBase {
       return node;
     } else {
       throw new Error(
-        `Cannot add ${node.nodeName} as child to SplitView.SplitView can only have side-bar and content-list as children.`
+        `Cannot add ${node.nodeName} as child to SplitView.SplitView can only have side-bar and content-list as children.`,
       );
     }
   }
@@ -88,7 +88,7 @@ export default class SplitView extends ViewBase {
       parentViewController?.addChildViewController(this.viewController);
       parentViewController?.presentViewControllerAnimator(
         this.viewController,
-        this.viewController
+        this.viewController,
       );
     }
   }

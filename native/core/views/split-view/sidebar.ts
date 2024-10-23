@@ -9,7 +9,7 @@ export class SideBar extends SplitViewItem {
   public override initNativeView(): NSView {
     this.viewController = NSViewController.alloc().init();
     this.splitViewItem = NSSplitViewItem.sidebarWithViewController(
-      this.viewController
+      this.viewController,
     );
     this.nativeView = this.viewController.view;
     return this.nativeView;

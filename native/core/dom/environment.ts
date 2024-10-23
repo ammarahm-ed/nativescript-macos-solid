@@ -17,7 +17,7 @@ const {
   onSetData(_data: any) {
     if (this.parentNode) {
       let parentElement = this.parentNode;
-      while(parentElement.nodeType !== 1) {
+      while (parentElement.nodeType !== 1) {
         parentElement = parentElement.parentNode;
       }
       (parentElement as any).updateTextContent?.();
@@ -54,7 +54,9 @@ const registerGlobalDocument = (_global = globalThis) => {
 };
 
 export {
-    createDocument, createElement,
-    registerElement, registerGlobalDocument, scope
+  createDocument,
+  createElement,
+  registerElement,
+  registerGlobalDocument,
+  scope,
 };
-

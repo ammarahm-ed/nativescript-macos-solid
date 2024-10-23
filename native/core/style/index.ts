@@ -2,12 +2,12 @@
 import { FlexStyle, Layout } from "../layout/index.ts";
 import {
   BackgroundColorStyle,
+  BorderColorStyle,
+  BorderRadiusStyle,
+  BorderWidthStyle,
   ColorStyle,
   FontSizeStyle,
   ZIndexStyle,
-  BorderRadiusStyle,
-  BorderColorStyle,
-  BorderWidthStyle
 } from "./properties.ts";
 import { colors } from "./utils/color.ts";
 
@@ -16,7 +16,7 @@ export type StylePropertyConfig<T = any> = {
     style: Style,
     key: string,
     value: T,
-    config: StylePropertyConfig<T>
+    config: StylePropertyConfig<T>,
   ) => void;
   getNative?: (style: Style) => any;
   shouldLayout?: boolean;
@@ -50,7 +50,8 @@ export function style<T>(config: StylePropertyConfig<T>) {
         if (!hasChanged) return;
 
         this.set(property, value);
-        const nativeValue = config.converter?.toNative?.(property, value) ?? value;
+        const nativeValue = config.converter?.toNative?.(property, value) ??
+          value;
         const SetNativeKey = `${property}SetNative`;
 
         const pendingSetNative = function (this: Style) {
@@ -106,7 +107,6 @@ export interface ViewStyle extends FlexStyle {
   backgroundColor?: `${Lowercase<keyof typeof colors>}` | {} & string;
   borderColor?: `${Lowercase<keyof typeof colors>}` | {} & string;
   borderRadius?: number | undefined;
-
 }
 
 export interface TextStyle extends ViewStyle {
@@ -118,7 +118,6 @@ export interface TextStyle extends ViewStyle {
 export interface CombinedStyle extends ViewStyle, TextStyle {}
 
 export class Style extends Map {
-
   /**
    * Install a new style property.
    */
@@ -132,14 +131,14 @@ export class Style extends Map {
 
   override set<Key extends keyof CombinedStyle>(
     key: Key,
-    value: CombinedStyle[Key]
+    value: CombinedStyle[Key],
   ): this {
     super.set(key, value);
     return this;
   }
 
   override get<Key extends keyof CombinedStyle>(
-    key: Key
+    key: Key,
   ): CombinedStyle[Key] | undefined {
     return super.get(key);
   }
@@ -361,6 +360,4 @@ export class Style extends Map {
 
   // @style(BorderColorStyle)
   // declare borderRightColor: string;
-
-
 }

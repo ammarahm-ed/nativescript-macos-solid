@@ -28,8 +28,8 @@ export function openFileDialog(options: FileDialogOptions) {
         NSSearchPathForDirectoriesInDomains(
           NSSearchPathDirectory.Desktop,
           NSSearchPathDomainMask.UserDomain,
-          true
-        ).firstObject
+          true,
+        ).firstObject,
       );
     }
 
@@ -51,7 +51,7 @@ export function saveFileDialog(options: SaveFileDialogOptions) {
   return new Promise<string | undefined>((resolve, reject) => {
     saveDialog = NSSavePanel.new();
     saveDialog.canCreateDirectories = options?.createDirectories || false;
-    saveDialog.nameFieldStringValue = options?.filename || '';
+    saveDialog.nameFieldStringValue = options?.filename || "";
     saveDialog.allowedFileTypes = options?.fileTypes || ["*"];
     if (options?.directoryUrl) {
       saveDialog.directoryURL = options.directoryUrl;
@@ -60,8 +60,8 @@ export function saveFileDialog(options: SaveFileDialogOptions) {
         NSSearchPathForDirectoriesInDomains(
           NSSearchPathDirectory.Desktop,
           NSSearchPathDomainMask.UserDomain,
-          true
-        ).firstObject
+          true,
+        ).firstObject,
       );
     }
 

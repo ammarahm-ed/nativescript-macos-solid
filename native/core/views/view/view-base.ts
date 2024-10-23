@@ -178,7 +178,7 @@ export class ViewBase extends HTMLElement {
         if ((child as any).isEnabled && (child as any).yogaNode) {
           this.yogaNode.insertChild(
             (child as any).yogaNode,
-            this.yogaNode.getChildCount()
+            this.yogaNode.getChildCount(),
           );
         }
         child = child.nextSibling;
@@ -186,7 +186,7 @@ export class ViewBase extends HTMLElement {
     } else if (node) {
       this.yogaNode.insertChild(
         (node as any).yogaNode,
-        this.yogaNode.getChildCount()
+        this.yogaNode.getChildCount(),
       );
     }
   }
@@ -208,21 +208,22 @@ export class ViewBase extends HTMLElement {
     width: number,
     widthMode: MeasureMode,
     height: number,
-    heightMode: MeasureMode
+    heightMode: MeasureMode,
   ) {
     if (this.nativeView?.sizeThatFits || this.nativeView?.sizeToFit) {
-      const constrainedWidth =
-        widthMode === MeasureMode.Undefined ? Number.MAX_VALUE : width;
-      const constrainedHeight =
-        heightMode === MeasureMode.Undefined ? Number.MAX_VALUE : height;
+      const constrainedWidth = widthMode === MeasureMode.Undefined
+        ? Number.MAX_VALUE
+        : width;
+      const constrainedHeight = heightMode === MeasureMode.Undefined
+        ? Number.MAX_VALUE
+        : height;
 
       const fittingSize = this.nativeView?.fittingSize;
-
 
       let size = this.nativeView?.sizeThatFits?.({
         width: constrainedWidth,
         height: constrainedHeight,
-      }) || fittingSize || {width: 0, height: 0};
+      }) || fittingSize || { width: 0, height: 0 };
 
       size = {
         width: Math.max(size.width, fittingSize.width),
@@ -241,7 +242,7 @@ export class ViewBase extends HTMLElement {
   measure(
     constrainedSize: number,
     measuredSize: number,
-    measureMode: MeasureMode
+    measureMode: MeasureMode,
   ) {
     let result;
     if (measureMode === MeasureMode.Exactly) {
@@ -320,8 +321,8 @@ export class ViewBase extends HTMLElement {
      * For example, the window element.
      */
     if (this.parentNode && this.shouldAttachToParentNativeView) {
-      this.viewController =
-        this.viewController || (this.parentNode as ViewBase).viewController;
+      this.viewController = this.viewController ||
+        (this.parentNode as ViewBase).viewController;
       (this.parentNode as any).addNativeChild(this);
     }
 
@@ -368,7 +369,7 @@ export class ViewBase extends HTMLElement {
   setAttributeNS(
     _namespace: string | null,
     qualifiedName: string,
-    value: string
+    value: string,
   ): void {
     //@ts-ignore
     this[qualifiedName] = value;
@@ -405,7 +406,7 @@ export class ViewBase extends HTMLElement {
       }
 
       if (this.nodeName === "WINDOW") {
-         window = this.nativeView;
+        window = this.nativeView;
       }
 
       if (window) {
@@ -418,14 +419,14 @@ export class ViewBase extends HTMLElement {
     } else {
       Layout.Setters.paddingTop(
         this.yogaNode,
-        parseInt(this.getAttribute("paddingTop") || "")
+        parseInt(this.getAttribute("paddingTop") || ""),
       );
     }
   }
 
   _safeAreaPadding: boolean = false;
   @native({
-    setNative(view, key, value) {
+    setNative(view, _key, value) {
       view._safeAreaPadding = value;
       view.applySafeAreaPaddings();
     },

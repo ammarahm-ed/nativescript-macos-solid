@@ -51,7 +51,7 @@ export function openColorDialog(options: ColorDialogOptions) {
 
 export function hexToNSColor(hex: string) {
   // Ensure that the hex string is in the format "#RRGGBB" or "RRGGBB"
-  hex = hex.replace(/^#/, '');
+  hex = hex.replace(/^#/, "");
 
   // Parse the red, green, and blue components
   var red = parseInt(hex.substring(0, 2), 16) / 255.0;
@@ -67,11 +67,11 @@ export function nsColorToHex(color: NSColor) {
   var red = color.redComponent;
   var green = color.greenComponent;
   var blue = color.blueComponent;
-  
+
   // Convert to 255 scale and then to hex
-  var r = Math.round(red * 255).toString(16).padStart(2, '0');
-  var g = Math.round(green * 255).toString(16).padStart(2, '0');
-  var b = Math.round(blue * 255).toString(16).padStart(2, '0');
+  var r = Math.round(red * 255).toString(16).padStart(2, "0");
+  var g = Math.round(green * 255).toString(16).padStart(2, "0");
+  var b = Math.round(blue * 255).toString(16).padStart(2, "0");
 
   // Return the hex color code
   return `#${r}${g}${b}`;

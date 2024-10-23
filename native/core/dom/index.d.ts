@@ -38,7 +38,7 @@ declare global {
     new (): HTMlButtonElement;
     prototype: HTMlButtonElement;
   };
-  
+
   interface HTMLScrollViewElement extends View {}
 
   var HTMLScrollViewElement: {
@@ -89,7 +89,6 @@ declare global {
   interface HTMLElementTagNameMap {
     view: HTMLViewElement;
   }
-  
 
   function registerElement(tagName: string, element: any): void;
   function createElement(tagName: string): Node;
