@@ -153,6 +153,7 @@ export class WebView extends View {
       CGRectZero,
       config,
     );
+    this.nativeView.setValueForKey(false, "drawsBackground");
     this.delegate = WebViewDelegate.initWithOwner(new WeakRef(this));
     this.nativeView.UIDelegate = this.delegate;
     this.nativeView.navigationDelegate = this.delegate;
