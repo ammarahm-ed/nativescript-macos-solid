@@ -12,7 +12,7 @@ const WebDisplay: Component<WebDisplayProps> = (props) => {
         <progress
           style={{
             width: "100%",
-            height: 20,
+            height: 13,
           }}
           indeterminate={true}
         />
