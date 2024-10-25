@@ -8,6 +8,7 @@ import {
   ColorStyle,
   FontSizeStyle,
   ZIndexStyle,
+  OpacityStyle,
 } from "./properties.ts";
 import { colors } from "./utils/color.ts";
 
@@ -106,7 +107,9 @@ export function flex() {
 export interface ViewStyle extends FlexStyle {
   backgroundColor?: `${Lowercase<keyof typeof colors>}` | {} & string;
   borderColor?: `${Lowercase<keyof typeof colors>}` | {} & string;
-  borderRadius?: number | undefined;
+  borderRadius?: number;
+  opacity?: number;
+
 }
 
 export interface TextStyle extends ViewStyle {
@@ -360,4 +363,7 @@ export class Style extends Map {
 
   // @style(BorderColorStyle)
   // declare borderRightColor: string;
+
+  @style(OpacityStyle)
+  declare opacity: ViewStyle['opacity']
 }

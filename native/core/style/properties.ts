@@ -1,7 +1,7 @@
 import "@nativescript/macos-node-api";
+import { Layout } from "../layout/index.ts";
 import type { Style, StylePropertyConfig } from "./index.ts";
 import { Color } from "./utils/color.ts";
-import { Layout } from "../layout/index.ts";
 
 export function BackgroundColorNativeSet(
   style: Style,
@@ -103,4 +103,14 @@ export function BorderWidthSetNative(style: Style, key: string, value: any) {
 export const BorderWidthStyle: StylePropertyConfig = {
   setNative: BorderWidthSetNative,
   shouldLayout: true,
+};
+
+export function OpacitySetNative(style: Style, key: string, value: any) {
+  if (!style.node.nativeView) return;
+  const nativeView = style.node.nativeView as NSView;
+  nativeView.alphaValue = value;
+}
+
+export const OpacityStyle: StylePropertyConfig = {
+  setNative: OpacitySetNative,
 };
