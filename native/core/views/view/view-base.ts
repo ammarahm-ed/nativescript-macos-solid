@@ -154,12 +154,25 @@ export class ViewBase extends HTMLElement {
       this._addYogaChild(node as any, !!child);
     }
 
-    //@ts-ignore
-    node._rootView = node.isRoot ? node : this._rootView || this;
+    this.setRootView(node);
 
     node.connectedCallback?.();
 
     return node;
+  }
+
+  private setRootView(node: any) {
+    node._rootView = node.isRoot ? node : this._rootView || this;
+    let child = node.firstChild;
+    while (child) {
+      if (child.nodeType == Node.ELEMENT_NODE) {
+        this.setRootView(child);
+      }
+      child = child.nextSibling;
+    }
+    if (node.isLeaf) {
+      node.yogaNode.markDirty();
+    }
   }
 
   private _addYogaChild(node?: Node, hasRef?: boolean) {
@@ -223,7 +236,8 @@ export class ViewBase extends HTMLElement {
       let size = this.nativeView?.sizeThatFits?.({
         width: constrainedWidth,
         height: constrainedHeight,
-      }) || fittingSize || { width: 0, height: 0 };
+      }) ||
+        fittingSize || { width: 0, height: 0 };
 
       size = {
         width: Math.max(size.width, fittingSize.width),
