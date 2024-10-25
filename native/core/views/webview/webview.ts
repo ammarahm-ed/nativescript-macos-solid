@@ -202,4 +202,13 @@ export class WebView extends View {
     },
   })
   declare src: string | URL;
+
+  @native({
+    setNative(view: WebView, _key, value) {
+      if (view?.nativeView) {
+        view.nativeView.isInspectable = value;
+      }
+    },
+  })
+  declare debug: boolean;
 }

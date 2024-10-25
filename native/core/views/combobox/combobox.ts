@@ -32,6 +32,7 @@ export class ComboBox extends ViewBase {
       new WeakRef(this.nativeView),
     );
     this.nativeView.delegate = this.delegate;
+    this.nativeView.bezelStyle = NSTextFieldBezelStyle.Rounded;
     return this.nativeView;
   }
 

@@ -23,30 +23,23 @@ function updateSnippetJSX(type: string | undefined) {
     case "button":
       setCurrentSnippet(
         <button
-          style={{
-            backgroundColor: "blue",
-            color: "white",
-          }}
           onClick={(_event) => {
             console.log("Button clicked");
           }}
         >
           Tap Me
-        </button>,
+        </button>
       );
       break;
     case "checkbox":
       setCurrentSnippet(
         <checkbox
-          style={{
-            color: "white",
-          }}
           onClick={(event) => {
             console.log("Checkbox clicked", event.state);
           }}
         >
           Check me if you ❤️ Solid
-        </checkbox>,
+        </checkbox>
       );
       break;
     case "combobox":
@@ -57,8 +50,7 @@ function updateSnippetJSX(type: string | undefined) {
           onChange={(event) => {
             console.log("ComboBox change", comboItems[event.index]);
           }}
-        >
-        </combobox>,
+        ></combobox>
       );
       break;
     case "image":
@@ -71,8 +63,7 @@ function updateSnippetJSX(type: string | undefined) {
           }}
           stretch="aspectFit"
           src="https://www.solidjs.com/img/logo/without-wordmark/logo.jpg"
-        >
-        </image>,
+        ></image>
       );
       break;
     case "open color dialog":
@@ -81,6 +72,8 @@ function updateSnippetJSX(type: string | undefined) {
           style={{
             width: "100%",
             height: "100%",
+            alignItems: "center",
+            justifyContent: "center",
             backgroundColor: chosenColor(),
           }}
         >
@@ -88,8 +81,6 @@ function updateSnippetJSX(type: string | undefined) {
             style={{
               width: 100,
               height: 75,
-              backgroundColor: "blue",
-              color: "white",
             }}
             options={{
               change: (color) => {
@@ -101,7 +92,7 @@ function updateSnippetJSX(type: string | undefined) {
           >
             Open Color Dialog
           </coloropenbutton>
-        </view>,
+        </view>
       );
       break;
     case "open file dialog":
@@ -110,6 +101,8 @@ function updateSnippetJSX(type: string | undefined) {
           style={{
             width: "100%",
             height: "100%",
+            alignItems: "center",
+            justifyContent: "center",
           }}
         >
           <fileopenbutton
@@ -152,14 +145,16 @@ function updateSnippetJSX(type: string | undefined) {
                 style={{
                   width: "100%",
                   height: "100%",
-                  padding: 50,
+                  alignItems: "center",
+                  justifyContent: "center",
+                  padding: 10,
                 }}
               >
                 {chosenFiles()}
               </text>
             </Show>
           </view>
-        </view>,
+        </view>
       );
       break;
     case "progress":
@@ -170,16 +165,13 @@ function updateSnippetJSX(type: string | undefined) {
             height: 20,
           }}
           indeterminate={true}
-        />,
+        />
       );
       break;
     case "radiobutton":
       setCurrentSnippet(
         <view>
           <radiobutton
-            style={{
-              color: "white",
-            }}
             onClick={(event: ButtonClickEvent) => {
               console.log("RadioButton clicked", event.state);
             }}
@@ -187,16 +179,13 @@ function updateSnippetJSX(type: string | undefined) {
             Select me if you ❤️ Solid
           </radiobutton>
           <radiobutton
-            style={{
-              color: "white",
-            }}
             onClick={(event: ButtonClickEvent) => {
               console.log("RadioButton clicked", event.state);
             }}
           >
             Select me if you ❤️ NativeScript
           </radiobutton>
-        </view>,
+        </view>
       );
       break;
     case "save file dialog":
@@ -205,14 +194,14 @@ function updateSnippetJSX(type: string | undefined) {
           style={{
             width: "100%",
             height: "100%",
+            alignItems: "center",
+            justifyContent: "center",
           }}
         >
           <filesavebutton
             style={{
               width: 100,
               height: 75,
-              backgroundColor: "blue",
-              color: "white",
             }}
             options={{
               filename: "sample.txt",
@@ -234,14 +223,16 @@ function updateSnippetJSX(type: string | undefined) {
                 style={{
                   width: "100%",
                   height: "100%",
-                  padding: 50,
+                  alignItems: "center",
+                  justifyContent: "center",
+                  padding: 10,
                 }}
               >
                 {saveFilePath()}
               </text>
             </Show>
           </view>
-        </view>,
+        </view>
       );
       break;
     case "slider":
@@ -252,8 +243,7 @@ function updateSnippetJSX(type: string | undefined) {
           onSliderChanged={(event) => {
             console.log(event.value);
           }}
-        >
-        </slider>,
+        ></slider>
       );
       break;
     case "text":
@@ -264,7 +254,7 @@ function updateSnippetJSX(type: string | undefined) {
           }}
         >
           Hello macOS, ❤️ Solid
-        </text>,
+        </text>
       );
       break;
     case "webview":
@@ -277,8 +267,7 @@ function updateSnippetJSX(type: string | undefined) {
           onLoadFinished={(e) => {
             console.log(e.url);
           }}
-        >
-        </webview>,
+        ></webview>
       );
       break;
   }
@@ -286,11 +275,232 @@ function updateSnippetJSX(type: string | undefined) {
   updateSnippetPreview(type);
 }
 
+function getJSXSnippetString(type: string | undefined) {
+  switch (type) {
+    case "button":
+      return `<button
+  onClick={(_event) => {
+    console.log("Button clicked");
+  }}
+>
+  Tap Me
+</button>`;
+    case "checkbox":
+      return `<checkbox
+  onClick={(event) => {
+    console.log("Checkbox clicked", event.state);
+  }}
+>
+  Check me if you ❤️ Solid
+</checkbox>`;
+    case "combobox":
+      return `<combobox
+  items={comboItems}
+  selectedIndex={0}
+  onChange={(event) => {
+    console.log("ComboBox change", comboItems[event.index]);
+  }}
+></combobox>`;
+    case "image":
+      return `<image
+  style={{
+    width: 100,
+    height: 100,
+    borderRadius: 10,
+  }}
+  stretch="aspectFit"
+  src="https://www.solidjs.com/img/logo/without-wordmark/logo.jpg"
+></image>`;
+    case "open color dialog":
+      return `<view
+  style={{
+    width: "100%",
+    height: "100%",
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: chosenColor(),
+  }}
+>
+  <coloropenbutton
+    style={{
+      width: 100,
+      height: 75,
+    }}
+    options={{
+      change: (color) => {
+        createEffect(() => {
+          setChosenColor(color);
+        });
+      },
+    }}
+  >
+    Open Color Dialog
+  </coloropenbutton>
+</view>`;
+    case "open file dialog":
+      return `<view
+  style={{
+    width: "100%",
+    height: "100%",
+    alignItems: "center",
+    justifyContent: "center",
+  }}
+>
+  <fileopenbutton
+    options={{
+      chooseFiles: true,
+      chooseDirectories: false,
+      multiple: true,
+      fileTypes: [
+        "txt",
+        "md",
+        "pdf",
+        "png",
+        "jpg",
+        "jpeg",
+        "doc",
+        "docx",
+        "xls",
+        "xlsx",
+        "ppt",
+        "pptx",
+        "zip",
+        "ts",
+        "tsx",
+        "js",
+        "jsx",
+      ],
+    }}
+    onFileChosen={(event) => {
+      console.log("Chosen files", event.paths);
+      createEffect(() => {
+        setChosenFiles(event.paths?.join("\n"));
+      });
+    }}
+  >
+    Open File Dialog...
+  </fileopenbutton>
+  <view>
+    <Show when={chosenFiles()}>
+      <text
+        style={{
+          width: "100%",
+          height: "100%",
+          alignItems: "center",
+          justifyContent: "center",
+          padding: 10,
+        }}
+      >
+        {chosenFiles()}
+      </text>
+    </Show>
+  </view>
+</view>`;
+    case "progress":
+      return `<progress
+  style={{
+    width: "100%",
+    height: 20,
+  }}
+  indeterminate={true}
+/>`;
+    case "radiobutton":
+      return `<view>
+  <radiobutton
+    onClick={(event: ButtonClickEvent) => {
+      console.log("RadioButton clicked", event.state);
+    }}
+  >
+    Select me if you ❤️ Solid
+  </radiobutton>
+  <radiobutton
+    onClick={(event: ButtonClickEvent) => {
+      console.log("RadioButton clicked", event.state);
+    }}
+  >
+    Select me if you ❤️ NativeScript
+  </radiobutton>
+</view>`;
+    case "save file dialog":
+      return `<view
+  style={{
+    width: "100%",
+    height: "100%",
+    alignItems: "center",
+    justifyContent: "center",
+  }}
+>
+  <filesavebutton
+    style={{
+      width: 100,
+      height: 75,
+    }}
+    options={{
+      filename: "sample.txt",
+      fileTypes: ["txt"],
+      createDirectories: true,
+    }}
+    onFileSave={(event) => {
+      console.log("Save file", event.path);
+      createEffect(() => {
+        setSaveFilePath(event.path);
+      });
+    }}
+  >
+    Save File
+  </filesavebutton>
+  <view>
+    <Show when={saveFilePath()}>
+      <text
+        style={{
+          width: "100%",
+          height: "100%",
+          alignItems: "center",
+          justifyContent: "center",
+          padding: 10,
+        }}
+      >
+        {saveFilePath()}
+      </text>
+    </Show>
+  </view>
+</view>`;
+    case "slider":
+      return `<slider
+  numberOfTickMarks={10}
+  allowsTickMarkValuesOnly={true}
+  onSliderChanged={(event) => {
+    console.log(event.value);
+  }}
+></slider>`;
+    case "text":
+      return `<text
+  style={{
+    padding: 50,
+  }}
+>
+  Hello macOS, ❤️ Solid
+</text>`;
+    case "webview":
+      return `<webview
+  src="https://solidjs.com"
+  onLoadStarted={(e) => {
+    console.log(e.url);
+  }}
+  onLoadFinished={(e) => {
+    console.log(e.url);
+  }}
+></webview>`;
+  }
+}
+
 function updateSnippetPreview(type: string | undefined) {
+  const data = {
+    type,
+    snippet: encodeURIComponent(getJSXSnippetString(type)?.trim() as string),
+  };
   webRef?.executeJavaScript(
-    `window.updateSnippet('${type}', '${
-      (currentSnippet() as HTMLElement)?.outerHTML
-    }')`,
+    `window.updateSnippet('${type}', '${JSON.stringify(data)}')`
   );
 }
 
@@ -313,11 +523,14 @@ const Snippet: Component<SnippetProps> = (props) => {
         style={{
           width: "100%",
           height: "50%",
+          alignItems: "center",
+          justifyContent: "center",
         }}
       >
         <webview
           ref={(el: WebView) => (webRef = el)}
           src={url}
+          debug={true}
           onLoadStarted={(e) => {
             console.log(e.url);
           }}
@@ -325,14 +538,14 @@ const Snippet: Component<SnippetProps> = (props) => {
             console.log(e.url);
             updateSnippetPreview(props.type);
           }}
-        >
-        </webview>
+        ></webview>
       </view>
       <view
         style={{
           width: "100%",
           height: "50%",
-          backgroundColor: "gray",
+          alignItems: "center",
+          justifyContent: "center",
         }}
       >
         {currentSnippet()}

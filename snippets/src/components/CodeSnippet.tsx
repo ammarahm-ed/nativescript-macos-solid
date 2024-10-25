@@ -47,7 +47,7 @@ const CodeSnippet = (props: CodeSnippetProps) => {
             )}
           </button>
         </div>
-        <pre>
+        <pre class="bg-[#383e49]">
           <code class={`language-${props.language}`}>{props.code}</code>
         </pre>
       </div>

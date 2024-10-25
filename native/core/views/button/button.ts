@@ -38,7 +38,7 @@ export class Button extends TextBase {
   public override prepareNativeView(nativeView: NativeButton): void {
     nativeView.target = this.nativeView;
     nativeView.action = "clicked";
-    nativeView.bezelStyle = NSBezelStyle.Recessed;
+    nativeView.bezelStyle = NSBezelStyle.Automatic;
   }
 
   override updateTextContent() {

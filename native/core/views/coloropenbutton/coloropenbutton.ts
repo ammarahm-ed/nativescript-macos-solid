@@ -20,6 +20,6 @@ export class ColorOpenButton extends Button {
   public override prepareNativeView(nativeView: NativeColorOpenButton): void {
     nativeView.target = this.nativeView;
     nativeView.action = "clicked";
-    nativeView.bezelStyle = NSBezelStyle.Recessed;
+    nativeView.bezelStyle = NSBezelStyle.Automatic;
   }
 }
