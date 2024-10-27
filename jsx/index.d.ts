@@ -27,6 +27,7 @@ import type { FileChosenEvent } from "../native/core/views/fileopenbutton/native
 import type { FileSaveEvent } from "../native/core/views/filesavebutton/native-filesavebutton.ts";
 import type { ColorDialogOptions } from "../native/core/dialogs/color/color-dialog.ts";
 import type { ColorChosenEvent } from "../native/core/views/coloropenbutton/native-coloropenbutton.ts";
+import type { TextChangeEvent, TextSubmitEvent } from "../native/core/views/text-field/text-field.ts";
 
 interface ViewAttributes {
   ref?: unknown | ((e: unknown) => void);
@@ -170,10 +171,25 @@ interface ToolbarAttributes {
   [name: string]: any;
 }
 
+interface TableCellAttributes extends ViewAttributes {
+  selected?: boolean;
+}
+
+interface TextFieldAttributes extends TextAttributes {
+  onTextChange?: (event: TextChangeEvent) => void;
+  onSubmit?: (event: TextSubmitEvent) => void;
+  placeholder?: string;
+  editbale?: boolean;
+  multiline?: boolean;
+}
+
+interface CheckboxAttributes extends ButtonAttributes {
+    checked?: boolean
+}
 // Define elements here
 interface JSXIntrinsicElements {
   button: ButtonAttributes;
-  checkbox: ButtonAttributes;
+  checkbox: CheckboxAttributes;
   coloropenbutton: ColorOpenButtonAttributes;
   combobox: ComboBoxAttributes;
   "content-list": SplitViewItemAttributes;
@@ -185,7 +201,7 @@ interface JSXIntrinsicElements {
   "side-bar": SplitViewItemAttributes;
   slider: SliderAttributes;
   "split-view": SplitViewAttributes;
-  "table-cell": ViewAttributes;
+  "table-cell": TableCellAttributes;
   text: TextAttributes;
   view: ViewAttributes;
   webview: WebviewAttributes;
@@ -200,6 +216,7 @@ interface JSXIntrinsicElements {
   "toolbar-flexible-space": ToolbarFlexibleSpaceAttributes;
   "toolbar-group": ToolbarGroupAttributes;
   "toolbar-space": ToolbarSpaceAttributes;
+  'text-field': TextFieldAttributes
 }
 
 export namespace JSX {

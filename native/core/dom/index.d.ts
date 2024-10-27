@@ -2,6 +2,8 @@ import { ViewBase } from "../views/view/view-base.ts";
 import { View } from "../views/view/view.ts";
 import type { Slider } from "../views/slider/slider.ts";
 import type { Progress } from "../views/progress/progress.ts";
+import type { TextField } from "../views/text-field/text-field.ts";
+import type { Checkbox } from "../views/checkbox/checkbox.ts";
 
 declare global {
   // undom
@@ -85,6 +87,19 @@ declare global {
     new (): HTMLProgressElement;
     prototype: HTMLProgressElement;
   };
+
+  interface HTMLTextFieldElement extends TextField {}
+  var HTMLTextFieldElement: {
+    new (): HTMLTextFieldElement;
+    prototype: HTMLTextFieldElement;
+  };
+
+  interface HTMLCheckboxElement extends Checkbox {}
+  var HTMLCheckboxElement: {
+    new (): HTMLCheckboxElement;
+    prototype: HTMLCheckboxElement;
+  };
+
 
   interface HTMLElementTagNameMap {
     view: HTMLViewElement;
