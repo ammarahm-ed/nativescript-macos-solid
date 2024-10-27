@@ -12,20 +12,24 @@ const [snippets, setSnippets] = createSignal([
 // @ts-ignore
 window.updateSnippet = (title: string, code: string) => {
   const data = JSON.parse(code);
-  setSnippets([{ language: "jsx", title, code: decodeURIComponent(data.snippet) }]);
+  setSnippets([
+    { language: "jsx", title, code: decodeURIComponent(data.snippet) },
+  ]);
 };
 // TESTING:
 // setTimeout(() => {
 //   const snippet = snippets()[0];
 //   window.updateSnippet(
 //     "Sample",
-//     `<button
+//     JSON.stringify({
+//       snippet: `<button
 //   onClick={(_event) => {
 //     console.log("Button clicked");
 //   }}
 // >
 //   Tap Me
-// </button>`
+// </button>`,
+//     })
 //   );
 // }, 1000);
 

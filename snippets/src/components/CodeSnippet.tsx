@@ -1,9 +1,9 @@
-import { createSignal, onMount } from 'solid-js';
-import Prism from 'prismjs';
-import 'prismjs/themes/prism-tomorrow.css';
-import 'prismjs/components/prism-javascript';
-import 'prismjs/components/prism-jsx';
-import { BiSolidCopy, BiSolidCheckCircle } from 'solid-icons/bi';
+import Prism from "prismjs";
+import "prismjs/components/prism-javascript";
+import "prismjs/components/prism-jsx";
+import { BiSolidCheckCircle, BiSolidCopy } from "solid-icons/bi";
+import { createSignal, onMount } from "solid-js";
+import "./prisim-atom-dark.css";
 
 interface CodeSnippetProps {
   title: string;
@@ -25,17 +25,21 @@ const CodeSnippet = (props: CodeSnippetProps) => {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch (err) {
-      console.error('Failed to copy text: ', err);
+      console.error("Failed to copy text: ", err);
     }
   };
 
   return (
     <div class="space-y-8 max-w-lg mx-auto mt-2">
-      <div class="shadow-md rounded-lg overflow-hidden">
-        <div class="bg-gray-800 px-4 py-2 flex justify-between items-center">
-          <div class="text-lg font-semibold text-white">
-            {props.title}
-          </div>
+      <div class="rounded-lg overflow-hidden">
+        <div
+          style={{
+            // "background-color": "#1d1f21",
+            "border-bottom": "1px solid #a9a9a9",
+          }}
+          class="px-4 py-2 flex justify-between items-center"
+        >
+          <div class="text-lg font-semibold text-white">{props.title}</div>
           <button
             onClick={copyToClipboard}
             class="text-gray-300 hover:text-white focus:outline-none"
@@ -47,7 +51,7 @@ const CodeSnippet = (props: CodeSnippetProps) => {
             )}
           </button>
         </div>
-        <pre class="bg-[#383e49]">
+        <pre>
           <code class={`language-${props.language}`}>{props.code}</code>
         </pre>
       </div>

@@ -1,6 +1,9 @@
 /// <reference lib="dom" />
-import { render } from "../solid-native/renderer.js";
 import { For, Match, Show, Switch } from "npm:solid-js";
+import { render } from "../solid-native/renderer.js";
+import { Counter } from "./examples/counter.tsx";
+import { TodoMVP } from "./examples/todo.tsx";
+import Snippet from "./snippet.tsx";
 import {
   activeCredit,
   changeContent,
@@ -9,7 +12,6 @@ import {
   selectedView,
   sidebarItems,
 } from "./state.tsx";
-import Snippet from "./snippet.tsx";
 import WebDisplay from "./webdisplay.tsx";
 
 const solidLogo = `file://${Deno.cwd()}/icon/icon-512.png`;
@@ -85,7 +87,10 @@ function App() {
             minWidth: 200,
           }}
         >
-          <scroll-view>
+          <scroll-view style={{
+            width:'100%',
+            height:'100%'
+          }}>
             <outline
               onClick={(event) => {
                 changeContent(event.index);
@@ -99,7 +104,7 @@ function App() {
 
                     <For each={item.children}>
                       {(child, _index) => (
-                        <table-cell>
+                        <table-cell selected={child.title === selectedComponent()}  >
                           <image symbol={child.icon}></image>
                           <text>{child.title}</text>
                         </table-cell>
@@ -344,7 +349,15 @@ function App() {
             </Switch>
           </Show>
           <Show when={selectedView() === 1}>
-            <text>Hello</text>
+            <Switch fallback={<Counter />}>
+              <Match when={selectedComponent() === "Counter"}>
+                <Counter />
+              </Match>
+
+              <Match when={selectedComponent() === "Simple Todos"}>
+                <TodoMVP />
+              </Match>
+            </Switch>
           </Show>
           <Show when={selectedView() === 2}>
             <WebDisplay url={activeCredit()} />
