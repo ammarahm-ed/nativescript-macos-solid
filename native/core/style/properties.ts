@@ -40,11 +40,7 @@ export const ZIndexStyle: StylePropertyConfig = {
   shouldLayout: true,
 };
 
-<<<<<<< HEAD
 export function FontSizeNativeSet(style: Style, _key: string, value: number) {
-=======
-export function FontSizeNativeSet(style: Style, _key: string, value: any) {
->>>>>>> 0fc3d73 (feat: setup lint and formatting ci)
   if (!style.node.nativeView) return;
   const nativeView = style.node.nativeView as NSText;
   nativeView.font = nativeView.font.fontWithSize(value);
@@ -55,7 +51,6 @@ export const FontSizeStyle: StylePropertyConfig = {
   shouldLayout: true,
 };
 
-<<<<<<< HEAD
 export function FontStyleNativeSet(style: Style, _key: string, value: string) {
   if (!style.node.nativeView) return;
   const nativeView = style.node.nativeView as NSText;
@@ -79,8 +74,6 @@ export const FontStyleStyle: StylePropertyConfig = {
   shouldLayout: true,
 };
 
-=======
->>>>>>> 0fc3d73 (feat: setup lint and formatting ci)
 export function ColorNativeSet(style: Style, _key: string, value: NSColor) {
   if (!style.node.nativeView) return;
   const nativeView = style.node.nativeView as NSText;
