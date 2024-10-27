@@ -2,7 +2,7 @@
   "tasks": {
     "start": "deno task bundle && deno task run-native",
     "bundle": "deno run -A ./scripts/bundle-solidjs.ts \"src/app.tsx\" \"dist/out.js\"",
-    "run-native": "deno run -A --unstable-sloppy-imports ./native/index.ts"
+    "run-native": "deno run -A --unstable-sloppy-imports ./main.ts"
   },
   "importMap": "./import_map.json",
   "lint": {

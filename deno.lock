@@ -1,6 +1,21 @@
 {
   "version": "4",
   "specifiers": {
+    "jsr:@luca/esbuild-deno-loader@0.11": "0.11.0",
+    "jsr:@std/bytes@^1.0.2": "1.0.2",
+    "jsr:@std/encoding@^1.0.5": "1.0.5",
+    "jsr:@std/path@^1.0.6": "1.0.7",
+    "npm:@nativescript/foundation@*": "0.0.1-alpha.0",
+    "npm:@nativescript/foundation@0.0.1-alpha.0": "0.0.1-alpha.0",
+    "npm:@nativescript/foundation@0.0.1-alpha.1": "0.0.1-alpha.1",
+    "npm:@nativescript/foundation@0.0.1-alpha.2": "0.0.1-alpha.2",
+    "npm:@nativescript/foundation@0.0.1-alpha.3": "0.0.1-alpha.3",
+    "npm:@nativescript/foundation@0.0.1-alpha.4": "0.0.1-alpha.4",
+    "npm:@nativescript/foundation@0.0.1-alpha.5": "0.0.1-alpha.5",
+    "npm:@nativescript/foundation@0.0.1-alpha.6": "0.0.1-alpha.6",
+    "npm:@nativescript/foundation@0.0.1-alpha.7": "0.0.1-alpha.7",
+    "npm:@nativescript/foundation@0.0.1-alpha.8": "0.0.1-alpha.8",
+    "npm:@nativescript/foundation@0.0.1-alpha.9": "0.0.1-alpha.9",
     "npm:@nativescript/macos-node-api@~0.1.1": "0.1.1",
     "npm:@nativescript/macos-node-api@~0.1.2": "0.1.2",
     "npm:@types/node@*": "22.5.4",
@@ -8,6 +23,25 @@
     "npm:esbuild@*": "0.23.1",
     "npm:solid-js@*": "1.8.22_seroval@1.1.1",
     "npm:yoga-layout@*": "3.1.0"
+  },
+  "jsr": {
+    "@luca/esbuild-deno-loader@0.11.0": {
+      "integrity": "c05a989aa7c4ee6992a27be5f15cfc5be12834cab7ff84cabb47313737c51a2c",
+      "dependencies": [
+        "jsr:@std/bytes",
+        "jsr:@std/encoding",
+        "jsr:@std/path"
+      ]
+    },
+    "@std/bytes@1.0.2": {
+      "integrity": "fbdee322bbd8c599a6af186a1603b3355e59a5fb1baa139f8f4c3c9a1b3e3d57"
+    },
+    "@std/encoding@1.0.5": {
+      "integrity": "ecf363d4fc25bd85bd915ff6733a7e79b67e0e7806334af15f4645c569fefc04"
+    },
+    "@std/path@1.0.7": {
+      "integrity": "76a689e07f0e15dcc6002ec39d0866797e7156629212b28f27179b8a5c3b33a1"
+    }
   },
   "npm": {
     "@ampproject/remapping@2.3.0": {
@@ -347,6 +381,36 @@
         "@jridgewell/sourcemap-codec"
       ]
     },
+    "@nativescript/foundation@0.0.1-alpha.0": {
+      "integrity": "sha512-02PY01nBvMVF/xeZS5mKBAXFaoGQ8Zn3N90RDPouo0QGDi3LDsSUqvY1+bI7qOHKnAP+kcuUEQLZDv80pRgT/A=="
+    },
+    "@nativescript/foundation@0.0.1-alpha.1": {
+      "integrity": "sha512-PYKWD2D5qW2dDOllFYfCC+rlI7S4woG00dC/yS2E3UNuah86KUCCUxQHCXd203FFLRBoEiGCw97nEO9HGsc3hA=="
+    },
+    "@nativescript/foundation@0.0.1-alpha.2": {
+      "integrity": "sha512-+y7MmxM/NArtafhKtBm4UlDLeqreXs7uSzw9LAyMrBRKor00CA8wCMNnm1DCR1reHxwiwGoARAMLGSp14z0eNg=="
+    },
+    "@nativescript/foundation@0.0.1-alpha.3": {
+      "integrity": "sha512-4U3HFVPT3T+VOkShwub+oT8TuZdk4YBfgLNtTBEcP9tUm5icpdeuNJeI8IEK/VtoWmuQxgLcm2AZBUD9hCOpsQ=="
+    },
+    "@nativescript/foundation@0.0.1-alpha.4": {
+      "integrity": "sha512-n/yczFs/qy0th105ZEB66OT+30s9Lt8KnLcnSMv17NrqmpKyKVYpVMKSqBYFYWzcELilpZHtT2EBoDi+ikokNw=="
+    },
+    "@nativescript/foundation@0.0.1-alpha.5": {
+      "integrity": "sha512-iV9oYPuBrln0MxSii+xLtRDVw9JpKcT9akyEV6J43A8hi0OZvtm6tIiZ/Yt5iwodavgiynm/b7HLXYCN3TV+UA=="
+    },
+    "@nativescript/foundation@0.0.1-alpha.6": {
+      "integrity": "sha512-mLelAZVUryCLWsZ/S9g6vRDhy11Sl7qiJzwKbg0AZJuZ7nXi2arJ0gdPmtD9uSgbFYBgRxwfcwmrqCob7dMjaQ=="
+    },
+    "@nativescript/foundation@0.0.1-alpha.7": {
+      "integrity": "sha512-QkC6DyQ0CVBxgOY1EIeTAJ2wlwmB92/nxmeejBBb1m3azDQFE5NDpeeL8ammKT2Jg4I9ddLm4dLERLUkk5KrkQ=="
+    },
+    "@nativescript/foundation@0.0.1-alpha.8": {
+      "integrity": "sha512-ljNHr8EznR3puuwDxHqWw3lryn9VCUHkLjojmRVpEKy+KDLgFIrpwONLZ4pyprCbh+PFcnCOByDMFmdN9i4jNg=="
+    },
+    "@nativescript/foundation@0.0.1-alpha.9": {
+      "integrity": "sha512-f1xQC5JNxevmAKaVhuC9jZNj/w34LUbeDTly9qIm3qHgsI6vpVxTsIejNoSeFEhN+TMQGez3+4gQTIkswI02DQ=="
+    },
     "@nativescript/macos-node-api@0.1.1": {
       "integrity": "sha512-caJmPsb6864SJZpCYbFkO6YFy8izmuYzlnYNFO/JINoYz3MH4EAMOXCU5bWHeUABnE9BZxzbzv38uBYPgg3yMw==",
       "dependencies": [
@@ -624,6 +688,11 @@
     "https://deno.land/x/deno_cache@0.4.1/http_cache.ts": "f632e0d6ec4a5d61ae3987737a72caf5fcdb93670d21032ddb78df41131360cd",
     "https://deno.land/x/deno_cache@0.4.1/mod.ts": "ef1cda9235a93b89cb175fe648372fc0f785add2a43aa29126567a05e3e36195",
     "https://deno.land/x/deno_cache@0.4.1/util.ts": "8cb686526f4be5205b92c819ca2ce82220aa0a8dd3613ef0913f6dc269dbbcfe",
+    "https://deno.land/x/deno_graph@0.26.0/lib/deno_graph.generated.js": "2f7ca85b2ceb80ec4b3d1b7f3a504956083258610c7b9a1246238c5b7c68f62d",
+    "https://deno.land/x/deno_graph@0.26.0/lib/loader.ts": "380e37e71d0649eb50176a9786795988fc3c47063a520a54b616d7727b0f8629",
+    "https://deno.land/x/deno_graph@0.26.0/lib/media_type.ts": "222626d524fa2f9ebcc0ec7c7a7d5dfc74cc401cc46790f7c5e0eab0b0787707",
+    "https://deno.land/x/deno_graph@0.26.0/lib/snippets/deno_graph-de651bc9c240ed8d/src/deno_apis.js": "41192baaa550a5c6a146280fae358cede917ae16ec4e4315be51bef6631ca892",
+    "https://deno.land/x/deno_graph@0.26.0/mod.ts": "11131ae166580a1c7fa8506ff553751465a81c263d94443f18f353d0c320bc14",
     "https://deno.land/x/esbuild_deno_loader@0.8.1/deps.ts": "987b50a1a921fcc84ddfcf1a1256cb955f6b16acac28a3fc77901c12c0752173",
     "https://deno.land/x/esbuild_deno_loader@0.8.1/mod.ts": "28524460bef46d487221b01ade6ed913d2e127de7eeee025ab75b34b491283da",
     "https://deno.land/x/esbuild_deno_loader@0.8.1/src/deno.ts": "b0af3e430c068f18c6fa48c2083a1b4354b6c303e16fb37855e02fcafb95f36d",
