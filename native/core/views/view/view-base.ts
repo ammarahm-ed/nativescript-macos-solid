@@ -4,6 +4,7 @@ import { Layout, YogaNode, YogaNodeLayout } from "../../layout/index.ts";
 import { CombinedStyle, Style } from "../../style/index.ts";
 import { native, type NativePropertyConfig } from "../decorators/native.ts";
 import { overrides } from "../decorators/overrides.ts";
+import "../../dom/environment.ts";
 
 export class ViewBase extends HTMLElement {
   static register() {

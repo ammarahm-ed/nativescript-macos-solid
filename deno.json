@@ -1,8 +1,16 @@
 {
+  "app": {
+    "name": "Solid",
+    "version": "0.1.0",
+    "identifier": "org.nativescript.solidmacos",
+    "entryPoint": "./native/index.ts",
+    "icon": "icon.icns"
+  },
   "tasks": {
     "start": "deno task bundle && deno task run-native",
     "bundle": "deno run -A ./scripts/bundle-solidjs.ts \"src/app.tsx\" \"dist/out.js\"",
-    "run-native": "deno run -A --unstable-sloppy-imports ./native/index.ts"
+    "run-native": "deno run -A --unstable-sloppy-imports ./native/index.ts",
+    "build": "deno task bundle && deno run -A ./scripts/create-app-bundle.ts"
   },
   "importMap": "./import_map.json",
   "lint": {
@@ -33,6 +41,10 @@
     ]
   },
   "compilerOptions": {
+    "lib": [
+      "deno.window",
+      "dom"
+    ],
     "jsxImportSource": "@jsx",
     "jsx": "react-jsx",
     "experimentalDecorators": true,
