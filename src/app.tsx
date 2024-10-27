@@ -12,7 +12,7 @@ import {
 import Snippet from "./snippet.tsx";
 import WebDisplay from "./webdisplay.tsx";
 
-const solidLogo = `file://${Deno.cwd()}/icon/icon-512.png`;
+const solidLogo = import.meta.resolve("../icon.iconset/icon_512x512.png");
 
 function App() {
   return (
@@ -25,13 +25,11 @@ function App() {
         justifyContent: "center",
         alignItems: "center",
       }}
-      styleMask={
-        NSWindowStyleMask.Titled |
+      styleMask={NSWindowStyleMask.Titled |
         NSWindowStyleMask.Closable |
         NSWindowStyleMask.Miniaturizable |
         NSWindowStyleMask.Resizable |
-        NSWindowStyleMask.FullSizeContentView
-      }
+        NSWindowStyleMask.FullSizeContentView}
       transparentTitleBar={false}
     >
       <toolbar>
@@ -66,10 +64,9 @@ function App() {
                   0: "https://docs.solidjs.com",
                   1: "https://github.com/solidjs/solid",
                   2: "https://discord.gg/solidjs",
-                }[event.selectedIndex]!
-              )
-            )
-          }
+                }[event.selectedIndex]!,
+              ),
+            )}
         />
       </toolbar>
 
@@ -146,7 +143,8 @@ function App() {
                     }}
                     stretch="aspectFit"
                     src={solidLogo}
-                  ></image>
+                  >
+                  </image>
                   <text
                     style={{
                       fontSize: 20,
@@ -225,7 +223,8 @@ function App() {
                       }}
                       stretch="aspectFit"
                       src={solidLogo}
-                    ></image>
+                    >
+                    </image>
                     <text
                       style={{
                         fontSize: 18,
@@ -287,7 +286,8 @@ function App() {
                       }}
                       stretch="aspectFit"
                       src={solidLogo}
-                    ></image>
+                    >
+                    </image>
                     <text
                       style={{
                         fontSize: 18,
@@ -313,7 +313,8 @@ function App() {
                     }}
                     stretch="aspectFit"
                     src={solidLogo}
-                  ></image>
+                  >
+                  </image>
                   <text
                     style={{
                       fontSize: 20,
@@ -325,7 +326,7 @@ function App() {
                   <text
                     style={{
                       fontSize: 16,
-                      
+
                       color: "#999",
                     }}
                   >

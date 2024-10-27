@@ -7,9 +7,9 @@ import {
   BorderWidthStyle,
   ColorStyle,
   FontSizeStyle,
-  ZIndexStyle,
-  OpacityStyle,
   FontStyleStyle,
+  OpacityStyle,
+  ZIndexStyle,
 } from "./properties.ts";
 import { colors } from "./utils/color.ts";
 
@@ -369,5 +369,5 @@ export class Style extends Map {
   // declare borderRightColor: string;
 
   @style(OpacityStyle)
-  declare opacity: ViewStyle['opacity']
+  declare opacity: ViewStyle["opacity"];
 }

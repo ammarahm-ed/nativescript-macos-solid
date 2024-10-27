@@ -504,7 +504,7 @@ function updateSnippetPreview(type: string | undefined) {
     snippet: encodeURIComponent(getJSXSnippetString(type)?.trim() as string),
   };
   webRef?.executeJavaScript(
-    `window.updateSnippet('${type}', '${JSON.stringify(data)}')`
+    `window.updateSnippet('${type}', '${JSON.stringify(data)}')`,
   );
 }
 
