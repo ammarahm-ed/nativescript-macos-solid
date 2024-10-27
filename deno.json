@@ -4,7 +4,8 @@
     "version": "0.1.0",
     "identifier": "org.nativescript.solidmacos",
     "entryPoint": "./native/index.ts",
-    "icon": "icon.icns"
+    "icon": "icon.icns",
+    "assets": "./assets"
   },
   "tasks": {
     "start": "deno task bundle && deno task run-native",

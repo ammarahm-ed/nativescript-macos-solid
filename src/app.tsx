@@ -12,9 +12,11 @@ import {
 import Snippet from "./snippet.tsx";
 import WebDisplay from "./webdisplay.tsx";
 
-const solidLogo = import.meta.resolve("../icon.iconset/icon_512x512.png");
-
 function App() {
+  const solidLogo =
+    NSBundle.mainBundle?.URLForResourceWithExtension("solid", "png")?.path ??
+      import.meta.resolve("../assets/solid.png");
+
   return (
     <window
       title="Solid macOS"

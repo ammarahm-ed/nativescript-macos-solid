@@ -17,6 +17,7 @@
     "jsr:@std/streams@0.221": "0.221.0",
     "npm:@nativescript/macos-node-api@~0.1.1": "0.1.1",
     "npm:@nativescript/macos-node-api@~0.1.2": "0.1.2",
+    "npm:@swc/core@*": "1.3.91",
     "npm:@types/node@*": "22.5.4",
     "npm:esbuild-plugin-import-map@*": "2.1.0",
     "npm:esbuild-plugin-solid@*": "0.6.0_esbuild@0.23.1_solid-js@1.8.22__seroval@1.1.1_@babel+core@7.25.2",
@@ -431,6 +432,62 @@
     },
     "@nativescript/objc-node-api@1.0.0-alpha.7": {
       "integrity": "sha512-HCkKX46wmc/Oe+Td958HeRmlqKCKmzeeIm0Kofb8aU+6WqjslLK8xGj6HLQT1SyzLWNQdr3dYp7PLFixMjBymw=="
+    },
+    "@swc/core-darwin-arm64@1.3.91": {
+      "integrity": "sha512-7kHGiQ1he5khcEeJuHDmLZPM3rRL/ith5OTmV6bOPsoHi46kLeixORW+ts1opC3tC9vu6xbk16xgX0QAJchc1w=="
+    },
+    "@swc/core-darwin-x64@1.3.91": {
+      "integrity": "sha512-8SpU18FbFpZDVzsHsAwdI1thF/picQGxq9UFxa8W+T9SDnbsqwFJv/6RqKJeJoDV6qFdl2OLjuO0OL7xrp0qnQ=="
+    },
+    "@swc/core-linux-arm-gnueabihf@1.3.91": {
+      "integrity": "sha512-fOq4Cy8UbwX1yf0WB0d8hWZaIKCnPtPGguRqdXGLfwvhjZ9SIErT6PnmGTGRbQCNCIkOZWHKyTU0r8t2dN3haQ=="
+    },
+    "@swc/core-linux-arm64-gnu@1.3.91": {
+      "integrity": "sha512-fki4ioRP/Esy4vdp8T34RCV+V9dqkRmOt763pf74pdiyFV2dPLXa5lnw/XvR1RTfPGknrYgjEQLCfZlReTryRw=="
+    },
+    "@swc/core-linux-arm64-musl@1.3.91": {
+      "integrity": "sha512-XrG+DUUqNtfVLcJ20imby7fpBwQNG5VsEQBzQndSonPyUOa2YkTbBb60YDondfQGDABopuHH8gHN8o2H2/VCnQ=="
+    },
+    "@swc/core-linux-x64-gnu@1.3.91": {
+      "integrity": "sha512-d11bYhX+YPBr/Frcjc6eVn3C0LuS/9U1Li9EmQ+6s9EpYtYRl2ygSlC8eueLbaiazBnCVYFnc8bU4o0kc5B9sw=="
+    },
+    "@swc/core-linux-x64-musl@1.3.91": {
+      "integrity": "sha512-2SRp5Dke2P4jCQePkDx9trkkTstnRpZJVw5r3jvYdk0zeO6iC4+ZPvvoWXJLigqQv/fZnIiSUfJ6ssOoaEqTzQ=="
+    },
+    "@swc/core-win32-arm64-msvc@1.3.91": {
+      "integrity": "sha512-l9qKXikOxj42UIjbeZpz9xtBmr736jOMqInNP8mVF2/U+ws5sI8zJjcOFFtfis4ru7vWCXhB1wtltdlJYO2vGA=="
+    },
+    "@swc/core-win32-ia32-msvc@1.3.91": {
+      "integrity": "sha512-+s+52O0QVPmzOgjEe/rcb0AK6q/J7EHKwAyJCu/FaYO9df5ovE0HJjSKP6HAF0dGPO5hkENrXuNGujofUH9vtQ=="
+    },
+    "@swc/core-win32-x64-msvc@1.3.91": {
+      "integrity": "sha512-7u9HDQhjUC3Gv43EFW84dZtduWCSa4MgltK+Sp9zEGti6WXqDPu/ESjvDsQEVYTBEMEvZs/xVAXPgLVHorV5nQ=="
+    },
+    "@swc/core@1.3.91": {
+      "integrity": "sha512-r950d0fdlZ8qbSDyvApn3HyCojiZE8xpgJzQvypeMi32dalYwugdJKWyLB55JIGMRGJ8+lmVvY4MPGkSR3kXgA==",
+      "dependencies": [
+        "@swc/core-darwin-arm64",
+        "@swc/core-darwin-x64",
+        "@swc/core-linux-arm-gnueabihf",
+        "@swc/core-linux-arm64-gnu",
+        "@swc/core-linux-arm64-musl",
+        "@swc/core-linux-x64-gnu",
+        "@swc/core-linux-x64-musl",
+        "@swc/core-win32-arm64-msvc",
+        "@swc/core-win32-ia32-msvc",
+        "@swc/core-win32-x64-msvc",
+        "@swc/counter",
+        "@swc/types"
+      ]
+    },
+    "@swc/counter@0.1.3": {
+      "integrity": "sha512-e2BR4lsJkkRlKZ/qCHPw9ZaSxc0MVUd7gtbtaB7aMvHeJVYe8sOB8DBZkP2DtISHGSku9sCK6T6cnY0CtXrOCQ=="
+    },
+    "@swc/types@0.1.12": {
+      "integrity": "sha512-wBJA+SdtkbFhHjTMYH+dEH1y4VpfGdAc2Kw/LK09i9bXd/K6j6PkDcFCEzb6iVfZMkPRrl/q0e3toqTAJdkIVA==",
+      "dependencies": [
+        "@swc/counter"
+      ]
     },
     "@types/node@22.5.4": {
       "integrity": "sha512-FDuKUJQm/ju9fT/SeX/6+gBzoPzlVCzfzmGkwKvRHQVxi4BntVbyIwf6a4Xn62mrvndLiml6z/UBXIdEVjQLXg==",

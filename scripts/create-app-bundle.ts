@@ -2,6 +2,7 @@ import $ from "jsr:@david/dax@0.42.0";
 import { copy } from "jsr:@std/fs@1.0.4/copy";
 import { denoPlugins } from "https://deno.land/x/esbuild_deno_loader@0.8.1/mod.ts";
 import * as esbuild from "npm:esbuild";
+import { transform } from "npm:@swc/core";
 
 const {
   app,
@@ -31,7 +32,7 @@ await copy(
 
 if (app.assets) {
   await copy(
-    new URL(app.icon, new URL("../", import.meta.url)),
+    new URL(app.assets, new URL("../", import.meta.url)),
     new URL(`../dist/${app.name}.app/Contents/Resources`, import.meta.url),
   );
 } else {
@@ -121,6 +122,19 @@ await esbuild.build({
   })] as any,
   tsconfig: "deno.json",
 });
+
+const result = await transform(
+  Deno.readTextFileSync(new URL(`../dist/app.js`, import.meta.url)),
+  {
+    jsc: {
+      target: "es5",
+    },
+  },
+);
+Deno.writeTextFileSync(
+  new URL(`../dist/app.js`, import.meta.url),
+  result.code,
+);
 
 await $`deno compile -A --unstable-sloppy-imports --no-check -o ${
   new URL(`../dist/${app.name}.app/Contents/MacOS/${app.name}`, import.meta.url)

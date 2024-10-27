@@ -15,7 +15,6 @@ import type { ButtonClickEvent } from "../native/core/views/button/native-button
 interface SnippetProps {
   type: string | undefined;
 }
-const url = `file://${Deno.cwd()}/snippets/dist/index.html`;
 let webRef: WebView;
 
 function updateSnippetJSX(type: string | undefined) {
@@ -518,6 +517,10 @@ const comboItems = [
 ];
 
 const Snippet: Component<SnippetProps> = (props) => {
+  const url = NSBundle.mainBundle.bundleIdentifier
+    ? NSBundle.mainBundle.resourcePath + "/snippets/index.html"
+    : import.meta.resolve("../assets/snippets/index.html");
+
   createEffect(() => {
     updateSnippetJSX(props.type);
   });
