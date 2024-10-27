@@ -1,6 +1,9 @@
 /// <reference lib="dom" />
-import { render } from "../solid-native/renderer.js";
 import { For, Match, Show, Switch } from "npm:solid-js";
+import { render } from "../solid-native/renderer.js";
+import { Counter } from "./examples/counter.tsx";
+import { TodoMVP } from "./examples/todo.tsx";
+import Snippet from "./snippet.tsx";
 import {
   activeCredit,
   changeContent,
@@ -9,7 +12,6 @@ import {
   selectedView,
   sidebarItems,
 } from "./state.tsx";
-import Snippet from "./snippet.tsx";
 import WebDisplay from "./webdisplay.tsx";
 
 function App() {
@@ -23,11 +25,13 @@ function App() {
         justifyContent: "center",
         alignItems: "center",
       }}
-      styleMask={NSWindowStyleMask.Titled |
+      styleMask={
+        NSWindowStyleMask.Titled |
         NSWindowStyleMask.Closable |
         NSWindowStyleMask.Miniaturizable |
         NSWindowStyleMask.Resizable |
-        NSWindowStyleMask.FullSizeContentView}
+        NSWindowStyleMask.FullSizeContentView
+      }
       transparentTitleBar={false}
     >
       <toolbar>
@@ -56,13 +60,16 @@ function App() {
           paletteLabel="Learn More"
           toolTip="Continue your learning"
           onSelected={(event) =>
-            NSWorkspace.sharedWorkspace.openURL(NSURL.URLWithString(
-              ({
-                0: "https://docs.solidjs.com",
-                1: "https://github.com/solidjs/solid",
-                2: "https://discord.gg/solidjs",
-              })[event.selectedIndex]!,
-            ))}
+            NSWorkspace.sharedWorkspace.openURL(
+              NSURL.URLWithString(
+                {
+                  0: "https://docs.solidjs.com",
+                  1: "https://github.com/solidjs/solid",
+                  2: "https://discord.gg/solidjs",
+                }[event.selectedIndex]!
+              )
+            )
+          }
         />
       </toolbar>
 
@@ -78,7 +85,10 @@ function App() {
             minWidth: 200,
           }}
         >
-          <scroll-view>
+          <scroll-view style={{
+            width:'100%',
+            height:'100%'
+          }}>
             <outline
               onClick={(event) => {
                 changeContent(event.index);
@@ -92,7 +102,7 @@ function App() {
 
                     <For each={item.children}>
                       {(child, _index) => (
-                        <table-cell>
+                        <table-cell selected={child.title === selectedComponent()}  >
                           <image symbol={child.icon}></image>
                           <text>{child.title}</text>
                         </table-cell>
@@ -105,15 +115,13 @@ function App() {
           </scroll-view>
         </side-bar>
 
-        {
-          /* Requires flag above, but does not work with Show component
+        {/* Requires flag above, but does not work with Show component
         <content-list style={{
           flex: 1,
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
-        }}> */
-        }
+        }}> */}
         <content-list
           style={{
             justifyContent: "center",
@@ -140,7 +148,15 @@ function App() {
             </Switch>
           </Show>
           <Show when={selectedView() === 1}>
-            <text>Hello</text>
+            <Switch fallback={<Counter />}>
+              <Match when={selectedComponent() === "Counter"}>
+                <Counter />
+              </Match>
+
+              <Match when={selectedComponent() === "Simple Todos"}>
+                <TodoMVP />
+              </Match>
+            </Switch>
           </Show>
           <Show when={selectedView() === 2}>
             <WebDisplay url={activeCredit()} />

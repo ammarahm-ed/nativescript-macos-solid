@@ -5,26 +5,24 @@ export const [selectedContentId, setSelectedContentId] = createSignal<
   string | null
 >(null);
 const defaultCredit = "https://www.solidjs.com/contributors";
-export const [activeCredit, setActiveCredit] = createSignal<string>(
-  defaultCredit,
-);
+export const [activeCredit, setActiveCredit] =
+  createSignal<string>(defaultCredit);
 export const [selectedComponent, setSelectedComponent] = createSignal<
   string | undefined
 >("");
-export const [isSnippetActive, setIsSnippetActive] = createSignal<boolean>(
-  false,
-);
+export const [isSnippetActive, setIsSnippetActive] =
+  createSignal<boolean>(false);
 export const [currentSnippet, setCurrentSnippet] = createSignal<JSX.Element>(
-  <></>,
+  <></>
 );
 export const [chosenFiles, setChosenFiles] = createSignal<string | undefined>(
-  "",
+  ""
 );
 export const [saveFilePath, setSaveFilePath] = createSignal<string | undefined>(
-  "",
+  ""
 );
 export const [chosenColor, setChosenColor] = createSignal<string | undefined>(
-  "#ccc",
+  "#ccc"
 );
 
 interface SidebarBaseItem {
@@ -172,12 +170,15 @@ export const sidebarItemsData: Array<Array<SidebarItem>> = [
   ],
 ];
 export const [sidebarItems, setSidebarItems] = createSignal(
-  sidebarItemsData[0],
+  sidebarItemsData[0]
 );
 
 export function changeToolbar(index: number) {
   setSelectedView(index);
   setSidebarItems(sidebarItemsData[index]);
+  if (selectedView() === 1) {
+    changeContent(1);
+  }
 }
 
 export function changeContent(index: number) {
@@ -188,12 +189,15 @@ export function changeContent(index: number) {
     const title = selection.title?.toLowerCase() as string;
     setSelectedComponent(title);
     setIsSnippetActive(
-      !["getting started", "overview", "setup", "components"].includes(title),
+      !["getting started", "overview", "setup", "components"].includes(title)
     );
-  }
-  if (selection?.id !== selectedContentId()) {
-    setSelectedContentId(selection.id);
-    setActiveCredit(selection.url || defaultCredit);
+  } else if (selectedView() == 1) {
+    setSelectedComponent(selection.title);
+  } else if (selectedView() == 2) {
+    if (selection?.id !== selectedContentId()) {
+      setSelectedContentId(selection.id);
+      setActiveCredit(selection.url || defaultCredit);
+    }
   }
 }
 
