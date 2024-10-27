@@ -131,7 +131,6 @@ function App() {
           <Show when={selectedView() === 0}>
             <Switch fallback={<Snippet type={selectedComponent()} />}>
               <Match when={selectedComponent() === "getting started"}>
-                {/* <WebDisplay url="https://docs.solidjs.com/quick-start" /> */}
                 <view
                   style={{
                     alignItems: "center",
@@ -160,7 +159,7 @@ function App() {
                       color: "#999",
                     }}
                   >
-                    Let's build something Solid ❤️ together.
+                    Let's build something Solid ❤️ together
                   </text>
                   <view
                     style={{
@@ -177,7 +176,7 @@ function App() {
                         color: "#999",
                       }}
                     >
-                      1. Explore AppKit components to use in your app.
+                      1. Explore AppKit components to use in your app
                     </text>
                     <text
                       style={{
@@ -187,7 +186,7 @@ function App() {
                         color: "#999",
                       }}
                     >
-                      2. Explore complete examples by switching views on top.
+                      2. Explore complete examples by switching views on top
                     </text>
                     <text
                       style={{
@@ -204,13 +203,143 @@ function App() {
                 </view>
               </Match>
               <Match when={selectedComponent() === "overview"}>
-                <WebDisplay url="https://docs.solidjs.com/#overview" />
+                <view
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                  }}
+                >
+                  <view
+                    style={{
+                      flexDirection: "row",
+                      alignItems: "center",
+                      padding: 16,
+                    }}
+                  >
+                    <image
+                      style={{
+                        width: 50,
+                        height: 50,
+                      }}
+                      stretch="aspectFit"
+                      src={solidLogo}
+                    ></image>
+                    <text
+                      style={{
+                        fontSize: 18,
+                        marginLeft: 8,
+                      }}
+                    >
+                      Solid macOS Overview
+                    </text>
+                  </view>
+                  <view
+                    style={{
+                      backgroundColor: "#efefef",
+                      borderRadius: 10,
+                      marginLeft: 16,
+                      marginRight: 16,
+                      padding: 10,
+                    }}
+                  >
+                    <text
+                      style={{
+                        fontSize: 14,
+                        color: "#999",
+                      }}
+                    >
+                      Solid macOS is a macOS app built with Solid and
+                      NativeScript.
+                    </text>
+                    <text
+                      style={{
+                        fontSize: 14,
+                        marginTop: 4,
+                        color: "#999",
+                      }}
+                    >
+                      It uses native components from Apple's AppKit, used to
+                      build the user interface for a macOS app.
+                    </text>
+                  </view>
+                </view>
               </Match>
               <Match when={selectedComponent() === "setup"}>
-                <WebDisplay url="https://www.solidjs.com/tutorial/introduction_basics" />
+                <view
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                  }}
+                >
+                  <view
+                    style={{
+                      flexDirection: "row",
+                      alignItems: "center",
+                      padding: 16,
+                    }}
+                  >
+                    <image
+                      style={{
+                        width: 50,
+                        height: 50,
+                      }}
+                      stretch="aspectFit"
+                      src={solidLogo}
+                    ></image>
+                    <text
+                      style={{
+                        fontSize: 18,
+                        marginLeft: 8,
+                      }}
+                    >
+                      Solid macOS Setup
+                    </text>
+                  </view>
+                </view>
               </Match>
               <Match when={selectedComponent() === "components"}>
-                <WebDisplay url="https://nativescript.org" />
+                <view
+                  style={{
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <image
+                    style={{
+                      width: 200,
+                      height: 200,
+                    }}
+                    stretch="aspectFit"
+                    src={solidLogo}
+                  ></image>
+                  <text
+                    style={{
+                      fontSize: 20,
+                      padding: 18,
+                    }}
+                  >
+                    Solid macOS Components
+                  </text>
+                  <text
+                    style={{
+                      fontSize: 16,
+                      
+                      color: "#999",
+                    }}
+                  >
+                    Try AppKit for yourself
+                  </text>
+                  <text
+                    style={{
+                      fontSize: 16,
+                      fontStyle: "italic",
+                      color: "#999",
+                      marginTop: 16,
+                    }}
+                  >
+                    Copy Solid component snippets for your own use
+                  </text>
+                </view>
               </Match>
             </Switch>
           </Show>
