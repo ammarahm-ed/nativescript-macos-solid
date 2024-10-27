@@ -6,7 +6,7 @@ import { Color } from "./utils/color.ts";
 export function BackgroundColorNativeSet(
   style: Style,
   _key: string,
-  value: CGColor,
+  value: CGColor
 ) {
   if (!style.node.nativeView) return;
   const nativeView = style.node.nativeView;
@@ -40,7 +40,7 @@ export const ZIndexStyle: StylePropertyConfig = {
   shouldLayout: true,
 };
 
-export function FontSizeNativeSet(style: Style, _key: string, value: any) {
+export function FontSizeNativeSet(style: Style, _key: string, value: number) {
   if (!style.node.nativeView) return;
   const nativeView = style.node.nativeView as NSText;
   nativeView.font = nativeView.font.fontWithSize(value);
@@ -48,6 +48,29 @@ export function FontSizeNativeSet(style: Style, _key: string, value: any) {
 
 export const FontSizeStyle: StylePropertyConfig = {
   setNative: FontSizeNativeSet,
+  shouldLayout: true,
+};
+
+export function FontStyleNativeSet(style: Style, _key: string, value: string) {
+  if (!style.node.nativeView) return;
+  const nativeView = style.node.nativeView as NSText;
+  const font = nativeView.font;
+  switch (value) {
+    case "italic": {
+      const italicFont = NSFontManager.sharedFontManager.convertFontToHaveTrait(
+        font,
+        NSFontTraitMask.Italic
+      );
+      nativeView.font = italicFont;
+      break;
+    }
+    default:
+      break;
+  }
+}
+
+export const FontStyleStyle: StylePropertyConfig = {
+  setNative: FontStyleNativeSet,
   shouldLayout: true,
 };
 

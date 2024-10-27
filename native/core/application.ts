@@ -11,6 +11,8 @@ class AppDelegate extends NSObject implements NSApplicationDelegate {
   static windowTitle: string;
   static ObjCProtocols = [NSApplicationDelegate];
   static ObjCExposedMethods = {
+    openDocs: { returns: interop.types.void, params: [interop.types.id] },
+    openGithub: { returns: interop.types.void, params: [interop.types.id] },
     openDiscord: { returns: interop.types.void, params: [interop.types.id] },
   };
 
@@ -29,6 +31,18 @@ class AppDelegate extends NSObject implements NSApplicationDelegate {
 
   applicationWillTerminate(_notification: NSNotification): void {
     this.running = false;
+  }
+
+  openDocs(_id: this) {
+    NSWorkspace.sharedWorkspace.openURL(
+      NSURL.URLWithString("https://solidjs.com"),
+    );
+  }
+
+  openGithub(_id: this) {
+    NSWorkspace.sharedWorkspace.openURL(
+      NSURL.URLWithString("https://github.com/solidjs/solid"),
+    );
   }
 
   openDiscord(_id: this) {
@@ -131,8 +145,23 @@ export default class Application {
       "",
     );
     menu.addItem(helpMenuItem);
+
     const helpSubmenu = NSMenu.new();
     helpMenuItem.submenu = helpSubmenu;
+    helpSubmenu.addItem(
+      NSMenuItem.alloc().initWithTitleActionKeyEquivalent(
+        "Open Docs",
+        "openDocs",
+        "i",
+      ),
+    );
+    helpSubmenu.addItem(
+      NSMenuItem.alloc().initWithTitleActionKeyEquivalent(
+        "Open Github",
+        "openGithub",
+        "g",
+      ),
+    );
     helpSubmenu.addItem(
       NSMenuItem.alloc().initWithTitleActionKeyEquivalent(
         "Discord",

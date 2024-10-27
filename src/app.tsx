@@ -12,6 +12,8 @@ import {
 import Snippet from "./snippet.tsx";
 import WebDisplay from "./webdisplay.tsx";
 
+const solidLogo = `file://${Deno.cwd()}/icon/icon-512.png`;
+
 function App() {
   return (
     <window
@@ -23,11 +25,13 @@ function App() {
         justifyContent: "center",
         alignItems: "center",
       }}
-      styleMask={NSWindowStyleMask.Titled |
+      styleMask={
+        NSWindowStyleMask.Titled |
         NSWindowStyleMask.Closable |
         NSWindowStyleMask.Miniaturizable |
         NSWindowStyleMask.Resizable |
-        NSWindowStyleMask.FullSizeContentView}
+        NSWindowStyleMask.FullSizeContentView
+      }
       transparentTitleBar={false}
     >
       <toolbar>
@@ -56,13 +60,16 @@ function App() {
           paletteLabel="Learn More"
           toolTip="Continue your learning"
           onSelected={(event) =>
-            NSWorkspace.sharedWorkspace.openURL(NSURL.URLWithString(
-              ({
-                0: "https://docs.solidjs.com",
-                1: "https://github.com/solidjs/solid",
-                2: "https://discord.gg/solidjs",
-              })[event.selectedIndex]!,
-            ))}
+            NSWorkspace.sharedWorkspace.openURL(
+              NSURL.URLWithString(
+                {
+                  0: "https://docs.solidjs.com",
+                  1: "https://github.com/solidjs/solid",
+                  2: "https://discord.gg/solidjs",
+                }[event.selectedIndex]!
+              )
+            )
+          }
         />
       </toolbar>
 
@@ -105,15 +112,13 @@ function App() {
           </scroll-view>
         </side-bar>
 
-        {
-          /* Requires flag above, but does not work with Show component
+        {/* Requires flag above, but does not work with Show component
         <content-list style={{
           flex: 1,
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
-        }}> */
-        }
+        }}> */}
         <content-list
           style={{
             justifyContent: "center",
@@ -126,7 +131,77 @@ function App() {
           <Show when={selectedView() === 0}>
             <Switch fallback={<Snippet type={selectedComponent()} />}>
               <Match when={selectedComponent() === "getting started"}>
-                <WebDisplay url="https://docs.solidjs.com/quick-start" />
+                {/* <WebDisplay url="https://docs.solidjs.com/quick-start" /> */}
+                <view
+                  style={{
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <image
+                    style={{
+                      width: 200,
+                      height: 200,
+                    }}
+                    stretch="aspectFit"
+                    src={solidLogo}
+                  ></image>
+                  <text
+                    style={{
+                      fontSize: 20,
+                      padding: 18,
+                    }}
+                  >
+                    Hello Solid macOS
+                  </text>
+                  <text
+                    style={{
+                      fontSize: 18,
+                      color: "#999",
+                    }}
+                  >
+                    Let's build something Solid ❤️ together.
+                  </text>
+                  <view
+                    style={{
+                      backgroundColor: "#efefef",
+                      borderRadius: 10,
+                      marginTop: 16,
+                      padding: 10,
+                    }}
+                  >
+                    <text
+                      style={{
+                        fontSize: 14,
+                        fontStyle: "italic",
+                        color: "#999",
+                      }}
+                    >
+                      1. Explore AppKit components to use in your app.
+                    </text>
+                    <text
+                      style={{
+                        fontSize: 14,
+                        marginTop: 4,
+                        fontStyle: "italic",
+                        color: "#999",
+                      }}
+                    >
+                      2. Explore complete examples by switching views on top.
+                    </text>
+                    <text
+                      style={{
+                        fontSize: 14,
+                        marginTop: 4,
+                        fontStyle: "italic",
+                        color: "#999",
+                      }}
+                    >
+                      3. Share videos of your app on X, Discord, GitHub,
+                      LinkedIn, etc.
+                    </text>
+                  </view>
+                </view>
               </Match>
               <Match when={selectedComponent() === "overview"}>
                 <WebDisplay url="https://docs.solidjs.com/#overview" />

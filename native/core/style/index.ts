@@ -9,6 +9,7 @@ import {
   FontSizeStyle,
   ZIndexStyle,
   OpacityStyle,
+  FontStyleStyle,
 } from "./properties.ts";
 import { colors } from "./utils/color.ts";
 
@@ -116,6 +117,7 @@ export interface TextStyle extends ViewStyle {
   color?: `${Lowercase<keyof typeof colors>}` | {} & string;
   fontSize?: string | number;
   fontFamily?: string;
+  fontStyle?: string;
 }
 
 export interface CombinedStyle extends ViewStyle, TextStyle {}
@@ -330,6 +332,9 @@ export class Style extends Map {
 
   @style(FontSizeStyle)
   declare fontSize: TextStyle["fontSize"];
+
+  @style(FontStyleStyle)
+  declare fontStyle: TextStyle["fontStyle"];
 
   @style(ColorStyle)
   declare color: TextStyle["color"];
