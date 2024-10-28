@@ -31,7 +31,7 @@ export class Window extends ViewBase {
       NativeScriptApplication.window = this;
     }
 
-    this.nativeView.appWindow = this;
+    this.nativeView.owner = new WeakRef(this);
 
     // The toolbar style is best set to .automatic
     // But it appears to go as .unifiedCompact if
@@ -84,6 +84,28 @@ export class Window extends ViewBase {
         this.nativeView.becomeKeyWindow();
         this.nativeView.orderFront(NSApp);
       }
+    }
+  }
+
+  _modalCode?: number;
+  public openAsModal(relativeToWindow?: boolean) {
+    if (relativeToWindow) {
+      const window = (this.parentNode as HTMLViewElement).nativeView?.window;
+      if (window) {
+        this._modalCode = NSApp.runModalForWindowRelativeToWindow(
+          this.nativeView!,
+          window
+        );
+      }
+    } else {
+      this._modalCode = NSApp.runModalForWindow(this.nativeView!);
+    }
+  }
+
+  public closeModalWindow() {
+    if (this._modalCode) {
+      NSApp.stopModalWithCode(this._modalCode);
+      this._modalCode = undefined;
     }
   }
 
