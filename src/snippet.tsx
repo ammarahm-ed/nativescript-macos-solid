@@ -1,5 +1,7 @@
 import { Component, createEffect, Show } from "npm:solid-js";
+import type { ButtonClickEvent } from "../native/core/views/button/native-button.ts";
 import type { WebView } from "../native/core/views/webview/webview.ts";
+import { useColorScheme } from "./hooks/use-color-scheme.ts";
 import {
   chosenColor,
   chosenFiles,
@@ -10,7 +12,6 @@ import {
   setCurrentSnippet,
   setSaveFilePath,
 } from "./state.tsx";
-import type { ButtonClickEvent } from "../native/core/views/button/native-button.ts";
 
 interface SnippetProps {
   type: string | undefined;
@@ -19,6 +20,7 @@ const url = `file://${Deno.cwd()}/snippets/dist/index.html`;
 let webRef: WebView;
 
 function updateSnippetJSX(type: string | undefined) {
+  if (!type) return;
   switch (type) {
     case "button":
       setCurrentSnippet(
@@ -84,9 +86,7 @@ function updateSnippetJSX(type: string | undefined) {
             }}
             options={{
               change: (color) => {
-                createEffect(() => {
-                  setChosenColor(color);
-                });
+                setChosenColor(color);
               },
             }}
           >
@@ -131,10 +131,7 @@ function updateSnippetJSX(type: string | undefined) {
               ],
             }}
             onFileChosen={(event) => {
-              console.log("Chosen files", event.paths);
-              createEffect(() => {
-                setChosenFiles(event.paths?.join("\n"));
-              });
+              setChosenFiles(event.paths?.join("\n"));
             }}
           >
             Open File Dialog...
@@ -161,7 +158,7 @@ function updateSnippetJSX(type: string | undefined) {
       setCurrentSnippet(
         <progress
           style={{
-            width: "100%",
+            width: 200,
             height: 20,
           }}
           indeterminate={true}
@@ -210,9 +207,7 @@ function updateSnippetJSX(type: string | undefined) {
             }}
             onFileSave={(event) => {
               console.log("Save file", event.path);
-              createEffect(() => {
-                setSaveFilePath(event.path);
-              });
+              setSaveFilePath(event.path);
             }}
           >
             Save File
@@ -255,6 +250,117 @@ function updateSnippetJSX(type: string | undefined) {
         >
           Hello macOS, ❤️ Solid
         </text>
+      );
+      break;
+
+    case "text field":
+      setCurrentSnippet(
+        <text-field
+          onTextChange={(event) => {
+            console.log(event.value);
+          }}
+          placeholder="Type something here"
+        />
+      );
+      break;
+
+    case "window":
+      setCurrentSnippet(
+        (() => {
+          let windowRef: HTMLWindowElement;
+          return (
+            <view>
+              <window
+                ref={(el: HTMLWindowElement) => (windowRef = el)}
+                title="Window"
+                styleMask={
+                  NSWindowStyleMask.Titled |
+                  NSWindowStyleMask.Closable |
+                  NSWindowStyleMask.Resizable
+                }
+                style={{
+                  width: 200,
+                  height: 200,
+                }}
+              >
+                <view
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    gap: 10,
+                  }}
+                >
+                  <text>Hello, I'm a window</text>
+
+                  <button
+                    title="Close"
+                    onClick={() => {
+                      windowRef.close();
+                    }}
+                  />
+                </view>
+              </window>
+              <button
+                onClick={(_event) => {
+                  windowRef.open();
+                }}
+                title="Open window"
+              />
+            </view>
+          );
+        })()
+      );
+      break;
+
+    case "modal":
+      setCurrentSnippet(
+        (() => {
+          let windowRef: HTMLWindowElement;
+          return (
+            <view>
+              <window
+                ref={(el: HTMLWindowElement) => (windowRef = el)}
+                title="Modal"
+                styleMask={
+                  NSWindowStyleMask.Titled |
+                  NSWindowStyleMask.Closable |
+                  NSWindowStyleMask.Resizable
+                }
+                style={{
+                  width: 200,
+                  height: 200,
+                }}
+              >
+                <view
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    gap: 10,
+                  }}
+                >
+                  <text>Hello, I'm a modal</text>
+
+                  <button
+                    title="Close"
+                    onClick={() => {
+                      windowRef.closeModalWindow();
+                    }}
+                  />
+                </view>
+              </window>
+              <button
+                onClick={(_event) => {
+                  windowRef.openAsModal();
+                }}
+                title="Open Modal"
+              />
+            </view>
+          );
+        })()
       );
       break;
     case "webview":
@@ -328,9 +434,7 @@ function getJSXSnippetString(type: string | undefined) {
     }}
     options={{
       change: (color) => {
-        createEffect(() => {
-          setChosenColor(color);
-        });
+        setChosenColor(color);
       },
     }}
   >
@@ -373,9 +477,7 @@ function getJSXSnippetString(type: string | undefined) {
     }}
     onFileChosen={(event) => {
       console.log("Chosen files", event.paths);
-      createEffect(() => {
-        setChosenFiles(event.paths?.join("\n"));
-      });
+      setChosenFiles(event.paths?.join("\n"));
     }}
   >
     Open File Dialog...
@@ -399,7 +501,7 @@ function getJSXSnippetString(type: string | undefined) {
     case "progress":
       return `<progress
   style={{
-    width: "100%",
+    width: 200,
     height: 20,
   }}
   indeterminate={true}
@@ -442,9 +544,7 @@ function getJSXSnippetString(type: string | undefined) {
     }}
     onFileSave={(event) => {
       console.log("Save file", event.path);
-      createEffect(() => {
-        setSaveFilePath(event.path);
-      });
+      setSaveFilePath(event.path);
     }}
   >
     Save File
@@ -481,6 +581,41 @@ function getJSXSnippetString(type: string | undefined) {
 >
   Hello macOS, ❤️ Solid
 </text>`;
+    case "text field":
+      return `<text-field
+          style={{
+            padding: 50,
+          }}
+          onTextChange={(event) => {
+            console.log(event.value)
+          }}
+placeholder="Type something here"/>`;
+    case "window":
+      return `<window ref={(el: HTMLWindowElement) => (windowRef = el)}
+                title="Window"
+                styleMask={
+                  NSWindowStyleMask.Titled |
+                  NSWindowStyleMask.Closable |
+                  NSWindowStyleMask.Resizable
+                }
+                style={{
+                  width: 200,
+                  height: 200,
+                }}
+              />`;
+    case "modal":
+      return `<window ref={(el: HTMLWindowElement) => (windowRef = el)}
+                title="Modal"
+                styleMask={
+                  NSWindowStyleMask.Titled |
+                  NSWindowStyleMask.Closable |
+                  NSWindowStyleMask.Resizable
+                }
+                style={{
+                  width: 200,
+                  height: 200,
+                }}
+              />`;
     case "webview":
       return `<webview
   src="https://solidjs.com"
@@ -495,9 +630,11 @@ function getJSXSnippetString(type: string | undefined) {
 }
 
 function updateSnippetPreview(type: string | undefined) {
+  const colorScheme = useColorScheme();
   const data = {
     type,
     snippet: encodeURIComponent(getJSXSnippetString(type)?.trim() as string),
+    dark: colorScheme === "dark",
   };
   webRef?.executeJavaScript(
     `window.updateSnippet('${type}', '${JSON.stringify(data)}')`

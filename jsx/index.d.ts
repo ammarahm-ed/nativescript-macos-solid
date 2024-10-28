@@ -28,6 +28,7 @@ import type { FileSaveEvent } from "../native/core/views/filesavebutton/native-f
 import type { ColorDialogOptions } from "../native/core/dialogs/color/color-dialog.ts";
 import type { ColorChosenEvent } from "../native/core/views/coloropenbutton/native-coloropenbutton.ts";
 import type { TextChangeEvent, TextSubmitEvent } from "../native/core/views/text-field/text-field.ts";
+import type { ScrollChangeEvent } from "../native/core/views/scroll-view/scroll-view.ts";
 
 interface ViewAttributes {
   ref?: unknown | ((e: unknown) => void);
@@ -52,6 +53,10 @@ interface ButtonAttributes extends TextAttributes {
    * NSButtonType
    */
   buttonType?: number;
+  /**
+   * SF Symbol name
+   */
+  icon?: string;
   onClick?: (event: ButtonClickEvent) => void;
 }
 
@@ -91,7 +96,15 @@ interface OutlineAttributes extends ViewAttributes {
   onClick?: (item: OutlineClickEvent) => void;
 }
 
-interface ScrollViewAtributes extends ViewAttributes {}
+interface ScrollViewAtributes extends ViewAttributes {
+  documentViewStyle?: ViewStyle;
+  horizontal?: boolean;
+  onScroll?: (event: ScrollChangeEvent) => void;
+  /**
+   * Disable default document view. When set to false, the scroll-view expects a single direct child which becomes the documentView
+   */
+  disableDefaultDocumentView?: boolean;
+}
 
 interface SliderAttributes extends ViewAttributes {
   numberOfTickMarks?: number;
@@ -179,8 +192,10 @@ interface TextFieldAttributes extends TextAttributes {
   onTextChange?: (event: TextChangeEvent) => void;
   onSubmit?: (event: TextSubmitEvent) => void;
   placeholder?: string;
-  editbale?: boolean;
+  editable?: boolean;
   multiline?: boolean;
+  defaultValue?: string;
+  value?: string;
 }
 
 interface CheckboxAttributes extends ButtonAttributes {

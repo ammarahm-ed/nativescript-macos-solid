@@ -1,0 +1,1 @@
+export const SOLID_LOGO = `file://${Deno.cwd()}/icon/icon-512.png`;

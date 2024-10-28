@@ -20,12 +20,14 @@ type TodoItem = {
   completed: boolean;
 };
 
+const [todos, setTodos] = createSignal<TodoItem[]>(
+  JSON.parse(storageApi.get("todos") || "[]")
+);
+
 export function TodoMVP() {
   // Get system color scheme mode
   const colorScheme = useColorScheme();
-  const [todos, setTodos] = createSignal<TodoItem[]>(
-    JSON.parse(storageApi.get("todos") || "[]")
-  );
+
   const [newTodo, setNewTodo] = createSignal("");
   let textField: HTMLTextFieldElement | null = null;
 
@@ -93,10 +95,11 @@ export function TodoMVP() {
           />
         </view>
 
-
-        <view style={{
-          width:'100%'
-        }}>
+        <view
+          style={{
+            width: "100%",
+          }}
+        >
           <For
             each={todos()}
             fallback={
@@ -109,73 +112,114 @@ export function TodoMVP() {
               </text>
             }
           >
-            {(item, index) => (
-              <view
-                style={{
-                  flexDirection: "row",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                  backgroundColor:
-                    index() % 2 === 0
-                      ? colorScheme === "dark"
-                        ? "rgba(0,0,0,0.1)"
-                        : "#f7f7f7"
-                      : undefined,
-                  paddingHorizontal: 10,
-                  width: "100%",
-                }}
-              >
-                <view
-                  style={{
-                    flexDirection: "row",
-                    alignItems: "center",
-                    gap: 10,
-                  }}
-                >
-                  <checkbox
-                    checked={item.completed}
-                    onClick={(event) => {
-                      const checkbox = event.target as HTMLCheckboxElement;
-                      setTodos((prev) => {
-                        const next = [...prev];
-                        next[index()] = {
-                          ...next[index()],
-                          completed: !checkbox.checked,
-                        };
-                        return next;
-                      });
-                    }}
-                    style={{
-                      width: 15,
-                      height: 15,
-                    }}
-                  />
-                  <text
-                    style={{
-                      color: item.completed ? "gray" : undefined,
-                      fontSize: 14,
-                    }}
-                  >
-                    {item.title}
-                  </text>
-                </view>
-
-                <button
-                  title="Remove"
-                  onClick={() => {
-                    setTodos((prev) => {
-                      const next = [...prev];
-                      next.splice(index(), 1);
-                      storageApi.set("todos", JSON.stringify(next));
-                      return next;
-                    });
-                  }}
-                />
-              </view>
-            )}
+            {(item, index) => <TodoItem item={item} index={index} />}
           </For>
         </view>
       </view>
     </scroll-view>
+  );
+}
+
+function TodoItem(props: { item: TodoItem; index: () => number }) {
+  const colorScheme = useColorScheme();
+  let textField: HTMLTextFieldElement | null = null;
+  const [editable, setEditable] = createSignal(false);
+
+  return (
+    <view
+      style={{
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between",
+        backgroundColor:
+          props.index() % 2 === 0
+            ? colorScheme === "dark"
+              ? "rgba(0,0,0,0.1)"
+              : "#f7f7f7"
+            : undefined,
+        paddingHorizontal: 10,
+        width: "100%",
+      }}
+    >
+      
+      <view
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          gap: 10,
+        }}
+      >
+        <checkbox
+          checked={props.item.completed}
+          onClick={(event) => {
+            const checkbox = event.target as HTMLCheckboxElement;
+            setTodos((prev) => {
+              const next = [...prev];
+              next[props.index()] = {
+                ...next[props.index()],
+                completed: !checkbox.checked,
+              };
+              return next;
+            });
+          }}
+          style={{
+            width: 15,
+            height: 15,
+          }}
+        />
+        <text-field
+          ref={(el: HTMLTextFieldElement) => (textField = el)}
+          style={{
+            color: props.item.completed ? "gray" : undefined,
+            fontSize: 14,
+          }}
+          value={props.item.title}
+          editable={editable()}
+          onSubmit={(event) => {
+            setTodos((prev) => {
+              const next = [...prev];
+              next[props.index()] = {
+                ...next[props.index()],
+                title: event.value,
+              };
+              storageApi.set("todos", JSON.stringify(next));
+              textField?.blur();
+              setEditable(false);
+              return next;
+            });
+          }}
+        />
+      </view>
+
+      <view
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+        }}
+      >
+        {editable() ? null : (
+          <button
+            icon="pencil"
+            onClick={() => {
+              setEditable(true);
+              setTimeout(() => {
+                textField?.focus();
+              }, 300);
+            }}
+          />
+        )}
+        <button
+          title="Remove"
+          onClick={() => {
+            setTodos((prev) => {
+              const next = [...prev];
+              next.splice(props.index(), 1);
+              storageApi.set("todos", JSON.stringify(next));
+              return next;
+            });
+          }}
+        />
+      </view>
+    </view>
   );
 }

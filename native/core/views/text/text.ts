@@ -1,4 +1,4 @@
-import { Layout } from "../../layout/index.ts";
+import { Layout, type YogaNodeLayout } from "../../layout/index.ts";
 import type { NativePropertyConfig } from "../decorators/native.ts";
 import { overrides } from "../decorators/overrides.ts";
 import { view } from "../decorators/view.ts";
@@ -89,8 +89,17 @@ export class Text extends TextBase {
     // nativeView.isSelectable = false;
     nativeView.drawsBackground = false;
     nativeView.isBordered = false;
+    nativeView.isBezeled = false;
+    nativeView.lineBreakMode = NSLineBreakMode.WordWrapping;
   }
 
+
+  applyLayout(parentLayout?: YogaNodeLayout): void {
+    super.applyLayout(parentLayout);
+    if (this.nativeView) {
+      this.nativeView.translatesAutoresizingMaskIntoConstraints = true;
+    }
+  }
   updateTextContent() {
     if (this.nativeView) {
       this.nativeView.stringValue = this.textContent || "";

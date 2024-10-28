@@ -3,7 +3,7 @@ import "prismjs/components/prism-javascript";
 import "prismjs/components/prism-jsx";
 import { BiSolidCheckCircle, BiSolidCopy } from "solid-icons/bi";
 import { createSignal, onMount } from "solid-js";
-import "./prisim-atom-dark.css";
+import "./prisim-one-light.css";
 
 interface CodeSnippetProps {
   title: string;
@@ -12,7 +12,7 @@ interface CodeSnippetProps {
   index: number;
 }
 
-const CodeSnippet = (props: CodeSnippetProps) => {
+const CodeSnippetLight = (props: CodeSnippetProps) => {
   const [copied, setCopied] = createSignal(false);
 
   onMount(() => {
@@ -40,10 +40,10 @@ const CodeSnippet = (props: CodeSnippetProps) => {
           }}
           class="px-4 py-2 flex justify-between items-center"
         >
-          <div class="text-lg font-semibold text-white">{props.title}</div>
+          <div class="text-lg font-semibold text-black">{props.title}</div>
           <button
             onClick={copyToClipboard}
-            class="text-gray-300 hover:text-white focus:outline-none"
+            class="text-gray-500 hover:text-white focus:outline-none"
           >
             {copied() ? (
               <BiSolidCheckCircle class="w-5 h-5" />
@@ -60,4 +60,4 @@ const CodeSnippet = (props: CodeSnippetProps) => {
   );
 };
 
-export default CodeSnippet;
+export default CodeSnippetLight;
