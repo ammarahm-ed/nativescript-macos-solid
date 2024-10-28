@@ -1,6 +1,8 @@
 import "@nativescript/macos-node-api";
 import { view } from "../decorators/view.ts";
+import { NativeView } from "./native-view.ts";
 import { ViewBase } from "./view-base.ts";
+
 
 @view({
   name: "HTMLViewElement",
@@ -9,18 +11,10 @@ import { ViewBase } from "./view-base.ts";
 export class View extends ViewBase {
   override nativeView?: NSView = undefined;
   public override initNativeView(): NSView | undefined {
-    this.nativeView = NSView.alloc().init();
+    //@ts-ignore
+    this.nativeView = NativeView.new();
     return this.nativeView;
   }
 
-  public override disposeNativeView(): void {
-    if (!this.nativeView?.superview) {
-      this.nativeView = undefined;
-    } else {
-      console.warn(
-        "Trying to dispose a view that is still attached to it's parent",
-        new Error().stack,
-      );
-    }
-  }
+ 
 }

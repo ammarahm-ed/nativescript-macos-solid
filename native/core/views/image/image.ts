@@ -36,17 +36,6 @@ export class Image extends ViewBase {
     return this.nativeView;
   }
 
-  public disposeNativeView(): void {
-    if (!this.nativeView?.superview) {
-      this.nativeView = undefined;
-    } else {
-      console.warn(
-        "Trying to dispose a view that is still attached to it's parent",
-        new Error().stack,
-      );
-    }
-  }
-
   private setImage(value: NSImage | null) {
     if (this.nativeView) {
       // @ts-expect-error it can be null

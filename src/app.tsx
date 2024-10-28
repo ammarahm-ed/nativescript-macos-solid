@@ -87,10 +87,13 @@ function App() {
             minWidth: 200,
           }}
         >
-          <scroll-view style={{
-            width:'100%',
-            height:'100%'
-          }}>
+          <scroll-view
+            disableDefaultDocumentView
+            style={{
+              width: "100%",
+              height: "100%",
+            }}
+          >
             <outline
               onClick={(event) => {
                 changeContent(event.index);
@@ -104,7 +107,9 @@ function App() {
 
                     <For each={item.children}>
                       {(child, _index) => (
-                        <table-cell selected={child.title === selectedComponent()}  >
+                        <table-cell
+                          selected={child.title === selectedComponent()}
+                        >
                           <image symbol={child.icon}></image>
                           <text>{child.title}</text>
                         </table-cell>
