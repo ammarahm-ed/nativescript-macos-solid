@@ -4,6 +4,7 @@ import type { Slider } from "../views/slider/slider.ts";
 import type { Progress } from "../views/progress/progress.ts";
 import type { TextField } from "../views/text-field/text-field.ts";
 import type { Checkbox } from "../views/checkbox/checkbox.ts";
+import type { Window } from "../views/window/window.ts";
 
 declare global {
   // undom
@@ -39,6 +40,13 @@ declare global {
   var HTMlButtonElement: {
     new (): HTMlButtonElement;
     prototype: HTMlButtonElement;
+  };
+
+  interface HTMLWindowElement extends Window {}
+
+  var HTMLWindowElement: {
+    new (): HTMLWindowElement;
+    prototype: HTMLWindowElement;
   };
 
   interface HTMLScrollViewElement extends View {}

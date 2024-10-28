@@ -152,6 +152,10 @@ export class Outline extends View {
     this.nativeView?.reloadData();
   }
 
+  public connectedCallback(): void {
+    super.connectedCallback();
+  }
+
   private __pendingCellSelection: TableCell | null = null;
 
   expandParentsOfItem(item: TableCell) {
