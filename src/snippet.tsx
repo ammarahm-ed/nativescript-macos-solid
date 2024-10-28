@@ -158,7 +158,7 @@ function updateSnippetJSX(type: string | undefined) {
       setCurrentSnippet(
         <progress
           style={{
-            width: "100%",
+            width: 200,
             height: 20,
           }}
           indeterminate={true}
@@ -501,7 +501,7 @@ function getJSXSnippetString(type: string | undefined) {
     case "progress":
       return `<progress
   style={{
-    width: "100%",
+    width: 200,
     height: 20,
   }}
   indeterminate={true}

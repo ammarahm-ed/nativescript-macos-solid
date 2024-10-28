@@ -17,8 +17,6 @@ import {
 } from "./state.tsx";
 import WebDisplay from "./webdisplay.tsx";
 
-const solidLogo = `file://${Deno.cwd()}/icon/icon-512.png`;
-
 function App() {
   return (
     <window
