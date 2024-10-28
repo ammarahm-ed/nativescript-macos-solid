@@ -1,5 +1,7 @@
 import { Component, createEffect, Show } from "npm:solid-js";
+import type { ButtonClickEvent } from "../native/core/views/button/native-button.ts";
 import type { WebView } from "../native/core/views/webview/webview.ts";
+import { useColorScheme } from "./hooks/use-color-scheme.ts";
 import {
   chosenColor,
   chosenFiles,
@@ -10,8 +12,6 @@ import {
   setCurrentSnippet,
   setSaveFilePath,
 } from "./state.tsx";
-import type { ButtonClickEvent } from "../native/core/views/button/native-button.ts";
-import { useColorScheme } from "./hooks/use-color-scheme.ts";
 
 interface SnippetProps {
   type: string | undefined;
@@ -270,6 +270,106 @@ function updateSnippetJSX(type: string | undefined) {
         />
       );
       break;
+
+    case "window":
+      setCurrentSnippet(
+        (() => {
+          let windowRef: HTMLWindowElement;
+          return (
+            <view>
+              <window
+                ref={(el: HTMLWindowElement) => (windowRef = el)}
+                title="Window"
+                styleMask={
+                  NSWindowStyleMask.Titled |
+                  NSWindowStyleMask.Closable |
+                  NSWindowStyleMask.Resizable
+                }
+                style={{
+                  width: 200,
+                  height: 200,
+                }}
+              >
+                <view
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    gap: 10,
+                  }}
+                >
+                  <text>Hello, I'm a window</text>
+
+                  <button
+                    title="Close"
+                    onClick={() => {
+                      windowRef.close();
+                    }}
+                  />
+                </view>
+              </window>
+              <button
+                onClick={(_event) => {
+                  windowRef.open();
+                }}
+                title="Open window"
+              />
+            </view>
+          );
+        })()
+      );
+      break;
+
+    case "modal":
+      setCurrentSnippet(
+        (() => {
+          let windowRef: HTMLWindowElement;
+          return (
+            <view>
+              <window
+                ref={(el: HTMLWindowElement) => (windowRef = el)}
+                title="Modal"
+                styleMask={
+                  NSWindowStyleMask.Titled |
+                  NSWindowStyleMask.Closable |
+                  NSWindowStyleMask.Resizable
+                }
+                style={{
+                  width: 200,
+                  height: 200,
+                }}
+              >
+                <view
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    gap: 10,
+                  }}
+                >
+                  <text>Hello, I'm a modal</text>
+
+                  <button
+                    title="Close"
+                    onClick={() => {
+                      windowRef.closeModalWindow();
+                    }}
+                  />
+                </view>
+              </window>
+              <button
+                onClick={(_event) => {
+                  windowRef.openAsModal();
+                }}
+                title="Open Modal"
+              />
+            </view>
+          );
+        })()
+      );
+      break;
     case "webview":
       setCurrentSnippet(
         <webview
@@ -503,6 +603,32 @@ function getJSXSnippetString(type: string | undefined) {
             console.log(event.value)
           }}
 placeholder="Type something here"/>`;
+    case "window":
+      return `<window ref={(el: HTMLWindowElement) => (windowRef = el)}
+                title="Window"
+                styleMask={
+                  NSWindowStyleMask.Titled |
+                  NSWindowStyleMask.Closable |
+                  NSWindowStyleMask.Resizable
+                }
+                style={{
+                  width: 200,
+                  height: 200,
+                }}
+              />`;
+    case "modal":
+      return `<window ref={(el: HTMLWindowElement) => (windowRef = el)}
+                title="Modal"
+                styleMask={
+                  NSWindowStyleMask.Titled |
+                  NSWindowStyleMask.Closable |
+                  NSWindowStyleMask.Resizable
+                }
+                style={{
+                  width: 200,
+                  height: 200,
+                }}
+              />`;
     case "webview":
       return `<webview
   src="https://solidjs.com"

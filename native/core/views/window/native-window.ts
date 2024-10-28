@@ -69,9 +69,6 @@ export class NativeWindow extends NSWindow implements NSWindowDelegate {
     const event = createEvent("close");
     const currentWindow = this.owner?.deref();
     currentWindow?.dispatchEvent(event);
-    NSApp.stop(this);
-    currentWindow!._modalCode = undefined;
-    // Find parent window and bring it to front.
     let window = null;
     let currentNode: any = currentWindow?.parentNode;
     while (window == null && currentNode !== null) {

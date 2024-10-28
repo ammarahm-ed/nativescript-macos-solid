@@ -80,9 +80,19 @@ export class Window extends ViewBase {
     } else {
       const window = (this.parentNode as HTMLViewElement).nativeView?.window;
       if (window && window?.windowController && this.nativeView) {
+        const frameCentered = {
+          x:
+            window.frame.origin.x +
+            window.frame.size.width / 2 -
+            this.nativeView.frame.size.width / 2,
+          y:
+            window.frame.origin.y +
+            window.frame.size.height / 2 -
+            this.nativeView.frame.size.height / 2,
+        };
+        this.nativeView.setFrameOrigin(frameCentered);
         window?.windowController.showWindow(this.nativeView);
-        this.nativeView.becomeKeyWindow();
-        this.nativeView.orderFront(NSApp);
+        this.nativeView.makeKeyAndOrderFront(NSApp);
       }
     }
   }
@@ -103,10 +113,13 @@ export class Window extends ViewBase {
   }
 
   public closeModalWindow() {
-    if (this._modalCode) {
-      NSApp.stopModalWithCode(this._modalCode);
-      this._modalCode = undefined;
-    }
+    // if (this._modalCode) {
+    //   NSApp.stopModalWithCode(this._modalCode);
+    //   this._modalCode = undefined;
+    // } else {
+    //   NSApp.stopModal();
+    // }
+    this.close();
   }
 
   public close() {
