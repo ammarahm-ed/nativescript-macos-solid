@@ -154,7 +154,7 @@ function App() {
                     }}
                     stretch="aspectFit"
                     src={solidLogo}
-                  ></image>
+                  />
                   <text
                     style={{
                       fontSize: 20,

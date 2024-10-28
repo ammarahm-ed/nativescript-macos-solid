@@ -1,9 +1,9 @@
 import "@nativescript/macos-node-api";
 import { Event } from "../../dom/dom-utils.ts";
+import { Layout } from "../../layout/index.ts";
 import { native } from "../decorators/native.ts";
 import { view } from "../decorators/view.ts";
 import { Text } from "../text/text.ts";
-import { Layout } from "../../layout/index.ts";
 
 export class TextChangeEvent extends Event {
   constructor(public value: string, eventDict?: EventInit) {
@@ -92,6 +92,7 @@ export class TextField extends Text {
       }
       view._defaultValueSet = true;
     },
+    shouldLayout: true
   })
   declare value: string;
 
@@ -104,6 +105,7 @@ export class TextField extends Text {
         view.nativeView.stringValue = value;
       }
     },
+    shouldLayout: true
   })
   declare defaultValue: string;
 
@@ -113,6 +115,7 @@ export class TextField extends Text {
         view.nativeView.placeholderString = value;
       }
     },
+    shouldLayout: true
   })
   declare placeholder: string | null;
 
@@ -131,6 +134,7 @@ export class TextField extends Text {
         view.nativeView.usesSingleLineMode = value;
       }
     },
+    shouldLayout: true
   })
   declare multiline: boolean;
 

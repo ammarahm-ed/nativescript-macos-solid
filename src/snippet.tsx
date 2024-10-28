@@ -11,6 +11,7 @@ import {
   setSaveFilePath,
 } from "./state.tsx";
 import type { ButtonClickEvent } from "../native/core/views/button/native-button.ts";
+import { useColorScheme } from "./hooks/use-color-scheme.ts";
 
 interface SnippetProps {
   type: string | undefined;
@@ -19,6 +20,7 @@ const url = `file://${Deno.cwd()}/snippets/dist/index.html`;
 let webRef: WebView;
 
 function updateSnippetJSX(type: string | undefined) {
+  if (!type) return;
   switch (type) {
     case "button":
       setCurrentSnippet(
@@ -257,6 +259,17 @@ function updateSnippetJSX(type: string | undefined) {
         </text>
       );
       break;
+
+    case "text field":
+      setCurrentSnippet(
+        <text-field
+          onTextChange={(event) => {
+            console.log(event.value);
+          }}
+          placeholder="Type something here"
+        />
+      );
+      break;
     case "webview":
       setCurrentSnippet(
         <webview
@@ -481,6 +494,15 @@ function getJSXSnippetString(type: string | undefined) {
 >
   Hello macOS, ❤️ Solid
 </text>`;
+    case "text field":
+      return `<text-field
+          style={{
+            padding: 50,
+          }}
+          onTextChange={(event) => {
+            console.log(event.value)
+          }}
+placeholder="Type something here"/>`;
     case "webview":
       return `<webview
   src="https://solidjs.com"
@@ -495,9 +517,11 @@ function getJSXSnippetString(type: string | undefined) {
 }
 
 function updateSnippetPreview(type: string | undefined) {
+  const colorScheme = useColorScheme();
   const data = {
     type,
     snippet: encodeURIComponent(getJSXSnippetString(type)?.trim() as string),
+    dark: colorScheme === "dark",
   };
   webRef?.executeJavaScript(
     `window.updateSnippet('${type}', '${JSON.stringify(data)}')`
