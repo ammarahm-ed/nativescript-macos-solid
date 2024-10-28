@@ -113,7 +113,11 @@ export const sidebarItemsData: Array<Array<SidebarItem>> = [
           icon: "textformat",
           title: "Text",
         },
-
+        {
+          id: crypto.randomUUID(),
+          icon: "pencil.and.ellipsis.rectangle",
+          title: "Text field",
+        },
         {
           id: crypto.randomUUID(),
           icon: "network",

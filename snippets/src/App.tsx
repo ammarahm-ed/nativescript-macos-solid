@@ -1,11 +1,13 @@
 import { For, createSignal } from "solid-js";
 import CodeSnippet from "./components/CodeSnippet";
+import CodeSnippetLight from "./components/CodeSnippetLight";
 
 const [snippets, setSnippets] = createSignal([
   {
     language: "jsx",
     title: "",
     code: "",
+    dark: false
   },
 ]);
 
@@ -13,7 +15,7 @@ const [snippets, setSnippets] = createSignal([
 window.updateSnippet = (title: string, code: string) => {
   const data = JSON.parse(code);
   setSnippets([
-    { language: "jsx", title, code: decodeURIComponent(data.snippet) },
+    { language: "jsx", title, code: decodeURIComponent(data.snippet), dark: data.dark },
   ]);
 };
 // TESTING:
@@ -38,12 +40,17 @@ function App() {
     <div class="mx-auto my-0">
       <For each={snippets()}>
         {(snippet, index) => (
-          <CodeSnippet
-            title={snippet.title}
-            language={snippet.language}
-            code={snippet.code}
-            index={index()}
-          />
+          snippet.dark ? <CodeSnippet
+          title={snippet.title}
+          language={snippet.language}
+          code={snippet.code}
+          index={index()}
+        /> : <CodeSnippetLight
+        title={snippet.title}
+        language={snippet.language}
+        code={snippet.code}
+        index={index()}
+      />
         )}
       </For>
     </div>

@@ -1,1 +1,1 @@
-{"root":["./src/app.tsx","./src/index.tsx","./src/vite-env.d.ts","./src/components/codesnippet.tsx"],"version":"5.6.3"}
+{"root":["./src/app.tsx","./src/index.tsx","./src/vite-env.d.ts","./src/components/codesnippet.tsx","./src/components/codesnippetlight.tsx"],"version":"5.6.3"}
