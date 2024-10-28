@@ -96,10 +96,10 @@ export class ViewBase extends HTMLElement {
           x: layout.left,
           // Reverse the origin so that view's are rendered from
           // the top left instead of default bottom right.
-          y:
-            !this.nativeView!.isFlipped && parentLayout
-              ? Math.max(parentHeight - layout.top - height, 0)
-              : layout.top,
+          y: layout.top
+          // y: parentLayout
+          //   ? Math.max(parentHeight - layout.top - height, 0)
+          //   : layout.top,
         },
         size: {
           width,
