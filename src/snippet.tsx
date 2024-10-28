@@ -86,9 +86,7 @@ function updateSnippetJSX(type: string | undefined) {
             }}
             options={{
               change: (color) => {
-                createEffect(() => {
-                  setChosenColor(color);
-                });
+                setChosenColor(color);
               },
             }}
           >
@@ -133,10 +131,7 @@ function updateSnippetJSX(type: string | undefined) {
               ],
             }}
             onFileChosen={(event) => {
-              console.log("Chosen files", event.paths);
-              createEffect(() => {
-                setChosenFiles(event.paths?.join("\n"));
-              });
+              setChosenFiles(event.paths?.join("\n"));
             }}
           >
             Open File Dialog...
@@ -212,9 +207,7 @@ function updateSnippetJSX(type: string | undefined) {
             }}
             onFileSave={(event) => {
               console.log("Save file", event.path);
-              createEffect(() => {
-                setSaveFilePath(event.path);
-              });
+              setSaveFilePath(event.path);
             }}
           >
             Save File
@@ -441,9 +434,7 @@ function getJSXSnippetString(type: string | undefined) {
     }}
     options={{
       change: (color) => {
-        createEffect(() => {
-          setChosenColor(color);
-        });
+        setChosenColor(color);
       },
     }}
   >
@@ -486,9 +477,7 @@ function getJSXSnippetString(type: string | undefined) {
     }}
     onFileChosen={(event) => {
       console.log("Chosen files", event.paths);
-      createEffect(() => {
-        setChosenFiles(event.paths?.join("\n"));
-      });
+      setChosenFiles(event.paths?.join("\n"));
     }}
   >
     Open File Dialog...
@@ -555,9 +544,7 @@ function getJSXSnippetString(type: string | undefined) {
     }}
     onFileSave={(event) => {
       console.log("Save file", event.path);
-      createEffect(() => {
-        setSaveFilePath(event.path);
-      });
+      setSaveFilePath(event.path);
     }}
   >
     Save File

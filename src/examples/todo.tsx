@@ -195,7 +195,6 @@ function TodoItem(props: { item: TodoItem; index: () => number }) {
         style={{
           flexDirection: "row",
           alignItems: "center",
-          gap: 10,
         }}
       >
         {editable() ? null : (
