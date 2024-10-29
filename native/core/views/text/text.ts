@@ -107,11 +107,6 @@ export class Text extends TextBase {
     }
   }
 
-  public connectedCallback(): void {
-    super.connectedCallback();
-    this.updateTextContent();
-  }
-
   @overrides("padding")
   setPadding(
     _key: string,
