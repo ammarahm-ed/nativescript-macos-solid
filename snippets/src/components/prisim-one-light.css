@@ -431,3 +431,7 @@
 code[class*="language-"], pre[class*="language-"] {
  text-shadow: none !important;
 }
+
+.light .token.plain-text {
+    color: black !important;
+}
