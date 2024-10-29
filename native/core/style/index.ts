@@ -10,6 +10,7 @@ import {
   ZIndexStyle,
   OpacityStyle,
   FontStyleStyle,
+  TextAlignStyle
 } from "./properties.ts";
 import { colors } from "./utils/color.ts";
 
@@ -18,7 +19,7 @@ export type StylePropertyConfig<T = any> = {
     style: Style,
     key: string,
     value: T,
-    config: StylePropertyConfig<T>,
+    config: StylePropertyConfig<T>
   ) => void;
   getNative?: (style: Style) => any;
   shouldLayout?: boolean;
@@ -35,6 +36,9 @@ export type StylePropertyConfig<T = any> = {
  */
 export function style<T>(config: StylePropertyConfig<T>) {
   return function (_target: Style, property: string) {
+    if (config.defaultValue !== undefined) {
+      _target._nativeStyleDefaults.set(property, config.defaultValue);
+    }
     Object.defineProperty(_target, property, {
       get() {
         if (config.getNative && config.converter?.fromNative) {
@@ -52,8 +56,8 @@ export function style<T>(config: StylePropertyConfig<T>) {
         if (!hasChanged) return;
 
         this.set(property, value);
-        const nativeValue = config.converter?.toNative?.(property, value) ??
-          value;
+        const nativeValue =
+          config.converter?.toNative?.(property, value) ?? value;
         const SetNativeKey = `${property}SetNative`;
 
         const pendingSetNative = function (this: Style) {
@@ -106,18 +110,18 @@ export function flex() {
 }
 
 export interface ViewStyle extends FlexStyle {
-  backgroundColor?: `${Lowercase<keyof typeof colors>}` | {} & string;
-  borderColor?: `${Lowercase<keyof typeof colors>}` | {} & string;
+  backgroundColor?: `${Lowercase<keyof typeof colors>}` | ({} & string);
+  borderColor?: `${Lowercase<keyof typeof colors>}` | ({} & string);
   borderRadius?: number;
   opacity?: number;
-
 }
 
 export interface TextStyle extends ViewStyle {
-  color?: `${Lowercase<keyof typeof colors>}` | {} & string;
+  color?: `${Lowercase<keyof typeof colors>}` | ({} & string);
   fontSize?: string | number;
   fontFamily?: string;
   fontStyle?: string;
+  textAlign?: "center" | "left" | "right" | "justified";
 }
 
 export interface CombinedStyle extends ViewStyle, TextStyle {}
@@ -127,7 +131,7 @@ export class Style extends Map {
    * Install a new style property.
    */
   static install = style;
-
+  _nativeStyleDefaults: Map<string, any> = new Map();
   pendingSetNative: Map<string, () => void> = new Map();
 
   constructor(public node: any) {
@@ -136,14 +140,14 @@ export class Style extends Map {
 
   override set<Key extends keyof CombinedStyle>(
     key: Key,
-    value: CombinedStyle[Key],
+    value: CombinedStyle[Key]
   ): this {
     super.set(key, value);
     return this;
   }
 
   override get<Key extends keyof CombinedStyle>(
-    key: Key,
+    key: Key
   ): CombinedStyle[Key] | undefined {
     return super.get(key);
   }
@@ -370,5 +374,9 @@ export class Style extends Map {
   // declare borderRightColor: string;
 
   @style(OpacityStyle)
-  declare opacity: ViewStyle['opacity']
+  declare opacity: ViewStyle["opacity"];
+
+
+  @style(TextAlignStyle)
+  declare textAlign: TextStyle["textAlign"];
 }

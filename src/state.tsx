@@ -120,13 +120,18 @@ export const sidebarItemsData: Array<Array<SidebarItem>> = [
         },
         {
           id: crypto.randomUUID(),
-          icon: "pencil.and.ellipsis.rectangle",
+          icon: "macwindow",
           title: "Window",
         },
         {
           id: crypto.randomUUID(),
-          icon: "pencil.and.ellipsis.rectangle",
+          icon: "rectangle.fill",
           title: "Modal",
+        },
+        {
+          id: crypto.randomUUID(),
+          icon: "square.on.square",
+          title: "Popover",
         },
         {
           id: crypto.randomUUID(),

@@ -5,6 +5,7 @@ import type { Progress } from "../views/progress/progress.ts";
 import type { TextField } from "../views/text-field/text-field.ts";
 import type { Checkbox } from "../views/checkbox/checkbox.ts";
 import type { Window } from "../views/window/window.ts";
+import type { Popover } from "../views/popover/popover.ts";
 
 declare global {
   // undom
@@ -108,6 +109,11 @@ declare global {
     prototype: HTMLCheckboxElement;
   };
 
+  interface HTMLPopoverElement extends Popover {}
+  var HTMLPopoverElement: {
+    new (): HTMLPopoverElement;
+    prototype: HTMLPopoverElement;
+  };
 
   interface HTMLElementTagNameMap {
     view: HTMLViewElement;

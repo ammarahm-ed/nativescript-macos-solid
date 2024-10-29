@@ -363,6 +363,37 @@ function updateSnippetJSX(type: string | undefined) {
         })()
       );
       break;
+    case "popover":
+      setCurrentSnippet(
+        (() => {
+          let popoverRef: HTMLPopoverElement;
+          return (
+            <>
+              <popover
+                style={{
+                  width: 200,
+                  height: 200,
+                  justifyContent:'center',
+                  alignItems:'center'
+                }}
+                ref={(el: HTMLPopoverElement) => (popoverRef = el)}
+              >
+                <text>Hello!</text>
+              </popover>
+              <button
+                onClick={(event) => {
+                  if (!popoverRef?.isShown()) {
+                    popoverRef!.show(event.target);
+                  } else {
+                    popoverRef.hide();
+                  }
+                }}
+              />
+            </>
+          );
+        })()
+      );
+      break;
     case "webview":
       setCurrentSnippet(
         <webview
@@ -616,6 +647,22 @@ placeholder="Type something here"/>`;
                   height: 200,
                 }}
               />`;
+
+    case "popover":
+      return `<>
+        <popover ref={(el: HTMLPopoverElement) => popoverRef = el}>
+          <text>Popover</text>
+        </popover>
+        <button
+          onClick={(event) => {
+            if (!popoverRef?.nativeView?.isShown) {
+              popoverRef!.show(event.target);
+            } else {
+              popoverRef.hide();
+            }
+          }}
+        />
+      </>`;
     case "webview":
       return `<webview
   src="https://solidjs.com"
@@ -675,7 +722,7 @@ const Snippet: Component<SnippetProps> = (props) => {
             console.log(e.url);
             updateSnippetPreview(props.type);
           }}
-        ></webview>
+        />
       </view>
       <view
         style={{
