@@ -80,6 +80,11 @@ export const sidebarItemsData: Array<Array<SidebarItem>> = [
         },
         {
           id: crypto.randomUUID(),
+          icon: "macwindow.on.rectangle",
+          title: "Modal",
+        },
+        {
+          id: crypto.randomUUID(),
           icon: "rainbow",
           title: "Open Color Dialog",
         },
@@ -120,18 +125,13 @@ export const sidebarItemsData: Array<Array<SidebarItem>> = [
         },
         {
           id: crypto.randomUUID(),
-          icon: "pencil.and.ellipsis.rectangle",
-          title: "Window",
-        },
-        {
-          id: crypto.randomUUID(),
-          icon: "pencil.and.ellipsis.rectangle",
-          title: "Modal",
-        },
-        {
-          id: crypto.randomUUID(),
           icon: "network",
           title: "WebView",
+        },
+        {
+          id: crypto.randomUUID(),
+          icon: "macwindow",
+          title: "Window",
         },
       ],
     },
