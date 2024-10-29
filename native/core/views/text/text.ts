@@ -110,7 +110,6 @@ export class Text extends TextBase {
   public connectedCallback(): void {
     super.connectedCallback();
     this.updateTextContent();
-    NSTextField.alloc().init().alignmentRectForFrame
   }
 
   @overrides("padding")
