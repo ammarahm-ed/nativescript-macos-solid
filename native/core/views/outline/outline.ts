@@ -5,11 +5,13 @@ import { view } from "../decorators/view.ts";
 import { TableCell } from "../table/table-cell.ts";
 import { View } from "../view/view.ts";
 
-export class OutlineClickEvent extends Event {
+export class OutlineViewItemSelectedEvent extends Event {
   declare index: number;
-  constructor(index: number, eventDict?: EventInit) {
-    super("click", eventDict);
+  declare item: TableCell;
+  constructor(index: number, item: TableCell, eventDict?: EventInit) {
+    super("itemSelected", eventDict);
     this.index = index;
+    this.item = item;
   }
 }
 
@@ -82,7 +84,11 @@ class OutlineViewDataSource
     const outlineView = notification.object as NSOutlineView;
     const owner = this.outline;
     if (owner && outlineView) {
-      owner.dispatchEvent(new OutlineClickEvent(outlineView.selectedRow));
+      const item = outlineView.itemAtRow(outlineView.selectedRow) as TableCell;
+      owner.dispatchEvent(new OutlineViewItemSelectedEvent(outlineView.selectedRow, item));
+      if (item) {
+        item.dispatchSelectedEvent();
+      }
     }
   }
 }

@@ -1,34 +1,39 @@
 import { JSX as SolidJSX } from "npm:solid-js";
-import { type TextStyle, ViewStyle } from "../native/core/style/index.ts";
-import { WindowResizeEvent } from "../native/core/views/window/native-window.ts";
-import type { SliderChangeEvent } from "../native/core/views/slider/slider.ts";
+import type { ColorDialogOptions } from "../native/core/dialogs/color/color-dialog.ts";
 import type {
-  LoadFinishedEvent,
-  LoadStartedEvent,
-} from "../native/core/views/webview/webview.ts";
+  FileDialogOptions,
+  SaveFileDialogOptions,
+} from "../native/core/dialogs/file/file-dialog.ts";
+import { type TextStyle, ViewStyle } from "../native/core/style/index.ts";
 import type { ButtonClickEvent } from "../native/core/views/button/native-button.ts";
+import type { ColorChosenEvent } from "../native/core/views/coloropenbutton/native-coloropenbutton.ts";
+import type { ComboBoxChangeEvent } from "../native/core/views/combobox/native-combobox.ts";
+import type { FileChosenEvent } from "../native/core/views/fileopenbutton/native-fileopenbutton.ts";
+import type { FileSaveEvent } from "../native/core/views/filesavebutton/native-filesavebutton.ts";
 import type {
   ImageErrorEvent,
   ImageLoadEvent,
   ImageStretch,
 } from "../native/core/views/image/image.ts";
-import type { ToolbarItemClickEvent } from "../native/core/views/toolbar/toolbar-item.ts";
-import type { OutlineClickEvent } from "../native/core/views/outline/outline.ts";
-import type { ComboBoxChangeEvent } from "../native/core/views/combobox/native-combobox.ts";
+import type { MenuItemClickEvent } from "../native/core/views/menu/menu-item.ts";
+import type { ScrollChangeEvent } from "../native/core/views/scroll-view/scroll-view.ts";
+import type { SliderChangeEvent } from "../native/core/views/slider/slider.ts";
+import type { TableCellSelectedEvent } from "../native/core/views/table/table-cell.ts";
+import type {
+  TextChangeEvent,
+  TextSubmitEvent,
+} from "../native/core/views/text-field/text-field.ts";
 import type {
   ToolbarGroupSelectedEvent,
   ToolbarGroupSelectionMode,
 } from "../native/core/views/toolbar/toolbar-group.ts";
+import type { ToolbarItemClickEvent } from "../native/core/views/toolbar/toolbar-item.ts";
 import type {
-  FileDialogOptions,
-  SaveFileDialogOptions,
-} from "../native/core/dialogs/file/file-dialog.ts";
-import type { FileChosenEvent } from "../native/core/views/fileopenbutton/native-fileopenbutton.ts";
-import type { FileSaveEvent } from "../native/core/views/filesavebutton/native-filesavebutton.ts";
-import type { ColorDialogOptions } from "../native/core/dialogs/color/color-dialog.ts";
-import type { ColorChosenEvent } from "../native/core/views/coloropenbutton/native-coloropenbutton.ts";
-import type { TextChangeEvent, TextSubmitEvent } from "../native/core/views/text-field/text-field.ts";
-import type { ScrollChangeEvent } from "../native/core/views/scroll-view/scroll-view.ts";
+  LoadFinishedEvent,
+  LoadStartedEvent,
+} from "../native/core/views/webview/webview.ts";
+import { WindowResizeEvent } from "../native/core/views/window/native-window.ts";
+import type { OutlineViewItemSelectedEvent } from "../native/core/views/outline/outline.ts";
 
 interface ViewAttributes {
   ref?: unknown | ((e: unknown) => void);
@@ -93,7 +98,7 @@ interface ImageAttributes {
 }
 
 interface OutlineAttributes extends ViewAttributes {
-  onClick?: (item: OutlineClickEvent) => void;
+  onItemSelected?: (item: OutlineViewItemSelectedEvent) => void;
 }
 
 interface ScrollViewAtributes extends ViewAttributes {
@@ -186,6 +191,8 @@ interface ToolbarAttributes {
 
 interface TableCellAttributes extends ViewAttributes {
   selected?: boolean;
+  identifier?: string;
+  onSelected?: (event: TableCellSelectedEvent) => void;
 }
 
 interface TextFieldAttributes extends TextAttributes {
@@ -199,8 +206,42 @@ interface TextFieldAttributes extends TextAttributes {
 }
 
 interface CheckboxAttributes extends ButtonAttributes {
-    checked?: boolean
+  checked?: boolean;
 }
+
+interface MenuAttributes extends ViewAttributes {
+  title?: string;
+  attachToMainMenu?: boolean;
+}
+
+interface MenuItemAttributes extends ViewAttributes {
+  title?: string;
+  icon?: string;
+  shortcutKey?: string;
+  state?: "on" | "off" | "mixed";
+  onIcon?: string;
+  offIcon?: string;
+  mixedIcon?: string;
+  enabled?: boolean;
+  isHidden?: boolean;
+  onClick?: (event: MenuItemClickEvent) => void;
+}
+
+interface MenuSeperatorAttributes extends ViewAttributes {}
+
+interface MenuSectionHeaderAttributes extends ViewAttributes {
+  title?: string;
+}
+
+interface StaturBarAttributes extends ViewAttributes {
+  title?: string;
+}
+
+interface PopoverAttributes extends ViewAttributes {
+  animates?: boolean;
+  behavior?: number;
+}
+
 // Define elements here
 interface JSXIntrinsicElements {
   button: ButtonAttributes;
@@ -225,13 +266,18 @@ interface JSXIntrinsicElements {
   radiobutton: ButtonAttributes;
   "toolbar-item": ToolbarItemAttributes;
   toolbar: ToolbarAttributes;
-  "toolbar-sidebar-tracking-separator":
-    ToolbarSidebarTrackingSeparatorAttributes;
+  "toolbar-sidebar-tracking-separator": ToolbarSidebarTrackingSeparatorAttributes;
   "toolbar-toggle-sidebar": ToolbarToggleSidebarAttributes;
   "toolbar-flexible-space": ToolbarFlexibleSpaceAttributes;
   "toolbar-group": ToolbarGroupAttributes;
   "toolbar-space": ToolbarSpaceAttributes;
-  'text-field': TextFieldAttributes
+  "text-field": TextFieldAttributes;
+  menu: MenuAttributes;
+  "menu-item": MenuItemAttributes;
+  "menu-separator": MenuSeperatorAttributes;
+  "menu-section-header": MenuSectionHeaderAttributes;
+  "status-bar": StaturBarAttributes;
+  popover: PopoverAttributes;
 }
 
 export namespace JSX {
@@ -244,22 +290,22 @@ export namespace JSX {
   }
 
   export function mapElementTag<K extends keyof IntrinsicElements>(
-    tag: K,
+    tag: K
   ): IntrinsicElements[K];
 
   export function createElement<
     Element extends IntrinsicElements,
-    Key extends keyof IntrinsicElements,
+    Key extends keyof IntrinsicElements
   >(element: Key | undefined | null, attrs: Element[Key]): Element[Key];
 
   export function createElement<
     Element extends IntrinsicElements,
     Key extends keyof IntrinsicElements,
-    T,
+    T
   >(
     element: Key | undefined | null,
     attrsEnhancers: T,
-    attrs: Element[Key] & T,
+    attrs: Element[Key] & T
   ): Element[Key];
 
   export type Element = SolidJSX.Element;
@@ -302,22 +348,22 @@ declare global {
     }
 
     export function mapElementTag<K extends keyof IntrinsicElements>(
-      tag: K,
+      tag: K
     ): IntrinsicElements[K];
 
     export function createElement<
       Element extends IntrinsicElements,
-      Key extends keyof IntrinsicElements,
+      Key extends keyof IntrinsicElements
     >(element: Key | undefined | null, attrs: Element[Key]): Element[Key];
 
     export function createElement<
       Element extends IntrinsicElements,
       Key extends keyof IntrinsicElements,
-      T,
+      T
     >(
       element: Key | undefined | null,
       attrsEnhancers: T,
-      attrs: Element[Key] & T,
+      attrs: Element[Key] & T
     ): Element[Key];
 
     export type Element = SolidJSX.Element;

@@ -1,6 +1,7 @@
 /// <reference lib="dom" />
 import { For, Match, Show, Switch } from "npm:solid-js";
 import { render } from "../solid-native/renderer.js";
+import AppMenus from "./app-menus.tsx";
 import Examples from "./examples/index.tsx";
 import Components from "./pages/components.tsx";
 import GettingStarted from "./pages/getting-started.tsx";
@@ -37,6 +38,8 @@ function App() {
       }
       transparentTitleBar={false}
     >
+      <AppMenus />
+
       <toolbar>
         <toolbar-toggle-sidebar />
 
@@ -96,7 +99,7 @@ function App() {
             }}
           >
             <outline
-              onClick={(event) => {
+              onItemSelected={(event) => {
                 changeContent(event.index);
               }}
             >
