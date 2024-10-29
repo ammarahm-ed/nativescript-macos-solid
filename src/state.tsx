@@ -95,6 +95,11 @@ export const sidebarItemsData: Array<Array<SidebarItem>> = [
         },
         {
           id: crypto.randomUUID(),
+          icon: "square.on.square",
+          title: "Popover",
+        },
+        {
+          id: crypto.randomUUID(),
           icon: "slowmo",
           title: "Progress",
         },

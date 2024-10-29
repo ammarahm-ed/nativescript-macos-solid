@@ -363,6 +363,37 @@ function updateSnippetJSX(type: string | undefined) {
         })()
       );
       break;
+    case "popover":
+      setCurrentSnippet(
+        (() => {
+          let popoverRef: HTMLPopoverElement;
+          return (
+            <>
+              <popover
+                style={{
+                  width: 200,
+                  height: 200,
+                  justifyContent:'center',
+                  alignItems:'center'
+                }}
+                ref={(el: HTMLPopoverElement) => (popoverRef = el)}
+              >
+                <text>Hello!</text>
+              </popover>
+              <button
+                onClick={(event) => {
+                  if (!popoverRef?.isShown()) {
+                    popoverRef!.show(event.target);
+                  } else {
+                    popoverRef.hide();
+                  }
+                }}
+              />
+            </>
+          );
+        })()
+      );
+      break;
     case "webview":
       setCurrentSnippet(
         <webview
@@ -498,6 +529,21 @@ function getJSXSnippetString(type: string | undefined) {
     </Show>
   </view>
 </view>`;
+case "popover":
+      return `<>
+  <popover ref={(el: HTMLPopoverElement) => popoverRef = el}>
+    <text>Popover</text>
+  </popover>
+  <button
+    onClick={(event) => {
+      if (!popoverRef?.nativeView?.isShown) {
+        popoverRef!.show(event.target);
+      } else {
+        popoverRef.hide();
+      }
+    }}
+  />
+</>`;
     case "progress":
       return `<progress
   style={{
@@ -604,47 +650,7 @@ function getJSXSnippetString(type: string | undefined) {
     height: 200,
   }}
 />`;
-    case "modal":
-      return `<view>
-  <window
-    ref={(el: HTMLWindowElement) => (windowRef = el)}
-    title="Modal"
-    styleMask={
-      NSWindowStyleMask.Titled |
-      NSWindowStyleMask.Closable |
-      NSWindowStyleMask.Resizable
-    }
-    style={{
-      width: 200,
-      height: 200,
-    }}
-  >
-    <view
-      style={{
-        width: "100%",
-        height: "100%",
-        alignItems: "center",
-        justifyContent: "center",
-        gap: 10,
-      }}
-    >
-      <text>Hello, I'm a modal</text>
 
-      <button
-        title="Close"
-        onClick={() => {
-          windowRef.closeModalWindow();
-        }}
-      />
-    </view>
-  </window>
-  <button
-    onClick={(_event) => {
-      windowRef.openAsModal();
-    }}
-    title="Open Modal"
-  />
-</view>`;
     case "webview":
       return `<webview
   src="https://solidjs.com"
@@ -704,7 +710,7 @@ const Snippet: Component<SnippetProps> = (props) => {
             console.log(e.url);
             updateSnippetPreview(props.type);
           }}
-        ></webview>
+        />
       </view>
       <view
         style={{

@@ -6,6 +6,7 @@ import { native, type NativePropertyConfig } from "../decorators/native.ts";
 import { overrides } from "../decorators/overrides.ts";
 
 export class ViewBase extends HTMLElement {
+  private _nativePropertyDefaults: Map<string, any> = new Map();
   static register() {
     //@ts-ignore
     if (this._register) {
@@ -96,7 +97,7 @@ export class ViewBase extends HTMLElement {
           x: layout.left,
           // Reverse the origin so that view's are rendered from
           // the top left instead of default bottom right.
-          y: layout.top
+          y: layout.top,
           // y: parentLayout
           //   ? Math.max(parentHeight - layout.top - height, 0)
           //   : layout.top,
@@ -154,7 +155,6 @@ export class ViewBase extends HTMLElement {
     ) {
       this._addYogaChild(node as any, !!child);
     }
-
     this.setRootView(node);
 
     node.connectedCallback?.();
@@ -163,7 +163,10 @@ export class ViewBase extends HTMLElement {
   }
 
   private setRootView(node: any) {
-    node._rootView = node.isRoot ? node : this._rootView || this;
+    node._rootView = node.isRoot || !node.parentNode
+      ? node
+      : node.parentNode._rootView
+
     let child = node.firstChild;
     while (child) {
       if (child.nodeType == Node.ELEMENT_NODE) {
@@ -380,18 +383,38 @@ export class ViewBase extends HTMLElement {
     qualifiedName: string,
     value: string
   ): void {
-    //@ts-ignore
-    this[qualifiedName] = value;
+    if (qualifiedName in this) {
+      //@ts-ignore
+      this[qualifiedName] = value;
+    } else {
+      super.setAttributeNS(_namespace, qualifiedName, value);
+    }
   }
 
   getAttributeNS(_namespace: string | null, qualifiedName: string): any {
-    //@ts-ignore
-    return this[qualifiedName];
+    if (qualifiedName in this) {
+      //@ts-ignore
+      return this[qualifiedName];
+    } else {
+      return super.getAttributeNS(_namespace, qualifiedName);
+    }
   }
 
   setNativeProperties() {
     if (this.nativeView) {
+      for (const [k, v] of this._nativePropertyDefaults) {
+        if (!this.pendingSetNative.has(k)) {
+          this.setAttribute(k, v);
+        }
+      }
       this.pendingSetNative.forEach((value) => value());
+
+      for (const [k, v] of this.style._nativeStyleDefaults) {
+        if (!this.style.pendingSetNative.has(k)) {
+          //@ts-ignore
+          this.style[k] = v;
+        }
+      }
       this.style.pendingSetNative.forEach((value) => value());
     }
   }

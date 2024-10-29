@@ -137,3 +137,27 @@ export function OpacitySetNative(style: Style, key: string, value: any) {
 export const OpacityStyle: StylePropertyConfig = {
   setNative: OpacitySetNative,
 };
+
+export function TextAlignSetNative(style: Style, key: string, value: any) {
+  if (!style.node.nativeView) return;
+  const nativeView = style.node.nativeView as NSTextField;
+  switch (value) {
+    case "center":
+      nativeView.alignment = NSTextAlignment.Center;
+      break;
+    case "right":
+      nativeView.alignment = NSTextAlignment.Right;
+      break;
+    case "justified":
+      nativeView.alignment = NSTextAlignment.Justified;
+      break;
+    case "left":
+    default:
+      nativeView.alignment = NSTextAlignment.Left;
+      break;
+  }
+}
+
+export const TextAlignStyle: StylePropertyConfig = {
+  setNative: TextAlignSetNative,
+};
