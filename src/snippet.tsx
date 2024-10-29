@@ -373,8 +373,8 @@ function updateSnippetJSX(type: string | undefined) {
                 style={{
                   width: 200,
                   height: 200,
-                  justifyContent:'center',
-                  alignItems:'center'
+                  justifyContent: "center",
+                  alignItems: "center",
                 }}
                 ref={(el: HTMLPopoverElement) => (popoverRef = el)}
               >
@@ -614,55 +614,84 @@ function getJSXSnippetString(type: string | undefined) {
 </text>`;
     case "text field":
       return `<text-field
-          style={{
-            padding: 50,
-          }}
-          onTextChange={(event) => {
-            console.log(event.value)
-          }}
-placeholder="Type something here"/>`;
+  style={{
+    padding: 50,
+  }}
+  onTextChange={(event) => {
+    console.log(event.value)
+  }}
+  placeholder="Type something here"
+/>`;
     case "window":
       return `<window ref={(el: HTMLWindowElement) => (windowRef = el)}
-                title="Window"
-                styleMask={
-                  NSWindowStyleMask.Titled |
-                  NSWindowStyleMask.Closable |
-                  NSWindowStyleMask.Resizable
-                }
-                style={{
-                  width: 200,
-                  height: 200,
-                }}
-              />`;
+  title="Window"
+  styleMask={
+    NSWindowStyleMask.Titled |
+    NSWindowStyleMask.Closable |
+    NSWindowStyleMask.Resizable
+  }
+  style={{
+    width: 200,
+    height: 200,
+  }}
+/>`;
     case "modal":
-      return `<window ref={(el: HTMLWindowElement) => (windowRef = el)}
-                title="Modal"
-                styleMask={
-                  NSWindowStyleMask.Titled |
-                  NSWindowStyleMask.Closable |
-                  NSWindowStyleMask.Resizable
-                }
-                style={{
-                  width: 200,
-                  height: 200,
-                }}
-              />`;
+      return `<view>
+  <window
+    ref={(el: HTMLWindowElement) => (windowRef = el)}
+    title="Modal"
+    styleMask={
+      NSWindowStyleMask.Titled |
+      NSWindowStyleMask.Closable |
+      NSWindowStyleMask.Resizable
+    }
+    style={{
+      width: 200,
+      height: 200,
+    }}
+  >
+    <view
+      style={{
+        width: "100%",
+        height: "100%",
+        alignItems: "center",
+        justifyContent: "center",
+        gap: 10,
+      }}
+    >
+      <text>Hello modal</text>
+
+      <button
+        title="Close"
+        onClick={() => {
+          windowRef.closeModalWindow();
+        }}
+      />
+    </view>
+  </window>
+  <button
+    onClick={(_event) => {
+      windowRef.openAsModal();
+    }}
+    title="Open Modal"
+  />
+</view>`;
 
     case "popover":
       return `<>
-        <popover ref={(el: HTMLPopoverElement) => popoverRef = el}>
-          <text>Popover</text>
-        </popover>
-        <button
-          onClick={(event) => {
-            if (!popoverRef?.nativeView?.isShown) {
-              popoverRef!.show(event.target);
-            } else {
-              popoverRef.hide();
-            }
-          }}
-        />
-      </>`;
+  <popover ref={(el: HTMLPopoverElement) => popoverRef = el}>
+    <text>Popover</text>
+  </popover>
+  <button
+    onClick={(event) => {
+      if (!popoverRef?.nativeView?.isShown) {
+        popoverRef!.show(event.target);
+      } else {
+        popoverRef.hide();
+      }
+    }}
+  />
+</>`;
     case "webview":
       return `<webview
   src="https://solidjs.com"
@@ -684,7 +713,9 @@ function updateSnippetPreview(type: string | undefined) {
     dark: colorScheme === "dark",
   };
   webRef?.executeJavaScript(
-    `typeof window.updateSnippet !== 'undefined' && window.updateSnippet('${type}', '${JSON.stringify(data)}')`
+    `typeof window.updateSnippet !== 'undefined' && window.updateSnippet('${type}', '${JSON.stringify(
+      data
+    )}')`
   );
 }
 
