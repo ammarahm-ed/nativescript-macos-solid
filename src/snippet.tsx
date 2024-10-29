@@ -637,7 +637,7 @@ function updateSnippetPreview(type: string | undefined) {
     dark: colorScheme === "dark",
   };
   webRef?.executeJavaScript(
-    `window.updateSnippet('${type}', '${JSON.stringify(data)}')`
+    `typeof window.updateSnippet !== 'undefined' && window.updateSnippet('${type}', '${JSON.stringify(data)}')`
   );
 }
 
