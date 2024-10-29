@@ -37,7 +37,7 @@ export default function GettingStarted() {
           backgroundColor: "#efefef",
           borderRadius: 10,
           marginTop: 16,
-          padding: 10,
+          padding: 18,
         }}
       >
         <text
