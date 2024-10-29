@@ -12,11 +12,8 @@ export class SliderChangeEvent extends Event {
   }
 }
 
+@NativeClass
 export class NSSliderAutoResizable extends NSSlider {
-  static {
-    NativeClass(this);
-  }
-
   static ObjCExposedMethods = {
     sliderChanged: { returns: interop.types.void, params: [interop.types.id] },
   };

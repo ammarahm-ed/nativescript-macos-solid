@@ -39,85 +39,85 @@ interface SidebarItem extends SidebarBaseItem {
 export const sidebarItemsData: Array<Array<SidebarItem>> = [
   [
     {
-      id: crypto.randomUUID(),
+      id: typeof crypto === "object" ? crypto.randomUUID() : NSUUID.UUID().UUIDString,
       icon: "house",
       title: "Getting Started",
       children: [
         {
-          id: crypto.randomUUID(),
+          id: typeof crypto === "object" ? crypto.randomUUID() : NSUUID.UUID().UUIDString,
           icon: "lightbulb.max",
           title: "Overview",
         },
         {
-          id: crypto.randomUUID(),
+          id: typeof crypto === "object" ? crypto.randomUUID() : NSUUID.UUID().UUIDString,
           icon: "gear.badge.checkmark",
           title: "Setup",
         },
       ],
     },
     {
-      id: crypto.randomUUID(),
+      id: typeof crypto === "object" ? crypto.randomUUID() : NSUUID.UUID().UUIDString,
       icon: "list.star",
       title: "Components",
       children: [
         {
-          id: crypto.randomUUID(),
+          id: typeof crypto === "object" ? crypto.randomUUID() : NSUUID.UUID().UUIDString,
           icon: "button.horizontal.top.press",
           title: "Button",
         },
         {
-          id: crypto.randomUUID(),
+          id: typeof crypto === "object" ? crypto.randomUUID() : NSUUID.UUID().UUIDString,
           icon: "checkmark.square.fill",
           title: "Checkbox",
         },
         {
-          id: crypto.randomUUID(),
+          id: typeof crypto === "object" ? crypto.randomUUID() : NSUUID.UUID().UUIDString,
           icon: "filemenu.and.selection",
           title: "ComboBox",
         },
         {
-          id: crypto.randomUUID(),
+          id: typeof crypto === "object" ? crypto.randomUUID() : NSUUID.UUID().UUIDString,
           icon: "photo",
           title: "Image",
         },
         {
-          id: crypto.randomUUID(),
+          id: typeof crypto === "object" ? crypto.randomUUID() : NSUUID.UUID().UUIDString,
           icon: "rainbow",
           title: "Open Color Dialog",
         },
         {
-          id: crypto.randomUUID(),
+          id: typeof crypto === "object" ? crypto.randomUUID() : NSUUID.UUID().UUIDString,
           icon: "filemenu.and.cursorarrow",
           title: "Open File Dialog",
         },
         {
-          id: crypto.randomUUID(),
+          id: typeof crypto === "object" ? crypto.randomUUID() : NSUUID.UUID().UUIDString,
           icon: "slowmo",
           title: "Progress",
         },
         {
-          id: crypto.randomUUID(),
+          id: typeof crypto === "object" ? crypto.randomUUID() : NSUUID.UUID().UUIDString,
           icon: "checklist.unchecked",
           title: "RadioButton",
         },
         {
-          id: crypto.randomUUID(),
+          id: typeof crypto === "object" ? crypto.randomUUID() : NSUUID.UUID().UUIDString,
           icon: "checkmark.circle.fill",
           title: "Save File Dialog",
         },
         {
-          id: crypto.randomUUID(),
+          id: typeof crypto === "object" ? crypto.randomUUID() : NSUUID.UUID().UUIDString,
           icon: "slider.horizontal.3",
           title: "Slider",
         },
         {
-          id: crypto.randomUUID(),
+          id: typeof crypto === "object" ? crypto.randomUUID() : NSUUID.UUID().UUIDString,
           icon: "textformat",
           title: "Text",
         },
 
         {
-          id: crypto.randomUUID(),
+          id: typeof crypto === "object" ? crypto.randomUUID() : NSUUID.UUID().UUIDString,
           icon: "network",
           title: "WebView",
         },
@@ -126,17 +126,17 @@ export const sidebarItemsData: Array<Array<SidebarItem>> = [
   ],
   [
     {
-      id: crypto.randomUUID(),
+      id: typeof crypto === "object" ? crypto.randomUUID() : NSUUID.UUID().UUIDString,
       icon: "star.circle.fill",
       title: "Examples",
       children: [
         {
-          id: crypto.randomUUID(),
+          id: typeof crypto === "object" ? crypto.randomUUID() : NSUUID.UUID().UUIDString,
           icon: "numbers.rectangle.fill",
           title: "Counter",
         },
         {
-          id: crypto.randomUUID(),
+          id: typeof crypto === "object" ? crypto.randomUUID() : NSUUID.UUID().UUIDString,
           icon: "checklist",
           title: "Simple Todos",
         },
@@ -145,24 +145,24 @@ export const sidebarItemsData: Array<Array<SidebarItem>> = [
   ],
   [
     {
-      id: crypto.randomUUID(),
+      id: typeof crypto === "object" ? crypto.randomUUID() : NSUUID.UUID().UUIDString,
       icon: "staroflife.fill",
       title: "Credits",
       children: [
         {
-          id: crypto.randomUUID(),
+          id: typeof crypto === "object" ? crypto.randomUUID() : NSUUID.UUID().UUIDString,
           icon: "person.crop.circle.fill",
           title: "Ammar Ahmed",
           url: "https://github.com/ammarahm-ed",
         },
         {
-          id: crypto.randomUUID(),
+          id: typeof crypto === "object" ? crypto.randomUUID() : NSUUID.UUID().UUIDString,
           icon: "person.crop.circle.fill",
           title: "Diljit Singh",
           url: "https://github.com/DjDeveloperr",
         },
         {
-          id: crypto.randomUUID(),
+          id: typeof crypto === "object" ? crypto.randomUUID() : NSUUID.UUID().UUIDString,
           icon: "person.crop.circle.fill",
           title: "Nathan Walker",
           url: "https://github.com/NathanWalker",

@@ -517,9 +517,10 @@ const comboItems = [
 ];
 
 const Snippet: Component<SnippetProps> = (props) => {
-  const url = NSBundle.mainBundle.bundleIdentifier
-    ? NSBundle.mainBundle.resourcePath + "/snippets/index.html"
-    : import.meta.resolve("../assets/snippets/index.html");
+  const url =
+    NSBundle.mainBundle.objectForInfoDictionaryKey("NativeScriptApplication")
+      ? "file://" + NSBundle.mainBundle.resourcePath + "/snippets/index.html"
+      : import.meta.resolve("../assets/snippets/index.html");
 
   createEffect(() => {
     updateSnippetJSX(props.type);

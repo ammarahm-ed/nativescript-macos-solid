@@ -1,10 +1,9 @@
 {
   "app": {
-    "name": "Solid",
+    "name": "Solid macOS",
     "version": "0.1.0",
     "identifier": "org.nativescript.solidmacos",
     "entryPoint": "./native/index.ts",
-    "icon": "icon.icns",
     "assets": "./assets"
   },
   "tasks": {

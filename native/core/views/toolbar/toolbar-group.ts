@@ -54,7 +54,7 @@ export class ToolbarGroup extends ToolbarItem {
   public override initNativeView(): NSToolbarItemGroup | undefined {
     this.target = NativeToolbarGroupTarget.initWithOwner(new WeakRef(this));
     this.nativeView = NSToolbarItemGroup.alloc().initWithItemIdentifier(
-      crypto.randomUUID(),
+      NSUUID.UUID().UUIDString,
     );
     return this.nativeView;
   }
@@ -132,7 +132,7 @@ export class ToolbarGroup extends ToolbarItem {
       if (view.nativeView) {
         view.nativeView = NSToolbarItemGroup
           .groupWithItemIdentifierTitlesSelectionModeLabelsTargetAction(
-            crypto.randomUUID(),
+            NSUUID.UUID().UUIDString,
             value,
             view.nativeView.selectionMode,
             value,

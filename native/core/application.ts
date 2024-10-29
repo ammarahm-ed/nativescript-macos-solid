@@ -16,17 +16,18 @@ class AppDelegate extends NSObject implements NSApplicationDelegate {
     openDiscord: { returns: interop.types.void, params: [interop.types.id] },
   };
 
-  static {
-    NativeClass(this);
-  }
-
   applicationDidFinishLaunching(_notification: NSNotification) {
-    NSApp.activateIgnoringOtherApps(false);
-    NSApp.stop(this);
     // Allow users to customize the app's Touch Bar items
     NSApplication.sharedApplication
       .isAutomaticCustomizeTouchBarMenuItemEnabled = true;
-    RunLoop();
+
+    if (
+      !NSBundle.mainBundle.objectForInfoDictionaryKey("NativeScriptApplication")
+    ) {
+      NSApp.activateIgnoringOtherApps(false);
+      NSApp.stop(this);
+      RunLoop();
+    }
   }
 
   applicationWillTerminate(_notification: NSNotification): void {
@@ -113,7 +114,8 @@ export default class Application {
     Application.createMenu();
     NSApp.delegate = Application.delegate;
     NSApp.setActivationPolicy(NSApplicationActivationPolicy.Regular);
-    NSApp.run();
+
+    NSApplicationMain(0, null);
   }
 
   static createMenu() {

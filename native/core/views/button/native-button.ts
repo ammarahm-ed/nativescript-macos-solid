@@ -10,6 +10,7 @@ export class ButtonClickEvent extends Event {
   }
 }
 
+@NativeClass
 export class NativeButton extends NSButton {
   static ObjCExposedMethods = {
     clicked: { returns: interop.types.void, params: [interop.types.id] },
@@ -18,9 +19,7 @@ export class NativeButton extends NSButton {
   _color?: NSColor;
   _title?: string;
   _owner?: WeakRef<Button>;
-  static {
-    NativeClass(this);
-  }
+  
   static initWithOwner(owner: WeakRef<Button>) {
     const button = NativeButton.new();
     button._owner = owner;

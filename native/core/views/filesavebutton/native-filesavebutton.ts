@@ -12,13 +12,12 @@ export class FileSaveEvent extends Event {
   }
 }
 
+@NativeClass
 export class NativeFileSaveButton extends NativeButton {
   static ObjCExposedMethods = {
     clicked: { returns: interop.types.void, params: [interop.types.id] },
   };
-  static {
-    NativeClass(this);
-  }
+
   static initWithOwner(owner: WeakRef<FileSaveButton>) {
     const button = NativeFileSaveButton.new();
     button._owner = owner;

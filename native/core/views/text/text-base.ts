@@ -1,4 +1,4 @@
-import { MeasureMode } from "npm:yoga-layout/load";
+import { MeasureMode } from "yoga-layout/load";
 import { ViewBase } from "../view/view-base.ts";
 
 export class TextBase extends ViewBase {

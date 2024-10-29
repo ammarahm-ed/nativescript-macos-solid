@@ -21,7 +21,7 @@ export class NativeToolbarItem extends NSToolbarItem {
 
   public static initWithOwner(owner: WeakRef<ToolbarItem>): NativeToolbarItem {
     const item = NativeToolbarItem.alloc().initWithItemIdentifier(
-      crypto.randomUUID(),
+      NSUUID.UUID().UUIDString,
     );
     item._owner = owner;
     item.target = item;

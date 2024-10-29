@@ -80,8 +80,8 @@ function App() {
       >
         <side-bar
           style={{
-            maxWidth: 250,
-            minWidth: 200,
+            maxWidth: 280,
+            minWidth: 220,
           }}
         >
           <scroll-view>

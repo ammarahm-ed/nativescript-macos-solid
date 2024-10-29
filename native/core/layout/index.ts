@@ -1,4 +1,4 @@
-import {
+import Yoga, {
   Align,
   Direction,
   Display,
@@ -6,13 +6,13 @@ import {
   FlexDirection,
   Gutter,
   Justify,
-  loadYoga,
   Node,
   Overflow,
   PositionType,
   Wrap,
-} from "npm:yoga-layout/load";
-export const Yoga = await loadYoga();
+} from "yoga-layout/load";
+
+export { Yoga };
 
 function createYogaNode() {
   return Yoga.Node.create();

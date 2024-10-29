@@ -2,11 +2,8 @@ import "@nativescript/macos-node-api";
 import { view } from "../decorators/view.ts";
 import { View } from "../view/view.ts";
 
+@NativeClass
 export class NSScrollViewAutoResizable extends NSScrollView {
-  static {
-    NativeClass(this);
-  }
-
   override viewDidMoveToSuperview(): void {
     if (!this.superview) {
       return;

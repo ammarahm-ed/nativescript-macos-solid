@@ -1,5 +1,5 @@
 // deno-lint-ignore-file ban-ts-comment
-import { MeasureMode } from "npm:yoga-layout/load";
+import { MeasureMode } from "yoga-layout/load";
 import { Layout, YogaNode, YogaNodeLayout } from "../../layout/index.ts";
 import { CombinedStyle, Style } from "../../style/index.ts";
 import { native, type NativePropertyConfig } from "../decorators/native.ts";

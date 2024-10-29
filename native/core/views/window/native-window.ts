@@ -38,11 +38,9 @@ export class MainWindowController extends NSWindowController
   }
 }
 
+@NativeClass
 export class NativeWindow extends NSWindow implements NSWindowDelegate {
   static ObjCProtocols = [NSWindowDelegate];
-  static {
-    NativeClass(this);
-  }
 
   public appWindow?: Window;
 

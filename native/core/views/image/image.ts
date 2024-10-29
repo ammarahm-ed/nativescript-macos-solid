@@ -67,7 +67,7 @@ export class Image extends ViewBase {
         img = NSImage.alloc().initWithContentsOfURL(NSURL.URLWithString(value));
       } else {
         img = NSImage.alloc().initWithContentsOfFile(
-          (value instanceof URL ? value.pathname : value).replace(
+          (typeof value === "string" ? value : value.pathname).replace(
             "file://",
             "",
           ),

@@ -1,14 +1,13 @@
 import "@nativescript/macos-node-api";
 
+@NativeClass
 export class SplitViewController extends NSSplitViewController
   implements NSSplitViewDelegate {
   static ObjCProtocols = [
     NSSplitViewDelegate,
     NSViewControllerPresentationAnimator,
   ];
-  static {
-    NativeClass(this);
-  }
+
   _owner?: WeakRef<HTMLViewBaseElement>;
 
   override viewDidLayout(): void {
