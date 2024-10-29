@@ -62,57 +62,57 @@ export class AppDelegate extends NSObject implements NSApplicationDelegate {
   }
 }
 
-Application.createMenu = () => {
-  const menu = NSMenu.new();
-  menu.delegate = Application.delegate;
-  NSApp.mainMenu = menu;
-  const appMenuItem = NSMenuItem.alloc().initWithTitleActionKeyEquivalent(
-    "Solid macOS",
-    "",
-    ""
-  );
-  menu.addItem(appMenuItem);
-  const submenu = NSMenu.new();
-  appMenuItem.submenu = submenu;
-  submenu.addItem(
-    NSMenuItem.alloc().initWithTitleActionKeyEquivalent(
-      "Quit",
-      "terminate:",
-      "q"
-    )
-  );
+// Application.createMenu = () => {
+//   const menu = NSMenu.new();
+//   menu.delegate = Application.delegate;
+//   NSApp.mainMenu = menu;
+//   const appMenuItem = NSMenuItem.alloc().initWithTitleActionKeyEquivalent(
+//     "Solid macOS",
+//     "",
+//     ""
+//   );
+//   menu.addItem(appMenuItem);
+//   const submenu = NSMenu.new();
+//   appMenuItem.submenu = submenu;
+//   submenu.addItem(
+//     NSMenuItem.alloc().initWithTitleActionKeyEquivalent(
+//       "Quit",
+//       "terminate:",
+//       "q"
+//     )
+//   );
 
-  const helpMenu = NSMenu.new();
-  helpMenu.delegate = Application.delegate;
-  NSApp.helpMenu = helpMenu;
-  const helpMenuItem = NSMenuItem.alloc().initWithTitleActionKeyEquivalent(
-    "Help",
-    "",
-    ""
-  );
-  menu.addItem(helpMenuItem);
+//   const helpMenu = NSMenu.new();
+//   helpMenu.delegate = Application.delegate;
+//   NSApp.helpMenu = helpMenu;
+//   const helpMenuItem = NSMenuItem.alloc().initWithTitleActionKeyEquivalent(
+//     "Help",
+//     "",
+//     ""
+//   );
+//   menu.addItem(helpMenuItem);
 
-  const helpSubmenu = NSMenu.new();
-  helpMenuItem.submenu = helpSubmenu;
-  helpSubmenu.addItem(
-    NSMenuItem.alloc().initWithTitleActionKeyEquivalent(
-      "Open Docs",
-      "openDocs",
-      "i"
-    )
-  );
-  helpSubmenu.addItem(
-    NSMenuItem.alloc().initWithTitleActionKeyEquivalent(
-      "Open Github",
-      "openGithub",
-      "g"
-    )
-  );
-  helpSubmenu.addItem(
-    NSMenuItem.alloc().initWithTitleActionKeyEquivalent(
-      "Discord",
-      "openDiscord",
-      "d"
-    )
-  );
-};
+//   const helpSubmenu = NSMenu.new();
+//   helpMenuItem.submenu = helpSubmenu;
+//   helpSubmenu.addItem(
+//     NSMenuItem.alloc().initWithTitleActionKeyEquivalent(
+//       "Open Docs",
+//       "openDocs",
+//       "i"
+//     )
+//   );
+//   helpSubmenu.addItem(
+//     NSMenuItem.alloc().initWithTitleActionKeyEquivalent(
+//       "Open Github",
+//       "openGithub",
+//       "g"
+//     )
+//   );
+//   helpSubmenu.addItem(
+//     NSMenuItem.alloc().initWithTitleActionKeyEquivalent(
+//       "Discord",
+//       "openDiscord",
+//       "d"
+//     )
+//   );
+// };
