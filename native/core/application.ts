@@ -14,6 +14,7 @@ class AppDelegate extends NSObject implements NSApplicationDelegate {
     openDocs: { returns: interop.types.void, params: [interop.types.id] },
     openGithub: { returns: interop.types.void, params: [interop.types.id] },
     openDiscord: { returns: interop.types.void, params: [interop.types.id] },
+    themeChanged: { returns: interop.types.void, params: [interop.types.id] },
   };
 
   static {
@@ -26,6 +27,12 @@ class AppDelegate extends NSObject implements NSApplicationDelegate {
     // Allow users to customize the app's Touch Bar items
     NSApplication.sharedApplication.isAutomaticCustomizeTouchBarMenuItemEnabled =
       true;
+    NSDistributedNotificationCenter.defaultCenter.addObserverSelectorNameObject(
+      this,
+      "themeChanged",
+      "AppleInterfaceThemeChangedNotification",
+      null
+    );
     RunLoop();
   }
 
@@ -33,7 +40,14 @@ class AppDelegate extends NSObject implements NSApplicationDelegate {
     this.running = false;
   }
 
-  
+  themeChanged(_id: this) {
+    console.log(
+      "themeChanged",
+      NSApp.effectiveAppearance.name === "NSAppearanceNameDarkAqua"
+        ? "dark"
+        : "light"
+    );
+  }
 }
 
 function RunLoop() {
