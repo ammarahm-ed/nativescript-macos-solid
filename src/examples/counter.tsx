@@ -11,15 +11,17 @@ export function Counter() {
         alignItems: "center",
       }}
     >
+      
       <button
-        onClick={() => setCount(count() + 1)}
+        onClick={() => setCount(Math.max(count() - 1, 0))}
         style={{
           borderRadius: 5,
           padding: 10,
+          fontSize: 20
         }}
         bezelStyle={NSBezelStyle.TexturedSquare}
       >
-        +
+        -
       </button>
 
       <text
@@ -31,15 +33,18 @@ export function Counter() {
       </text>
 
       <button
-        onClick={() => setCount(Math.max(count() - 1, 0))}
+        onClick={() => setCount(count() + 1)}
         style={{
           borderRadius: 5,
           padding: 10,
+          fontSize: 20
         }}
         bezelStyle={NSBezelStyle.TexturedSquare}
       >
-        -
+        +
       </button>
+
+      
     </view>
   );
 }
