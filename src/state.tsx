@@ -95,11 +95,6 @@ export const sidebarItemsData: Array<Array<SidebarItem>> = [
         },
         {
           id: crypto.randomUUID(),
-          icon: "square.on.square",
-          title: "Popover",
-        },
-        {
-          id: crypto.randomUUID(),
           icon: "slowmo",
           title: "Progress",
         },
@@ -127,6 +122,11 @@ export const sidebarItemsData: Array<Array<SidebarItem>> = [
           id: crypto.randomUUID(),
           icon: "pencil.and.ellipsis.rectangle",
           title: "Text field",
+        },
+        {
+          id: crypto.randomUUID(),
+          icon: "square.on.square",
+          title: "Popover",
         },
         {
           id: crypto.randomUUID(),

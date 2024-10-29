@@ -141,3 +141,7 @@
  .token.italic {
      font-style: italic;
  }
+
+ .token.plain-text {
+    color: white !important;
+}
