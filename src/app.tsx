@@ -43,6 +43,7 @@ function App() {
           onSelectedItemChange={(item) => {
             setCurrentSidebarItem(item);
           }}
+          selectedItem={currentSidebarItem()}
         />
 
         <content-list

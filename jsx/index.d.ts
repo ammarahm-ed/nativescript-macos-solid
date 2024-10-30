@@ -34,6 +34,7 @@ import type {
 } from "../native/core/views/webview/webview.ts";
 import { WindowResizeEvent } from "../native/core/views/window/native-window.ts";
 import type { OutlineViewItemSelectedEvent } from "../native/core/views/outline/outline.ts";
+import type { SwitchClickEvent } from "../native/core/views/switch/switch.ts";
 
 interface ViewAttributes {
   ref?: unknown | ((e: unknown) => void);
@@ -163,6 +164,13 @@ interface ProgressAttributes extends ViewAttributes {
   type?: "bar" | "spinner";
 }
 
+interface SwitchAttributes extends ViewAttributes {
+  value?: boolean;
+  onClick?: (event: SwitchClickEvent) => void;
+  continuous?: boolean;
+  enabled?: boolean;
+}
+
 interface ToolbarItemAttributes {
   onClick?: (event: ToolbarItemClickEvent) => void;
   label?: string;
@@ -283,6 +291,7 @@ interface JSXIntrinsicElements {
   "menu-section-header": MenuSectionHeaderAttributes;
   "status-bar": StaturBarAttributes;
   popover: PopoverAttributes;
+  switch: SwitchAttributes;
 }
 
 export namespace JSX {

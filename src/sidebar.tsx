@@ -1,28 +1,29 @@
 import { For } from "npm:solid-js";
-import GettingStarted from "./pages/getting-started.tsx";
-import Overview from "./pages/overview.tsx";
-import Setup from "./pages/setup.tsx";
-import Components from "./pages/components.tsx";
 import Button from "./components/button.tsx";
 import Checkbox from "./components/checkbox.tsx";
-import Modal from "./components/modal.tsx";
-import ComboBox from "./components/combobox.tsx";
-import Image from "./components/image.tsx";
 import ColorDialog from "./components/color-picker.tsx";
+import ComboBox from "./components/combobox.tsx";
 import FileDialog from "./components/file-dialog.tsx";
+import Image from "./components/image.tsx";
+import Modal from "./components/modal.tsx";
+import Popover from "./components/popover.tsx";
 import Progress from "./components/progress.tsx";
 import RadioButton from "./components/radio-button.tsx";
 import SaveFile from "./components/save-file.tsx";
 import Slider from "./components/slider.tsx";
-import Text from "./components/text.tsx";
 import TextField from "./components/text-field.tsx";
-import Window from "./components/window.tsx";
-import Popover from "./components/popover.tsx";
+import Text from "./components/text.tsx";
 import Webview from "./components/webview.tsx";
-import Examples from "./examples/index.tsx";
+import Window from "./components/window.tsx";
 import { Counter } from "./examples/counter.tsx";
+import Examples from "./examples/index.tsx";
 import { TodoMVP } from "./examples/todo.tsx";
+import Components from "./pages/components.tsx";
+import GettingStarted from "./pages/getting-started.tsx";
+import Overview from "./pages/overview.tsx";
+import Setup from "./pages/setup.tsx";
 import WebDisplay from "./webdisplay.tsx";
+import Switch from "./components/Switch.tsx";
 
 interface SidebarBaseItem {
   id: string;
@@ -136,6 +137,12 @@ export const sidebarItemsData: Array<Array<SidebarItem>> = [
         },
         {
           id: NSUUID.UUID().UUIDString,
+          title: "Switch",
+          component: Switch,
+          icon: "switch.2",
+        },
+        {
+          id: NSUUID.UUID().UUIDString,
           icon: "macwindow",
           title: "Window",
           component: Window,
@@ -188,7 +195,9 @@ export const sidebarItemsData: Array<Array<SidebarItem>> = [
       id: NSUUID.UUID().UUIDString,
       icon: "staroflife.fill",
       title: "Credits",
-      component: () => <WebDisplay url="https://www.solidjs.com/contributors" />,
+      component: () => (
+        <WebDisplay url="https://www.solidjs.com/contributors" />
+      ),
       children: [
         {
           id: NSUUID.UUID().UUIDString,
@@ -219,7 +228,35 @@ type SidebarProps = {
   selectedItem?: SidebarItem;
 };
 
+function findItem(item: SidebarItem, title: string): SidebarItem | undefined {
+  console.log(item.title, title);
+  return item.title === title
+    ? item
+    : item.children?.find(
+        (child) => findItem(child, title)
+      );
+}
+
 export default function Sidebar(props: SidebarProps) {
+
+  // ENABLE WHEN TESTING ONLY
+  setTimeout(() => {
+    const title = "Switch";
+    // Find an item recursively in the sidebarItemsData
+    let item;
+    for (const items of sidebarItemsData) {
+      for (const i of items) {
+        item = findItem(i, title);
+        if (item) break;
+      }
+      if (item) break;
+    }
+    if (item) {
+      props.onSelectedItemChange(item);
+    }
+  }, 150);
+
+
   return (
     <side-bar
       style={{
@@ -253,7 +290,7 @@ export default function Sidebar(props: SidebarProps) {
                 <For each={item.children}>
                   {(child, _index) => (
                     <table-cell
-                      selected={props.selectedItem?.id === item.id}
+                      selected={props.selectedItem?.id === child.id}
                       identifier={item.id}
                       data-item={child}
                     >
