@@ -18,7 +18,7 @@ const ContentView: Component<Partial<SnippetProps>> = (props) => {
       dark: colorScheme === "dark",
     };
     webRef?.executeJavaScript(
-      `window.updateSnippet("${component.name}", '${JSON.stringify(data)}')`
+      `typeof window.updateSnippet !== 'undefined' && window.updateSnippet("${component.name}", '${JSON.stringify(data)}')`
     );
   }
 
