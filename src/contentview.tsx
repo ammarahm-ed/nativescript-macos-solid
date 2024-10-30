@@ -7,10 +7,11 @@ interface SnippetProps {
 }
 
 const ContentView: Component<Partial<SnippetProps>> = (props) => {
-  const url =
-    NSBundle.mainBundle?.objectForInfoDictionaryKey("NativeScriptApplication")
-      ? `file://${NSBundle.mainBundle.resourcePath}/snippets/index.html`
-      : import.meta.resolve("../snippets/dist/index.html");
+  const url = NSBundle.mainBundle?.objectForInfoDictionaryKey(
+    "NativeScriptApplication"
+  )
+    ? `file://${NSBundle.mainBundle.resourcePath}/snippets/index.html`
+    : import.meta.resolve("../snippets/dist/index.html");
 
   let webRef: WebView;
 
@@ -22,9 +23,9 @@ const ContentView: Component<Partial<SnippetProps>> = (props) => {
       dark: colorScheme === "dark",
     };
     webRef?.executeJavaScript(
-      `typeof window.updateSnippet !== 'undefined' && window.updateSnippet("${component.name}", '${
-        JSON.stringify(data)
-      }')`,
+      `typeof window.updateSnippet !== 'undefined' && window.updateSnippet("${
+        component.name
+      }", '${JSON.stringify(data)}')`
     );
   }
 
@@ -36,30 +37,28 @@ const ContentView: Component<Partial<SnippetProps>> = (props) => {
 
   return (
     <view style={{ width: "100%", height: "100%" }}>
-      {(props.component as any)?.code
-        ? (
-          <view
-            style={{
-              width: "100%",
-              height: "50%",
-              alignItems: "center",
-              justifyContent: "center",
+      {(props.component as any)?.code ? (
+        <view
+          style={{
+            width: "100%",
+            height: "50%",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <webview
+            ref={(el: WebView) => (webRef = el)}
+            src={url}
+            debug={true}
+            onLoadStarted={(e) => {
+              console.log(e.url);
             }}
-          >
-            <webview
-              ref={(el: WebView) => (webRef = el)}
-              src={url}
-              debug={true}
-              onLoadStarted={(e) => {
-                console.log(e.url);
-              }}
-              onLoadFinished={(e) => {
-                updateSnippetPreview(props.component);
-              }}
-            />
-          </view>
-        )
-        : null}
+            onLoadFinished={(e) => {
+              updateSnippetPreview(props.component);
+            }}
+          />
+        </view>
+      ) : null}
       <view
         style={{
           width: "100%",

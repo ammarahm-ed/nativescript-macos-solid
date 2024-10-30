@@ -32,7 +32,7 @@ export default function AppMenus() {
           }}
         />
       </menu>
-      <menu title="Solid MacOS" attachToMainMenu>
+      <menu title="Help" attachToMainMenu>
         <menu-item title="Open Docs" shortcutKey="i" onClick={openDocs} />
         <menu-item title="Open Github" shortcutKey="g" onClick={openGithub} />
         <menu-item title="Discord" shortcutKey="d" onClick={openDiscord} />
