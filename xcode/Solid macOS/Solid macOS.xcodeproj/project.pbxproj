@@ -318,6 +318,8 @@
 					"$(PROJECT_DIR)/Solid\\ macOS",
 					"$(PROJECT_DIR)/Solid\\ macOS",
 					"$(PROJECT_DIR)/Solid\\ macOS",
+					"$(PROJECT_DIR)/Solid\\ macOS",
+					"$(PROJECT_DIR)/Solid\\ macOS",
 				);
 				GENERATE_INFOPLIST_FILE = YES;
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Solid macOS/NativeScriptRuntime.framework/Headers\"";
@@ -332,6 +334,8 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"$(PROJECT_DIR)/Solid\\ macOS",
+					"$(PROJECT_DIR)/Solid\\ macOS",
 					"$(PROJECT_DIR)/Solid\\ macOS",
 					"$(PROJECT_DIR)/Solid\\ macOS",
 					"$(PROJECT_DIR)/Solid\\ macOS",
@@ -386,6 +390,8 @@
 					"$(PROJECT_DIR)/Solid\\ macOS",
 					"$(PROJECT_DIR)/Solid\\ macOS",
 					"$(PROJECT_DIR)/Solid\\ macOS",
+					"$(PROJECT_DIR)/Solid\\ macOS",
+					"$(PROJECT_DIR)/Solid\\ macOS",
 				);
 				GENERATE_INFOPLIST_FILE = YES;
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Solid macOS/NativeScriptRuntime.framework/Headers\"";
@@ -400,6 +406,8 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"$(PROJECT_DIR)/Solid\\ macOS",
+					"$(PROJECT_DIR)/Solid\\ macOS",
 					"$(PROJECT_DIR)/Solid\\ macOS",
 					"$(PROJECT_DIR)/Solid\\ macOS",
 					"$(PROJECT_DIR)/Solid\\ macOS",
