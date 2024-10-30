@@ -188,7 +188,6 @@ export class WebView extends View {
     this.nativeView?.evaluateJavaScriptCompletionHandler(
       src,
       (result, error) => {
-        console.log("evaluateJavaScript result:", result);
         if (error) {
           console.error(error);
         }
