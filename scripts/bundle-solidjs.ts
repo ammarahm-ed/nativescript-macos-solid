@@ -1,4 +1,4 @@
-import { denoPlugins } from "https://deno.land/x/esbuild_deno_loader@0.8.1/mod.ts";
+import { denoPlugins } from "esbuild-deno-loader";
 import * as esbuild from "npm:esbuild";
 import { solidPlugin } from "npm:esbuild-plugin-solid";
 
@@ -28,6 +28,7 @@ async function bundleSolidJSApp(file: string, outFile: string) {
   const [denoResolver, denoLoader] = [...denoPlugins({
     importMapURL: import.meta.resolve("../import_map.json"),
   })];
+
   await esbuild.build({
     entryPoints: [file],
     outfile: outFile,
