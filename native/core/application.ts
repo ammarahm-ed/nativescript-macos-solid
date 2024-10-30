@@ -18,8 +18,6 @@ class AppDelegate extends NSObject implements NSApplicationDelegate {
   };
 
   applicationDidFinishLaunching(_notification: NSNotification) {
-    NSApp.activateIgnoringOtherApps(false);
-    NSApp.stop(this);
     // Allow users to customize the app's Touch Bar items
     NSApplication.sharedApplication
       .isAutomaticCustomizeTouchBarMenuItemEnabled = true;
@@ -34,6 +32,8 @@ class AppDelegate extends NSObject implements NSApplicationDelegate {
         "NativeScriptApplication",
       )
     ) {
+      NSApp.activateIgnoringOtherApps(false);
+      NSApp.stop(this);
       RunLoop();
     }
   }
