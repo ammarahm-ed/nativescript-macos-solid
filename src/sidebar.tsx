@@ -229,7 +229,6 @@ type SidebarProps = {
 };
 
 function findItem(item: SidebarItem, title: string): SidebarItem | undefined {
-  console.log(item.title, title);
   return item.title === title
     ? item
     : item.children?.find(
@@ -240,21 +239,21 @@ function findItem(item: SidebarItem, title: string): SidebarItem | undefined {
 export default function Sidebar(props: SidebarProps) {
 
   // ENABLE WHEN TESTING ONLY
-  setTimeout(() => {
-    const title = "Switch";
-    // Find an item recursively in the sidebarItemsData
-    let item;
-    for (const items of sidebarItemsData) {
-      for (const i of items) {
-        item = findItem(i, title);
-        if (item) break;
-      }
-      if (item) break;
-    }
-    if (item) {
-      props.onSelectedItemChange(item);
-    }
-  }, 150);
+  // setTimeout(() => {
+  //   const title = "Switch";
+  //   // Find an item recursively in the sidebarItemsData
+  //   let item;
+  //   for (const items of sidebarItemsData) {
+  //     for (const i of items) {
+  //       item = findItem(i, title);
+  //       if (item) break;
+  //     }
+  //     if (item) break;
+  //   }
+  //   if (item) {
+  //     props.onSelectedItemChange(item);
+  //   }
+  // }, 150);
 
 
   return (
