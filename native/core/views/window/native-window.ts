@@ -65,6 +65,10 @@ export class NativeWindow extends NSWindow implements NSWindowDelegate {
     this.owner?.deref()?.dispatchEvent(event);
   }
 
+  windowDidBecomeMain(notification: NSNotification): void {
+    NSApp.stop(this.owner?.deref()?.nativeView);
+  }
+
   windowWillClose(_notification: NSNotification): void {
     const event = createEvent("close");
     const currentWindow = this.owner?.deref();
@@ -79,7 +83,7 @@ export class NativeWindow extends NSWindow implements NSWindowDelegate {
       currentNode = currentNode.parentNode;
     }
     if (window) {
-      window.makeKeyAndOrderFront(null);
+      window.makeKeyAndOrderFront(NSApp);
     }
   }
 }

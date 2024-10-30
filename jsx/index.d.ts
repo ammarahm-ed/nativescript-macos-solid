@@ -114,6 +114,11 @@ interface ScrollViewAtributes extends ViewAttributes {
 interface SliderAttributes extends ViewAttributes {
   numberOfTickMarks?: number;
   allowsTickMarkValuesOnly?: boolean;
+  value?: number;
+  maxValue?: number;
+  minValue?: number;
+  incrementValue?: number;
+  type?: "linear" | "circular";
   onSliderChanged?: (event: SliderChangeEvent) => void;
 }
 

@@ -1,4 +1,4 @@
-const SOLID_LOGO = `file://${Deno.cwd()}/icon/icon-512.png`;
+import { SOLID_LOGO } from "./common.ts";
 export default function Overview() {
   return (
     <view
