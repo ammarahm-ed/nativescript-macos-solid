@@ -164,6 +164,9 @@ export class Style extends Map {
   declare alignContent: FlexStyle["alignContent"];
 
   @flex()
+  declare position: FlexStyle["position"]
+
+  @flex()
   declare alignItems: FlexStyle["alignItems"];
 
   @flex()
