@@ -16,20 +16,26 @@ class AppDelegate extends NSObject implements NSApplicationDelegate {
     openDiscord: { returns: interop.types.void, params: [interop.types.id] },
     themeChanged: { returns: interop.types.void, params: [interop.types.id] },
   };
-  
+
   applicationDidFinishLaunching(_notification: NSNotification) {
     NSApp.activateIgnoringOtherApps(false);
     NSApp.stop(this);
     // Allow users to customize the app's Touch Bar items
-    NSApplication.sharedApplication.isAutomaticCustomizeTouchBarMenuItemEnabled =
-      true;
+    NSApplication.sharedApplication
+      .isAutomaticCustomizeTouchBarMenuItemEnabled = true;
     NSDistributedNotificationCenter.defaultCenter.addObserverSelectorNameObject(
       this,
       "themeChanged",
       "AppleInterfaceThemeChangedNotification",
-      null
+      null,
     );
-    RunLoop();
+    if (
+      !NSBundle.mainBundle?.objectForInfoDictionaryKey(
+        "NativeScriptApplication",
+      )
+    ) {
+      RunLoop();
+    }
   }
 
   applicationWillTerminate(_notification: NSNotification): void {
@@ -41,7 +47,7 @@ class AppDelegate extends NSObject implements NSApplicationDelegate {
       "themeChanged",
       NSApp.effectiveAppearance.name === "NSAppearanceNameDarkAqua"
         ? "dark"
-        : "light"
+        : "light",
     );
   }
 }
@@ -55,7 +61,7 @@ function RunLoop() {
       NSEventMask.Any,
       null,
       "kCFRunLoopDefaultMode",
-      true
+      true,
     );
 
     const timeSinceLastEvent = Date.now() - lastEventTime;
@@ -64,14 +70,13 @@ function RunLoop() {
       delay = timeSinceLastEvent < 32 ? 2 : 8;
       lastEventTime = Date.now();
     } else {
-      delay =
-        timeSinceLastEvent > 6000
-          ? 128
-          : timeSinceLastEvent > 4000
-          ? 64
-          : timeSinceLastEvent > 2000
-          ? 16
-          : 8;
+      delay = timeSinceLastEvent > 6000
+        ? 128
+        : timeSinceLastEvent > 4000
+        ? 64
+        : timeSinceLastEvent > 2000
+        ? 16
+        : 8;
     }
 
     if (NativeScriptApplication.delegate.running) {
