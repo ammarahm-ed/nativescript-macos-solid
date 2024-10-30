@@ -24,6 +24,7 @@ import Overview from "./pages/overview.tsx";
 import Setup from "./pages/setup.tsx";
 import WebDisplay from "./webdisplay.tsx";
 import Switch from "./components/Switch.tsx";
+import DatePicker from "./components/date-picker.tsx";
 
 interface SidebarBaseItem {
   id: string;
@@ -123,6 +124,13 @@ export const sidebarItemsData: Array<Array<SidebarItem>> = [
           title: "Slider",
           component: Slider,
         },
+        {
+          id: NSUUID.UUID().UUIDString,
+          icon: "calendar",
+          title: "DatePicker",
+          component: DatePicker,
+        },
+        
         {
           id: NSUUID.UUID().UUIDString,
           icon: "textformat",
@@ -229,6 +237,7 @@ type SidebarProps = {
 };
 
 function findItem(item: SidebarItem, title: string): SidebarItem | undefined {
+
   return item.title === title
     ? item
     : item.children?.find(
@@ -239,21 +248,21 @@ function findItem(item: SidebarItem, title: string): SidebarItem | undefined {
 export default function Sidebar(props: SidebarProps) {
 
   // ENABLE WHEN TESTING ONLY
-  // setTimeout(() => {
-  //   const title = "Switch";
-  //   // Find an item recursively in the sidebarItemsData
-  //   let item;
-  //   for (const items of sidebarItemsData) {
-  //     for (const i of items) {
-  //       item = findItem(i, title);
-  //       if (item) break;
-  //     }
-  //     if (item) break;
-  //   }
-  //   if (item) {
-  //     props.onSelectedItemChange(item);
-  //   }
-  // }, 150);
+  setTimeout(() => {
+    const title = "DatePicker";
+    // Find an item recursively in the sidebarItemsData
+    let item;
+    for (const items of sidebarItemsData) {
+      for (const i of items) {
+        item = findItem(i, title);
+        if (item) break;
+      }
+      if (item) break;
+    }
+    if (item) {
+      props.onSelectedItemChange(item);
+    }
+  }, 150);
 
 
   return (

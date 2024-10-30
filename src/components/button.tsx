@@ -7,6 +7,7 @@ function Button() {
       onClick={() => {
         setTaps(taps() + 1);
       }}
+      tooltip="Click me to increment the counter"
     >
       Taps: {taps()}
     </button>

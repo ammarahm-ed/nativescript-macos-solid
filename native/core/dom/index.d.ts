@@ -7,6 +7,7 @@ import type { Checkbox } from "../views/checkbox/checkbox.ts";
 import type { Window } from "../views/window/window.ts";
 import type { Popover } from "../views/popover/popover.ts";
 import type { Switch } from "../views/switch/switch.ts";
+import type { DatePicker } from "../views/date-picker/date-picker.ts";
 
 declare global {
   // undom
@@ -120,6 +121,12 @@ declare global {
   var HTMLSwitchElement: {
     new (): HTMLSwitchElement;
     prototype: HTMLSwitchElement;
+  };
+
+  interface HTMLDatePickerElement extends DatePicker {}
+  var HTMLDatePickerElement: {
+    new (): HTMLDatePickerElement;
+    prototype: HTMLDatePickerElement;
   };
 
   interface HTMLElementTagNameMap {

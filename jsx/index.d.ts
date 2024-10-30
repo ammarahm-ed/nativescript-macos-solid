@@ -35,6 +35,7 @@ import type {
 import { WindowResizeEvent } from "../native/core/views/window/native-window.ts";
 import type { OutlineViewItemSelectedEvent } from "../native/core/views/outline/outline.ts";
 import type { SwitchClickEvent } from "../native/core/views/switch/switch.ts";
+import type { DatePickerChangeEvent } from "../native/core/views/date-picker/date-picker.ts";
 
 interface ViewAttributes {
   ref?: unknown | ((e: unknown) => void);
@@ -255,6 +256,14 @@ interface PopoverAttributes extends ViewAttributes {
   behavior?: number;
 }
 
+interface DatePickerAttributes extends ViewAttributes {
+  date?: Date;
+  minDate?: Date;
+  maxDate?: Date;
+  onDateChange?: (date: DatePickerChangeEvent) => void;
+  datePickerStyle?: "textFieldAndStepper" | "clockAndCalendar" | "textField"
+}
+
 // Define elements here
 interface JSXIntrinsicElements {
   button: ButtonAttributes;
@@ -292,6 +301,7 @@ interface JSXIntrinsicElements {
   "status-bar": StaturBarAttributes;
   popover: PopoverAttributes;
   switch: SwitchAttributes;
+  "date-picker": DatePickerAttributes;
 }
 
 export namespace JSX {
