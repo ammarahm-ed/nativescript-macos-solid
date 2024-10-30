@@ -65,8 +65,8 @@ Deno.writeTextFileSync(
 new Deno.Command(Deno.env.get("HERMESC")!, {
   args: ["-emit-binary", "-out", "./assets/app.hbc", "./dist/app_es5.js"],
   stdin: "null",
-  stdout: "piped",
-  stderr: "piped",
+  stdout: "inherit",
+  stderr: "inherit",
 }).outputSync();
 
 // if (app.assets) {

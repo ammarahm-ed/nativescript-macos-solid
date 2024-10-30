@@ -1,4 +1,4 @@
-import { SOLID_LOGO } from "./common.ts";
+import { getSolidLogo } from "./common.ts";
 
 export default function Setup() {
   return (
@@ -21,8 +21,9 @@ export default function Setup() {
             height: 50,
           }}
           stretch="aspectFit"
-          src={SOLID_LOGO}
-        ></image>
+          src={getSolidLogo()}
+        >
+        </image>
         <text
           style={{
             fontSize: 18,
@@ -72,7 +73,9 @@ export default function Setup() {
                   }}
                   onClick={() => {
                     NSWorkspace.sharedWorkspace.openURL(
-                      NSURL.URLWithString("https://github.com/NativeScript/template-macos-solid")
+                      NSURL.URLWithString(
+                        "https://github.com/NativeScript/template-macos-solid",
+                      ),
                     );
                   }}
                 >
@@ -106,9 +109,9 @@ export default function Setup() {
                   textAlign: "center",
                 }}
               >
-                You can explore all the UI components available here in this app on the
-                left. Use the copy snippet button to use any UI control for your
-                own Solid macOS app.
+                You can explore all the UI components available here in this app
+                on the left. Use the copy snippet button to use any UI control
+                for your own Solid macOS app.
               </text>
             </view>
           </view>
