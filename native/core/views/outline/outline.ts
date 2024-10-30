@@ -5,17 +5,21 @@ import { view } from "../decorators/view.ts";
 import { TableCell } from "../table/table-cell.ts";
 import { View } from "../view/view.ts";
 
-export class OutlineClickEvent extends Event {
+export class OutlineViewItemSelectedEvent extends Event {
   declare index: number;
-  constructor(index: number, eventDict?: EventInit) {
-    super("click", eventDict);
+  declare item: TableCell;
+  constructor(index: number, item: TableCell, eventDict?: EventInit) {
+    super("itemSelected", eventDict);
     this.index = index;
+    this.item = item;
   }
 }
 
 @NativeClass
-class OutlineViewDataSource extends NSObject
-  implements NSOutlineViewDataSource, NSOutlineViewDelegate {
+class OutlineViewDataSource
+  extends NSObject
+  implements NSOutlineViewDataSource, NSOutlineViewDelegate
+{
   static ObjCProtocols = [NSOutlineViewDataSource, NSOutlineViewDelegate];
 
   static initWithOwner(owner: WeakRef<Outline>) {
@@ -32,7 +36,7 @@ class OutlineViewDataSource extends NSObject
 
   outlineViewNumberOfChildrenOfItem(
     _outlineView: NSOutlineView,
-    item: View | null,
+    item: View | null
   ): number {
     if (item) {
       return item.children.length - 2;
@@ -44,14 +48,14 @@ class OutlineViewDataSource extends NSObject
   outlineViewViewForTableColumnItem(
     _outlineView: NSOutlineView,
     _tableColumn: NSTableColumn | null,
-    item: TableCell,
+    item: TableCell
   ): NSView {
     return item.nativeView!;
   }
 
   outlineViewIsItemExpandable(
     _outlineView: NSOutlineView,
-    item: View,
+    item: View
   ): boolean {
     return item.children.length > 2;
   }
@@ -59,7 +63,7 @@ class OutlineViewDataSource extends NSObject
   outlineViewChildOfItem(
     _outlineView: NSOutlineView,
     index: number,
-    item: View | null,
+    item: View | null
   ) {
     if (item) {
       return item.children[index + 2];
@@ -71,7 +75,7 @@ class OutlineViewDataSource extends NSObject
   outlineViewObjectValueForTableColumnByItem(
     _outlineView: NSOutlineView,
     _tableColumn: NSTableColumn | null,
-    item: interop.Object | null,
+    item: interop.Object | null
   ) {
     return item;
   }
@@ -80,7 +84,11 @@ class OutlineViewDataSource extends NSObject
     const outlineView = notification.object as NSOutlineView;
     const owner = this.outline;
     if (owner && outlineView) {
-      owner.dispatchEvent(new OutlineClickEvent(outlineView.selectedRow));
+      const item = outlineView.itemAtRow(outlineView.selectedRow) as TableCell;
+      owner.dispatchEvent(new OutlineViewItemSelectedEvent(outlineView.selectedRow, item));
+      if (item) {
+        item.dispatchSelectedEvent();
+      }
     }
   }
 }
@@ -98,7 +106,6 @@ export class Outline extends View {
     const outline = NSOutlineView.new();
 
     this.dataSource = OutlineViewDataSource.initWithOwner(new WeakRef(this));
-
     // @ts-expect-error It's nullable
     outline.headerView = null;
     outline.indentationPerLevel = 10;
@@ -136,15 +143,58 @@ export class Outline extends View {
       }
     },
   })
-  declare rowSizeStyle:
-    (typeof NSTableViewRowSizeStyle)[keyof typeof NSTableViewRowSizeStyle];
+  declare rowSizeStyle: (typeof NSTableViewRowSizeStyle)[keyof typeof NSTableViewRowSizeStyle];
 
   public addNativeChild(_child: any) {
     this.nativeView?.reloadData();
     this.nativeView?.expandItem(_child);
+    if (this.__pendingCellSelection) {
+      this.selectCell(this.__pendingCellSelection);
+      this.__pendingCellSelection = null;
+    }
   }
 
   public removeNativeChild(_child: any): void {
     this.nativeView?.reloadData();
+  }
+
+  public connectedCallback(): void {
+    super.connectedCallback();
+  }
+
+  private __pendingCellSelection: TableCell | null = null;
+
+  expandParentsOfItem(item: TableCell) {
+    while (item !== null && this.nativeView) {
+      const parent = this.nativeView.parentForItem(item);
+      if (!this.nativeView.isExpandable(parent)) {
+        break;
+      }
+      if (!this.nativeView.isItemExpanded(parent)) {
+        this.nativeView.expandItem(parent);
+      }
+      item = parent;
+    }
+  }
+
+  public selectCell(cell: TableCell) {
+    if (cell) {
+      this.__pendingCellSelection = cell;
+      if (cell.nativeView) {
+        let index = this.nativeView?.rowForItem(cell) || 0;
+        if (index < 0) {
+          this.expandParentsOfItem(cell);
+          index = this.nativeView?.rowForItem(cell) || 0;
+          if (index < 0) return;
+        }
+        this.nativeView?.selectRowIndexesByExtendingSelection(
+          NSIndexSet.indexSetWithIndex(index),
+          false
+        );
+        this.__pendingCellSelection = null;
+      }
+    } else {
+      this.nativeView?.deselectAll(null);
+    }
   }
 }

@@ -7,6 +7,7 @@
     "esbuild-deno-loader": "jsr:@luca/esbuild-deno-loader@0.11.0",
     "@nativescript/macos-node-api": "../gh/nativescript/runtime/packages/macos/mod.ts",
     "@nativescript/objc-node-api": "../gh/nativescript/runtime/packages/objc/index.d.ts",
-    "yoga-layout/load": "npm:@nativescript/yoga-node-api@^0.1.0"
+    "yoga-layout/load": "npm:@nativescript/yoga-node-api@^0.1.0",
+    "solid-native-renderer": "./solid-native/renderer.js"
   }
 }

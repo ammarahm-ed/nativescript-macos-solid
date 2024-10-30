@@ -1,4 +1,4 @@
-import { Layout } from "../../layout/index.ts";
+import { Layout, type YogaNodeLayout } from "../../layout/index.ts";
 import type { NativePropertyConfig } from "../decorators/native.ts";
 import { overrides } from "../decorators/overrides.ts";
 import { view } from "../decorators/view.ts";
@@ -77,7 +77,8 @@ export class Text extends TextBase {
     this.nativeView = NSTextField.new();
     this.nativeCell = PaddingTextFieldCell.new();
     this.nativeView.cell = this.nativeCell;
-
+    this.nativeView.lineBreakStrategy = NSLineBreakStrategy.None;
+    this.nativeView.lineBreakMode = NSLineBreakMode.WordWrapping;
     return this.nativeView;
   }
 
@@ -86,18 +87,21 @@ export class Text extends TextBase {
     // nativeView.isSelectable = false;
     nativeView.drawsBackground = false;
     nativeView.isBordered = false;
+    nativeView.isBezeled = false;
   }
 
+
+  applyLayout(parentLayout?: YogaNodeLayout): void {
+    super.applyLayout(parentLayout);
+    if (this.nativeView) {
+      this.nativeView.translatesAutoresizingMaskIntoConstraints = true;
+    }
+  }
   updateTextContent() {
     if (this.nativeView) {
       this.nativeView.stringValue = this.textContent || "";
       Layout.computeAndLayout(this);
     }
-  }
-
-  public connectedCallback(): void {
-    super.connectedCallback();
-    this.updateTextContent();
   }
 
   @overrides("padding")

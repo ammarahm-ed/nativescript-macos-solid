@@ -27,8 +27,8 @@ async function bundleSolidJSApp(file: string, outFile: string) {
 
   const [denoResolver, denoLoader] = [...denoPlugins({
     importMapURL: import.meta.resolve("../import_map.json"),
+    configPath: Deno.cwd() + "/deno.json",
   })];
-
   await esbuild.build({
     entryPoints: [file],
     outfile: outFile,
@@ -42,7 +42,7 @@ async function bundleSolidJSApp(file: string, outFile: string) {
       // Solid handles the JSX, so it needs to be sandwiched between the deno plugins
       solidPlugin({
         solid: {
-          moduleName: "../solid-native/renderer.js",
+          moduleName: "solid-native-renderer",
           generate: "universal",
         },
       }) as any,

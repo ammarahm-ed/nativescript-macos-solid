@@ -33,18 +33,8 @@ export class Image extends ViewBase {
 
   public initNativeView(): NSImageView | undefined {
     this.nativeView = NSImageView.alloc().init();
+    this.nativeView.animates = true;
     return this.nativeView;
-  }
-
-  public disposeNativeView(): void {
-    if (!this.nativeView?.superview) {
-      this.nativeView = undefined;
-    } else {
-      console.warn(
-        "Trying to dispose a view that is still attached to it's parent",
-        new Error().stack,
-      );
-    }
   }
 
   private setImage(value: NSImage | null) {
@@ -62,19 +52,22 @@ export class Image extends ViewBase {
 
   @native({
     setNative(view: Image, _key, value) {
-      let img: NSImage;
-      if (typeof value === "string" && value?.indexOf("http") > -1) {
-        img = NSImage.alloc().initWithContentsOfURL(NSURL.URLWithString(value));
-      } else {
-        img = NSImage.alloc().initWithContentsOfFile(
-          (typeof value === "string" ? value : value.pathname).replace(
-            "file://",
-            "",
-          ),
-        );
-      }
-
-      view.setImage(img);
+      setTimeout(() => {
+        let img: NSImage;
+        if (typeof value === "string" && value?.indexOf("http") > -1) {
+          img = NSImage.alloc().initWithContentsOfURL(
+            NSURL.URLWithString(value),
+          );
+        } else {
+          img = NSImage.alloc().initWithContentsOfFile(
+            (value instanceof URL ? value.pathname : value).replace(
+              "file://",
+              "",
+            ),
+          );
+        }
+        view.setImage(img);
+      }, 150);
     },
   })
   declare src: string | URL;

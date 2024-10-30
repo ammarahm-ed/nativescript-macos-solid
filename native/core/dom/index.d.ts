@@ -2,6 +2,12 @@ import { ViewBase } from "../views/view/view-base.ts";
 import { View } from "../views/view/view.ts";
 import type { Slider } from "../views/slider/slider.ts";
 import type { Progress } from "../views/progress/progress.ts";
+import type { TextField } from "../views/text-field/text-field.ts";
+import type { Checkbox } from "../views/checkbox/checkbox.ts";
+import type { Window } from "../views/window/window.ts";
+import type { Popover } from "../views/popover/popover.ts";
+import type { Switch } from "../views/switch/switch.ts";
+import type { DatePicker } from "../views/date-picker/date-picker.ts";
 
 declare global {
   // undom
@@ -37,6 +43,13 @@ declare global {
   var HTMlButtonElement: {
     new (): HTMlButtonElement;
     prototype: HTMlButtonElement;
+  };
+
+  interface HTMLWindowElement extends Window {}
+
+  var HTMLWindowElement: {
+    new (): HTMLWindowElement;
+    prototype: HTMLWindowElement;
   };
 
   interface HTMLScrollViewElement extends View {}
@@ -84,6 +97,36 @@ declare global {
   var HTMLProgressElement: {
     new (): HTMLProgressElement;
     prototype: HTMLProgressElement;
+  };
+
+  interface HTMLTextFieldElement extends TextField {}
+  var HTMLTextFieldElement: {
+    new (): HTMLTextFieldElement;
+    prototype: HTMLTextFieldElement;
+  };
+
+  interface HTMLCheckboxElement extends Checkbox {}
+  var HTMLCheckboxElement: {
+    new (): HTMLCheckboxElement;
+    prototype: HTMLCheckboxElement;
+  };
+
+  interface HTMLPopoverElement extends Popover {}
+  var HTMLPopoverElement: {
+    new (): HTMLPopoverElement;
+    prototype: HTMLPopoverElement;
+  };
+
+  interface HTMLSwitchElement extends Switch {}
+  var HTMLSwitchElement: {
+    new (): HTMLSwitchElement;
+    prototype: HTMLSwitchElement;
+  };
+
+  interface HTMLDatePickerElement extends DatePicker {}
+  var HTMLDatePickerElement: {
+    new (): HTMLDatePickerElement;
+    prototype: HTMLDatePickerElement;
   };
 
   interface HTMLElementTagNameMap {

@@ -16,7 +16,7 @@ export class WindowResizeEvent extends Event {
     bubbles?: boolean,
     cancelable?: boolean,
     width: number = 0,
-    height: number = 0,
+    height: number = 0
   ): void {
     this.initEvent(type, bubbles, cancelable);
     this.width = width;
@@ -25,8 +25,10 @@ export class WindowResizeEvent extends Event {
 }
 
 @NativeClass
-export class MainWindowController extends NSWindowController
-  implements NSToolbarDelegate {
+export class MainWindowController
+  extends NSWindowController
+  implements NSToolbarDelegate
+{
   static ObjCProtocols = [NSToolbarDelegate];
 
   declare _owner: WeakRef<ViewBase>;
@@ -42,7 +44,7 @@ export class MainWindowController extends NSWindowController
 export class NativeWindow extends NSWindow implements NSWindowDelegate {
   static ObjCProtocols = [NSWindowDelegate];
 
-  public appWindow?: Window;
+  public owner?: WeakRef<Window>;
 
   windowDidResize(_notification: NSNotification): void {
     const event = new WindowResizeEvent();
@@ -51,18 +53,35 @@ export class NativeWindow extends NSWindow implements NSWindowDelegate {
       true,
       true,
       this.frame.size.width,
-      this.frame.size.height,
+      this.frame.size.height
     );
-    this.appWindow?.dispatchEvent(event);
+    this.owner?.deref()?.dispatchEvent(event);
   }
 
   windowDidBecomeKey(_notification: NSNotification): void {
     const event = createEvent("focus");
-    this.appWindow?.dispatchEvent(event);
+    this.owner?.deref()?.dispatchEvent(event);
+  }
+
+  windowDidBecomeMain(notification: NSNotification): void {
+    NSApp.stop(this.owner?.deref()?.nativeView);
   }
 
   windowWillClose(_notification: NSNotification): void {
     const event = createEvent("close");
-    this.appWindow?.dispatchEvent(event);
+    const currentWindow = this.owner?.deref();
+    currentWindow?.dispatchEvent(event);
+    let window = null;
+    let currentNode: any = currentWindow?.parentNode;
+    while (window == null && currentNode !== null) {
+      if (currentNode.nodeName === "WINDOW") {
+        window = currentNode.nativeView;
+        break;
+      }
+      currentNode = currentNode.parentNode;
+    }
+    if (window) {
+      window.makeKeyAndOrderFront(NSApp);
+    }
   }
 }

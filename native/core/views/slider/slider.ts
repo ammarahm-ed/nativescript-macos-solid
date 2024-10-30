@@ -1,5 +1,6 @@
 import "@nativescript/macos-node-api";
 import { Event } from "../../dom/dom-utils.ts";
+import type { YogaNodeLayout } from "../../layout/index.ts";
 import { native } from "../decorators/native.ts";
 import { view } from "../decorators/view.ts";
 import { View } from "../view/view.ts";
@@ -30,7 +31,7 @@ export class NSSliderAutoResizable extends NSSlider {
     const owner = this._owner.deref();
     if (owner) {
       owner.dispatchEvent(
-        new SliderChangeEvent(owner.nativeView?.doubleValue || 0),
+        new SliderChangeEvent(owner.nativeView?.doubleValue || 0)
       );
     }
   }
@@ -72,4 +73,57 @@ export class Slider extends View {
     },
   })
   declare allowsTickMarkValuesOnly: boolean;
+
+  @native({
+    setNative(view: Slider, _key, value) {
+      if (view.nativeView) {
+        view.nativeView.doubleValue = value;
+      }
+    },
+  })
+  declare value: number;
+
+  @native({
+    setNative(view: Slider, _key, value) {
+      if (view.nativeView) {
+        view.nativeView.sliderType =
+          value === "circular" ? NSSliderType.Circular : NSSliderType.Linear;
+      }
+    },
+  })
+  declare type: "linear" | "circular";
+
+  @native({
+    setNative(view: Slider, _key, value) {
+      if (view.nativeView) {
+        view.nativeView.minValue = value
+      }
+    },
+  })
+  declare minValue: number;
+
+  @native({
+    setNative(view: Slider, _key, value) {
+      if (view.nativeView) {
+        view.nativeView.maxValue = value;
+      }
+    },
+  })
+  declare maxValue: number;
+
+  @native({
+    setNative(view: Slider, _key, value) {
+      if (view.nativeView) {
+        view.nativeView.altIncrementValue = value;
+      }
+    },
+  })
+  declare incrementValue: number;
+
+  applyLayout(parentLayout?: YogaNodeLayout): void {
+    super.applyLayout(parentLayout);
+    if (this.nativeView) {
+      this.nativeView.translatesAutoresizingMaskIntoConstraints = true;
+    }
+  }
 }
