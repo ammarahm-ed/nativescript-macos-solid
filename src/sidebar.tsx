@@ -84,6 +84,12 @@ export const sidebarItemsData: Array<Array<SidebarItem>> = [
         },
         {
           id: NSUUID.UUID().UUIDString,
+          icon: "calendar",
+          title: "DatePicker",
+          component: DatePicker,
+        },
+        {
+          id: NSUUID.UUID().UUIDString,
           icon: "photo",
           title: "Image",
           component: Image,
@@ -126,11 +132,10 @@ export const sidebarItemsData: Array<Array<SidebarItem>> = [
         },
         {
           id: NSUUID.UUID().UUIDString,
-          icon: "calendar",
-          title: "DatePicker",
-          component: DatePicker,
+          title: "Switch",
+          component: Switch,
+          icon: "switch.2",
         },
-        
         {
           id: NSUUID.UUID().UUIDString,
           icon: "textformat",
@@ -142,12 +147,6 @@ export const sidebarItemsData: Array<Array<SidebarItem>> = [
           icon: "pencil.and.ellipsis.rectangle",
           title: "Text field",
           component: TextField,
-        },
-        {
-          id: NSUUID.UUID().UUIDString,
-          title: "Switch",
-          component: Switch,
-          icon: "switch.2",
         },
         {
           id: NSUUID.UUID().UUIDString,
@@ -248,21 +247,21 @@ function findItem(item: SidebarItem, title: string): SidebarItem | undefined {
 export default function Sidebar(props: SidebarProps) {
 
   // ENABLE WHEN TESTING ONLY
-  setTimeout(() => {
-    const title = "DatePicker";
-    // Find an item recursively in the sidebarItemsData
-    let item;
-    for (const items of sidebarItemsData) {
-      for (const i of items) {
-        item = findItem(i, title);
-        if (item) break;
-      }
-      if (item) break;
-    }
-    if (item) {
-      props.onSelectedItemChange(item);
-    }
-  }, 150);
+  // setTimeout(() => {
+  //   const title = "DatePicker";
+  //   // Find an item recursively in the sidebarItemsData
+  //   let item;
+  //   for (const items of sidebarItemsData) {
+  //     for (const i of items) {
+  //       item = findItem(i, title);
+  //       if (item) break;
+  //     }
+  //     if (item) break;
+  //   }
+  //   if (item) {
+  //     props.onSelectedItemChange(item);
+  //   }
+  // }, 150);
 
 
   return (
