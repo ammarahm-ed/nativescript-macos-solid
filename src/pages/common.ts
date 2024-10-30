@@ -5,6 +5,6 @@ export function getSolidLogo() {
     return "file://" +
       NSBundle.mainBundle.URLForResourceWithExtension("solid", "png");
   } else {
-    return `file://${Deno.cwd()}/icon/icon-512.png`;
+    return import.meta.resolve("../assets/solid.png");
   }
 }
