@@ -69,7 +69,7 @@ export default function AppMenus() {
               textAlign: "center",
             }}
           >
-            Hello Solid macOS
+            Hello Solid Desktop
           </text>
 
           <text

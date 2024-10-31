@@ -25,11 +25,11 @@
 
 /* Begin PBXFileReference section */
 		AA1D3DD92CD2F479000331B4 /* snippets */ = {isa = PBXFileReference; lastKnownFileType = folder; name = snippets; path = ../../snippets/snippets; sourceTree = "<group>"; };
-		AA61BE892CD2D87100E92A4A /* Solid macOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Solid macOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA61BE892CD2D87100E92A4A /* SolidDesktop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SolidDesktop.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
-		AA61BF152CD2EF4600E92A4A /* Exceptions for "Solid macOS" folder in "Embed Frameworks" phase from "Solid macOS" target */ = {
+		AA61BF152CD2EF4600E92A4A /* Exceptions for "SolidDesktop" folder in "Embed Frameworks" phase from "SolidDesktop" target */ = {
 			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
 			attributesByRelativePath = {
 				NativeScriptRuntime.framework = (CodeSignOnCopy, RemoveHeadersOnCopy, );
@@ -48,12 +48,12 @@
 /* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		AA61BE8B2CD2D87100E92A4A /* Solid macOS */ = {
+		AA61BE8B2CD2D87100E92A4A /* SolidDesktop */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				AA61BF152CD2EF4600E92A4A /* Exceptions for "Solid macOS" folder in "Embed Frameworks" phase from "Solid macOS" target */,
+				AA61BF152CD2EF4600E92A4A /* Exceptions for "SolidDesktop" folder in "Embed Frameworks" phase from "SolidDesktop" target */,
 			);
-			path = "Solid macOS";
+			path = "SolidDesktop";
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -73,7 +73,7 @@
 			isa = PBXGroup;
 			children = (
 				AA1D3DD92CD2F479000331B4 /* snippets */,
-				AA61BE8B2CD2D87100E92A4A /* Solid macOS */,
+				AA61BE8B2CD2D87100E92A4A /* SolidDesktop */,
 				AA61BE8A2CD2D87100E92A4A /* Products */,
 			);
 			sourceTree = "<group>";
@@ -81,7 +81,7 @@
 		AA61BE8A2CD2D87100E92A4A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				AA61BE892CD2D87100E92A4A /* Solid macOS.app */,
+				AA61BE892CD2D87100E92A4A /* SolidDesktop.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -89,9 +89,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		AA61BE882CD2D87100E92A4A /* Solid macOS */ = {
+		AA61BE882CD2D87100E92A4A /* SolidDesktop */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = AA61BE9C2CD2D87200E92A4A /* Build configuration list for PBXNativeTarget "Solid macOS" */;
+			buildConfigurationList = AA61BE9C2CD2D87200E92A4A /* Build configuration list for PBXNativeTarget "SolidDesktop" */;
 			buildPhases = (
 				AA61BE852CD2D87100E92A4A /* Sources */,
 				AA61BE862CD2D87100E92A4A /* Frameworks */,
@@ -103,13 +103,13 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				AA61BE8B2CD2D87100E92A4A /* Solid macOS */,
+				AA61BE8B2CD2D87100E92A4A /* SolidDesktop */,
 			);
-			name = "Solid macOS";
+			name = "SolidDesktop";
 			packageProductDependencies = (
 			);
-			productName = "Solid macOS";
-			productReference = AA61BE892CD2D87100E92A4A /* Solid macOS.app */;
+			productName = "SolidDesktop";
+			productReference = AA61BE892CD2D87100E92A4A /* SolidDesktop.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -126,7 +126,7 @@
 					};
 				};
 			};
-			buildConfigurationList = AA61BE842CD2D87100E92A4A /* Build configuration list for PBXProject "Solid macOS" */;
+			buildConfigurationList = AA61BE842CD2D87100E92A4A /* Build configuration list for PBXProject "SolidDesktop" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -140,7 +140,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				AA61BE882CD2D87100E92A4A /* Solid macOS */,
+				AA61BE882CD2D87100E92A4A /* SolidDesktop */,
 			);
 		};
 /* End PBXProject section */
@@ -288,7 +288,7 @@
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = "Solid macOS/Solid_macOS.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "SolidDesktop/SolidDesktop.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -296,50 +296,11 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
+					"$(PROJECT_DIR)/SolidDesktop"
 				);
 				GENERATE_INFOPLIST_FILE = YES;
-				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Solid macOS/NativeScriptRuntime.framework/Headers\"";
-				INFOPLIST_FILE = "Solid-macOS-Info.plist";
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/SolidDesktop/NativeScriptRuntime.framework/Headers\"";
+				INFOPLIST_FILE = "SolidDesktop-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Solid Desktop";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
@@ -350,23 +311,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
+					"$(PROJECT_DIR)/SolidDesktop"
 				);
 				MACOSX_DEPLOYMENT_TARGET = 13.5;
 				MARKETING_VERSION = 1.0;
@@ -382,7 +327,7 @@
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = "Solid macOS/Solid_macOS.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "SolidDesktop/SolidDesktop.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -390,50 +335,11 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
+					"$(PROJECT_DIR)/SolidDesktop"
 				);
 				GENERATE_INFOPLIST_FILE = YES;
-				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Solid macOS/NativeScriptRuntime.framework/Headers\"";
-				INFOPLIST_FILE = "Solid-macOS-Info.plist";
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/SolidDesktop/NativeScriptRuntime.framework/Headers\"";
+				INFOPLIST_FILE = "SolidDesktop-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Solid Desktop";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
@@ -444,23 +350,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
-					"$(PROJECT_DIR)/Solid\\ macOS",
+					"$(PROJECT_DIR)/SolidDesktop"
 				);
 				MACOSX_DEPLOYMENT_TARGET = 13.5;
 				MARKETING_VERSION = 1.0;
@@ -474,7 +364,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		AA61BE842CD2D87100E92A4A /* Build configuration list for PBXProject "Solid macOS" */ = {
+		AA61BE842CD2D87100E92A4A /* Build configuration list for PBXProject "SolidDesktop" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				AA61BE9A2CD2D87200E92A4A /* Debug */,
@@ -483,7 +373,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		AA61BE9C2CD2D87200E92A4A /* Build configuration list for PBXNativeTarget "Solid macOS" */ = {
+		AA61BE9C2CD2D87200E92A4A /* Build configuration list for PBXNativeTarget "SolidDesktop" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				AA61BE9D2CD2D87200E92A4A /* Debug */,

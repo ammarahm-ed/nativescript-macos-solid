@@ -16,9 +16,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "AA61BE882CD2D87100E92A4A"
-               BuildableName = "Solid macOS.app"
-               BlueprintName = "Solid macOS"
-               ReferencedContainer = "container:Solid macOS.xcodeproj">
+               BuildableName = "SolidDesktop.app"
+               BlueprintName = "SolidDesktop"
+               ReferencedContainer = "container:SolidDesktop.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -45,9 +45,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "AA61BE882CD2D87100E92A4A"
-            BuildableName = "Solid macOS.app"
-            BlueprintName = "Solid macOS"
-            ReferencedContainer = "container:Solid macOS.xcodeproj">
+            BuildableName = "SolidDesktop.app"
+            BlueprintName = "SolidDesktop"
+            ReferencedContainer = "container:SolidDesktop.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -62,9 +62,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "AA61BE882CD2D87100E92A4A"
-            BuildableName = "Solid macOS.app"
-            BlueprintName = "Solid macOS"
-            ReferencedContainer = "container:Solid macOS.xcodeproj">
+            BuildableName = "SolidDesktop.app"
+            BlueprintName = "SolidDesktop"
+            ReferencedContainer = "container:SolidDesktop.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

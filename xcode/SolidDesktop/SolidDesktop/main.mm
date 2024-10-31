@@ -1,6 +1,6 @@
 //
 //  main.m
-//  Solid macOS
+//  Solid Desktop
 //
 //  Created by Team nStudio on 10/30/24.
 //

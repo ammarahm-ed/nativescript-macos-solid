@@ -22,7 +22,7 @@ export default function GettingStarted() {
           padding: 18,
         }}
       >
-        Hello Solid macOS
+        Hello Solid Desktop
       </text>
       <text
         style={{
