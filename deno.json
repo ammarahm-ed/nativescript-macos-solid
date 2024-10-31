@@ -1,6 +1,6 @@
 {
   "app": {
-    "name": "Solid macOS",
+    "name": "Solid Desktop",
     "version": "0.1.0",
     "identifier": "org.nativescript.solidmacos",
     "entryPoint": "./native/index.ts",

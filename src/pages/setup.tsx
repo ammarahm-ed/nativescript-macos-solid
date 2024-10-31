@@ -30,7 +30,7 @@ export default function Setup() {
             marginLeft: 8,
           }}
         >
-          Solid macOS Setup
+          Solid Desktop Setup
         </text>
       </view>
       <view>
@@ -57,7 +57,7 @@ export default function Setup() {
                   textAlign: "center",
                 }}
               >
-                Setup your own Solid macOS app by cloning this template:
+                Setup your own Solid Desktop app by cloning this template:
               </text>
               <view
                 style={{
