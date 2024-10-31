@@ -261,7 +261,9 @@ interface DatePickerAttributes extends ViewAttributes {
   minDate?: Date;
   maxDate?: Date;
   onDateChange?: (date: DatePickerChangeEvent) => void;
-  datePickerStyle?: "textFieldAndStepper" | "clockAndCalendar" | "textField"
+  datePickerStyle?: "textFieldAndStepper" | "clockAndCalendar" | "textField";
+  datePickerElements?: number;
+  datePickerMode?: "single" | "range";
 }
 
 // Define elements here
