@@ -5,9 +5,9 @@
     "dom": "./native/core/dom/index.ts",
     "app": "./dist/out.js",
     "esbuild-deno-loader": "jsr:@luca/esbuild-deno-loader@0.11.0",
-    "@nativescript/macos-node-api": "../../NativeScript/runtime-node-api/packages/macos/mod.ts",
-    "@nativescript/objc-node-api": "../../NativeScript/runtime-node-api/packages/objc/index.d.ts",
-    "yoga-layout/load": "npm:@nativescript/yoga-node-api@^0.1.0",
+    "@nativescript/macos-node-api": "../gh/nativescript/runtime/packages/macos/mod.ts",
+    "@nativescript/objc-node-api": "../gh/nativescript/runtime/packages/objc/index.d.ts",
+    "yoga-layout/load": "../yoga-node-api/mod.ts",
     "solid-native-renderer": "./solid-native/renderer.js"
   }
 }

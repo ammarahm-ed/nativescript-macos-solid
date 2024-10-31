@@ -48,6 +48,8 @@ function FileDialog() {
   );
 }
 
+FileDialog.snippetName = "FileDialog";
+
 FileDialog.code = `function FileDialog() {
   const [chosenFiles, setChosenFiles] = createSignal();
   return (

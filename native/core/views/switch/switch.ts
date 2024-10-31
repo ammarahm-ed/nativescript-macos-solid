@@ -26,7 +26,7 @@ export class Switch extends ViewBase {
     this.nativeView = NSSwitch.alloc().init();
     const target = NativeTarget.initWithAction(() => {
       this.dispatchEvent(
-        new SwitchClickEvent(this.nativeView?.state === NSControlStateValueOn)
+        new SwitchClickEvent(this.nativeView?.state === NSControlStateValueOn),
       );
     });
     this.nativeView.target = target;
@@ -67,7 +67,7 @@ export class Switch extends ViewBase {
   applyLayout(parentLayout?: YogaNodeLayout): void {
     super.applyLayout(parentLayout);
     if (this.nativeView) {
-        this.nativeView.translatesAutoresizingMaskIntoConstraints = true;
+      this.nativeView.translatesAutoresizingMaskIntoConstraints = true;
     }
   }
 }

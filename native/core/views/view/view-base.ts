@@ -166,8 +166,9 @@ export class ViewBase extends HTMLElement {
   }
 
   private setRootView(node: any) {
-    node._rootView =
-      node.isRoot || !node.parentNode ? node : node.parentNode._rootView;
+    node._rootView = node.isRoot || !node.parentNode
+      ? node
+      : node.parentNode._rootView;
 
     let child = node.firstChild;
     while (child) {
@@ -197,7 +198,7 @@ export class ViewBase extends HTMLElement {
         if ((child as any).isEnabled && (child as any).yogaNode) {
           this.yogaNode.insertChild(
             (child as any).yogaNode,
-            this.yogaNode.getChildCount()
+            this.yogaNode.getChildCount(),
           );
         }
         child = child.nextSibling;
@@ -205,7 +206,7 @@ export class ViewBase extends HTMLElement {
     } else if (node) {
       this.yogaNode.insertChild(
         (node as any).yogaNode,
-        this.yogaNode.getChildCount()
+        this.yogaNode.getChildCount(),
       );
     }
   }
@@ -227,13 +228,15 @@ export class ViewBase extends HTMLElement {
     width: number,
     widthMode: MeasureMode,
     height: number,
-    heightMode: MeasureMode
+    heightMode: MeasureMode,
   ) {
     if (this.nativeView?.sizeThatFits || this.nativeView?.sizeToFit) {
-      const constrainedWidth =
-        widthMode === MeasureMode.Undefined ? Number.MAX_VALUE : width;
-      const constrainedHeight =
-        heightMode === MeasureMode.Undefined ? Number.MAX_VALUE : height;
+      const constrainedWidth = widthMode === MeasureMode.Undefined
+        ? Number.MAX_VALUE
+        : width;
+      const constrainedHeight = heightMode === MeasureMode.Undefined
+        ? Number.MAX_VALUE
+        : height;
 
       const fittingSize = this.nativeView?.fittingSize;
 
@@ -260,7 +263,7 @@ export class ViewBase extends HTMLElement {
   measure(
     constrainedSize: number,
     measuredSize: number,
-    measureMode: MeasureMode
+    measureMode: MeasureMode,
   ) {
     let result;
     if (measureMode === MeasureMode.Exactly) {
@@ -338,8 +341,8 @@ export class ViewBase extends HTMLElement {
      * For example, the window element.
      */
     if (this.parentNode && this.shouldAttachToParentNativeView) {
-      this.viewController =
-        this.viewController || (this.parentNode as ViewBase).viewController;
+      this.viewController = this.viewController ||
+        (this.parentNode as ViewBase).viewController;
       (this.parentNode as any).addNativeChild(this);
     }
 
@@ -409,7 +412,7 @@ export class ViewBase extends HTMLElement {
   setAttributeNS(
     _namespace: string | null,
     qualifiedName: string,
-    value: string
+    value: string,
   ): void {
     if (qualifiedName in this) {
       //@ts-ignore
@@ -479,7 +482,7 @@ export class ViewBase extends HTMLElement {
     } else {
       Layout.Setters.paddingTop(
         this.yogaNode,
-        parseInt(this.getAttribute("paddingTop") || "")
+        parseInt(this.getAttribute("paddingTop") || ""),
       );
     }
   }

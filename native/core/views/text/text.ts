@@ -90,7 +90,6 @@ export class Text extends TextBase {
     nativeView.isBezeled = false;
   }
 
-
   applyLayout(parentLayout?: YogaNodeLayout): void {
     super.applyLayout(parentLayout);
     if (this.nativeView) {

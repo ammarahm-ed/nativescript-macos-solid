@@ -11,7 +11,8 @@ public:
   static Require *init(napi_env env, std::string &path, std::string &tilde);
 
   static napi_value createRequire(napi_env env, std::string &path,
-                                  std::string &tilde, Require **pRequire = nullptr);
+                                  std::string &tilde,
+                                  Require **pRequire = nullptr);
 
   static void finalize(napi_env env, void *data, void *hint);
 

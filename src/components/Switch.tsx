@@ -30,6 +30,8 @@ function Switch() {
   );
 }
 
+Switch.snippetName = "Switch";
+
 Switch.code = `function Switch() {
   const [on, setOn] = createSignal(false);
   return (

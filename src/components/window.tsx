@@ -6,11 +6,9 @@ function Window() {
       <window
         ref={(el: HTMLWindowElement) => (windowRef = el)}
         title="Window"
-        styleMask={
-          NSWindowStyleMask.Titled |
+        styleMask={NSWindowStyleMask.Titled |
           NSWindowStyleMask.Closable |
-          NSWindowStyleMask.Resizable
-        }
+          NSWindowStyleMask.Resizable}
         style={{
           width: 200,
           height: 200,
@@ -44,6 +42,8 @@ function Window() {
     </view>
   );
 }
+
+Window.snippetName = "Window";
 
 Window.code = `function Window() {
   let windowRef: HTMLWindowElement;

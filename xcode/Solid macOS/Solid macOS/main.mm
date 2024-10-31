@@ -19,7 +19,6 @@ std::string getBytecodePathFromBundle();
 int main(int argc, const char * argv[]) {
     std::string bundlePath = getBundlePath();
     std::string bytecodePath = getBytecodePathFromBundle();
-    std::cout << bytecodePath << std::endl;
 
     auto runtime = Runtime(bundlePath);
 

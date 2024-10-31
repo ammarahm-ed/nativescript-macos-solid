@@ -36,6 +36,8 @@ function ColorDialog() {
   );
 }
 
+ColorDialog.snippetName = "ColorDialog";
+
 ColorDialog.code = `function ColorPicker() {
   const [chosenColor, setChosenColor] = createSignal("white");
   return (

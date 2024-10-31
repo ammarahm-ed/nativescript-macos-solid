@@ -31,7 +31,7 @@ export class NSSliderAutoResizable extends NSSlider {
     const owner = this._owner.deref();
     if (owner) {
       owner.dispatchEvent(
-        new SliderChangeEvent(owner.nativeView?.doubleValue || 0)
+        new SliderChangeEvent(owner.nativeView?.doubleValue || 0),
       );
     }
   }
@@ -86,8 +86,9 @@ export class Slider extends View {
   @native({
     setNative(view: Slider, _key, value) {
       if (view.nativeView) {
-        view.nativeView.sliderType =
-          value === "circular" ? NSSliderType.Circular : NSSliderType.Linear;
+        view.nativeView.sliderType = value === "circular"
+          ? NSSliderType.Circular
+          : NSSliderType.Linear;
       }
     },
   })
@@ -96,7 +97,7 @@ export class Slider extends View {
   @native({
     setNative(view: Slider, _key, value) {
       if (view.nativeView) {
-        view.nativeView.minValue = value
+        view.nativeView.minValue = value;
       }
     },
   })

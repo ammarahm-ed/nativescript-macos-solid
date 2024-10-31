@@ -18,6 +18,8 @@ function DatePicker() {
   );
 }
 
+DatePicker.snippetName = "DatePicker";
+
 DatePicker.code = `function DatePicker() {
   const [date, setDate] = createSignal();
   return (

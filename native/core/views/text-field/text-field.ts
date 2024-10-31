@@ -20,10 +20,8 @@ export class TextSubmitEvent extends Event {
 }
 
 @NativeClass
-export class NativeTextFieldDelegate
-  extends NSObject
-  implements NSTextFieldDelegate
-{
+export class NativeTextFieldDelegate extends NSObject
+  implements NSTextFieldDelegate {
   static ObjCProtocols = [NSTextFieldDelegate];
 
   declare _owner: WeakRef<TextField>;
@@ -67,7 +65,7 @@ export class TextField extends Text {
   public initNativeView(): NSTextField {
     const nativeView = super.initNativeView();
     nativeView.delegate = NativeTextFieldDelegate.initWithOwner(
-      new WeakRef(this)
+      new WeakRef(this),
     );
     this._delegate = nativeView.delegate;
     nativeView.stringValue = "";
@@ -92,7 +90,7 @@ export class TextField extends Text {
       }
       view._defaultValueSet = true;
     },
-    shouldLayout: true
+    shouldLayout: true,
   })
   declare value: string;
 
@@ -105,7 +103,7 @@ export class TextField extends Text {
         view.nativeView.stringValue = value;
       }
     },
-    shouldLayout: true
+    shouldLayout: true,
   })
   declare defaultValue: string;
 
@@ -115,7 +113,7 @@ export class TextField extends Text {
         view.nativeView.placeholderString = value;
       }
     },
-    shouldLayout: true
+    shouldLayout: true,
   })
   declare placeholder: string | null;
 
@@ -134,7 +132,7 @@ export class TextField extends Text {
         view.nativeView.usesSingleLineMode = value;
       }
     },
-    shouldLayout: true
+    shouldLayout: true,
   })
   declare multiline: boolean;
 

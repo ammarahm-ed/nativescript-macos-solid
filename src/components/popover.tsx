@@ -26,6 +26,8 @@ function Popover() {
   );
 }
 
+Popover.snippetName = "Popover";
+
 Popover.code = `function Popover() {
   let popoverRef: HTMLPopoverElement;
   return (
@@ -52,6 +54,6 @@ Popover.code = `function Popover() {
       />
     </>
   );
-}`
+}`;
 
 export default Popover;

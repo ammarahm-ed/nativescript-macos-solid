@@ -11,9 +11,6 @@ class AppDelegate extends NSObject implements NSApplicationDelegate {
   static windowTitle: string;
   static ObjCProtocols = [NSApplicationDelegate];
   static ObjCExposedMethods = {
-    openDocs: { returns: interop.types.void, params: [interop.types.id] },
-    openGithub: { returns: interop.types.void, params: [interop.types.id] },
-    openDiscord: { returns: interop.types.void, params: [interop.types.id] },
     themeChanged: { returns: interop.types.void, params: [interop.types.id] },
   };
 

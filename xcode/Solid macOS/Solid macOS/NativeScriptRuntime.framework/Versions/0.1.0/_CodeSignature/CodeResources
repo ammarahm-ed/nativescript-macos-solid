@@ -6,7 +6,7 @@
 	<dict>
 		<key>Resources/Info.plist</key>
 		<data>
-		52UD7krF4urNKf9Z456NrQvcZLE=
+		8pWzQ2cM9FDXiyz2vH59wPO4cC8=
 		</data>
 	</dict>
 	<key>files2</key>
@@ -15,7 +15,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			YcwTalA2pNvjZ71eH/2YhH0gk1sX2u+cx0NROD7gQY8=
+			jySDl04YYsTjKTheY/P0QMW/77ezFbBkRXhtOG4Fp0E=
 			</data>
 		</dict>
 		<key>Headers/Runtime.h</key>
@@ -179,6 +179,27 @@
 			X3XVyTfpta1SDvrhApSkNp7q9Iqr1NMrTAWCT7/FjCk=
 			</data>
 		</dict>
+		<key>Headers/js_native_api.h</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			c/OMmRQHrYeeMmEV8odHb2Y3XtRRo8ZhV4LNm9y4wLc=
+			</data>
+		</dict>
+		<key>Headers/js_native_api_types.h</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			UGm693shE0YO2HNSk80YmbbSedapH7dmdpGtQT7YgvQ=
+			</data>
+		</dict>
+		<key>Headers/js_runtime_api.h</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			bVQa2pt0Do9ACgBhXD6Z+ygbYTgQzTOe9WqqYBSjPR8=
+			</data>
+		</dict>
 		<key>Headers/jsi/JSIDynamic.h</key>
 		<dict>
 			<key>hash2</key>
@@ -232,7 +253,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			ce8xw2BUrSfHhFjO/q8lb3iM1BpjJM7P4YjJT9gR9fw=
+			Sv4sTB4bPCqb344nPlFdbh4Q8m5C50fGXINB7Kd2a9w=
 			</data>
 		</dict>
 	</dict>

@@ -30,6 +30,8 @@ function Combobox() {
   );
 }
 
+Combobox.snippetName = "Combobox";
+
 Combobox.code = `function Combobox() {
   const [selected, setSelected] = createSignal(0);
   return (

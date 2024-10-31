@@ -14,6 +14,8 @@ function Checkbox() {
   );
 }
 
+Checkbox.snippetName = "Checkbox";
+
 Checkbox.code = `function Checkbox() {
   const [checked, setChecked] = createSignal(false);
   return (

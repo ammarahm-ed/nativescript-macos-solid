@@ -9,6 +9,9 @@ function Text() {
     </text>
   );
 }
+
+Text.snippetName = "Text";
+
 Text.code = `function Text() {
   return (
     <text

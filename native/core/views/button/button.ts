@@ -65,7 +65,7 @@ export class Button extends TextBase {
   setBackgroundColor(
     _key: string,
     value: string,
-    _config: NativePropertyConfig<string>
+    _config: NativePropertyConfig<string>,
   ) {
     if (this.nativeView) {
       const nativeValue = !value ? undefined : new Color(value).toNSColor();
@@ -103,14 +103,15 @@ export class Button extends TextBase {
     setNative(view: Button, _key, value) {
       if (view.nativeView) {
         //@ts-expect-error can be null;
-        view.nativeView.image = !value ? null :
-          NSImage.imageWithSystemSymbolNameAccessibilityDescription(
+        view.nativeView.image = !value
+          ? null
+          : NSImage.imageWithSystemSymbolNameAccessibilityDescription(
             value,
-            null
+            null,
           );
       }
     },
-    shouldLayout: true
+    shouldLayout: true,
   })
   declare icon: string;
 
@@ -118,7 +119,7 @@ export class Button extends TextBase {
     width: number,
     widthMode: any,
     height: number,
-    heightMode: any
+    heightMode: any,
   ): { width: number; height: number } {
     return super.onMeasureFunction(width, widthMode, height, heightMode);
   }

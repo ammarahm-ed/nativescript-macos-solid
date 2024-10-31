@@ -2,22 +2,22 @@ import { getSolidLogo } from "./pages/common.ts";
 
 export default function AppMenus() {
   const SOLID_LOGO = getSolidLogo();
-  
+
   function openDocs() {
     NSWorkspace.sharedWorkspace.openURL(
-      NSURL.URLWithString("https://solidjs.com")
+      NSURL.URLWithString("https://solidjs.com"),
     );
   }
 
   function openGithub() {
     NSWorkspace.sharedWorkspace.openURL(
-      NSURL.URLWithString("https://github.com/solidjs/solid")
+      NSURL.URLWithString("https://github.com/solidjs/solid"),
     );
   }
 
   function openDiscord() {
     NSWorkspace.sharedWorkspace.openURL(
-      NSURL.URLWithString("https://discord.com/invite/solidjs")
+      NSURL.URLWithString("https://discord.com/invite/solidjs"),
     );
   }
 
@@ -66,7 +66,7 @@ export default function AppMenus() {
           <text
             style={{
               fontSize: 20,
-              textAlign:'center'
+              textAlign: "center",
             }}
           >
             Hello Solid macOS

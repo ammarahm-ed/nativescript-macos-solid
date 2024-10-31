@@ -1,9 +1,17 @@
 import { createSignal } from "npm:solid-js";
 
-function Progress() {
+interface ProgressContext {
+  interval?: number;
+}
+
+function Progress(this: ProgressContext) {
   const [progress, setProgress] = createSignal(0);
 
-  setInterval(() => {
+  if (this.interval) {
+    clearInterval(this.interval);
+  }
+
+  this.interval = setInterval(() => {
     setProgress((progress) => Math.min(progress + 1, 101));
   }, 150);
 
@@ -40,6 +48,8 @@ function Progress() {
     </view>
   );
 }
+
+Progress.snippetName = "Progress";
 
 Progress.code = `function Progress() {
   return (

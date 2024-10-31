@@ -1,6 +1,9 @@
 function TextField() {
   return <text-field placeholder="Type something here" />;
 }
+
+TextField.snippetName = "TextField";
+
 TextField.code = `function Text() {
     return (
       <text

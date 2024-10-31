@@ -53,24 +53,24 @@ export class Image extends ViewBase {
   @native({
     setNative(view: Image, _key, value) {
       // setTimeout(() => {
-        let img: NSImage;
-        if (typeof value === "string" && value?.indexOf("http") > -1) {
-          img = NSImage.alloc().initWithContentsOfURL(
-            NSURL.URLWithString(value),
-          );
-        } else {
-          img = NSImage.alloc().initWithContentsOfFile(
-            value.replace(
-              "file://",
-              "",
-            ),
-            // (value instanceof URL ? value.pathname : value).replace(
-            //   "file://",
-            //   "",
-            // ),
-          );
-        }
-        view.setImage(img);
+      let img: NSImage;
+      if (typeof value === "string" && value?.indexOf("http") > -1) {
+        img = NSImage.alloc().initWithContentsOfURL(
+          NSURL.URLWithString(value),
+        );
+      } else {
+        img = NSImage.alloc().initWithContentsOfFile(
+          value.replace(
+            "file://",
+            "",
+          ),
+          // (value instanceof URL ? value.pathname : value).replace(
+          //   "file://",
+          //   "",
+          // ),
+        );
+      }
+      view.setImage(img);
       // }, 150);
     },
   })

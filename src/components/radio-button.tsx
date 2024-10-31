@@ -28,6 +28,8 @@ function RadioButton() {
   );
 }
 
+RadioButton.snippetName = "RadioButton";
+
 RadioButton.code = `function RadioButton() {
   const [selected, setSelected] = createSignal();
 

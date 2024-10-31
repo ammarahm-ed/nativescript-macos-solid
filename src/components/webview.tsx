@@ -12,6 +12,7 @@ function Webview() {
   );
 }
 
+Webview.snippetName = "Webview";
 
 Webview.code = `function WebView() {
   return (
@@ -25,6 +26,6 @@ Webview.code = `function WebView() {
       }}
     />
   );
-}`
+}`;
 
 export default Webview;

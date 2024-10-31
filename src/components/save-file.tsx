@@ -30,6 +30,8 @@ function SaveFile() {
   );
 }
 
+SaveFile.snippetName = "SaveFile";
+
 SaveFile.code = `function SaveFile() {
   const [saveFilePath, setSaveFilePath] = createSignal();
   return (

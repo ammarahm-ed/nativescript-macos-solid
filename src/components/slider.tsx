@@ -14,7 +14,7 @@ function Slider() {
           flexDirection: "row",
           gap: 10,
           alignItems: "center",
-          maxWidth: 200
+          maxWidth: 200,
         }}
       >
         <slider
@@ -38,6 +38,8 @@ function Slider() {
     </view>
   );
 }
+
+Slider.snippetName = "Slider";
 
 Slider.code = `function Slider() {
   const [value, setValue] = createSignal(0);

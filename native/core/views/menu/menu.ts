@@ -23,8 +23,9 @@ export class Menu extends ViewBase {
       child.nodeName !== "MENU-ITEM" &&
       child.nodeName !== "MENU-SEPARATOR" &&
       child.nodeName !== "MENU-SECTION-HEADER"
-    )
+    ) {
       return;
+    }
     this.nativeView.addItem(child.nativeView);
   }
 
@@ -56,7 +57,7 @@ export class Menu extends ViewBase {
           view.menuItem = NSMenuItem.alloc().initWithTitleActionKeyEquivalent(
             view.nativeView.title,
             "",
-            ""
+            "",
           );
         }
         view.menuItem.submenu = view.nativeView;

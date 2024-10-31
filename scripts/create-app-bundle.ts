@@ -63,7 +63,7 @@ Deno.writeTextFileSync(
 );
 
 new Deno.Command(Deno.env.get("HERMESC")!, {
-  args: ["-emit-binary", "-out", "./assets/app.hbc", "./dist/app_es5.js"],
+  args: ["-emit-binary", "-out", "./xcode/Solid macOS/Solid macOS/app.hbc", "./dist/app_es5.js"],
   stdin: "null",
   stdout: "inherit",
   stderr: "inherit",

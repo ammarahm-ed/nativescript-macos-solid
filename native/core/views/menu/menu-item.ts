@@ -37,6 +37,7 @@ class NativeMenuItem extends NSMenuItem {
     }
   }
 }
+
 @view({
   name: "HTMLMenuElement",
   tagName: "menu-item",
@@ -99,9 +100,9 @@ export class MenuItem extends ViewBase {
         view.nativeView.image = !value
           ? null
           : NSImage.imageWithSystemSymbolNameAccessibilityDescription(
-              value,
-              null
-            );
+            value,
+            null,
+          );
       }
     },
   })
@@ -128,12 +129,11 @@ export class MenuItem extends ViewBase {
   @native({
     setNative(view: MenuItem, _key, value) {
       if (view.nativeView) {
-        view.nativeView.state =
-          value === "on"
-            ? NSControlStateValueOn
-            : value === "mixed"
-            ? NSControlStateValueMixed
-            : NSControlStateValueOff;
+        view.nativeView.state = value === "on"
+          ? NSControlStateValueOn
+          : value === "mixed"
+          ? NSControlStateValueMixed
+          : NSControlStateValueOff;
       }
     },
   })
@@ -144,7 +144,7 @@ export class MenuItem extends ViewBase {
       if (view.nativeView) {
         const image = NSImage.imageWithSystemSymbolNameAccessibilityDescription(
           value,
-          null
+          null,
         );
         view.nativeView.onStateImage = image;
       }
@@ -156,7 +156,7 @@ export class MenuItem extends ViewBase {
       if (view.nativeView) {
         const image = NSImage.imageWithSystemSymbolNameAccessibilityDescription(
           value,
-          null
+          null,
         );
         view.nativeView.offStateImage = image;
       }
@@ -168,7 +168,7 @@ export class MenuItem extends ViewBase {
       if (view.nativeView) {
         const image = NSImage.imageWithSystemSymbolNameAccessibilityDescription(
           value,
-          null
+          null,
         );
         view.nativeView.mixedStateImage = image;
       }

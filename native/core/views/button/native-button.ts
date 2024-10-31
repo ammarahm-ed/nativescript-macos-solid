@@ -19,7 +19,7 @@ export class NativeButton extends NSButton {
   _color?: NSColor;
   _title?: string;
   _owner?: WeakRef<Button>;
-  
+
   static initWithOwner(owner: WeakRef<Button>) {
     const button = NativeButton.new();
     button._owner = owner;

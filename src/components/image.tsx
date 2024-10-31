@@ -1,4 +1,3 @@
-
 function Image() {
   return (
     <image
@@ -12,6 +11,8 @@ function Image() {
     />
   );
 }
+
+Image.snippetName = "Image";
 
 Image.code = `function Image() {
   return (

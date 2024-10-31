@@ -21,7 +21,7 @@ type TodoItem = {
 };
 
 const [todos, setTodos] = createSignal<TodoItem[]>(
-  JSON.parse(storageApi.get("todos") || "[]")
+  JSON.parse(storageApi.get("todos") || "[]"),
 );
 
 export function TodoMVP() {
@@ -71,8 +71,9 @@ export function TodoMVP() {
             justifyContent: "space-between",
             borderWidth: 1,
             borderRadius: 5,
-            borderColor:
-              colorScheme === "dark" ? "rgb(68, 68, 68)" : "rgb(200, 200, 200)",
+            borderColor: colorScheme === "dark"
+              ? "rgb(68, 68, 68)"
+              : "rgb(200, 200, 200)",
             paddingHorizontal: 10,
           }}
         >
@@ -131,17 +132,13 @@ function TodoItem(props: { item: TodoItem; index: () => number }) {
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-between",
-        backgroundColor:
-          props.index() % 2 === 0
-            ? colorScheme === "dark"
-              ? "rgba(0,0,0,0.1)"
-              : "#f7f7f7"
-            : undefined,
+        backgroundColor: props.index() % 2 === 0
+          ? colorScheme === "dark" ? "rgba(0,0,0,0.1)" : "#f7f7f7"
+          : undefined,
         paddingHorizontal: 10,
         width: "100%",
       }}
     >
-      
       <view
         style={{
           flexDirection: "row",
