@@ -102,28 +102,23 @@ export class Window extends ViewBase {
     }
   }
 
-  _modalCode?: number;
+  _isModal?: boolean;
   public openAsModal(relativeToWindow?: boolean) {
+    this._isModal = true;
     if (relativeToWindow) {
       const window = (this.parentNode as HTMLViewElement).nativeView?.window;
       if (window) {
-        this._modalCode = NSApp.runModalForWindowRelativeToWindow(
+        NSApp.runModalForWindowRelativeToWindow(
           this.nativeView!,
           window
         );
       }
     } else {
-      this._modalCode = NSApp.runModalForWindow(this.nativeView!);
+      NSApp.runModalForWindow(this.nativeView!);
     }
   }
 
   public closeModalWindow() {
-    // if (this._modalCode) {
-    //   NSApp.stopModalWithCode(this._modalCode);
-    //   this._modalCode = undefined;
-    // } else {
-    //   NSApp.stopModal();
-    // }
     this.close();
   }
 

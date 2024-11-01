@@ -79,6 +79,10 @@ export class NativeWindow extends NSWindow implements NSWindowDelegate {
       }
       currentNode = currentNode.parentNode;
     }
+    if (currentWindow?._isModal) {
+      NSApp.stopModal();
+      currentWindow._isModal = false;
+    }
     if (window) {
       window.makeKeyAndOrderFront(NSApp);
     }
