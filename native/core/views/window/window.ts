@@ -29,6 +29,11 @@ export class Window extends ViewBase {
     // This view will become the main window if no other window is present;
     if (!NativeScriptApplication.window) {
       NativeScriptApplication.window = this;
+      NativeScriptApplication.showMainWindow = () => {
+        this.nativeView?.becomeMainWindow();
+        this.nativeView?.displayIfNeeded();
+        this.nativeView?.makeKeyAndOrderFront(NSApp);
+      };
     }
 
     this.nativeView.owner = new WeakRef(this);

@@ -15,6 +15,7 @@ export class Menu extends ViewBase {
   public initNativeView(): NSMenu {
     const menu = NSMenu.new();
     this.nativeView = menu;
+
     return this.nativeView;
   }
 
@@ -63,6 +64,8 @@ export class Menu extends ViewBase {
         view.menuItem.submenu = view.nativeView;
         NativeScriptApplication.appMenu.addItem(view.menuItem);
         view.menuItem.title = view.nativeView.title;
+
+        view.createWindowMenu();
       } else {
         if (view.menuItem) {
           NativeScriptApplication.appMenu.removeItem(view.menuItem);
@@ -77,5 +80,27 @@ export class Menu extends ViewBase {
       NativeScriptApplication.appMenu.removeItem(this.menuItem);
     }
     super.disposeNativeView();
+  }
+
+  createWindowMenu() {
+    // Ensure standard Window menu is available
+    if (!NSApp.windowsMenu) {
+      // Create and add the Window menu
+      const windowMenuItem = NSMenuItem.new()
+      NSApp.mainMenu.addItem(windowMenuItem)
+      const windowMenu = NSMenu.alloc().initWithTitle("Window")
+      windowMenuItem.submenu = windowMenu
+  
+      // Add standard Window menu items
+      windowMenu.addItemWithTitleActionKeyEquivalent('Minimize', 'performMiniaturize:', 'm');
+      windowMenu.addItemWithTitleActionKeyEquivalent('Zoom', 'performZoom:', 'p');
+      windowMenu.addItemWithTitleActionKeyEquivalent('Close', 'performClose:', 'w');
+      windowMenu.addItem(NSMenuItem.separatorItem());
+      windowMenu.addItemWithTitleActionKeyEquivalent('Show Main Window', 'showMainWindow', '0');
+      windowMenu.addItemWithTitleActionKeyEquivalent('Bring All to Front', 'arrangeInFront:', '');
+  
+      // Set the windowMenu as the application's window menu for proper functionality
+      NSApp.windowsMenu = windowMenu
+    }
   }
 }

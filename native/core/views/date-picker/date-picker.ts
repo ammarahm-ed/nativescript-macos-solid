@@ -8,9 +8,11 @@ import { View } from "../view/view.ts";
 
 export class DatePickerChangeEvent extends Event {
   declare date?: Date;
-  constructor(date: Date, eventDict?: EventInit) {
+  declare interval?: number;
+  constructor(date: Date, interval: number, eventDict?: EventInit) {
     super("dateChange", eventDict);
     this.date = date;
+    this.interval = interval;
   }
 }
 
@@ -34,7 +36,8 @@ export class DatePicker extends View {
         this.dispatchEvent(
           new DatePickerChangeEvent(
             new Date(this.nativeView.dateValue.timeIntervalSince1970 * 1000),
-          ),
+            this.nativeView.timeInterval * 1000
+          )
         );
       }
     });
@@ -109,6 +112,15 @@ export class DatePicker extends View {
     },
   })
   declare presentsCalendarOverlay: boolean;
+
+  @native({
+    setNative(view: DatePicker, _key, value) {
+      if (view.nativeView) {
+        view.nativeView.datePickerMode = value;
+      }
+    },
+  })
+  declare datePickerMode: "single" | "range";
 
   applyLayout(parentLayout?: YogaNodeLayout): void {
     super.applyLayout(parentLayout);

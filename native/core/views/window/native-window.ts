@@ -41,7 +41,9 @@ export class MainWindowController extends NSWindowController
 @NativeClass
 export class NativeWindow extends NSWindow implements NSWindowDelegate {
   static ObjCProtocols = [NSWindowDelegate];
-
+  static ObjCExposedMethods = {
+    showMainWindow: { returns: interop.types.void, params: [interop.types.id] },
+  };
   public owner?: WeakRef<Window>;
 
   windowDidResize(_notification: NSNotification): void {
@@ -61,8 +63,12 @@ export class NativeWindow extends NSWindow implements NSWindowDelegate {
     this.owner?.deref()?.dispatchEvent(event);
   }
 
-  windowDidBecomeMain(notification: NSNotification): void {
-    // NSApp.stop(this.owner?.deref()?.nativeView);
+  windowDidBecomeMain(_notification: NSNotification): void {
+    if (
+      !NSBundle.mainBundle?.objectForInfoDictionaryKey("NativeScriptApplication")
+    ) {
+      NSApp.stop(this.owner?.deref()?.nativeView);
+    }
   }
 
   windowWillClose(_notification: NSNotification): void {
@@ -81,5 +87,9 @@ export class NativeWindow extends NSWindow implements NSWindowDelegate {
     if (window) {
       window.makeKeyAndOrderFront(NSApp);
     }
+  }
+
+  showMainWindow() {
+    NativeScriptApplication.showMainWindow();
   }
 }

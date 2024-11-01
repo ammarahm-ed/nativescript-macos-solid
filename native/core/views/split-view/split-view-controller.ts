@@ -7,7 +7,6 @@ export class SplitViewController extends NSSplitViewController
     NSSplitViewDelegate,
     NSViewControllerPresentationAnimator,
   ];
-
   _owner?: WeakRef<HTMLViewBaseElement>;
 
   override viewDidLayout(): void {

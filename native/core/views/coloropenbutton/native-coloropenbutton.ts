@@ -17,7 +17,6 @@ export class NativeColorOpenButton extends NativeButton {
   static ObjCExposedMethods = {
     clicked: { returns: interop.types.void, params: [interop.types.id] },
   };
-
   static initWithOwner(owner: WeakRef<ColorOpenButton>) {
     const button = NativeColorOpenButton.new();
     button._owner = owner;
