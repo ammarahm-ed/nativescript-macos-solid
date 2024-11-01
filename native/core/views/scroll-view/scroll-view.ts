@@ -13,10 +13,8 @@ export class ScrollChangeEvent extends Event {
   }
 }
 
+@NativeClass
 export class NSScrollViewAutoResizable extends NSScrollView {
-  static {
-    NativeClass(this);
-  }
 
   _owner?: WeakRef<ScrollView>;
 

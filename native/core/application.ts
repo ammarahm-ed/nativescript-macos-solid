@@ -17,10 +17,6 @@ class AppDelegate extends NSObject implements NSApplicationDelegate {
     themeChanged: { returns: interop.types.void, params: [interop.types.id] },
   };
 
-  static {
-    NativeClass(this);
-  }
-
   applicationDidFinishLaunching(_notification: NSNotification) {
     NSApp.activateIgnoringOtherApps(false);
     NSApp.stop(this);
@@ -121,6 +117,9 @@ export default class Application {
       NSApp.mainMenu = menu;
       Application.appMenu = menu;
     }
+  }
+  static showMainWindow() {
+    // override
   }
 }
 

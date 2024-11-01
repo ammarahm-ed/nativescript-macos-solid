@@ -1,4 +1,4 @@
-import { SOLID_LOGO } from "./common.ts";
+import { getSolidLogo } from "./common.ts";
 export default function Overview() {
   return (
     <view
@@ -20,7 +20,7 @@ export default function Overview() {
             height: 50,
           }}
           stretch="aspectFit"
-          src={SOLID_LOGO}
+          src={getSolidLogo()}
         ></image>
         <text
           style={{
