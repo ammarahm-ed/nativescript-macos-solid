@@ -14,7 +14,7 @@ function App() {
   return (
     <window
       title="Solid Desktop"
-      subtitle="Develop macOS with Solid"
+      subtitle="Develop Mac Desktop with Solid"
       style={{
         width: 800,
         height: 600,
