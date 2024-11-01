@@ -288,10 +288,10 @@ const ConvertToYogaValue = {
     switch (value) {
       case "absolute":
         return PositionType.Absolute;
-      case "relative":
-        return PositionType.Relative;
-      default:
+      case "static":
         return PositionType.Static;
+      default:
+        return PositionType.Relative;
     }
   },
 

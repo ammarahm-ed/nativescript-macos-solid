@@ -7,7 +7,7 @@ const [snippets, setSnippets] = createSignal([
     language: "jsx",
     title: "",
     code: "",
-    dark: false
+    dark: false,
   },
 ]);
 
@@ -15,7 +15,12 @@ const [snippets, setSnippets] = createSignal([
 window.updateSnippet = (title: string, code: string) => {
   const data = JSON.parse(code);
   setSnippets([
-    { language: "jsx", title, code: decodeURIComponent(data.snippet), dark: data.dark },
+    {
+      language: "jsx",
+      title,
+      code: decodeURIComponent(data.snippet),
+      dark: data.dark,
+    },
   ]);
 };
 // TESTING:
@@ -40,17 +45,23 @@ function App() {
     <div class="mx-auto my-0">
       <For each={snippets()}>
         {(snippet, index) => (
-          snippet.dark ? <CodeSnippet
-          title={snippet.title}
-          language={snippet.language}
-          code={snippet.code}
-          index={index()}
-        /> : <CodeSnippetLight
-        title={snippet.title}
-        language={snippet.language}
-        code={snippet.code}
-        index={index()}
-      />
+          <div class={snippet.dark ? "dark" : "light"}>
+            {snippet.dark ? (
+              <CodeSnippet
+                title={snippet.title}
+                language={snippet.language}
+                code={snippet.code}
+                index={index()}
+              />
+            ) : (
+              <CodeSnippetLight
+                title={snippet.title}
+                language={snippet.language}
+                code={snippet.code}
+                index={index()}
+              />
+            )}
+          </div>
         )}
       </For>
     </div>

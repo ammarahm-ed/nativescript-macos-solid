@@ -34,6 +34,8 @@ import type {
 } from "../native/core/views/webview/webview.ts";
 import { WindowResizeEvent } from "../native/core/views/window/native-window.ts";
 import type { OutlineViewItemSelectedEvent } from "../native/core/views/outline/outline.ts";
+import type { SwitchClickEvent } from "../native/core/views/switch/switch.ts";
+import type { DatePickerChangeEvent } from "../native/core/views/date-picker/date-picker.ts";
 
 interface ViewAttributes {
   ref?: unknown | ((e: unknown) => void);
@@ -114,6 +116,11 @@ interface ScrollViewAtributes extends ViewAttributes {
 interface SliderAttributes extends ViewAttributes {
   numberOfTickMarks?: number;
   allowsTickMarkValuesOnly?: boolean;
+  value?: number;
+  maxValue?: number;
+  minValue?: number;
+  incrementValue?: number;
+  type?: "linear" | "circular";
   onSliderChanged?: (event: SliderChangeEvent) => void;
 }
 
@@ -156,6 +163,13 @@ interface ProgressAttributes extends ViewAttributes {
   minValue?: number;
   maxValue?: number;
   type?: "bar" | "spinner";
+}
+
+interface SwitchAttributes extends ViewAttributes {
+  value?: boolean;
+  onClick?: (event: SwitchClickEvent) => void;
+  continuous?: boolean;
+  enabled?: boolean;
 }
 
 interface ToolbarItemAttributes {
@@ -242,6 +256,16 @@ interface PopoverAttributes extends ViewAttributes {
   behavior?: number;
 }
 
+interface DatePickerAttributes extends ViewAttributes {
+  date?: Date;
+  minDate?: Date;
+  maxDate?: Date;
+  onDateChange?: (date: DatePickerChangeEvent) => void;
+  datePickerStyle?: "textFieldAndStepper" | "clockAndCalendar" | "textField";
+  datePickerElements?: number;
+  datePickerMode?: "single" | "range";
+}
+
 // Define elements here
 interface JSXIntrinsicElements {
   button: ButtonAttributes;
@@ -278,6 +302,8 @@ interface JSXIntrinsicElements {
   "menu-section-header": MenuSectionHeaderAttributes;
   "status-bar": StaturBarAttributes;
   popover: PopoverAttributes;
+  switch: SwitchAttributes;
+  "date-picker": DatePickerAttributes;
 }
 
 export namespace JSX {

@@ -14,7 +14,7 @@ export class WebviewNavigationEvent extends Event {
     type: string,
     url: string | URL,
     navigationType: WebViewNavigationType,
-    eventDict?: EventInit,
+    eventDict?: EventInit
   ) {
     super(type, eventDict);
     this.url = url;
@@ -26,7 +26,7 @@ export class LoadStartedEvent extends WebviewNavigationEvent {
   constructor(
     url: string | URL,
     navigationType: WebViewNavigationType,
-    eventDict?: EventInit,
+    eventDict?: EventInit
   ) {
     super("loadStarted", url, navigationType, eventDict);
   }
@@ -48,8 +48,10 @@ type WebViewNavigationType =
   | undefined;
 
 @NativeClass
-class WebViewDelegate extends NSObject
-  implements WKUIDelegate, WKNavigationDelegate {
+class WebViewDelegate
+  extends NSObject
+  implements WKUIDelegate, WKNavigationDelegate
+{
   static ObjCProtocols = [WKUIDelegate, WKNavigationDelegate];
 
   declare _owner: WeakRef<WebView>;
@@ -63,7 +65,7 @@ class WebViewDelegate extends NSObject
     webView: WKWebView,
     _configuration: WKWebViewConfiguration,
     navigationAction: WKNavigationAction,
-    _windowFeatures: WKWindowFeatures,
+    _windowFeatures: WKWindowFeatures
   ): WKWebView {
     if (
       navigationAction &&
@@ -79,9 +81,7 @@ class WebViewDelegate extends NSObject
   webViewDecidePolicyForNavigationActionDecisionHandler(
     _webView: WKWebView,
     navigationAction: WKNavigationAction,
-    decisionHandler: (
-      p1: interop.Enum<typeof WKNavigationActionPolicy>,
-    ) => void,
+    decisionHandler: (p1: interop.Enum<typeof WKNavigationActionPolicy>) => void
   ): void {
     const owner = this._owner?.deref();
     if (owner && navigationAction.request.URL) {
@@ -111,8 +111,8 @@ class WebViewDelegate extends NSObject
         owner.dispatchEvent(
           new LoadStartedEvent(
             navigationAction.request.URL.absoluteString,
-            navType,
-          ),
+            navType
+          )
         );
       }
     }
@@ -120,7 +120,7 @@ class WebViewDelegate extends NSObject
 
   webViewDidFinishNavigation(
     webView: WKWebView,
-    _navigation: WKNavigation,
+    _navigation: WKNavigation
   ): void {
     const owner = this._owner?.deref();
     if (owner) {
@@ -151,7 +151,7 @@ export class WebView extends View {
     const config = WKWebViewConfiguration.new();
     this.nativeView = WKWebView.alloc().initWithFrameConfiguration(
       CGRectZero,
-      config,
+      config
     );
     this.nativeView.setValueForKey(false, "drawsBackground");
     this.delegate = WebViewDelegate.initWithOwner(new WeakRef(this));
@@ -159,14 +159,16 @@ export class WebView extends View {
     this.nativeView.navigationDelegate = this.delegate;
     this.nativeView.configuration.preferences.setValueForKey(
       true,
-      "allowFileAccessFromFileURLs",
+      "allowFileAccessFromFileURLs"
     );
     return this.nativeView;
   }
 
   override applyLayout(parentLayout?: YogaNodeLayout): void {
     super.applyLayout(parentLayout);
-    this.nativeView!.translatesAutoresizingMaskIntoConstraints = true;
+    if (this.nativeView) {
+      this.nativeView.translatesAutoresizingMaskIntoConstraints = true;
+    }
   }
 
   loadURL(value: string | URL) {
@@ -178,7 +180,7 @@ export class WebView extends View {
       } else {
         this.nativeView.loadFileURLAllowingReadAccessToURL(
           nsUrl,
-          nsUrl.URLByDeletingLastPathComponent,
+          nsUrl.URLByDeletingLastPathComponent
         );
       }
     }
@@ -188,11 +190,10 @@ export class WebView extends View {
     this.nativeView?.evaluateJavaScriptCompletionHandler(
       src,
       (result, error) => {
-        console.log("evaluateJavaScript result:", result);
         if (error) {
           console.error(error);
         }
-      },
+      }
     );
   }
 

@@ -142,6 +142,6 @@
      font-style: italic;
  }
 
- .token.plain-text {
+ .dark .token.plain-text {
     color: white !important;
 }
