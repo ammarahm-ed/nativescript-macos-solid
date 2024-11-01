@@ -22,7 +22,7 @@ export class Window extends ViewBase {
     this.mainWindowCtrl = MainWindowController.initWithOwner(new WeakRef(this));
     this.mainWindowCtrl.window = this.nativeView;
     this.nativeView.windowController = this.mainWindowCtrl;
-
+    this.nativeView.isReleasedWhenClosed = false;
     this.nativeView.contentViewController = NSViewController.new();
     this.viewController = this.nativeView.contentViewController;
 

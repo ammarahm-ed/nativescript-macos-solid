@@ -32,6 +32,13 @@ class AppDelegate extends NSObject implements NSApplicationDelegate {
     RunLoop();
   }
 
+  applicationShouldHandleReopenHasVisibleWindows(sender: NSApplication, hasVisibleWindows: boolean): boolean {
+    if (!hasVisibleWindows) {
+      sender.windows.firstObject.makeKeyAndOrderFront(this);
+    }
+    return true;
+  }
+  
   applicationWillTerminate(_notification: NSNotification): void {
     this.running = false;
   }
