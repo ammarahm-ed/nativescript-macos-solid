@@ -15,8 +15,7 @@ export default function Components() {
         }}
         stretch="aspectFit"
         src={getSolidLogo()}
-      >
-      </image>
+      ></image>
       <text
         style={{
           fontSize: 20,

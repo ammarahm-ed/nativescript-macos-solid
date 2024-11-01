@@ -22,8 +22,7 @@ export default function Setup() {
           }}
           stretch="aspectFit"
           src={getSolidLogo()}
-        >
-        </image>
+        ></image>
         <text
           style={{
             fontSize: 18,
@@ -74,8 +73,8 @@ export default function Setup() {
                   onClick={() => {
                     NSWorkspace.sharedWorkspace.openURL(
                       NSURL.URLWithString(
-                        "https://github.com/NativeScript/template-macos-solid",
-                      ),
+                        "https://github.com/NativeScript/template-macos-solid"
+                      )
                     );
                   }}
                 >

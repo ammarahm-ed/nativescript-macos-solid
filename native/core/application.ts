@@ -120,6 +120,9 @@ export default class Application {
       Application.appMenu = menu;
     }
   }
+  static showMainWindow() {
+    // override
+  }
 }
 
 declare global {

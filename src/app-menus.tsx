@@ -25,6 +25,18 @@ export default function AppMenus() {
     <>
       <menu attachToMainMenu>
         <menu-item
+          title="About"
+          onClick={() => {
+            NSApp.orderFrontStandardAboutPanel({
+              [NSAboutPanelOptionApplicationName]: "Solid Desktop",
+              [NSAboutPanelOptionApplicationVersion]: "1.0.0",
+              [NSAboutPanelOptionApplicationIcon]: getSolidLogo(),
+              [NSAboutPanelOptionCredits]:
+                "Solid Desktop is built with Solid and NativeScript by Ammar, Dj and Nathan.",
+            });
+          }}
+        />
+        <menu-item
           title="Quit"
           shortcutKey="q"
           onClick={() => {
@@ -40,7 +52,7 @@ export default function AppMenus() {
 
       <status-bar>
         <image
-          src={SOLID_LOGO}
+          src={getSolidLogo()}
           style={{
             width: 30,
             height: 21,
@@ -56,7 +68,7 @@ export default function AppMenus() {
           }}
         >
           <image
-            src={SOLID_LOGO}
+            src={getSolidLogo()}
             style={{
               width: 100,
               height: 100,
