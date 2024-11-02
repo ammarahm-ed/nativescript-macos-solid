@@ -57,11 +57,15 @@ export function FontStyleNativeSet(style: Style, _key: string, value: string) {
   const font = nativeView.font;
   switch (value) {
     case "italic": {
-      const italicFont = NSFontManager.sharedFontManager.convertFontToHaveTrait(
-        font,
-        NSFontTraitMask.Italic,
-      );
-      nativeView.font = italicFont;
+      console.log('NSFontManager.sharedFontManager:', NSFontManager.sharedFontManager)
+      console.log('NSFontManager.sharedFontManager?.convertFontToHaveTrait:', NSFontManager.sharedFontManager?.convertFontToHaveTrait)
+      if (NSFontManager.sharedFontManager?.convertFontToHaveTrait) {
+        const italicFont = NSFontManager.sharedFontManager.convertFontToHaveTrait(
+          font,
+          NSFontTraitMask.Italic,
+        );
+        nativeView.font = italicFont;
+      }
       break;
     }
     default:
