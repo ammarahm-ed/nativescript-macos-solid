@@ -5,19 +5,19 @@ export default function AppMenus() {
 
   function openDocs() {
     NSWorkspace.sharedWorkspace.openURL(
-      NSURL.URLWithString("https://solidjs.com"),
+      NSURL.URLWithString("https://solidjs.com")
     );
   }
 
   function openGithub() {
     NSWorkspace.sharedWorkspace.openURL(
-      NSURL.URLWithString("https://github.com/solidjs/solid"),
+      NSURL.URLWithString("https://github.com/solidjs/solid")
     );
   }
 
   function openDiscord() {
     NSWorkspace.sharedWorkspace.openURL(
-      NSURL.URLWithString("https://discord.com/invite/solidjs"),
+      NSURL.URLWithString("https://discord.com/invite/solidjs")
     );
   }
 
@@ -31,8 +31,6 @@ export default function AppMenus() {
               [NSAboutPanelOptionApplicationName]: "Solid Desktop",
               [NSAboutPanelOptionApplicationVersion]: "1.0.0",
               [NSAboutPanelOptionApplicationIcon]: getSolidLogo(),
-              [NSAboutPanelOptionCredits]:
-                "Solid Desktop is built with Solid and NativeScript by Ammar, Dj and Nathan.",
             });
           }}
         />

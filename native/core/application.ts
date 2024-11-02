@@ -11,6 +11,7 @@ class AppDelegate extends NSObject implements NSApplicationDelegate {
   static windowTitle: string;
   static ObjCProtocols = [NSApplicationDelegate];
   static ObjCExposedMethods = {
+    showMainWindow: { returns: interop.types.void, params: [interop.types.id] },
     themeChanged: { returns: interop.types.void, params: [interop.types.id] },
   };
 
@@ -37,13 +38,17 @@ class AppDelegate extends NSObject implements NSApplicationDelegate {
 
   applicationShouldHandleReopenHasVisibleWindows(sender: NSApplication, hasVisibleWindows: boolean): boolean {
     if (!hasVisibleWindows) {
-      sender.windows.firstObject.makeKeyAndOrderFront(this);
+      (sender.windows.firstObject as NSWindow).makeKeyAndOrderFront(sender);
     }
     return true;
   }
   
   applicationWillTerminate(_notification: NSNotification): void {
     this.running = false;
+  }
+
+  showMainWindow(_id: this) {
+    NativeScriptApplication.showMainWindow();
   }
 
   themeChanged(_id: this) {
