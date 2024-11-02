@@ -29,7 +29,7 @@ export default function Examples() {
             marginLeft: 8,
           }}
         >
-          Solid macOS Examples
+          Solid Desktop Examples
         </text>
       </view>
       <view

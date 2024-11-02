@@ -12,8 +12,8 @@ function App() {
     createSignal<SidebarItem>();
   return (
     <window
-      title="Solid macOS"
-      subtitle="Develop macOS with Solid"
+      title="Solid Desktop"
+      subtitle="Develop Desktop with Solid"
       style={{
         width: 800,
         height: 600,

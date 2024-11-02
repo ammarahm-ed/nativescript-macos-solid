@@ -22,7 +22,7 @@ export default function Components() {
         padding: 18,
       }}
     >
-      Solid macOS Components
+      Solid AppKit Components
     </text>
     <text
       style={{
