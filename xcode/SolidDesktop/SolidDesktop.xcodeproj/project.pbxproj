@@ -25,7 +25,7 @@
 
 /* Begin PBXFileReference section */
 		AA1D3DD92CD2F479000331B4 /* snippets */ = {isa = PBXFileReference; lastKnownFileType = folder; name = snippets; path = ../../snippets/snippets; sourceTree = "<group>"; };
-		AA61BE892CD2D87100E92A4A /* SolidDesktop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SolidDesktop.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA61BE892CD2D87100E92A4A /* SolidDesktop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SolidDesktop.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
@@ -53,7 +53,7 @@
 			exceptions = (
 				AA61BF152CD2EF4600E92A4A /* Exceptions for "SolidDesktop" folder in "Embed Frameworks" phase from "SolidDesktop" target */,
 			);
-			path = "SolidDesktop";
+			path = SolidDesktop;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -105,10 +105,10 @@
 			fileSystemSynchronizedGroups = (
 				AA61BE8B2CD2D87100E92A4A /* SolidDesktop */,
 			);
-			name = "SolidDesktop";
+			name = SolidDesktop;
 			packageProductDependencies = (
 			);
-			productName = "SolidDesktop";
+			productName = SolidDesktop;
 			productReference = AA61BE892CD2D87100E92A4A /* SolidDesktop.app */;
 			productType = "com.apple.product-type.application";
 		};
@@ -288,7 +288,7 @@
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = "SolidDesktop/SolidDesktop.entitlements";
+				CODE_SIGN_ENTITLEMENTS = SolidDesktop/SolidDesktop.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -296,14 +296,14 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/SolidDesktop"
+					"$(PROJECT_DIR)/SolidDesktop",
 				);
 				GENERATE_INFOPLIST_FILE = YES;
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/SolidDesktop/NativeScriptRuntime.framework/Headers\"";
 				INFOPLIST_FILE = "SolidDesktop-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Solid Desktop";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "© Copyright nStudio";
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -311,7 +311,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/SolidDesktop"
+					"$(PROJECT_DIR)/SolidDesktop",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 13.5;
 				MARKETING_VERSION = 1.0;
@@ -327,7 +327,7 @@
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = "SolidDesktop/SolidDesktop.entitlements";
+				CODE_SIGN_ENTITLEMENTS = SolidDesktop/SolidDesktop.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -335,14 +335,14 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/SolidDesktop"
+					"$(PROJECT_DIR)/SolidDesktop",
 				);
 				GENERATE_INFOPLIST_FILE = YES;
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/SolidDesktop/NativeScriptRuntime.framework/Headers\"";
 				INFOPLIST_FILE = "SolidDesktop-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Solid Desktop";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "© Copyright nStudio";
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -350,7 +350,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/SolidDesktop"
+					"$(PROJECT_DIR)/SolidDesktop",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 13.5;
 				MARKETING_VERSION = 1.0;

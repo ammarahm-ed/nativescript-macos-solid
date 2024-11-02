@@ -30,7 +30,7 @@ export default function AppMenus() {
             NSApp.orderFrontStandardAboutPanel({
               [NSAboutPanelOptionApplicationName]: "Solid Desktop",
               [NSAboutPanelOptionApplicationVersion]: "1.0.0",
-              [NSAboutPanelOptionApplicationIcon]: getSolidLogo(),
+              [NSAboutPanelOptionApplicationIcon]: getSolidLogo()
             });
           }}
         />
