@@ -29,8 +29,6 @@ export default function AppMenus() {
               [NSAboutPanelOptionApplicationName]: "Solid Desktop",
               [NSAboutPanelOptionApplicationVersion]: "1.0.0",
               [NSAboutPanelOptionApplicationIcon]: getSolidLogo(),
-              [NSAboutPanelOptionCredits]:
-                "Solid Desktop is built with Solid and NativeScript by Ammar, Dj and Nathan.",
             });
           }}
         />
