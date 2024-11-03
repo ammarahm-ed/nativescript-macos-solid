@@ -141,7 +141,6 @@ function TodoItem(props: { item: TodoItem; index: () => number }) {
         width: "100%",
       }}
     >
-      
       <view
         style={{
           flexDirection: "row",

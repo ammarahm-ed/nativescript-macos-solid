@@ -1,8 +1,8 @@
 import "@nativescript/macos-node-api";
-import { Application, setCustomDelegate } from "@nativescript/foundation";
-import { AppDelegate } from "./main-setup.ts";
+import { Application } from "@nativescript/foundation";
+// import { AppDelegate } from "./main-setup.ts";
 
-setCustomDelegate(AppDelegate);
+// setCustomDelegate(AppDelegate);
 await import("app").then((module) => {
   // Async import ensures that objc globals are defined when module is loaded.
   module.startApp();

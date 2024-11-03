@@ -1,6 +1,7 @@
-import { SOLID_LOGO } from "./pages/common.ts";
+import { getSolidLogo } from "./pages/common.ts";
 
 export default function AppMenus() {
+
   function openDocs() {
     NSWorkspace.sharedWorkspace.openURL(
       NSURL.URLWithString("https://solidjs.com")
@@ -23,6 +24,16 @@ export default function AppMenus() {
     <>
       <menu attachToMainMenu>
         <menu-item
+          title="About"
+          onClick={() => {
+            NSApp.orderFrontStandardAboutPanel({
+              [NSAboutPanelOptionApplicationName]: "Solid Desktop",
+              [NSAboutPanelOptionApplicationVersion]: "1.0.0",
+              [NSAboutPanelOptionApplicationIcon]: getSolidLogo(),
+            });
+          }}
+        />
+        <menu-item
           title="Quit"
           shortcutKey="q"
           onClick={() => {
@@ -30,7 +41,7 @@ export default function AppMenus() {
           }}
         />
       </menu>
-      <menu title="Solid MacOS" attachToMainMenu>
+      <menu title="Help" attachToMainMenu>
         <menu-item title="Open Docs" shortcutKey="i" onClick={openDocs} />
         <menu-item title="Open Github" shortcutKey="g" onClick={openGithub} />
         <menu-item title="Discord" shortcutKey="d" onClick={openDiscord} />
@@ -38,7 +49,7 @@ export default function AppMenus() {
 
       <status-bar>
         <image
-          src={SOLID_LOGO}
+          src={getSolidLogo()}
           style={{
             width: 30,
             height: 21,
@@ -54,7 +65,7 @@ export default function AppMenus() {
           }}
         >
           <image
-            src={SOLID_LOGO}
+            src={getSolidLogo()}
             style={{
               width: 100,
               height: 100,
@@ -64,10 +75,10 @@ export default function AppMenus() {
           <text
             style={{
               fontSize: 20,
-              textAlign:'center'
+              textAlign: "center",
             }}
           >
-            Hello Solid macOS
+            Hello Solid Desktop
           </text>
 
           <text

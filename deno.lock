@@ -11,6 +11,7 @@
     "npm:@nativescript/foundation@0.0.1-alpha.10": "0.0.1-alpha.10",
     "npm:@nativescript/foundation@0.0.1-alpha.11": "0.0.1-alpha.11",
     "npm:@nativescript/foundation@0.0.1-alpha.12": "0.0.1-alpha.12",
+    "npm:@nativescript/foundation@0.0.1-alpha.14": "0.0.1-alpha.14",
     "npm:@nativescript/foundation@0.0.1-alpha.2": "0.0.1-alpha.2",
     "npm:@nativescript/foundation@0.0.1-alpha.3": "0.0.1-alpha.3",
     "npm:@nativescript/foundation@0.0.1-alpha.4": "0.0.1-alpha.4",
@@ -398,6 +399,9 @@
     },
     "@nativescript/foundation@0.0.1-alpha.12": {
       "integrity": "sha512-/BwKlrjpEiF51xosvLKTO6d1PKscjvHewwkJut5YMqIuq6ccAjRID/Cod2iuuIDyBdhQB3bruqpVw3cEoUKkew=="
+    },
+    "@nativescript/foundation@0.0.1-alpha.14": {
+      "integrity": "sha512-qLacpitrMrZDM3LvZamn/YR9Nee9rVrNLApJhp3byLwNMDQnrLYh02O4coU3eV4wupE7lEjeYfxrPWLhkNRvMw=="
     },
     "@nativescript/foundation@0.0.1-alpha.2": {
       "integrity": "sha512-+y7MmxM/NArtafhKtBm4UlDLeqreXs7uSzw9LAyMrBRKor00CA8wCMNnm1DCR1reHxwiwGoARAMLGSp14z0eNg=="

@@ -1,47 +1,48 @@
-import { SOLID_LOGO } from "./common.ts";
-
+import { getSolidLogo } from "./common.ts";
 
 export default function Components() {
-    return <view
-    style={{
-      alignItems: "center",
-      justifyContent: "center",
-    }}
-  >
-    <image
+  return (
+    <view
       style={{
-        width: 200,
-        height: 200,
-      }}
-      stretch="aspectFit"
-      src={SOLID_LOGO}
-    ></image>
-    <text
-      style={{
-        fontSize: 20,
-        padding: 18,
+        alignItems: "center",
+        justifyContent: "center",
       }}
     >
-      Solid macOS Components
-    </text>
-    <text
-      style={{
-        fontSize: 16,
+      <image
+        style={{
+          width: 200,
+          height: 200,
+        }}
+        stretch="aspectFit"
+        src={getSolidLogo()}
+      ></image>
+      <text
+        style={{
+          fontSize: 20,
+          padding: 18,
+        }}
+      >
+        Solid AppKit Components
+      </text>
+      <text
+        style={{
+          fontSize: 16,
 
-        color: "#999",
-      }}
-    >
-      Try AppKit for yourself
-    </text>
-    <text
-      style={{
-        fontSize: 16,
-        fontStyle: "italic",
-        color: "#999",
-        marginTop: 16,
-      }}
-    >
-      Copy Solid component snippets for your own use
-    </text>
-  </view>
+          color: "#999",
+        }}
+      >
+        Try AppKit for yourself
+      </text>
+      <text
+        style={{
+          fontSize: 16,
+          fontStyle: "italic",
+          color: "#999",
+          marginTop: 16,
+        }}
+      >
+        Copy Solid component snippets for your own use
+      </text>
+    </view>
+  );
 }

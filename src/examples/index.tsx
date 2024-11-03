@@ -1,4 +1,4 @@
-import { SOLID_LOGO } from "../pages/common.ts";
+import { getSolidLogo } from "../pages/common.ts";
 
 export default function Examples() {
   return (
@@ -21,7 +21,7 @@ export default function Examples() {
             height: 50,
           }}
           stretch="aspectFit"
-          src={SOLID_LOGO}
+          src={getSolidLogo()}
         ></image>
         <text
           style={{
@@ -29,7 +29,7 @@ export default function Examples() {
             marginLeft: 8,
           }}
         >
-          Solid macOS Examples
+          Solid Desktop Examples
         </text>
       </view>
       <view

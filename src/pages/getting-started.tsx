@@ -1,4 +1,4 @@
-import { SOLID_LOGO } from "./common.ts";
+import { getSolidLogo } from "./common.ts";
 
 export default function GettingStarted() {
   return (
@@ -14,7 +14,7 @@ export default function GettingStarted() {
           height: 200,
         }}
         stretch="aspectFit"
-        src={SOLID_LOGO}
+        src={getSolidLogo()}
       />
       <text
         style={{
@@ -22,7 +22,7 @@ export default function GettingStarted() {
           padding: 18,
         }}
       >
-        Hello Solid macOS
+        Hello Solid Desktop
       </text>
       <text
         style={{

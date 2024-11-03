@@ -8,25 +8,24 @@ import { selectedView } from "./state.tsx";
 import Toolbar from "./toolbar.tsx";
 
 function App() {
-  const [currentSidebarItem, setCurrentSidebarItem] =
-    createSignal<SidebarItem>();
+  const [currentSidebarItem, setCurrentSidebarItem] = createSignal<
+    SidebarItem
+  >();
   return (
     <window
-      title="Solid macOS"
-      subtitle="Develop macOS with Solid"
+      title="Solid Desktop"
+      subtitle="Develop Mac Desktop with Solid"
       style={{
         width: 800,
         height: 600,
         justifyContent: "center",
         alignItems: "center",
       }}
-      styleMask={
-        NSWindowStyleMask.Titled |
+      styleMask={NSWindowStyleMask.Titled |
         NSWindowStyleMask.Closable |
         NSWindowStyleMask.Miniaturizable |
         NSWindowStyleMask.Resizable |
-        NSWindowStyleMask.FullSizeContentView
-      }
+        NSWindowStyleMask.FullSizeContentView}
       transparentTitleBar={false}
     >
       <AppMenus />

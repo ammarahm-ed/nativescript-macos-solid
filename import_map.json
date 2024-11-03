@@ -3,7 +3,7 @@
     "@jsx/jsx-runtime": "./jsx/index.d.ts",
     "dom": "npm:@nativescript/foundation/dom/index.js",
     "app": "./dist/out.js",
-    "@nativescript/foundation": "npm:@nativescript/foundation@0.0.1-alpha.12",
+    "@nativescript/foundation": "npm:@nativescript/foundation@0.0.1-alpha.14",
     "@nativescript/macos-node-api": "npm:@nativescript/macos-node-api@~0.1.2",
     "solid-native-renderer": "./solid-native/renderer.js"
   }
