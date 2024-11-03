@@ -105,6 +105,12 @@ declare global {
     prototype: HTMLTextFieldElement;
   };
 
+  interface HTMLTextViewElement extends TextField {}
+  var HTMLTextViewElement: {
+    new (): HTMLTextViewElement;
+    prototype: HTMLTextViewElement;
+  };
+
   interface HTMLCheckboxElement extends Checkbox {}
   var HTMLCheckboxElement: {
     new (): HTMLCheckboxElement;
