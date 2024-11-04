@@ -8,14 +8,11 @@ export interface ColorDialogOptions {
 let colorDialog: NSColorPanel;
 let colorTarget: NativeColorTarget;
 
+@NativeClass
 class NativeColorTarget extends NSObject {
   static ObjCExposedMethods = {
     changeColor: { returns: interop.types.void, params: [interop.types.id] },
   };
-
-  static {
-    NativeClass(this);
-  }
 
   declare _resolve: Function;
   declare _changeCallback: ChangeCallback;

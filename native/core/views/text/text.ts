@@ -4,10 +4,8 @@ import { overrides } from "../decorators/overrides.ts";
 import { view } from "../decorators/view.ts";
 import { TextBase } from "./text-base.ts";
 
+@NativeClass
 class PaddingTextFieldCell extends NSTextFieldCell {
-  static {
-    NativeClass(this);
-  }
 
   paddingTop: number = 0;
   paddingLeft: number = 0;

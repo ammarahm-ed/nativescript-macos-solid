@@ -22,13 +22,18 @@ export class Window extends ViewBase {
     this.mainWindowCtrl = MainWindowController.initWithOwner(new WeakRef(this));
     this.mainWindowCtrl.window = this.nativeView;
     this.nativeView.windowController = this.mainWindowCtrl;
-
+    this.nativeView.isReleasedWhenClosed = false;
     this.nativeView.contentViewController = NSViewController.new();
     this.viewController = this.nativeView.contentViewController;
 
     // This view will become the main window if no other window is present;
     if (!NativeScriptApplication.window) {
       NativeScriptApplication.window = this;
+      NativeScriptApplication.showMainWindow = () => {
+        this.nativeView?.becomeMainWindow();
+        this.nativeView?.displayIfNeeded();
+        this.nativeView?.makeKeyAndOrderFront(NSApp);
+      };
     }
 
     this.nativeView.owner = new WeakRef(this);
@@ -97,28 +102,23 @@ export class Window extends ViewBase {
     }
   }
 
-  _modalCode?: number;
+  _isModal?: boolean;
   public openAsModal(relativeToWindow?: boolean) {
+    this._isModal = true;
     if (relativeToWindow) {
       const window = (this.parentNode as HTMLViewElement).nativeView?.window;
       if (window) {
-        this._modalCode = NSApp.runModalForWindowRelativeToWindow(
+        NSApp.runModalForWindowRelativeToWindow(
           this.nativeView!,
           window
         );
       }
     } else {
-      this._modalCode = NSApp.runModalForWindow(this.nativeView!);
+      NSApp.runModalForWindow(this.nativeView!);
     }
   }
 
   public closeModalWindow() {
-    // if (this._modalCode) {
-    //   NSApp.stopModalWithCode(this._modalCode);
-    //   this._modalCode = undefined;
-    // } else {
-    //   NSApp.stopModal();
-    // }
     this.close();
   }
 

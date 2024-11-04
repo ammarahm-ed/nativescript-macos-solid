@@ -11,15 +11,9 @@ class AppDelegate extends NSObject implements NSApplicationDelegate {
   static windowTitle: string;
   static ObjCProtocols = [NSApplicationDelegate];
   static ObjCExposedMethods = {
-    openDocs: { returns: interop.types.void, params: [interop.types.id] },
-    openGithub: { returns: interop.types.void, params: [interop.types.id] },
-    openDiscord: { returns: interop.types.void, params: [interop.types.id] },
+    showMainWindow: { returns: interop.types.void, params: [interop.types.id] },
     themeChanged: { returns: interop.types.void, params: [interop.types.id] },
   };
-
-  static {
-    NativeClass(this);
-  }
 
   applicationDidFinishLaunching(_notification: NSNotification) {
     NSApp.activateIgnoringOtherApps(false);
@@ -36,8 +30,19 @@ class AppDelegate extends NSObject implements NSApplicationDelegate {
     RunLoop();
   }
 
+  applicationShouldHandleReopenHasVisibleWindows(sender: NSApplication, hasVisibleWindows: boolean): boolean {
+    if (!hasVisibleWindows) {
+      (sender.windows.firstObject as NSWindow).makeKeyAndOrderFront(sender);
+    }
+    return true;
+  }
+  
   applicationWillTerminate(_notification: NSNotification): void {
     this.running = false;
+  }
+
+  showMainWindow(_id: this) {
+    NativeScriptApplication.showMainWindow();
   }
 
   themeChanged(_id: this) {
@@ -121,6 +126,9 @@ export default class Application {
       NSApp.mainMenu = menu;
       Application.appMenu = menu;
     }
+  }
+  static showMainWindow() {
+    // override
   }
 }
 
