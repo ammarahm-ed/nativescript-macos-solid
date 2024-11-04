@@ -219,6 +219,15 @@ interface TextFieldAttributes extends TextAttributes {
   value?: string;
 }
 
+interface TextViewAttributes extends TextAttributes {
+  onTextChange?: (event: TextChangeEvent) => void;
+  editable?: boolean;
+  selectable?: boolean;
+  richText?: boolean;
+  defaultValue?: string;
+  value?: string;
+}
+
 interface CheckboxAttributes extends ButtonAttributes {
   checked?: boolean;
 }
@@ -296,6 +305,7 @@ interface JSXIntrinsicElements {
   "toolbar-group": ToolbarGroupAttributes;
   "toolbar-space": ToolbarSpaceAttributes;
   "text-field": TextFieldAttributes;
+  "text-view": TextViewAttributes;
   menu: MenuAttributes;
   "menu-item": MenuItemAttributes;
   "menu-separator": MenuSeperatorAttributes;
