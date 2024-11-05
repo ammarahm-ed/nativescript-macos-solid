@@ -5,11 +5,9 @@ function Modal() {
       <window
         ref={(el: HTMLWindowElement) => (modalRef = el)}
         title="Modal"
-        styleMask={
-          NSWindowStyleMask.Titled |
+        styleMask={NSWindowStyleMask.Titled |
           NSWindowStyleMask.Closable |
-          NSWindowStyleMask.Resizable
-        }
+          NSWindowStyleMask.Resizable}
         style={{
           width: 200,
           height: 200,

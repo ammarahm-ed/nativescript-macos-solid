@@ -209,9 +209,8 @@ export const sidebarItemsData: Array<Array<SidebarItem>> = [
       id: NSUUID.UUID().UUIDString,
       icon: "staroflife.fill",
       title: "Credits",
-      component: () => (
-        <WebDisplay url="https://www.solidjs.com/contributors" />
-      ),
+      component: () => 
+      <WebDisplay url="https://www.solidjs.com/contributors" />,
       children: [
         {
           id: NSUUID.UUID().UUIDString,
@@ -243,16 +242,12 @@ type SidebarProps = {
 };
 
 function _findItem(item: SidebarItem, title: string): SidebarItem | undefined {
-
-  return item.title === title
-    ? item
-    : item.children?.find(
-        (child) => _findItem(child, title)
-      );
+  return item.title === title ? item : item.children?.find(
+    (child) => _findItem(child, title),
+  );
 }
 
 export default function Sidebar(props: SidebarProps) {
-
   // ENABLE WHEN TESTING ONLY
   // setTimeout(() => {
   //   const title = "DatePicker";
@@ -269,7 +264,6 @@ export default function Sidebar(props: SidebarProps) {
   //     props.onSelectedItemChange(item);
   //   }
   // }, 150);
-
 
   return (
     <side-bar
@@ -288,7 +282,7 @@ export default function Sidebar(props: SidebarProps) {
         <outline
           onItemSelected={(event) => {
             props.onSelectedItemChange(
-              event.item.getAttribute("data-item") as unknown as SidebarItem
+              event.item.getAttribute("data-item") as unknown as SidebarItem,
             );
           }}
         >

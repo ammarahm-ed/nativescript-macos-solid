@@ -22,7 +22,8 @@ export default function Examples() {
           }}
           stretch="aspectFit"
           src={getSolidLogo()}
-        ></image>
+        >
+        </image>
         <text
           style={{
             fontSize: 18,

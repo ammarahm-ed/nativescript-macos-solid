@@ -12,7 +12,7 @@ export class SideBar extends SplitViewItem {
     this.splitViewItem = NSSplitViewItem.sidebarWithViewController(
       this.viewController,
     );
-    this.viewController.view = NativeView.new() as unknown as NSView
+    this.viewController.view = NativeView.new() as unknown as NSView;
     this.nativeView = this.viewController.view;
     return this.nativeView;
   }

@@ -29,15 +29,15 @@ export class DatePicker extends View {
   public override initNativeView(): NSDatePicker | undefined {
     this.nativeView = NSDatePicker.alloc().init();
     this.nativeView.dateValue = NSDate.dateWithTimeIntervalSince1970(
-      Date.now() / 1000
+      Date.now() / 1000,
     );
     const target = NativeTarget.initWithAction(() => {
       if (this.nativeView) {
         this.dispatchEvent(
           new DatePickerChangeEvent(
             new Date(this.nativeView.dateValue.timeIntervalSince1970 * 1000),
-            this.nativeView.timeInterval * 1000
-          )
+            this.nativeView.timeInterval * 1000,
+          ),
         );
       }
     });
@@ -50,7 +50,7 @@ export class DatePicker extends View {
     setNative(view: DatePicker, _key, value) {
       if (view.nativeView) {
         view.nativeView.dateValue = NSDate.dateWithTimeIntervalSince1970(
-          value.getTime() / 1000
+          value.getTime() / 1000,
         );
       }
     },
@@ -61,7 +61,7 @@ export class DatePicker extends View {
     setNative(view: DatePicker, _key, value) {
       if (view.nativeView) {
         view.nativeView.minDate = NSDate.dateWithTimeIntervalSince1970(
-          value.getTime() / 1000
+          value.getTime() / 1000,
         );
       }
     },
@@ -72,7 +72,7 @@ export class DatePicker extends View {
     setNative(view: DatePicker, _key, value) {
       if (view.nativeView) {
         view.nativeView.maxDate = NSDate.dateWithTimeIntervalSince1970(
-          value.getTime() / 1000
+          value.getTime() / 1000,
         );
       }
     },
@@ -82,12 +82,11 @@ export class DatePicker extends View {
   @native({
     setNative(view: DatePicker, _key, value) {
       if (view.nativeView) {
-        view.nativeView.datePickerStyle =
-          value === "clockAndCalendar"
-            ? NSDatePickerStyle.ClockAndCalendar
-            : value === "textField"
-            ? NSDatePickerStyle.TextField
-            : NSDatePickerStyle.TextFieldAndStepper;
+        view.nativeView.datePickerStyle = value === "clockAndCalendar"
+          ? NSDatePickerStyle.ClockAndCalendar
+          : value === "textField"
+          ? NSDatePickerStyle.TextField
+          : NSDatePickerStyle.TextFieldAndStepper;
       }
     },
   })

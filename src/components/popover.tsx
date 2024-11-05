@@ -52,6 +52,6 @@ Popover.code = `function Popover() {
       />
     </>
   );
-}`
+}`;
 
 export default Popover;

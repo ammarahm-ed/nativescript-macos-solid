@@ -16,7 +16,7 @@ export class WindowResizeEvent extends Event {
     bubbles?: boolean,
     cancelable?: boolean,
     width: number = 0,
-    height: number = 0
+    height: number = 0,
   ): void {
     this.initEvent(type, bubbles, cancelable);
     this.width = width;
@@ -25,10 +25,8 @@ export class WindowResizeEvent extends Event {
 }
 
 @NativeClass
-export class MainWindowController
-  extends NSWindowController
-  implements NSToolbarDelegate
-{
+export class MainWindowController extends NSWindowController
+  implements NSToolbarDelegate {
   static ObjCProtocols = [NSToolbarDelegate];
 
   declare _owner: WeakRef<ViewBase>;
@@ -52,7 +50,7 @@ export class NativeWindow extends NSWindow implements NSWindowDelegate {
       true,
       true,
       this.frame.size.width,
-      this.frame.size.height
+      this.frame.size.height,
     );
     this.owner?.deref()?.dispatchEvent(event);
   }

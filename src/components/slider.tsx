@@ -14,7 +14,7 @@ function Slider() {
           flexDirection: "row",
           gap: 10,
           alignItems: "center",
-          maxWidth: 200
+          maxWidth: 200,
         }}
       >
         <slider

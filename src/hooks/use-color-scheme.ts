@@ -1,6 +1,6 @@
 export function useColorScheme() {
-  const colorScheme =
-    NSApp.effectiveAppearance.bestMatchFromAppearancesWithNames([
+  const colorScheme = NSApp.effectiveAppearance
+    .bestMatchFromAppearancesWithNames([
       NSAppearanceNameDarkAqua,
       NSAppearanceNameVibrantDark,
     ]);

@@ -24,8 +24,9 @@ export class Menu extends ViewBase {
       child.nodeName !== "MENU-ITEM" &&
       child.nodeName !== "MENU-SEPARATOR" &&
       child.nodeName !== "MENU-SECTION-HEADER"
-    )
+    ) {
       return;
+    }
     this.nativeView.addItem(child.nativeView);
   }
 
@@ -57,7 +58,7 @@ export class Menu extends ViewBase {
           view.menuItem = NSMenuItem.alloc().initWithTitleActionKeyEquivalent(
             view.nativeView.title,
             "",
-            ""
+            "",
           );
         }
         view.menuItem.submenu = view.nativeView;
@@ -86,37 +87,61 @@ export class Menu extends ViewBase {
     if (!NativeScriptApplication.initEditMenu) {
       NativeScriptApplication.initEditMenu = true;
       // Create and add the Edit menu
-      const editMenuItem = NSMenuItem.new()
-      NSApp.mainMenu.addItem(editMenuItem)
-      const editMenu = NSMenu.alloc().initWithTitle("Edit")
+      const editMenuItem = NSMenuItem.new();
+      NSApp.mainMenu.addItem(editMenuItem);
+      const editMenu = NSMenu.alloc().initWithTitle("Edit");
       editMenuItem.submenu = editMenu;
       // Add standard Edit menu items
-      editMenu.addItemWithTitleActionKeyEquivalent('Undo', 'undo:', 'z');
-      editMenu.addItemWithTitleActionKeyEquivalent('Redo', 'redo:', 'Z');
+      editMenu.addItemWithTitleActionKeyEquivalent("Undo", "undo:", "z");
+      editMenu.addItemWithTitleActionKeyEquivalent("Redo", "redo:", "Z");
       editMenu.addItem(NSMenuItem.separatorItem());
-      editMenu.addItemWithTitleActionKeyEquivalent('Cut', 'cut:', 'x');
-      editMenu.addItemWithTitleActionKeyEquivalent('Copy', 'copy:', 'c');
-      editMenu.addItemWithTitleActionKeyEquivalent('Paste', 'paste:', 'v');
-      editMenu.addItemWithTitleActionKeyEquivalent('Select All', 'selectAll:', 'a');
+      editMenu.addItemWithTitleActionKeyEquivalent("Cut", "cut:", "x");
+      editMenu.addItemWithTitleActionKeyEquivalent("Copy", "copy:", "c");
+      editMenu.addItemWithTitleActionKeyEquivalent("Paste", "paste:", "v");
+      editMenu.addItemWithTitleActionKeyEquivalent(
+        "Select All",
+        "selectAll:",
+        "a",
+      );
     }
     // Ensure standard Window menu is available
     if (!NSApp.windowsMenu) {
       // Create and add the Window menu
-      const windowMenuItem = NSMenuItem.new()
-      NSApp.mainMenu.addItem(windowMenuItem)
-      const windowMenu = NSMenu.alloc().initWithTitle("Window")
-      windowMenuItem.submenu = windowMenu
-  
+      const windowMenuItem = NSMenuItem.new();
+      NSApp.mainMenu.addItem(windowMenuItem);
+      const windowMenu = NSMenu.alloc().initWithTitle("Window");
+      windowMenuItem.submenu = windowMenu;
+
       // Add standard Window menu items
-      windowMenu.addItemWithTitleActionKeyEquivalent('Minimize', 'performMiniaturize:', 'm');
-      windowMenu.addItemWithTitleActionKeyEquivalent('Zoom', 'performZoom:', 'p');
-      windowMenu.addItemWithTitleActionKeyEquivalent('Close', 'performClose:', 'w');
+      windowMenu.addItemWithTitleActionKeyEquivalent(
+        "Minimize",
+        "performMiniaturize:",
+        "m",
+      );
+      windowMenu.addItemWithTitleActionKeyEquivalent(
+        "Zoom",
+        "performZoom:",
+        "p",
+      );
+      windowMenu.addItemWithTitleActionKeyEquivalent(
+        "Close",
+        "performClose:",
+        "w",
+      );
       windowMenu.addItem(NSMenuItem.separatorItem());
-      windowMenu.addItemWithTitleActionKeyEquivalent('Show Main Window', 'showMainWindow', '0');
-      windowMenu.addItemWithTitleActionKeyEquivalent('Bring All to Front', 'arrangeInFront:', '');
-  
+      windowMenu.addItemWithTitleActionKeyEquivalent(
+        "Show Main Window",
+        "showMainWindow",
+        "0",
+      );
+      windowMenu.addItemWithTitleActionKeyEquivalent(
+        "Bring All to Front",
+        "arrangeInFront:",
+        "",
+      );
+
       // Set the windowMenu as the application's window menu for proper functionality
-      NSApp.windowsMenu = windowMenu
+      NSApp.windowsMenu = windowMenu;
     }
   }
 }

@@ -26,7 +26,7 @@ async function bundleSolidJSApp(file: string, outFile: string) {
   }
 
   const [denoResolver, denoLoader] = [...denoPlugins({
-    configPath: Deno.cwd() + "/deno.json"
+    configPath: Deno.cwd() + "/deno.json",
   })];
   await esbuild.build({
     entryPoints: [file],

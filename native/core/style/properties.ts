@@ -6,7 +6,7 @@ import { Color } from "./utils/color.ts";
 export function BackgroundColorNativeSet(
   style: Style,
   _key: string,
-  value: CGColor
+  value: CGColor,
 ) {
   if (!style.node.nativeView) return;
   const nativeView = style.node.nativeView;
@@ -59,7 +59,7 @@ export function FontStyleNativeSet(style: Style, _key: string, value: string) {
     case "italic": {
       const italicFont = NSFontManager.sharedFontManager.convertFontToHaveTrait(
         font,
-        NSFontTraitMask.Italic
+        NSFontTraitMask.Italic,
       );
       nativeView.font = italicFont;
       break;

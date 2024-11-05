@@ -18,7 +18,9 @@ const ContentView: Component<Partial<SnippetProps>> = (props) => {
       dark: colorScheme === "dark",
     };
     webRef?.executeJavaScript(
-      `typeof window.updateSnippet !== 'undefined' && window.updateSnippet("${component.name}", '${JSON.stringify(data)}')`
+      `typeof window.updateSnippet !== 'undefined' && window.updateSnippet("${component.name}", '${
+        JSON.stringify(data)
+      }')`,
     );
   }
 
@@ -30,28 +32,30 @@ const ContentView: Component<Partial<SnippetProps>> = (props) => {
 
   return (
     <view style={{ width: "100%", height: "100%" }}>
-      {(props.component as any)?.code ? (
-        <view
-          style={{
-            width: "100%",
-            height: "50%",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <webview
-            ref={(el: WebView) => (webRef = el)}
-            src={url}
-            debug={true}
-            onLoadStarted={(e) => {
-              console.log(e.url);
+      {(props.component as any)?.code
+        ? (
+          <view
+            style={{
+              width: "100%",
+              height: "50%",
+              alignItems: "center",
+              justifyContent: "center",
             }}
-            onLoadFinished={() => {
-              updateSnippetPreview(props.component);
-            }}
-          />
-        </view>
-      ) : null}
+          >
+            <webview
+              ref={(el: WebView) => (webRef = el)}
+              src={url}
+              debug={true}
+              onLoadStarted={(e) => {
+                console.log(e.url);
+              }}
+              onLoadFinished={() => {
+                updateSnippetPreview(props.component);
+              }}
+            />
+          </view>
+        )
+        : null}
       <view
         style={{
           width: "100%",

@@ -75,7 +75,7 @@ export class TableCell extends ViewBase {
   @native({
     setNative: (view: TableCell, _key, value) => {
       if (view.nativeView) {
-         view.nativeView!.identifier = value;
+        view.nativeView!.identifier = value;
       }
     },
   })

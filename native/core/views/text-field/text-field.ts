@@ -20,10 +20,8 @@ export class TextSubmitEvent extends Event {
 }
 
 @NativeClass
-export class NativeTextFieldDelegate
-  extends NSObject
-  implements NSTextFieldDelegate
-{
+export class NativeTextFieldDelegate extends NSObject
+  implements NSTextFieldDelegate {
   static ObjCProtocols = [NSTextFieldDelegate];
 
   declare _owner: WeakRef<TextField>;
@@ -65,7 +63,7 @@ export class TextField extends Text {
   public initNativeView(): NSTextField {
     const nativeView = super.initNativeView() as NSTextField;
     nativeView.delegate = NativeTextFieldDelegate.initWithOwner(
-      new WeakRef(this)
+      new WeakRef(this),
     );
     this._delegate = nativeView.delegate;
     nativeView.stringValue = "";

@@ -15,7 +15,6 @@ export class ScrollChangeEvent extends Event {
 
 @NativeClass
 export class NSScrollViewAutoResizable extends NSScrollView {
-
   _owner?: WeakRef<ScrollView>;
 
   initScrollEvents(owner: ScrollView) {
@@ -24,7 +23,7 @@ export class NSScrollViewAutoResizable extends NSScrollView {
       this,
       "boundsDidChange",
       NSViewBoundsDidChangeNotification,
-      this?.contentView
+      this?.contentView,
     );
   }
 
@@ -32,7 +31,7 @@ export class NSScrollViewAutoResizable extends NSScrollView {
     NSNotificationCenter.defaultCenter.removeObserverNameObject(
       this,
       NSViewBoundsDidChangeNotification,
-      this?.contentView
+      this?.contentView,
     );
   }
 
@@ -43,7 +42,7 @@ export class NSScrollViewAutoResizable extends NSScrollView {
         new ScrollChangeEvent({
           x: view.nativeView!.contentView.bounds.origin.x,
           y: view.nativeView!.contentView.bounds.origin.y,
-        })
+        }),
       );
     }
   }
@@ -167,6 +166,4 @@ export class ScrollView extends View {
     },
   })
   declare disableDefaultDocumentView: boolean;
-
-
 }

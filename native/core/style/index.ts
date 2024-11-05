@@ -7,10 +7,10 @@ import {
   BorderWidthStyle,
   ColorStyle,
   FontSizeStyle,
-  ZIndexStyle,
-  OpacityStyle,
   FontStyleStyle,
-  TextAlignStyle
+  OpacityStyle,
+  TextAlignStyle,
+  ZIndexStyle,
 } from "./properties.ts";
 import { colors } from "./utils/color.ts";
 
@@ -19,7 +19,7 @@ export type StylePropertyConfig<T = any> = {
     style: Style,
     key: string,
     value: T,
-    config: StylePropertyConfig<T>
+    config: StylePropertyConfig<T>,
   ) => void;
   getNative?: (style: Style) => any;
   shouldLayout?: boolean;
@@ -56,8 +56,8 @@ export function style<T>(config: StylePropertyConfig<T>) {
         if (!hasChanged) return;
 
         this.set(property, value);
-        const nativeValue =
-          config.converter?.toNative?.(property, value) ?? value;
+        const nativeValue = config.converter?.toNative?.(property, value) ??
+          value;
         const SetNativeKey = `${property}SetNative`;
 
         const pendingSetNative = function (this: Style) {
@@ -140,14 +140,14 @@ export class Style extends Map {
 
   override set<Key extends keyof CombinedStyle>(
     key: Key,
-    value: CombinedStyle[Key]
+    value: CombinedStyle[Key],
   ): this {
     super.set(key, value);
     return this;
   }
 
   override get<Key extends keyof CombinedStyle>(
-    key: Key
+    key: Key,
   ): CombinedStyle[Key] | undefined {
     return super.get(key);
   }
@@ -164,7 +164,7 @@ export class Style extends Map {
   declare alignContent: FlexStyle["alignContent"];
 
   @flex()
-  declare position: FlexStyle["position"]
+  declare position: FlexStyle["position"];
 
   @flex()
   declare alignItems: FlexStyle["alignItems"];
@@ -378,7 +378,6 @@ export class Style extends Map {
 
   @style(OpacityStyle)
   declare opacity: ViewStyle["opacity"];
-
 
   @style(TextAlignStyle)
   declare textAlign: TextStyle["textAlign"];
