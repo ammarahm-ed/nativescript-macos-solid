@@ -1,7 +1,6 @@
 import { getSolidLogo } from "./pages/common.ts";
 
 export default function AppMenus() {
-
   function openDocs() {
     NSWorkspace.sharedWorkspace.openURL(
       NSURL.URLWithString("https://solidjs.com"),

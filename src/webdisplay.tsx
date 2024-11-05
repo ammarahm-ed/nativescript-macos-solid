@@ -26,7 +26,8 @@ const WebDisplay: Component<WebDisplayProps> = (props) => {
         onLoadFinished={() => {
           setIsLoading(false);
         }}
-      ></webview>
+      >
+      </webview>
     </view>
   );
 };
