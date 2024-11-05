@@ -102,6 +102,7 @@ export default class Application {
   static window: Window;
   static appMenu: NSMenu;
   static ensure60FPS: boolean;
+  static initEditMenu: boolean;
 
   static launch() {
     if (!(document.body instanceof HTMLElement)) {

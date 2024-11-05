@@ -25,6 +25,7 @@ import Setup from "./pages/setup.tsx";
 import WebDisplay from "./webdisplay.tsx";
 import Switch from "./components/Switch.tsx";
 import DatePicker from "./components/date-picker.tsx";
+import TextView from "./components/text-view.tsx";
 
 interface SidebarBaseItem {
   id: string;
@@ -44,12 +45,12 @@ export const sidebarItemsData: Array<Array<SidebarItem>> = [
       title: "Getting Started",
       component: GettingStarted,
       children: [
-        {
-          id: NSUUID.UUID().UUIDString,
-          icon: "lightbulb.max",
-          title: "Overview",
-          component: Overview,
-        },
+        // {
+        //   id: NSUUID.UUID().UUIDString,
+        //   icon: "lightbulb.max",
+        //   title: "Overview",
+        //   component: Overview,
+        // },
         {
           id: NSUUID.UUID().UUIDString,
           icon: "gear.badge.checkmark",
@@ -145,8 +146,14 @@ export const sidebarItemsData: Array<Array<SidebarItem>> = [
         {
           id: NSUUID.UUID().UUIDString,
           icon: "pencil.and.ellipsis.rectangle",
-          title: "Text field",
+          title: "TextField",
           component: TextField,
+        },
+        {
+          id: NSUUID.UUID().UUIDString,
+          icon: "richtext.page",
+          title: "TextView",
+          component: TextView,
         },
         {
           id: NSUUID.UUID().UUIDString,
@@ -234,10 +241,13 @@ type SidebarProps = {
   selectedItem?: SidebarItem;
 };
 
-function findItem(item: SidebarItem, title: string): SidebarItem | undefined {
-  return item.title === title ? item : item.children?.find(
-    (child) => findItem(child, title),
-  );
+function _findItem(item: SidebarItem, title: string): SidebarItem | undefined {
+
+  return item.title === title
+    ? item
+    : item.children?.find(
+        (child) => _findItem(child, title)
+      );
 }
 
 export default function Sidebar(props: SidebarProps) {

@@ -45,7 +45,7 @@ function App() {
     <div class="mx-auto my-0">
       <For each={snippets()}>
         {(snippet, index) => (
-          <div class={snippet.dark ? "dark" : "light"}>
+          <div class={snippet.dark ? "dark" : "light"} >
             {snippet.dark ? (
               <CodeSnippet
                 title={snippet.title}

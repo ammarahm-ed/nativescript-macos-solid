@@ -41,6 +41,7 @@ export class Progress extends ViewBase {
 
   public override prepareNativeView(nativeView: NSProgressIndicator): void {
     nativeView.style = NSProgressIndicatorStyle.Bar;
+    nativeView.controlSize = NSControlSize.Small;
     nativeView.isIndeterminate = false;
   }
 
@@ -71,11 +72,36 @@ export class Progress extends ViewBase {
   @native({
     setNative(view: Progress, _key, value) {
       if (view.nativeView) {
-        view.nativeView.style = value === "bar"
-          ? NSProgressIndicatorStyle.Bar
-          : NSProgressIndicatorStyle.Spinning;
+        view.nativeView.style =
+          value === "bar"
+            ? NSProgressIndicatorStyle.Bar
+            : NSProgressIndicatorStyle.Spinning;
       }
     },
   })
   declare type: "bar" | "spinner";
+
+  @native({
+    setNative(view: Progress, _key, value) {
+      if (view.nativeView) {
+        switch (value) {
+          case "regular":
+            view.nativeView.controlSize = NSControlSize.Regular;
+            break;
+          case "small":
+            view.nativeView.controlSize = NSControlSize.Small;
+            break;
+          case "mini":
+            view.nativeView.controlSize = NSControlSize.Mini;
+            break;
+          case "large":
+            view.nativeView.controlSize = NSControlSize.Large;
+            break;
+          default:
+            view.nativeView.controlSize = NSControlSize.Regular;
+        }
+      }
+    },
+  })
+  declare size: "regular" | "small" | "mini" | "large";
 }

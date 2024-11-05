@@ -304,26 +304,20 @@ export class ViewBase extends HTMLElement {
     //@ts-ignore
     this.isConnected = true;
 
+    if (!this._rootView && !this.parentNode) {
+      this._rootView = this;
+      this.isRoot = true;
+    }
+
     if (!this.nativeView) {
       const nativeView = this.initNativeView();
       this.prepareNativeView(nativeView);
     }
-
-    let parentHasUpdatesPaused = false;
-    this.pauseLayoutUpdates = true;
-    let current = this.parentNode;
-    // Find a parent that has updates paused.
-    // If such parent is found, we won't call layout updates
-    // from this node as we want to do a single layout pass once
-    // all nodes are loaded.
-    if (!this.isRoot) {
-      while (current) {
-        if (current.pauseLayoutUpdates) {
-          parentHasUpdatesPaused = true;
-          break;
-        }
-        // Break where a root is found.
-        current = current.isRoot ? null : current.parentNode;
+    let pausedUpdates = false;
+    if (this._rootView) {
+      if (!this._rootView.pauseLayoutUpdates) {
+        this._rootView.pauseLayoutUpdates = true;
+        pausedUpdates = true;
       }
     }
 
@@ -346,13 +340,9 @@ export class ViewBase extends HTMLElement {
       (this.parentNode as any).addNativeChild(this);
     }
 
-    if (this.pauseLayoutUpdates) {
-      this.pauseLayoutUpdates = false;
-      // If parentHasUpdatesPaused is true, some parent has paused layout updates, so we don't need to layout now.
-      // the parent will do it eventually.
-      if (!parentHasUpdatesPaused) {
-        Layout.computeAndLayout(this);
-      }
+    if (pausedUpdates && this._rootView?.pauseLayoutUpdates) {
+      this._rootView.pauseLayoutUpdates = false;
+      Layout.computeAndLayout(this._rootView);
     }
   }
 
@@ -360,21 +350,11 @@ export class ViewBase extends HTMLElement {
     //@ts-ignore
     this.isConnected = false;
 
-    let parentHasUpdatesPaused = false;
-    this.pauseLayoutUpdates = true;
-    let current = this.parentNode;
-    // Find a parent that has updates paused.
-    // If such parent is found, we won't call layout updates
-    // from this node as we want to do a single layout pass once
-    // all nodes are loaded.
-    if (!this.isRoot) {
-      while (current) {
-        if (current.pauseLayoutUpdates) {
-          parentHasUpdatesPaused = true;
-          break;
-        }
-        // Break where a root is found.
-        current = current.isRoot ? null : current.parentNode;
+    let pausedUpdates = false;
+    if (this._rootView) {
+      if (!this._rootView.pauseLayoutUpdates) {
+        this._rootView.pauseLayoutUpdates = true;
+        pausedUpdates = true;
       }
     }
 
@@ -396,13 +376,9 @@ export class ViewBase extends HTMLElement {
       this._yogaNode = undefined;
     }
 
-    if (this.pauseLayoutUpdates) {
-      this.pauseLayoutUpdates = false;
-      // If parentHasUpdatesPaused is true, some parent has paused layout updates, so we don't need to layout now.
-      // the parent will do it eventually.
-      if (!parentHasUpdatesPaused) {
-        Layout.computeAndLayout(this._rootView);
-      }
+    if (pausedUpdates && this._rootView?.pauseLayoutUpdates) {
+      this._rootView.pauseLayoutUpdates = false;
+      Layout.computeAndLayout(this._rootView);
     }
 
     this._rootView = undefined;

@@ -1,6 +1,7 @@
 import { createSignal } from "npm:solid-js";
 import { For } from "solid-native-renderer";
 import { useColorScheme } from "../hooks/use-color-scheme.ts";
+import { createRenderEffect } from "npm:solid-js";
 
 const storageApi = {
   set(key: string, value: string) {
@@ -25,10 +26,10 @@ const [todos, setTodos] = createSignal<TodoItem[]>(
 );
 
 export function TodoMVP() {
+  const [loading, setLoading] = createSignal(true);
   // Get system color scheme mode
   const colorScheme = useColorScheme();
-
-  const [newTodo, setNewTodo] = createSignal("");
+  let newTodo: string;
   let textField: HTMLTextFieldElement | null = null;
 
   function addTodo() {
@@ -36,15 +37,21 @@ export function TodoMVP() {
       const next = [...prev];
       next.push({
         id: next.length + 1,
-        title: newTodo(),
+        title: newTodo,
         completed: false,
       });
       storageApi.set("todos", JSON.stringify(next));
-      setNewTodo("");
+      newTodo = "";
       textField?.clear();
       return next;
     });
   }
+
+  createRenderEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 500);
+  });
 
   return (
     <scroll-view
@@ -56,10 +63,10 @@ export function TodoMVP() {
       <view
         style={{
           width: "100%",
-          height: "100%",
           padding: 20,
           alignItems: "center",
           gap: 10,
+          height: loading() || !todos().length ? "100%" : undefined,
         }}
       >
         <view
@@ -79,11 +86,13 @@ export function TodoMVP() {
         >
           <text-field
             ref={(el: HTMLTextFieldElement) => (textField = el)}
-            onTextChange={(event) => setNewTodo(event.value)}
+            onTextChange={(event) => (newTodo = event.value)}
             onSubmit={() => addTodo()}
             placeholder="Create a new todo item"
             style={{
               fontSize: 14,
+              width: "100%",
+              flex: 1,
             }}
           />
 
@@ -99,22 +108,29 @@ export function TodoMVP() {
         <view
           style={{
             width: "100%",
+            height: loading() || !todos().length ? "100%" : undefined,
+            justifyContent: loading() || !todos().length ? "center" : undefined,
+            alignItems: loading() || !todos().length ? "center" : undefined,
           }}
         >
-          <For
-            each={todos()}
-            fallback={
-              <text
-                style={{
-                  color: "gray",
-                }}
-              >
-                No todos found
-              </text>
-            }
-          >
-            {(item, index) => <TodoItem item={item} index={index} />}
-          </For>
+          {loading() ? (
+            <progress type="spinner" indeterminate size="small" />
+          ) : (
+            <For
+              each={todos()}
+              fallback={
+                <text
+                  style={{
+                    color: "gray",
+                  }}
+                >
+                  No todos found
+                </text>
+              }
+            >
+              {(item, index) => <TodoItem item={item} index={index} />}
+            </For>
+          )}
         </view>
       </view>
     </scroll-view>

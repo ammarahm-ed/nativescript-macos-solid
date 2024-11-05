@@ -163,6 +163,7 @@ interface ProgressAttributes extends ViewAttributes {
   minValue?: number;
   maxValue?: number;
   type?: "bar" | "spinner";
+  size?: "small" | "regular" | "large" | "mini";
 }
 
 interface SwitchAttributes extends ViewAttributes {
@@ -215,6 +216,15 @@ interface TextFieldAttributes extends TextAttributes {
   placeholder?: string;
   editable?: boolean;
   multiline?: boolean;
+  defaultValue?: string;
+  value?: string;
+}
+
+interface TextViewAttributes extends TextAttributes {
+  onTextChange?: (event: TextChangeEvent) => void;
+  editable?: boolean;
+  selectable?: boolean;
+  richText?: boolean;
   defaultValue?: string;
   value?: string;
 }
@@ -297,6 +307,7 @@ interface JSXIntrinsicElements {
   "toolbar-group": ToolbarGroupAttributes;
   "toolbar-space": ToolbarSpaceAttributes;
   "text-field": TextFieldAttributes;
+  "text-view": TextViewAttributes;
   menu: MenuAttributes;
   "menu-item": MenuItemAttributes;
   "menu-separator": MenuSeperatorAttributes;

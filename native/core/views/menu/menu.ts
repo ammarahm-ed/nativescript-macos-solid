@@ -65,7 +65,7 @@ export class Menu extends ViewBase {
         NativeScriptApplication.appMenu.addItem(view.menuItem);
         view.menuItem.title = view.nativeView.title;
 
-        view.createWindowMenu();
+        view.createStandardMenus();
       } else {
         if (view.menuItem) {
           NativeScriptApplication.appMenu.removeItem(view.menuItem);
@@ -82,7 +82,24 @@ export class Menu extends ViewBase {
     super.disposeNativeView();
   }
 
-  createWindowMenu() {
+  createStandardMenus() {
+    // Ensure standard Edit menu is available
+    if (!NativeScriptApplication.initEditMenu) {
+      NativeScriptApplication.initEditMenu = true;
+      // Create and add the Edit menu
+      const editMenuItem = NSMenuItem.new()
+      NSApp.mainMenu.addItem(editMenuItem)
+      const editMenu = NSMenu.alloc().initWithTitle("Edit")
+      editMenuItem.submenu = editMenu;
+      // Add standard Edit menu items
+      editMenu.addItemWithTitleActionKeyEquivalent('Undo', 'undo:', 'z');
+      editMenu.addItemWithTitleActionKeyEquivalent('Redo', 'redo:', 'Z');
+      editMenu.addItem(NSMenuItem.separatorItem());
+      editMenu.addItemWithTitleActionKeyEquivalent('Cut', 'cut:', 'x');
+      editMenu.addItemWithTitleActionKeyEquivalent('Copy', 'copy:', 'c');
+      editMenu.addItemWithTitleActionKeyEquivalent('Paste', 'paste:', 'v');
+      editMenu.addItemWithTitleActionKeyEquivalent('Select All', 'selectAll:', 'a');
+    }
     // Ensure standard Window menu is available
     if (!NSApp.windowsMenu) {
       // Create and add the Window menu
