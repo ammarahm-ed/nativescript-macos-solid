@@ -15,7 +15,11 @@
     "npm:@nativescript/foundation@0.0.1-alpha.15": "0.0.1-alpha.15",
     "npm:@nativescript/foundation@0.0.1-alpha.16": "0.0.1-alpha.16",
     "npm:@nativescript/foundation@0.0.1-alpha.17": "0.0.1-alpha.17",
+    "npm:@nativescript/foundation@0.0.1-alpha.19": "0.0.1-alpha.19",
     "npm:@nativescript/foundation@0.0.1-alpha.2": "0.0.1-alpha.2",
+    "npm:@nativescript/foundation@0.0.1-alpha.20": "0.0.1-alpha.20",
+    "npm:@nativescript/foundation@0.0.1-alpha.21": "0.0.1-alpha.21",
+    "npm:@nativescript/foundation@0.0.1-alpha.22": "0.0.1-alpha.22",
     "npm:@nativescript/foundation@0.0.1-alpha.3": "0.0.1-alpha.3",
     "npm:@nativescript/foundation@0.0.1-alpha.4": "0.0.1-alpha.4",
     "npm:@nativescript/foundation@0.0.1-alpha.5": "0.0.1-alpha.5",
@@ -416,8 +420,20 @@
     "@nativescript/foundation@0.0.1-alpha.17": {
       "integrity": "sha512-mOodQHD2iuv4W+o5Nt6bkY/oXWwdIz0KVAHFMqat6J5hFvHfArdArkWO+b4zD6fk7ZWuvGGNO1E7igl8mEdhng=="
     },
+    "@nativescript/foundation@0.0.1-alpha.19": {
+      "integrity": "sha512-WE/n01+082h8jIjyWgS0dTUM2iW6ApTXIBEAMc/AKbHwIbaCpMarB1OJ8qbjnGYYUsFLoz3sqjqh4ctiB9HJUw=="
+    },
     "@nativescript/foundation@0.0.1-alpha.2": {
       "integrity": "sha512-+y7MmxM/NArtafhKtBm4UlDLeqreXs7uSzw9LAyMrBRKor00CA8wCMNnm1DCR1reHxwiwGoARAMLGSp14z0eNg=="
+    },
+    "@nativescript/foundation@0.0.1-alpha.20": {
+      "integrity": "sha512-y8pOEjHd50RAdiZl/N9liyQe8ZMu6EM+ffhDyfQ69f7nrwRtfD7UrEh0qm2yhlsFarAl904QUwCYuwc0jfoNHQ=="
+    },
+    "@nativescript/foundation@0.0.1-alpha.21": {
+      "integrity": "sha512-gJNSrVAKEmcH+086NE929Bg4lC50B5+OmC/NGE0K8DehlruVs5L9uE4A3J7hahOJEc5sslUWU5e5Zc6mihIp5g=="
+    },
+    "@nativescript/foundation@0.0.1-alpha.22": {
+      "integrity": "sha512-WA1kHqnLEpQbEiLQwWS+DjpvykENdqb5AOn78sKS5s8bi1+/2aK7LMBHMzsvrrfZiyfhVvZvWyH69BHK4EBD8A=="
     },
     "@nativescript/foundation@0.0.1-alpha.3": {
       "integrity": "sha512-4U3HFVPT3T+VOkShwub+oT8TuZdk4YBfgLNtTBEcP9tUm5icpdeuNJeI8IEK/VtoWmuQxgLcm2AZBUD9hCOpsQ=="

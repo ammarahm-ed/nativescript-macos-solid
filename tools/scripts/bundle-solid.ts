@@ -27,7 +27,7 @@ async function bundleSolidJSApp(file: string, outFile: string) {
 
   const [denoResolver, denoLoader] = [...denoPlugins({
     configPath: Deno.cwd() + "/deno.json",
-    importMapURL: import.meta.resolve("../import_map.json"),
+    importMapURL: import.meta.resolve("../../import_map.json"),
   })];
   await esbuild.build({
     entryPoints: [file],
