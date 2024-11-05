@@ -28,6 +28,7 @@ function TextView() {
     </view>
   );
 }
+TextView.snippetName = "TextView";
 TextView.code = `function Text() {
     return (
       <text-view
