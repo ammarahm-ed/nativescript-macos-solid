@@ -128,14 +128,14 @@ export class ScrollView extends View {
   }
 
   @native({
-    setNative: (view: ScrollView, key, value) => {
+    setNative: (view: ScrollView, _key, value) => {
       view.documentView!.style = value;
     },
   })
   declare documentViewStyle: ViewStyle;
 
   @native({
-    setNative: (view: ScrollView, key, value) => {
+    setNative: (view: ScrollView, _key, value) => {
       view.initDocumentView();
       view.nativeView!.hasHorizontalScroller = value;
       view.nativeView!.hasVerticalScroller = !value;
@@ -151,7 +151,7 @@ export class ScrollView extends View {
 
   private _disableDefaultDocumentView: boolean = false;
   @native({
-    setNative: (view: ScrollView, key, value) => {
+    setNative: (view: ScrollView, _key, value) => {
       view._disableDefaultDocumentView = value;
       if (!value && view.firstChild !== view.documentView) {
         const firstChild = view.firstChild;

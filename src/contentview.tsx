@@ -46,7 +46,7 @@ const ContentView: Component<Partial<SnippetProps>> = (props) => {
             onLoadStarted={(e) => {
               console.log(e.url);
             }}
-            onLoadFinished={(e) => {
+            onLoadFinished={() => {
               updateSnippetPreview(props.component);
             }}
           />

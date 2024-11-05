@@ -60,7 +60,7 @@ export class TableCell extends ViewBase {
   }
 
   @native({
-    setNative: (view: TableCell, key, value) => {
+    setNative: (view: TableCell, _key, value) => {
       if (value) {
         view.getOwner()?.selectCell?.(view);
       } else {
@@ -73,7 +73,7 @@ export class TableCell extends ViewBase {
   declare selected: boolean;
 
   @native({
-    setNative: (view: TableCell, key, value) => {
+    setNative: (view: TableCell, _key, value) => {
       if (view.nativeView) {
          view.nativeView!.identifier = value;
       }

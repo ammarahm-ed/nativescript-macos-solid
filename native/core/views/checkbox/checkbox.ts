@@ -19,7 +19,7 @@ export class Checkbox extends Button {
   }
 
   @native({
-    setNative: (view: Checkbox, key, value) => {
+    setNative: (view: Checkbox, _key, value) => {
       if (view.nativeView) {
         view.nativeView.state = value
           ? NSControlStateValueOn

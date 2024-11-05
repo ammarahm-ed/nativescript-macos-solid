@@ -20,7 +20,7 @@ import Examples from "./examples/index.tsx";
 import { TodoMVP } from "./examples/todo.tsx";
 import Components from "./pages/components.tsx";
 import GettingStarted from "./pages/getting-started.tsx";
-import Overview from "./pages/overview.tsx";
+// import Overview from "./pages/overview.tsx";
 import Setup from "./pages/setup.tsx";
 import WebDisplay from "./webdisplay.tsx";
 import Switch from "./components/Switch.tsx";

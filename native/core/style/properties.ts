@@ -128,7 +128,7 @@ export const BorderWidthStyle: StylePropertyConfig = {
   shouldLayout: true,
 };
 
-export function OpacitySetNative(style: Style, key: string, value: any) {
+export function OpacitySetNative(style: Style, _key: string, value: any) {
   if (!style.node.nativeView) return;
   const nativeView = style.node.nativeView as NSView;
   nativeView.alphaValue = value;
@@ -138,7 +138,7 @@ export const OpacityStyle: StylePropertyConfig = {
   setNative: OpacitySetNative,
 };
 
-export function TextAlignSetNative(style: Style, key: string, value: any) {
+export function TextAlignSetNative(style: Style, _key: string, value: any) {
   if (!style.node.nativeView) return;
   const nativeView = style.node.nativeView as NSTextField;
   switch (value) {

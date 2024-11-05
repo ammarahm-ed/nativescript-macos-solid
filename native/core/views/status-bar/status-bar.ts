@@ -84,7 +84,7 @@ export class StatusBar extends ViewBase {
   }
 
   @native({
-    setNative: (view: StatusBar, key, value) => {
+    setNative: (view: StatusBar, _key, value) => {
       if (view.nativeView) {
         view.nativeView.title = value;
       }
@@ -95,7 +95,7 @@ export class StatusBar extends ViewBase {
   applyLayout(parentLayout?: YogaNodeLayout): void {
     super.applyLayout(parentLayout);
     if (this.nativeView) {
-      //@ts-ignore
+      // @ts-ignore frame
       this.nativeView.button.frame = this.nativeView?.frame;
     }
   }

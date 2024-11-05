@@ -80,11 +80,11 @@ export class ViewBase extends HTMLElement {
     return this.styleInternal;
   }
 
-  applyLayout(parentLayout?: YogaNodeLayout): void {
+  applyLayout(_parentLayout?: YogaNodeLayout): void {
     if (!this.isIncludedInLayout) return;
     const layout = this.yogaNode?.getComputedLayout();
     if (layout && this.nativeView) {
-      const parentHeight = parentLayout?.height || 0;
+      // const parentHeight = parentLayout?.height || 0;
 
       const width = isNaN(layout.width) ? 0 : layout.width;
       const height = isNaN(layout.height) ? 0 : layout.height;
