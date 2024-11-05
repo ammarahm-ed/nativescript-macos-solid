@@ -45,12 +45,12 @@ export const sidebarItemsData: Array<Array<SidebarItem>> = [
       title: "Getting Started",
       component: GettingStarted,
       children: [
-        {
-          id: NSUUID.UUID().UUIDString,
-          icon: "lightbulb.max",
-          title: "Overview",
-          component: Overview,
-        },
+        // {
+        //   id: NSUUID.UUID().UUIDString,
+        //   icon: "lightbulb.max",
+        //   title: "Overview",
+        //   component: Overview,
+        // },
         {
           id: NSUUID.UUID().UUIDString,
           icon: "gear.badge.checkmark",
