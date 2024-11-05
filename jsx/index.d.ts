@@ -163,6 +163,7 @@ interface ProgressAttributes extends ViewAttributes {
   minValue?: number;
   maxValue?: number;
   type?: "bar" | "spinner";
+  size?: "small" | "regular" | "large" | "mini";
 }
 
 interface SwitchAttributes extends ViewAttributes {

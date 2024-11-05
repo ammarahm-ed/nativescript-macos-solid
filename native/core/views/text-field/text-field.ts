@@ -38,8 +38,6 @@ export class NativeTextFieldDelegate
     if (owner) {
       owner._defaultValueSet = true;
       owner.dispatchEvent(new TextChangeEvent(owner.nativeView!.stringValue));
-      owner.yogaNode.markDirty();
-      Layout.computeAndLayout(owner);
     }
   }
 
@@ -92,7 +90,7 @@ export class TextField extends Text {
       }
       view._defaultValueSet = true;
     },
-    shouldLayout: true
+    shouldLayout: true,
   })
   declare value: string;
 
@@ -105,7 +103,7 @@ export class TextField extends Text {
         view.nativeView.stringValue = value;
       }
     },
-    shouldLayout: true
+    shouldLayout: true,
   })
   declare defaultValue: string;
 
@@ -115,7 +113,7 @@ export class TextField extends Text {
         view.nativeView.placeholderString = value;
       }
     },
-    shouldLayout: true
+    shouldLayout: true,
   })
   declare placeholder: string | null;
 
@@ -134,7 +132,7 @@ export class TextField extends Text {
         view.nativeView.usesSingleLineMode = value;
       }
     },
-    shouldLayout: true
+    shouldLayout: true,
   })
   declare multiline: boolean;
 
@@ -148,5 +146,6 @@ export class TextField extends Text {
 
   clear(): void {
     this.nativeView!.stringValue = "";
+    Layout.computeAndLayout(this);
   }
 }

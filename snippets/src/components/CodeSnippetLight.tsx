@@ -35,7 +35,6 @@ const CodeSnippetLight = (props: CodeSnippetProps) => {
       <div class="rounded-lg overflow-hidden">
         <div
           style={{
-            // "background-color": "#1d1f21",
             "border-bottom": "1px solid #a9a9a9",
           }}
           class="px-4 py-2 flex justify-between items-center"
