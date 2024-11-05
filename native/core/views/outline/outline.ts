@@ -16,10 +16,8 @@ export class OutlineViewItemSelectedEvent extends Event {
 }
 
 @NativeClass
-class OutlineViewDataSource
-  extends NSObject
-  implements NSOutlineViewDataSource, NSOutlineViewDelegate
-{
+class OutlineViewDataSource extends NSObject
+  implements NSOutlineViewDataSource, NSOutlineViewDelegate {
   static ObjCProtocols = [NSOutlineViewDataSource, NSOutlineViewDelegate];
 
   static initWithOwner(owner: WeakRef<Outline>) {
@@ -36,7 +34,7 @@ class OutlineViewDataSource
 
   outlineViewNumberOfChildrenOfItem(
     _outlineView: NSOutlineView,
-    item: View | null
+    item: View | null,
   ): number {
     if (item) {
       return item.children.length - 2;
@@ -48,14 +46,14 @@ class OutlineViewDataSource
   outlineViewViewForTableColumnItem(
     _outlineView: NSOutlineView,
     _tableColumn: NSTableColumn | null,
-    item: TableCell
+    item: TableCell,
   ): NSView {
     return item.nativeView!;
   }
 
   outlineViewIsItemExpandable(
     _outlineView: NSOutlineView,
-    item: View
+    item: View,
   ): boolean {
     return item.children.length > 2;
   }
@@ -63,7 +61,7 @@ class OutlineViewDataSource
   outlineViewChildOfItem(
     _outlineView: NSOutlineView,
     index: number,
-    item: View | null
+    item: View | null,
   ) {
     if (item) {
       return item.children[index + 2];
@@ -75,7 +73,7 @@ class OutlineViewDataSource
   outlineViewObjectValueForTableColumnByItem(
     _outlineView: NSOutlineView,
     _tableColumn: NSTableColumn | null,
-    item: interop.Object | null
+    item: interop.Object | null,
   ) {
     return item;
   }
@@ -85,7 +83,9 @@ class OutlineViewDataSource
     const owner = this.outline;
     if (owner && outlineView) {
       const item = outlineView.itemAtRow(outlineView.selectedRow) as TableCell;
-      owner.dispatchEvent(new OutlineViewItemSelectedEvent(outlineView.selectedRow, item));
+      owner.dispatchEvent(
+        new OutlineViewItemSelectedEvent(outlineView.selectedRow, item),
+      );
       if (item) {
         item.dispatchSelectedEvent();
       }
@@ -143,7 +143,8 @@ export class Outline extends View {
       }
     },
   })
-  declare rowSizeStyle: (typeof NSTableViewRowSizeStyle)[keyof typeof NSTableViewRowSizeStyle];
+  declare rowSizeStyle:
+    (typeof NSTableViewRowSizeStyle)[keyof typeof NSTableViewRowSizeStyle];
 
   public addNativeChild(_child: any) {
     this.nativeView?.reloadData();
@@ -189,7 +190,7 @@ export class Outline extends View {
         }
         this.nativeView?.selectRowIndexesByExtendingSelection(
           NSIndexSet.indexSetWithIndex(index),
-          false
+          false,
         );
         this.__pendingCellSelection = null;
       }

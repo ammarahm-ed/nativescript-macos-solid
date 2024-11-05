@@ -4,19 +4,19 @@ export default function AppMenus() {
 
   function openDocs() {
     NSWorkspace.sharedWorkspace.openURL(
-      NSURL.URLWithString("https://solidjs.com")
+      NSURL.URLWithString("https://solidjs.com"),
     );
   }
 
   function openGithub() {
     NSWorkspace.sharedWorkspace.openURL(
-      NSURL.URLWithString("https://github.com/solidjs/solid")
+      NSURL.URLWithString("https://github.com/solidjs/solid"),
     );
   }
 
   function openDiscord() {
     NSWorkspace.sharedWorkspace.openURL(
-      NSURL.URLWithString("https://discord.com/invite/solidjs")
+      NSURL.URLWithString("https://discord.com/invite/solidjs"),
     );
   }
 

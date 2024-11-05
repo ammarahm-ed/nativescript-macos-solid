@@ -14,8 +14,7 @@ function Button() {
   );
 }
 
-Button.code = 
-`function Button() {
+Button.code = `function Button() {
   const [taps, setTaps] = createSignal(0);
   return (
     <button
@@ -26,6 +25,6 @@ Button.code =
       Taps: {taps()}
     </button>
   );
-}`
+}`;
 
 export default Button;

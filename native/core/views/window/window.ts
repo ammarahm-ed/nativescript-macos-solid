@@ -86,12 +86,10 @@ export class Window extends ViewBase {
       const window = (this.parentNode as HTMLViewElement).nativeView?.window;
       if (window && window?.windowController && this.nativeView) {
         const frameCentered = {
-          x:
-            window.frame.origin.x +
+          x: window.frame.origin.x +
             window.frame.size.width / 2 -
             this.nativeView.frame.size.width / 2,
-          y:
-            window.frame.origin.y +
+          y: window.frame.origin.y +
             window.frame.size.height / 2 -
             this.nativeView.frame.size.height / 2,
         };
@@ -110,7 +108,7 @@ export class Window extends ViewBase {
       if (window) {
         NSApp.runModalForWindowRelativeToWindow(
           this.nativeView!,
-          window
+          window,
         );
       }
     } else {

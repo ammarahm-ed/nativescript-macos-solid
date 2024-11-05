@@ -27,10 +27,9 @@ class MenuAction extends NSObject {
         owner._popover.hide();
       } else {
         owner._popover.show({
-          nativeView: owner.nativeView!.button
+          nativeView: owner.nativeView!.button,
         });
       }
-     
     }
   }
 }
@@ -49,7 +48,7 @@ export class StatusBar extends ViewBase {
 
   public initNativeView(): NSStatusItem {
     this.nativeView = NSStatusBar.systemStatusBar.statusItemWithLength(
-      NSVariableStatusItemLength
+      NSVariableStatusItemLength,
     );
     this.menuAction = MenuAction.initWithOwner(new WeakRef(this));
     this.nativeView.button.action = "clicked";
@@ -84,7 +83,7 @@ export class StatusBar extends ViewBase {
   }
 
   @native({
-    setNative: (view: StatusBar, key, value) => {
+    setNative: (view: StatusBar, _key, value) => {
       if (view.nativeView) {
         view.nativeView.title = value;
       }
@@ -95,7 +94,7 @@ export class StatusBar extends ViewBase {
   applyLayout(parentLayout?: YogaNodeLayout): void {
     super.applyLayout(parentLayout);
     if (this.nativeView) {
-      //@ts-ignore
+      // @ts-ignore frame
       this.nativeView.button.frame = this.nativeView?.frame;
     }
   }

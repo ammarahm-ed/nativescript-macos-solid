@@ -32,7 +32,8 @@ export class Popover extends ViewBase {
     this.delegate = PopoverDelegate.initWithOwner(new WeakRef(this));
     this._popover.delegate = this.delegate;
     this._popover.contentViewController = NSViewController.new();
-    this._popover.contentViewController.view = NativeView.new() as unknown as NSView;
+    this._popover.contentViewController.view = NativeView
+      .new() as unknown as NSView;
     this._popover.animates = true;
     this._popover.behavior = NSPopoverBehavior.Transient;
     this.nativeView = this._popover.contentViewController.view;
@@ -40,7 +41,7 @@ export class Popover extends ViewBase {
   }
 
   @native({
-    setNative: (view: Popover, key, value) => {
+    setNative: (view: Popover, _key, value) => {
       if (view._popover) {
         view._popover.behavior = value;
       }
@@ -64,7 +65,7 @@ export class Popover extends ViewBase {
           origin: point,
         },
         event.window.contentViewController.view || event.window.contentView,
-        edge || NSRectEdge.MinYEdge
+        edge || NSRectEdge.MinYEdge,
       );
     }
   }
@@ -76,7 +77,7 @@ export class Popover extends ViewBase {
       this._popover.showRelativeToRectOfViewPreferredEdge(
         bounds,
         fromView.nativeView,
-        edge || NSRectEdge.MinYEdge
+        edge || NSRectEdge.MinYEdge,
       );
     }
   }
@@ -90,7 +91,7 @@ export class Popover extends ViewBase {
   }
 
   @native({
-    setNative: (view: Popover, key, value) => {
+    setNative: (view: Popover, _key, value) => {
       if (view._popover) {
         view._popover.animates = value;
       }

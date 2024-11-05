@@ -36,7 +36,7 @@ function computeAndLayout(node: any) {
   node.rootYogaNode?.calculateLayout(
     node.rootYogaNode.getWidth().value,
     node.rootYogaNode.getHeight().value,
-    Yoga.DIRECTION_LTR
+    Yoga.DIRECTION_LTR,
   );
   rootView.applyLayout();
 }
@@ -95,17 +95,17 @@ const ConvertToYogaValue = {
   },
 
   borderBottomWidth: (
-    value: FlexStyle["borderBottomWidth"]
+    value: FlexStyle["borderBottomWidth"],
   ): number | undefined => value,
   borderEndWidth: (value: FlexStyle["borderEndWidth"]): number | undefined =>
     value,
   borderLeftWidth: (value: FlexStyle["borderLeftWidth"]): number | undefined =>
     value,
   borderRightWidth: (
-    value: FlexStyle["borderRightWidth"]
+    value: FlexStyle["borderRightWidth"],
   ): number | undefined => value,
   borderStartWidth: (
-    value: FlexStyle["borderStartWidth"]
+    value: FlexStyle["borderStartWidth"],
   ): number | undefined => value,
   borderTopWidth: (value: FlexStyle["borderTopWidth"]): number | undefined =>
     value,
@@ -129,7 +129,7 @@ const ConvertToYogaValue = {
     value,
 
   flexDirection: (
-    value: FlexStyle["flexDirection"]
+    value: FlexStyle["flexDirection"],
   ): FlexDirection | undefined => {
     switch (value) {
       case "row":
@@ -190,27 +190,27 @@ const ConvertToYogaValue = {
   marginBlock: (value: FlexStyle["marginBlock"]): DimensionValue | undefined =>
     value,
   marginBlockEnd: (
-    value: FlexStyle["marginBlockEnd"]
+    value: FlexStyle["marginBlockEnd"],
   ): DimensionValue | undefined => value,
   marginBlockStart: (
-    value: FlexStyle["marginBlockStart"]
+    value: FlexStyle["marginBlockStart"],
   ): DimensionValue | undefined => value,
   marginBottom: (
-    value: FlexStyle["marginBottom"]
+    value: FlexStyle["marginBottom"],
   ): DimensionValue | undefined => value,
   marginEnd: (value: FlexStyle["marginEnd"]): DimensionValue | undefined =>
     value,
   marginHorizontal: (
-    value: FlexStyle["marginHorizontal"]
+    value: FlexStyle["marginHorizontal"],
   ): DimensionValue | undefined => value,
   marginInline: (
-    value: FlexStyle["marginInline"]
+    value: FlexStyle["marginInline"],
   ): DimensionValue | undefined => value,
   marginInlineEnd: (
-    value: FlexStyle["marginInlineEnd"]
+    value: FlexStyle["marginInlineEnd"],
   ): DimensionValue | undefined => value,
   marginInlineStart: (
-    value: FlexStyle["marginInlineStart"]
+    value: FlexStyle["marginInlineStart"],
   ): DimensionValue | undefined => value,
   marginLeft: (value: FlexStyle["marginLeft"]): DimensionValue | undefined =>
     value,
@@ -221,7 +221,7 @@ const ConvertToYogaValue = {
   marginTop: (value: FlexStyle["marginTop"]): DimensionValue | undefined =>
     value,
   marginVertical: (
-    value: FlexStyle["marginVertical"]
+    value: FlexStyle["marginVertical"],
   ): DimensionValue | undefined => value,
 
   maxHeight: (value: FlexStyle["maxHeight"]): DimensionValue | undefined =>
@@ -246,43 +246,43 @@ const ConvertToYogaValue = {
 
   padding: (value: FlexStyle["padding"]): DimensionValue | undefined => value,
   paddingBottom: (
-    value: FlexStyle["paddingBottom"]
+    value: FlexStyle["paddingBottom"],
   ): DimensionValue | undefined => value,
   paddingBlock: (
-    value: FlexStyle["paddingBlock"]
+    value: FlexStyle["paddingBlock"],
   ): DimensionValue | undefined => value,
   paddingBlockEnd: (
-    value: FlexStyle["paddingBlockEnd"]
+    value: FlexStyle["paddingBlockEnd"],
   ): DimensionValue | undefined => value,
   paddingBlockStart: (
-    value: FlexStyle["paddingBlockStart"]
+    value: FlexStyle["paddingBlockStart"],
   ): DimensionValue | undefined => value,
   paddingEnd: (value: FlexStyle["paddingEnd"]): DimensionValue | undefined =>
     value,
   paddingHorizontal: (
-    value: FlexStyle["paddingHorizontal"]
+    value: FlexStyle["paddingHorizontal"],
   ): DimensionValue | undefined => value,
   paddingInline: (
-    value: FlexStyle["paddingInline"]
+    value: FlexStyle["paddingInline"],
   ): DimensionValue | undefined => value,
   paddingInlineEnd: (
-    value: FlexStyle["paddingInlineEnd"]
+    value: FlexStyle["paddingInlineEnd"],
   ): DimensionValue | undefined => value,
   paddingInlineStart: (
-    value: FlexStyle["paddingInlineStart"]
+    value: FlexStyle["paddingInlineStart"],
   ): DimensionValue | undefined => value,
   paddingLeft: (value: FlexStyle["paddingLeft"]): DimensionValue | undefined =>
     value,
   paddingRight: (
-    value: FlexStyle["paddingRight"]
+    value: FlexStyle["paddingRight"],
   ): DimensionValue | undefined => value,
   paddingStart: (
-    value: FlexStyle["paddingStart"]
+    value: FlexStyle["paddingStart"],
   ): DimensionValue | undefined => value,
   paddingTop: (value: FlexStyle["paddingTop"]): DimensionValue | undefined =>
     value,
   paddingVertical: (
-    value: FlexStyle["paddingVertical"]
+    value: FlexStyle["paddingVertical"],
   ): DimensionValue | undefined => value,
 
   position: (value: FlexStyle["position"]): PositionType | undefined => {
@@ -499,7 +499,7 @@ const ConvertFromYogaValue = {
   paddingInlineEnd: (value: DimensionValue): FlexStyle["paddingInlineEnd"] =>
     value,
   paddingInlineStart: (
-    value: DimensionValue
+    value: DimensionValue,
   ): FlexStyle["paddingInlineStart"] => value,
   paddingLeft: (value: DimensionValue): FlexStyle["paddingLeft"] => value,
   paddingRight: (value: DimensionValue): FlexStyle["paddingRight"] => value,
@@ -823,7 +823,7 @@ const Setters = {
   },
   flexBasis(
     yogaNode: YogaNode,
-    flexBasis: number | "auto" | `${number}%` | undefined
+    flexBasis: number | "auto" | `${number}%` | undefined,
   ) {
     yogaNode.setFlexBasis(flexBasis);
   },
@@ -844,13 +844,13 @@ const Setters = {
   },
   width(
     yogaNode: YogaNode,
-    height: number | "auto" | `${number}%` | undefined
+    height: number | "auto" | `${number}%` | undefined,
   ) {
     yogaNode.setWidth(height);
   },
   height(
     yogaNode: YogaNode,
-    height: number | "auto" | `${number}%` | undefined
+    height: number | "auto" | `${number}%` | undefined,
   ) {
     yogaNode.setHeight(height);
   },
@@ -868,25 +868,25 @@ const Setters = {
   },
   marginLeft(
     yogaNode: YogaNode,
-    margin: number | "auto" | `${number}%` | undefined
+    margin: number | "auto" | `${number}%` | undefined,
   ) {
     yogaNode.setMargin(Edge.Left, margin);
   },
   marginRight(
     yogaNode: YogaNode,
-    margin: number | "auto" | `${number}%` | undefined
+    margin: number | "auto" | `${number}%` | undefined,
   ) {
     yogaNode.setMargin(Edge.Right, margin);
   },
   marginTop(
     yogaNode: YogaNode,
-    margin: number | "auto" | `${number}%` | undefined
+    margin: number | "auto" | `${number}%` | undefined,
   ) {
     yogaNode.setMargin(Edge.Top, margin);
   },
   marginBottom(
     yogaNode: YogaNode,
-    margin: number | "auto" | `${number}%` | undefined
+    margin: number | "auto" | `${number}%` | undefined,
   ) {
     yogaNode.setMargin(Edge.Bottom, margin);
   },
@@ -917,7 +917,7 @@ const Setters = {
   },
   paddingBottom(
     yogaNode: YogaNode,
-    padding: number | `${number}%` | undefined
+    padding: number | `${number}%` | undefined,
   ) {
     yogaNode.setPadding(Edge.Bottom, padding);
   },
@@ -947,13 +947,13 @@ const Setters = {
   },
   marginBlockEnd(
     yogaNode: YogaNode,
-    margin: number | `${number}%` | undefined
+    margin: number | `${number}%` | undefined,
   ) {
     yogaNode.setMargin(Edge.Bottom, margin);
   },
   marginBlockStart(
     yogaNode: YogaNode,
-    margin: number | `${number}%` | undefined
+    margin: number | `${number}%` | undefined,
   ) {
     yogaNode.setMargin(Edge.Top, margin);
   },
@@ -962,37 +962,37 @@ const Setters = {
   },
   paddingBlockEnd(
     yogaNode: YogaNode,
-    padding: number | `${number}%` | undefined
+    padding: number | `${number}%` | undefined,
   ) {
     yogaNode.setPadding(Edge.Bottom, padding);
   },
   paddingBlockStart(
     yogaNode: YogaNode,
-    padding: number | `${number}%` | undefined
+    padding: number | `${number}%` | undefined,
   ) {
     yogaNode.setPadding(Edge.Top, padding);
   },
   paddingHorizontal(
     yogaNode: YogaNode,
-    padding: number | `${number}%` | undefined
+    padding: number | `${number}%` | undefined,
   ) {
     yogaNode.setPadding(Edge.Horizontal, padding);
   },
   paddingVertical(
     yogaNode: YogaNode,
-    padding: number | `${number}%` | undefined
+    padding: number | `${number}%` | undefined,
   ) {
     yogaNode.setPadding(Edge.Vertical, padding);
   },
   marginVertical(
     yogaNode: YogaNode,
-    margin: number | `${number}%` | undefined
+    margin: number | `${number}%` | undefined,
   ) {
     yogaNode.setMargin(Edge.Vertical, margin);
   },
   marginHorizontal(
     yogaNode: YogaNode,
-    margin: number | `${number}%` | undefined
+    margin: number | `${number}%` | undefined,
   ) {
     yogaNode.setMargin(Edge.Horizontal, margin);
   },

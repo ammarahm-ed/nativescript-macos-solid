@@ -12,7 +12,6 @@ function Webview() {
   );
 }
 
-
 Webview.code = `function WebView() {
   return (
     <webview
@@ -25,6 +24,6 @@ Webview.code = `function WebView() {
       }}
     />
   );
-}`
+}`;
 
 export default Webview;

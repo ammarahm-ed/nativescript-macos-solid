@@ -35,9 +35,8 @@ export default function Toolbar() {
         toolTip="Continue your learning"
         onSelected={(event) =>
           NSWorkspace.sharedWorkspace.openURL(
-            NSURL.URLWithString(URLS[event.selectedIndex])
-          )
-        }
+            NSURL.URLWithString(URLS[event.selectedIndex]),
+          )}
       />
     </toolbar>
   );

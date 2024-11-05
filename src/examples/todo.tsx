@@ -22,7 +22,7 @@ type TodoItem = {
 };
 
 const [todos, setTodos] = createSignal<TodoItem[]>(
-  JSON.parse(storageApi.get("todos") || "[]")
+  JSON.parse(storageApi.get("todos") || "[]"),
 );
 
 export function TodoMVP() {
@@ -78,8 +78,9 @@ export function TodoMVP() {
             justifyContent: "space-between",
             borderWidth: 1,
             borderRadius: 5,
-            borderColor:
-              colorScheme === "dark" ? "rgb(68, 68, 68)" : "rgb(200, 200, 200)",
+            borderColor: colorScheme === "dark"
+              ? "rgb(68, 68, 68)"
+              : "rgb(200, 200, 200)",
             paddingHorizontal: 10,
           }}
         >
@@ -112,24 +113,24 @@ export function TodoMVP() {
             alignItems: loading() || !todos().length ? "center" : undefined,
           }}
         >
-          {loading() ? (
-            <progress type="spinner" indeterminate size="small" />
-          ) : (
-            <For
-              each={todos()}
-              fallback={
-                <text
-                  style={{
-                    color: "gray",
-                  }}
-                >
-                  No todos found
-                </text>
-              }
-            >
-              {(item, index) => <TodoItem item={item} index={index} />}
-            </For>
-          )}
+          {loading()
+            ? <progress type="spinner" indeterminate size="small" />
+            : (
+              <For
+                each={todos()}
+                fallback={
+                  <text
+                    style={{
+                      color: "gray",
+                    }}
+                  >
+                    No todos found
+                  </text>
+                }
+              >
+                {(item, index) => <TodoItem item={item} index={index} />}
+              </For>
+            )}
         </view>
       </view>
     </scroll-view>
@@ -147,12 +148,9 @@ function TodoItem(props: { item: TodoItem; index: () => number }) {
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-between",
-        backgroundColor:
-          props.index() % 2 === 0
-            ? colorScheme === "dark"
-              ? "rgba(0,0,0,0.1)"
-              : "#f7f7f7"
-            : undefined,
+        backgroundColor: props.index() % 2 === 0
+          ? colorScheme === "dark" ? "rgba(0,0,0,0.1)" : "#f7f7f7"
+          : undefined,
         paddingHorizontal: 10,
         width: "100%",
       }}
