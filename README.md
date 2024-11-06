@@ -48,4 +48,6 @@ The most basic UI element provided by foundation is the view, which internally c
 
 A custom renderer, implemented at [renderer](./solid-native/renderer.js), is used to transform JSX into our DOM implementation. This renderer seamlessly integrates Solid's reactive capabilities with native macOS components.
 
+## Deployment
 
+Deployment is done using [Hermes](https://github.com/facebook/hermes), a JavaScript engine developed by Meta. Credit to [Tzvetan Mikov](https://x.com/tmikov) for his continued excellence on the engine.
