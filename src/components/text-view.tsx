@@ -1,4 +1,8 @@
+import { useColorScheme } from "../hooks/use-color-scheme.ts";
+
 function TextView() {
+  const colorScheme = useColorScheme();
+
   return (
     <view
       style={{
@@ -6,7 +10,7 @@ function TextView() {
         height: "100%",
         margin: 20,
         padding: 20,
-        backgroundColor: "#efefef",
+        backgroundColor: colorScheme == 'dark' ? '#000000' : "#efefef",
         borderRadius: 10,
       }}
     >
