@@ -4,7 +4,7 @@
 
 <h1 align="center">Solid for macOS</h1>
 
-Solid for macOS empowers you to build truly native desktop apps, leveraging native [AppKit](https://developer.apple.com/documentation/appkit) components for a seamless and performant user experience. Unlike purely webview based cross-platform frameworks, Solid for macOS directly integrates with macOS's native APIs, ensuring your apps behave, look and feel right at home on macOS. This integration allows you to develop 100% native macOS apps that utilize *all* the nuanced capabilities of the entire platform, providing users with a smooth and responsive experience.
+Solid for macOS empowers you to build truly native desktop apps, leveraging native [AppKit](https://developer.apple.com/documentation/appkit) components for a seamless and performant user experience. Unlike purely webview based cross-platform frameworks (*or frameworks that attempt to recreate the entire platform interface*), Solid for macOS directly integrates with macOS's native APIs, ensuring your apps behave, look and feel right at home on macOS. This integration allows you to develop 100% native macOS apps that utilize *all* the nuanced capabilities of the entire platform, providing users with a smooth and responsive experience.
 
 The first macOS app built with [Solid](https://www.solidjs.com/) is already available on the [Mac App Store here](https://apps.apple.com/us/app/solid-for-macos/id1574916360). We welcome you to install and give it a try (*compatible with macOS 14+ and M-series arm64 machines*).
 
