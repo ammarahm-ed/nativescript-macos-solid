@@ -13,10 +13,8 @@ export class TextChangeEvent extends Event {
 }
 
 @NativeClass
-export class NativeTextViewDelegate
-  extends NSObject
-  implements NSTextViewDelegate
-{
+export class NativeTextViewDelegate extends NSObject
+  implements NSTextViewDelegate {
   static ObjCProtocols = [NSTextViewDelegate];
 
   declare _owner: WeakRef<TextView>;
@@ -49,7 +47,7 @@ export class TextView extends Text {
   public initNativeView(): NSTextView {
     const nativeView = super.initNativeView() as NSTextView;
     nativeView.delegate = NativeTextViewDelegate.initWithOwner(
-      new WeakRef(this)
+      new WeakRef(this),
     );
     this._delegate = nativeView.delegate;
     nativeView.string = "";

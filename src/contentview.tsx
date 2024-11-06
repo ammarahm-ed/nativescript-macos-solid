@@ -22,9 +22,11 @@ const ContentView: Component<Partial<SnippetProps>> = (props) => {
       snippet: encodeURIComponent(component.code),
       dark: colorScheme === "dark",
     };
-    webRef?.executeJavaScript(`
-      window.updateSnippet?.("${component.snippetName}", '${JSON.stringify(data)}');
-    `);
+    webRef?.executeJavaScript(
+      `typeof window.updateSnippet !== 'undefined' && window.updateSnippet("${component.name}", '${
+        JSON.stringify(data)
+      }')`,
+    );
   }
 
   createEffect(() => {
@@ -49,6 +51,9 @@ const ContentView: Component<Partial<SnippetProps>> = (props) => {
               ref={(el: WebView) => (webRef = el)}
               src={url}
               debug={true}
+              onLoadStarted={(e) => {
+                console.log(e.url);
+              }}
               onLoadFinished={() => {
                 updateSnippetPreview(props.component);
               }}

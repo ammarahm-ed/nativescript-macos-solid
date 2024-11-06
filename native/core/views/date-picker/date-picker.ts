@@ -36,8 +36,8 @@ export class DatePicker extends View {
         this.dispatchEvent(
           new DatePickerChangeEvent(
             new Date(this.nativeView.dateValue.timeIntervalSince1970 * 1000),
-            this.nativeView.timeInterval * 1000
-          )
+            this.nativeView.timeInterval * 1000,
+          ),
         );
       }
     });

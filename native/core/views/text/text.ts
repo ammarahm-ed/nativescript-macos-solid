@@ -28,7 +28,7 @@ class PaddingTextFieldCell extends NSTextFieldCell {
     controlView: NSView,
     textObj: NSText,
     delegate: interop.Object | null,
-    event: NSEvent | null
+    event: NSEvent | null,
   ): void {
     const insetRect = CGRectInset(rect, this.paddingLeft, this.paddingTop);
     super.editWithFrameInViewEditorDelegateEvent(
@@ -36,7 +36,7 @@ class PaddingTextFieldCell extends NSTextFieldCell {
       controlView,
       textObj,
       delegate,
-      event
+      event,
     );
   }
 
@@ -46,7 +46,7 @@ class PaddingTextFieldCell extends NSTextFieldCell {
     textObj: NSText,
     delegate: interop.Object | null,
     selStart: number,
-    selLength: number
+    selLength: number,
   ): void {
     const insetRect = CGRectInset(rect, this.paddingLeft, this.paddingTop);
     super.selectWithFrameInViewEditorDelegateStartLength(
@@ -55,7 +55,7 @@ class PaddingTextFieldCell extends NSTextFieldCell {
       textObj,
       delegate,
       selStart,
-      selLength
+      selLength,
     );
   }
 
@@ -107,7 +107,7 @@ export class Text extends TextBase {
   setPadding(
     _key: string,
     value: number = 0,
-    _config: NativePropertyConfig<number>
+    _config: NativePropertyConfig<number>,
   ) {
     if (this.nativeCell) {
       this.nativeCell.paddingTop = value;
@@ -121,7 +121,7 @@ export class Text extends TextBase {
   setPaddingTop(
     _key: string,
     value: number = 0,
-    _config: NativePropertyConfig<number>
+    _config: NativePropertyConfig<number>,
   ) {
     if (this.nativeCell) {
       this.nativeCell.paddingTop = value;
@@ -134,7 +134,7 @@ export class Text extends TextBase {
   setPaddingRight(
     _key: string,
     value: number = 0,
-    _config: NativePropertyConfig<number>
+    _config: NativePropertyConfig<number>,
   ) {
     if (this.nativeCell) {
       this.nativeCell.paddingRight = value;
@@ -146,7 +146,7 @@ export class Text extends TextBase {
   setPaddingBottom(
     _key: string,
     value: number = 0,
-    _config: NativePropertyConfig<number>
+    _config: NativePropertyConfig<number>,
   ) {
     if (this.nativeCell) {
       this.nativeCell.paddingBottom = value;
@@ -158,7 +158,7 @@ export class Text extends TextBase {
   setPaddingLeft(
     _key: string,
     value: number,
-    _config: NativePropertyConfig<number>
+    _config: NativePropertyConfig<number>,
   ) {
     if (this.nativeCell) {
       this.nativeCell.paddingLeft = value;

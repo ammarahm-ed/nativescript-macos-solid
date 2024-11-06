@@ -36,7 +36,7 @@ export class Switch extends ViewBase {
   }
 
   @native({
-    setNative(view: Switch, key, value) {
+    setNative(view: Switch, _key, value) {
       if (view.nativeView) {
         view.nativeView.isContinuous = value;
       }
@@ -45,7 +45,7 @@ export class Switch extends ViewBase {
   declare continuous: boolean;
 
   @native({
-    setNative(view: Switch, key, value) {
+    setNative(view: Switch, _key, value) {
       if (view.nativeView) {
         view.nativeView.state = value
           ? NSControlStateValueOn
@@ -56,7 +56,7 @@ export class Switch extends ViewBase {
   declare value: boolean;
 
   @native({
-    setNative(view: Switch, key, value) {
+    setNative(view: Switch, _key, value) {
       if (view.nativeView) {
         view.nativeView.isEnabled = value;
       }

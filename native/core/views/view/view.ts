@@ -10,7 +10,7 @@ import { ViewBase } from "./view-base.ts";
 export class View extends ViewBase {
   override nativeView?: NSView = undefined;
   public override initNativeView(): NSView | undefined {
-    //@ts-ignore
+    // @ts-ignore type
     this.nativeView = NativeView.new();
     return this.nativeView;
   }

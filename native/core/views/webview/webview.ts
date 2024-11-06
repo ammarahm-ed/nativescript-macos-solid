@@ -184,7 +184,7 @@ export class WebView extends View {
   executeJavaScript(src: string) {
     this.nativeView?.evaluateJavaScriptCompletionHandler(
       src,
-      (result, error) => {
+      (_result, error) => {
         if (error) {
           console.error(error);
         }

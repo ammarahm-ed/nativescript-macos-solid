@@ -41,7 +41,7 @@ export class Popover extends ViewBase {
   }
 
   @native({
-    setNative: (view: Popover, key, value) => {
+    setNative: (view: Popover, _key, value) => {
       if (view._popover) {
         view._popover.behavior = value;
       }
@@ -91,7 +91,7 @@ export class Popover extends ViewBase {
   }
 
   @native({
-    setNative: (view: Popover, key, value) => {
+    setNative: (view: Popover, _key, value) => {
       if (view._popover) {
         view._popover.animates = value;
       }

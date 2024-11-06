@@ -113,24 +113,24 @@ export function TodoMVP() {
             alignItems: loading() || !todos().length ? "center" : undefined,
           }}
         >
-          {loading() ? (
-            <progress type="spinner" indeterminate size="small" />
-          ) : (
-            <For
-              each={todos()}
-              fallback={
-                <text
-                  style={{
-                    color: "gray",
-                  }}
-                >
-                  No todos found
-                </text>
-              }
-            >
-              {(item, index) => <TodoItem item={item} index={index} />}
-            </For>
-          )}
+          {loading()
+            ? <progress type="spinner" indeterminate size="small" />
+            : (
+              <For
+                each={todos()}
+                fallback={
+                  <text
+                    style={{
+                      color: "gray",
+                    }}
+                  >
+                    No todos found
+                  </text>
+                }
+              >
+                {(item, index) => <TodoItem item={item} index={index} />}
+              </For>
+            )}
         </view>
       </view>
     </scroll-view>
