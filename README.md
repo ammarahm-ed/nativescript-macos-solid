@@ -38,7 +38,7 @@ The foundation of Solid for macOS takes the integration of web and native concep
 
 One of foundation's primary responsibilities is to handle various aspects of the application, including styling, layout, rendering, windowing, menubars, and the overall application lifecycle. This comprehensive approach ensures that all essential elements of a macOS app are seamlessly managed, providing a cohesive development experience.
 
-To achieve this, foundation transforms each AppKit UI component into a DOM element and registers it with the global document object. This transformation allows developers to interact with native components using familiar web development paradigms.
+To achieve this, foundation enables each AppKit UI component to be a DOM element and registers it with the global document object. This enablement allows developers to interact with native components using familiar web development paradigms.
 
 For layout management, foundation utilizes the flexbox layout engine provided by [Meta's Yoga](https://github.com/facebook/yoga), enabling developers to apply almost all flexbox properties to DOM elements. This approach simplifies the process of creating complex and responsive layouts.
 
