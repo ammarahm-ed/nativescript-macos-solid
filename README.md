@@ -50,4 +50,4 @@ A custom renderer, implemented at [renderer](./solid-native/renderer.js), is use
 
 ## Deployment
 
-Deployment is done using [Hermes](https://github.com/facebook/hermes), a JavaScript engine developed by Meta. Credit to [Tzvetan Mikov](https://x.com/tmikov) for his continued excellence on the engine.
+If you have noticed, our [Solid Desktop app on Mac App Store](https://apps.apple.com/us/app/solid-for-macos/id1574916360) is just 5.5 MB in size. That is possible with [Hermes](https://github.com/facebook/hermes), a JavaScript engine developed by Meta. Credit to [Tzvetan Mikov](https://github.com/tmikov) for his continued excellence on the engine. Hermes provides optimal performance while having minimal footprint.
