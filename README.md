@@ -8,9 +8,9 @@ Solid for macOS empowers you to build truly native desktop apps, leveraging
 native [AppKit](https://developer.apple.com/documentation/appkit) components for
 a seamless and performant user experience. Unlike purely webview based
 cross-platform frameworks (_or frameworks that attempt to recreate the entire
-platform interface_), Solid for macOS directly integrates with macOS's native
-APIs, ensuring your apps behave, look and feel right at home on macOS. This
-integration allows you to develop 100% native macOS apps that utilize _all_ the
+platform interface_), Solid for macOS directly integrates with native APIs,
+ensuring your apps behave, look and feel right at home on macOS. This
+integration allows you to develop fully native apps that utilize _all_ the
 nuanced capabilities of the entire platform, providing users with a smooth and
 responsive experience.
 
@@ -24,10 +24,6 @@ You can also try out the example app in this repository. To run the example,
 clone this repository and run the following commands:
 
 ```bash
-deno task bundle
-```
-
-```bash
 deno task start
 ```
 
@@ -38,22 +34,18 @@ developer account to publish to the store.
 
 ## Architecture
 
-To fully understand the capabilities and architecture of Solid for macOS, it's
-essential to delve into the various components that work together to bring this
-framework to life. Each component plays a crucial role in ensuring seamless
-integration with macOS native APIs. Let's explore these components in detail to
-see how they contribute to the overall functionality of Solid for macOS.
+Let's explore the architecture of Solid for macOS. There are a lot of components
+working together behind the scenes to make Solid for macOS possible.
 
 ### Runtime
 
-The runtime is a critical component that bridges the gap between macOS APIs and
-the JavaScript environment. Written in Objective-C++, it leverages
+The runtime is a critical component that connects macOS APIs to JavaScript.
+Written in Objective-C++, it leverages
 [Node-API](https://nodejs.org/api/n-api.html#node-api) to facilitate seamless
-communication with the JavaScript engine. This open-source runtime, available at
+communication with any JavaScript engine that implements engine-agnostic
+Node-API layer. This open-source runtime, available at
 [macos-node-api](https://github.com/NativeScript/runtime-node-api), handles the
-complex task of synchronizing the JavaScript and native macOS environments. By
-doing so, it ensures both environments remain in perfect harmony, allowing
-developers to access native APIs with maximum efficiency.
+task of bringing all the native APIs seamlessly to JavaScript land.
 
 ## DOM
 
