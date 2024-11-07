@@ -100,11 +100,7 @@ Meta. Credit to [Tzvetan Mikov](https://github.com/tmikov) for his continued
 excellence on the engine. Hermes provides optimal performance while having
 minimal footprint.
 
-
-
 https://github.com/user-attachments/assets/ad087d8c-f303-485a-bbe3-889430286bd9
-
-
 
 ## Contributors
 
