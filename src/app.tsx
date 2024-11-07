@@ -1,6 +1,6 @@
 /// <reference lib="dom" />
 import { createSignal } from "npm:solid-js";
-import { render } from "../solid-native/renderer.js";
+import { render } from "solid-native-renderer";
 import AppMenus from "./app-menus.tsx";
 import ContentView from "./contentview.tsx";
 import Sidebar, { type SidebarItem } from "./sidebar.tsx";

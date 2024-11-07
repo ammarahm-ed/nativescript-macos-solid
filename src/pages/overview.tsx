@@ -29,7 +29,7 @@ export default function Overview() {
             marginLeft: 8,
           }}
         >
-          Solid macOS Overview
+          Solid Desktop Overview
         </text>
       </view>
       <view>
@@ -54,7 +54,7 @@ export default function Overview() {
                 color: "#999",
               }}
             >
-              Solid macOS is a macOS app built with Solid and NativeScript.
+              Solid Desktop is a macOS app built with Solid and NativeScript.
             </text>
             <text
               style={{

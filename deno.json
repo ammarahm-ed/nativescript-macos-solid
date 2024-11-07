@@ -1,8 +1,8 @@
 {
   "tasks": {
     "start": "deno task bundle && deno task run-native",
-    "bundle": "deno run -A ./scripts/bundle-solidjs.ts \"src/app.tsx\" \"dist/out.js\"",
-    "run-native": "deno run -A --unstable-sloppy-imports ./native/index.ts"
+    "bundle": "deno run -A ./tools/scripts/bundle-solid.ts \"src/app.tsx\" \"dist/out.js\"",
+    "run-native": "deno run -A --unstable-sloppy-imports ./main.ts"
   },
   "license": "Apache-2.0",
   "importMap": "./import_map.json",

@@ -5,9 +5,14 @@ import { useColorScheme } from "./hooks/use-color-scheme.ts";
 interface SnippetProps {
   component(): JSX.Element;
 }
-const url = `file://${Deno.cwd()}/snippets/dist/index.html`;
 
 const ContentView: Component<Partial<SnippetProps>> = (props) => {
+  const url = NSBundle.mainBundle?.objectForInfoDictionaryKey(
+      "NativeScriptApplication",
+    )
+    ? `file://${NSBundle.mainBundle.resourcePath}/snippets/index.html`
+    : import.meta.resolve("../snippets/dist/index.html");
+
   let webRef: WebView;
 
   function updateSnippetPreview(component: any) {
