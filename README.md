@@ -57,22 +57,20 @@ lightweight DOM implementation.
 
 ## Foundation
 
-The foundation of Solid for macOS takes the integration of web and native
-concepts to the next level, making the process of building native macOS apps
-intuitive and familiar for web developers. By combining the best ideas from both
-worlds, it ensures that developers can leverage their existing web development
-skills to create high-quality native apps from day one.
+Foundation integrates the concepts of web and native, making the process of
+building native macOS apps intuitive and familiar for web developers. By
+combining the best ideas from both worlds, it ensures that developers can
+leverage their existing web development skills to create high-quality apps from
+day one.
 
 One of foundation's primary responsibilities is to handle various aspects of the
 application, including styling, layout, rendering, windowing, menubars, and the
-overall application lifecycle. This comprehensive approach ensures that all
-essential elements of a macOS app are seamlessly managed, providing a cohesive
-development experience.
+overall application lifecycle. It ensures that all essential elements of a macOS
+app are seamlessly managed, providing a cohesive development experience.
 
-To achieve this, foundation enables each AppKit UI component to be a DOM element
-and registers it with the global document object. This enablement allows
-developers to interact with native components using familiar web development
-paradigms.
+To achieve this, foundation makes each AppKit UI component to be a DOM element
+and registers it with the global document object, allowing developers to
+interact with native components using familiar web development paradigms.
 
 For layout management, foundation utilizes the flexbox layout engine provided by
 [Meta's Yoga](https://github.com/facebook/yoga), enabling developers to apply
@@ -80,9 +78,9 @@ almost all flexbox properties to DOM elements. This approach simplifies the
 process of creating complex and responsive layouts.
 
 The most basic UI element provided by foundation is the view, which internally
-creates an [NSView](https://developer.apple.com/documentation/appkit/nsview).
-This foundational element serves as the building block for more complex
-components. Foundation already includes a comprehensive set of basic AppKit
+creates an [NSView](https://developer.apple.com/documentation/appkit/nsview)
+which serves as a building block for more complex components and user
+interfaces. Foundation already includes a comprehensive set of basic AppKit
 components, and ongoing efforts are being made to expand this library further,
 ensuring that developers have access to all AppKit has to offer.
 
@@ -101,3 +99,13 @@ is just 5.5 MB in size. That is possible with
 Meta. Credit to [Tzvetan Mikov](https://github.com/tmikov) for his continued
 excellence on the engine. Hermes provides optimal performance while having
 minimal footprint.
+
+## Contributors
+
+- [Ammar Ahmed](https://github.com/ammarahm-ed)
+- [Nathan Walker](https://github.com/NathanWalker)
+- [Dj](https://github.com/DjDeveloperr)
+
+## License
+
+Apache-2.0
