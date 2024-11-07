@@ -42,7 +42,7 @@ To achieve this, foundation enables each AppKit UI component to be a DOM element
 
 For layout management, foundation utilizes the flexbox layout engine provided by [Meta's Yoga](https://github.com/facebook/yoga), enabling developers to apply almost all flexbox properties to DOM elements. This approach simplifies the process of creating complex and responsive layouts.
 
-The most basic UI element provided by foundation is the view, which internally creates an [NSView](https://developer.apple.com/documentation/appkit/nsview). This foundational element serves as the building block for more complex components. Foundation already includes a comprehensive set of basic AppKit components, and ongoing efforts are being made to expand this library further, ensuring that developers have access to a all AppKit has to offer.
+The most basic UI element provided by foundation is the view, which internally creates an [NSView](https://developer.apple.com/documentation/appkit/nsview). This foundational element serves as the building block for more complex components. Foundation already includes a comprehensive set of basic AppKit components, and ongoing efforts are being made to expand this library further, ensuring that developers have access to all AppKit has to offer.
 
 ## Solid Renderer
 
