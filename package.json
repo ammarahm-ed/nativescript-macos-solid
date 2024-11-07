@@ -1,0 +1,22 @@
+{
+  "name": "nativescript-macos-solid",
+  "version": "0.1.0",
+  "contributors": [
+    {
+      "name": "Ammar Ahmed",
+      "url": "https://github.com/ammarahm-ed",
+      "email": "ammarahmed6506@gmail.com"
+    },
+    {
+      "name": "Dj",
+      "url": "https://github.com/DjDeveloperr",
+      "email": "hey@djdev.me"
+    },
+    {
+      "name": "Nathan Walker",
+      "url": "https://github.com/NathanWalker",
+      "email": "nwalker@nstudio.io"
+    }
+  ],
+  "license": "Apache-2.0"
+}

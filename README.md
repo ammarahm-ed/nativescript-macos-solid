@@ -103,8 +103,8 @@ minimal footprint.
 ## Contributors
 
 - [Ammar Ahmed](https://github.com/ammarahm-ed)
-- [Nathan Walker](https://github.com/NathanWalker)
 - [Dj](https://github.com/DjDeveloperr)
+- [Nathan Walker](https://github.com/NathanWalker)
 
 ## License
 
