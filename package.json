@@ -1,5 +1,6 @@
 {
   "name": "nativescript-macos-solid",
+  "description": "Dive into the world of macOS Native app development with the speed and elegance of Solid.",
   "version": "0.1.0",
   "contributors": [
     {
