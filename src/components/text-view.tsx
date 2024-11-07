@@ -10,7 +10,7 @@ function TextView() {
         height: "100%",
         margin: 20,
         padding: 20,
-        backgroundColor: colorScheme == 'dark' ? '#000000' : "#efefef",
+        backgroundColor: colorScheme == "dark" ? "#000000" : "#efefef",
         borderRadius: 10,
       }}
     >
