@@ -40,7 +40,7 @@ working together behind the scenes to make Solid for macOS possible.
 ### Runtime
 
 The runtime is a critical component that bridges macOS APIs, C/Objective-C based
-to a JavaScript environment. Written in Objective-C++, it leverages
+to JavaScript. Written in Objective-C++, it leverages
 [Node-API](https://nodejs.org/api/n-api.html#node-api) to facilitate seamless
 communication with any JavaScript engine that implements engine-agnostic
 Node-API layer. This open-source runtime, available at
