@@ -14,7 +14,7 @@ export class WebviewNavigationEvent extends Event {
     type: string,
     url: string | URL,
     navigationType: WebViewNavigationType,
-    eventDict?: EventInit,
+    eventDict?: EventInit
   ) {
     super(type, eventDict);
     this.url = url;
@@ -26,7 +26,7 @@ export class LoadStartedEvent extends WebviewNavigationEvent {
   constructor(
     url: string | URL,
     navigationType: WebViewNavigationType,
-    eventDict?: EventInit,
+    eventDict?: EventInit
   ) {
     super("loadStarted", url, navigationType, eventDict);
   }
@@ -38,6 +38,29 @@ export class LoadFinishedEvent extends WebviewNavigationEvent {
   }
 }
 
+export class WebViewMessageEvent extends Event {
+  constructor(public data: any, eventDict?: EventInit) {
+    super("message", eventDict);
+  }
+}
+
+const NSWebViewBridge = `
+(() => {
+  window.nsWebViewBridge = {
+    postMessage: function(data) {
+     window.webkit.messageHandlers.nsNativeBridge.postMessage(JSON.stringify(data));
+    },
+    addEventListener: function(type, listener) {
+      window.addEventListener(type, listener);
+      return listener;
+    },
+    removeEventListener: function(type, listener) {
+      window.removeEventListener(type, listener);
+    }
+  }
+ })();
+`;
+
 type WebViewNavigationType =
   | "linkClicked"
   | "formSubmitted"
@@ -48,9 +71,15 @@ type WebViewNavigationType =
   | undefined;
 
 @NativeClass
-class WebViewDelegate extends NSObject
-  implements WKUIDelegate, WKNavigationDelegate {
-  static ObjCProtocols = [WKUIDelegate, WKNavigationDelegate];
+class WebViewDelegate
+  extends NSObject
+  implements WKUIDelegate, WKNavigationDelegate, WKScriptMessageHandler
+{
+  static ObjCProtocols = [
+    WKUIDelegate,
+    WKNavigationDelegate,
+    WKScriptMessageHandler,
+  ];
 
   declare _owner: WeakRef<WebView>;
   static initWithOwner(owner: WeakRef<WebView>) {
@@ -63,7 +92,7 @@ class WebViewDelegate extends NSObject
     webView: WKWebView,
     _configuration: WKWebViewConfiguration,
     navigationAction: WKNavigationAction,
-    _windowFeatures: WKWindowFeatures,
+    _windowFeatures: WKWindowFeatures
   ): WKWebView {
     if (
       navigationAction &&
@@ -79,9 +108,7 @@ class WebViewDelegate extends NSObject
   webViewDecidePolicyForNavigationActionDecisionHandler(
     _webView: WKWebView,
     navigationAction: WKNavigationAction,
-    decisionHandler: (
-      p1: interop.Enum<typeof WKNavigationActionPolicy>,
-    ) => void,
+    decisionHandler: (p1: interop.Enum<typeof WKNavigationActionPolicy>) => void
   ): void {
     const owner = this._owner?.deref();
     if (owner && navigationAction.request.URL) {
@@ -111,8 +138,8 @@ class WebViewDelegate extends NSObject
         owner.dispatchEvent(
           new LoadStartedEvent(
             navigationAction.request.URL.absoluteString,
-            navType,
-          ),
+            navType
+          )
         );
       }
     }
@@ -120,7 +147,7 @@ class WebViewDelegate extends NSObject
 
   webViewDidFinishNavigation(
     webView: WKWebView,
-    _navigation: WKNavigation,
+    _navigation: WKNavigation
   ): void {
     const owner = this._owner?.deref();
     if (owner) {
@@ -132,10 +159,50 @@ class WebViewDelegate extends NSObject
       }
     }
   }
+
+  userContentControllerDidReceiveScriptMessage(
+    userContentController: WKUserContentController,
+    message: WKScriptMessage
+  ): void {
+    if (message.name === "nsNativeBridge") {
+      const owner = this._owner?.deref();
+      if (owner) {
+        owner.dispatchEvent(new WebViewMessageEvent(JSON.parse(message.body)));
+      }
+    }
+  }
+
+  attachMessageHandler() {
+    const owner = this._owner?.deref();
+    if (owner) {
+      owner.postMessageScript =
+        WKUserScript.alloc().initWithSourceInjectionTimeForMainFrameOnly(
+          NSWebViewBridge,
+          WKUserScriptInjectionTime.Start,
+          true
+        );
+      owner.nativeView?.configuration.userContentController.addUserScript(
+        owner.postMessageScript
+      );
+      owner.nativeView?.configuration.userContentController.addScriptMessageHandlerName(
+        this,
+        "nsNativeBridge"
+      );
+    }
+  }
+
+  detachMessageHandler() {
+    const owner = this._owner?.deref();
+    if (owner) {
+      owner.nativeView?.configuration.userContentController.removeScriptMessageHandlerForName(
+        "nsNativeBridge"
+      );
+    }
+  }
 }
 
 @view({
-  name: "HTMLWebviewElement",
+  name: "HTMLWebViewElement",
   tagName: "webview",
 })
 export class WebView extends View {
@@ -145,23 +212,34 @@ export class WebView extends View {
 
   delegate!: WebViewDelegate;
 
+  postMessageScript?: WKUserScript;
+
   override nativeView?: WKWebView = undefined;
 
   public override initNativeView(): WKWebView | undefined {
     const config = WKWebViewConfiguration.new();
+    config.userContentController = WKUserContentController.new();
     this.nativeView = WKWebView.alloc().initWithFrameConfiguration(
       CGRectZero,
-      config,
+      config
     );
+
     this.nativeView.setValueForKey(false, "drawsBackground");
     this.delegate = WebViewDelegate.initWithOwner(new WeakRef(this));
     this.nativeView.UIDelegate = this.delegate;
     this.nativeView.navigationDelegate = this.delegate;
     this.nativeView.configuration.preferences.setValueForKey(
       true,
-      "allowFileAccessFromFileURLs",
+      "allowFileAccessFromFileURLs"
     );
     return this.nativeView;
+  }
+
+  public prepareNativeView(_nativeView: any): void {
+    //@ts-expect-error
+    if (this.getAttribute("messagingEnabled") !== false) {
+      this.delegate.attachMessageHandler();
+    }
   }
 
   override applyLayout(parentLayout?: YogaNodeLayout): void {
@@ -180,7 +258,7 @@ export class WebView extends View {
       } else {
         this.nativeView.loadFileURLAllowingReadAccessToURL(
           nsUrl,
-          nsUrl.URLByDeletingLastPathComponent,
+          nsUrl.URLByDeletingLastPathComponent
         );
       }
     }
@@ -193,7 +271,15 @@ export class WebView extends View {
         if (error) {
           console.error(error);
         }
-      },
+      }
+    );
+  }
+
+  postMessage(data: any) {
+    this.executeJavaScript(
+      `window.dispatchEvent(new MessageEvent('message', { data: ${JSON.stringify(
+        data
+      )} }))`
     );
   }
 
@@ -212,4 +298,26 @@ export class WebView extends View {
     },
   })
   declare debug: boolean;
+
+  public disposeNativeView(): void {
+    if (this.getAttribute("messagingEnabled")) {
+      this.delegate.detachMessageHandler();
+    }
+
+    this.nativeView = undefined;
+  }
+
+  propertyChangedCallback(
+    _property: string,
+    _value: any,
+    _oldValue: any
+  ): void {
+    if (_property === "messagingEnabled") {
+      if (_value) {
+        this.delegate?.attachMessageHandler();
+      } else {
+        this.delegate?.detachMessageHandler();
+      }
+    }
+  }
 }
