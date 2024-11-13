@@ -1,5 +1,4 @@
 import { Component, createEffect } from "npm:solid-js";
-import type { WebView } from "../native/core/views/webview/webview.ts";
 import { useColorScheme } from "./hooks/use-color-scheme.ts";
 
 interface SnippetProps {
@@ -8,7 +7,7 @@ interface SnippetProps {
 const url = `file://${Deno.cwd()}/snippets/dist/index.html`;
 
 const ContentView: Component<Partial<SnippetProps>> = (props) => {
-  let webRef: WebView;
+  let webRef: HTMLWebViewElement;
 
   function updateSnippetPreview(component: any) {
     const colorScheme = useColorScheme();
@@ -30,6 +29,7 @@ const ContentView: Component<Partial<SnippetProps>> = (props) => {
     }
   });
 
+
   return (
     <view style={{ width: "100%", height: "100%" }}>
       {(props.component as any)?.code
@@ -43,11 +43,14 @@ const ContentView: Component<Partial<SnippetProps>> = (props) => {
             }}
           >
             <webview
-              ref={(el: WebView) => (webRef = el)}
+              ref={(el: HTMLWebViewElement) => (webRef = el)}
               src={url}
               debug={true}
               onLoadStarted={(e) => {
                 console.log(e.url);
+              }}
+              onMessage={event => {
+                console.log(event.data);
               }}
               onLoadFinished={() => {
                 updateSnippetPreview(props.component);

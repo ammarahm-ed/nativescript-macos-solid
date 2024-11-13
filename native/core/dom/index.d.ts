@@ -8,6 +8,7 @@ import type { Window } from "../views/window/window.ts";
 import type { Popover } from "../views/popover/popover.ts";
 import type { Switch } from "../views/switch/switch.ts";
 import type { DatePicker } from "../views/date-picker/date-picker.ts";
+import type { WebView } from "../views/webview/webview.ts";
 
 declare global {
   // undom
@@ -46,6 +47,8 @@ declare global {
   };
 
   interface HTMLWindowElement extends Window {}
+
+  interface HTMLWebViewElement extends WebView {}
 
   var HTMLWindowElement: {
     new (): HTMLWindowElement;
@@ -141,6 +144,7 @@ declare global {
 
   function registerElement(tagName: string, element: any): void;
   function createElement(tagName: string): Node;
+  
 
   interface Node {
     connectedCallback?(): void;

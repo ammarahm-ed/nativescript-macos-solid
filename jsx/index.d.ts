@@ -31,6 +31,7 @@ import type { ToolbarItemClickEvent } from "../native/core/views/toolbar/toolbar
 import type {
   LoadFinishedEvent,
   LoadStartedEvent,
+  WebViewMessageEvent,
 } from "../native/core/views/webview/webview.ts";
 import { WindowResizeEvent } from "../native/core/views/window/native-window.ts";
 import type { OutlineViewItemSelectedEvent } from "../native/core/views/outline/outline.ts";
@@ -152,9 +153,12 @@ interface WindowAttributes extends ViewAttributes {
 }
 
 interface WebviewAttributes extends ViewAttributes {
+  ref?: HTMLWebViewElement | ((e: HTMLWebViewElement) => void);
   src?: string | URL;
+  messagingEnabled?: boolean;
   onLoadStarted?: (event: LoadStartedEvent) => void;
   onLoadFinished?: (event: LoadFinishedEvent) => void;
+  onMessage?: (event: WebViewMessageEvent) => void;
 }
 
 interface ProgressAttributes extends ViewAttributes {
@@ -300,8 +304,7 @@ interface JSXIntrinsicElements {
   radiobutton: ButtonAttributes;
   "toolbar-item": ToolbarItemAttributes;
   toolbar: ToolbarAttributes;
-  "toolbar-sidebar-tracking-separator":
-    ToolbarSidebarTrackingSeparatorAttributes;
+  "toolbar-sidebar-tracking-separator": ToolbarSidebarTrackingSeparatorAttributes;
   "toolbar-toggle-sidebar": ToolbarToggleSidebarAttributes;
   "toolbar-flexible-space": ToolbarFlexibleSpaceAttributes;
   "toolbar-group": ToolbarGroupAttributes;
@@ -328,22 +331,22 @@ export namespace JSX {
   }
 
   export function mapElementTag<K extends keyof IntrinsicElements>(
-    tag: K,
+    tag: K
   ): IntrinsicElements[K];
 
   export function createElement<
     Element extends IntrinsicElements,
-    Key extends keyof IntrinsicElements,
+    Key extends keyof IntrinsicElements
   >(element: Key | undefined | null, attrs: Element[Key]): Element[Key];
 
   export function createElement<
     Element extends IntrinsicElements,
     Key extends keyof IntrinsicElements,
-    T,
+    T
   >(
     element: Key | undefined | null,
     attrsEnhancers: T,
-    attrs: Element[Key] & T,
+    attrs: Element[Key] & T
   ): Element[Key];
 
   export type Element = SolidJSX.Element;
@@ -386,22 +389,22 @@ declare global {
     }
 
     export function mapElementTag<K extends keyof IntrinsicElements>(
-      tag: K,
+      tag: K
     ): IntrinsicElements[K];
 
     export function createElement<
       Element extends IntrinsicElements,
-      Key extends keyof IntrinsicElements,
+      Key extends keyof IntrinsicElements
     >(element: Key | undefined | null, attrs: Element[Key]): Element[Key];
 
     export function createElement<
       Element extends IntrinsicElements,
       Key extends keyof IntrinsicElements,
-      T,
+      T
     >(
       element: Key | undefined | null,
       attrsEnhancers: T,
-      attrs: Element[Key] & T,
+      attrs: Element[Key] & T
     ): Element[Key];
 
     export type Element = SolidJSX.Element;
