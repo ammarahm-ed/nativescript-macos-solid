@@ -6,7 +6,8 @@ import { native, type NativePropertyConfig } from "../decorators/native.ts";
 import { overrides } from "../decorators/overrides.ts";
 
 export class ViewBase extends HTMLElement {
-  private _nativePropertyDefaults: Map<string, any> = new Map();
+  static _nativeProperties: Set<string> = new Set();
+  static _nativePropertyDefaults: Map<string, any> = new Map();
   static register() {
     //@ts-ignore
     if (this._register) {
@@ -387,7 +388,7 @@ export class ViewBase extends HTMLElement {
     qualifiedName: string,
     value: string
   ): void {
-    if (qualifiedName in this) {
+    if ((this.constructor as any)._nativeProperties.has(qualifiedName)) {
       //@ts-ignore
       this[qualifiedName] = value;
     } else {
@@ -398,7 +399,7 @@ export class ViewBase extends HTMLElement {
   }
 
   getAttributeNS(_namespace: string | null, qualifiedName: string): any {
-    if (qualifiedName in this) {
+    if ((this.constructor as any)._nativeProperties.has(qualifiedName)) {
       //@ts-ignore
       return this[qualifiedName];
     } else {
@@ -408,7 +409,7 @@ export class ViewBase extends HTMLElement {
 
   setNativeProperties() {
     if (this.nativeView) {
-      for (const [k, v] of this._nativePropertyDefaults) {
+      for (const [k, v] of (this.constructor as any)._nativePropertyDefaults) {
         if (!this.pendingSetNative.has(k)) {
           this.setAttribute(k, v);
         }

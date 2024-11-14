@@ -4,6 +4,7 @@ import { YogaNodeLayout } from "../../layout/index.ts";
 import { native } from "../decorators/native.ts";
 import { view } from "../decorators/view.ts";
 import { View } from "../view/view.ts";
+import { property } from "../decorators/property.ts";
 
 objc.import("WebKit");
 
@@ -236,8 +237,7 @@ export class WebView extends View {
   }
 
   public prepareNativeView(_nativeView: any): void {
-    //@ts-expect-error
-    if (this.getAttribute("messagingEnabled") !== false) {
+    if (this.messagingEnabled !== false) {
       this.delegate.attachMessageHandler();
     }
   }
@@ -300,24 +300,21 @@ export class WebView extends View {
   declare debug: boolean;
 
   public disposeNativeView(): void {
-    if (this.getAttribute("messagingEnabled")) {
+    if (this.messagingEnabled) {
       this.delegate.detachMessageHandler();
     }
 
     this.nativeView = undefined;
   }
 
-  propertyChangedCallback(
-    _property: string,
-    _value: any,
-    _oldValue: any
-  ): void {
-    if (_property === "messagingEnabled") {
-      if (_value) {
+  @property({
+    onChange(newValue: any, oldValue: any) {
+      if (newValue) {
         this.delegate?.attachMessageHandler();
       } else {
         this.delegate?.detachMessageHandler();
       }
-    }
-  }
+    },
+  })
+  declare messagingEnabled: boolean;
 }
