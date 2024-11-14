@@ -1,6 +1,6 @@
 import { native } from "../decorators/native.ts";
 import { view } from "../decorators/view.ts";
-import { ViewBase } from "../view/view-base.ts";
+import { LayoutEvent, ViewBase } from "../view/view-base.ts";
 import type { ContentList } from "./content-list.ts";
 import type { SideBar } from "./sidebar.ts";
 import { SplitViewController } from "./split-view-controller.ts";
@@ -52,7 +52,7 @@ export default class SplitView extends ViewBase {
       return node;
     } else {
       throw new Error(
-        `Cannot add ${node.nodeName} as child to SplitView.SplitView can only have side-bar and content-list as children.`,
+        `Cannot add ${node.nodeName} as child to SplitView.SplitView can only have side-bar and content-list as children.`
       );
     }
   }
@@ -64,6 +64,15 @@ export default class SplitView extends ViewBase {
       this.parentNode?.nativeView
     ) {
       this.viewController.view.frame = this.parentNode.nativeView.frame;
+      this.dispatchEvent(
+        new LayoutEvent({
+          left: this.viewController.view.frame.origin.x,
+          top: this.viewController.view.frame.origin.y,
+          width: this.viewController.view.frame.size.width,
+          height: this.viewController.view.frame.size.height,
+        })
+      );
+
       if (!this.isPresented) {
         this.isPresented = true;
         this.presentViewController();
@@ -88,7 +97,7 @@ export default class SplitView extends ViewBase {
       parentViewController?.addChildViewController(this.viewController);
       parentViewController?.presentViewControllerAnimator(
         this.viewController,
-        this.viewController,
+        this.viewController
       );
     }
   }

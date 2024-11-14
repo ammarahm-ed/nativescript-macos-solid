@@ -8,6 +8,7 @@ import { type TextStyle, ViewStyle } from "../native/core/style/index.ts";
 import type { ButtonClickEvent } from "../native/core/views/button/native-button.ts";
 import type { ColorChosenEvent } from "../native/core/views/coloropenbutton/native-coloropenbutton.ts";
 import type { ComboBoxChangeEvent } from "../native/core/views/combobox/native-combobox.ts";
+import type { DatePickerChangeEvent } from "../native/core/views/date-picker/date-picker.ts";
 import type { FileChosenEvent } from "../native/core/views/fileopenbutton/native-fileopenbutton.ts";
 import type { FileSaveEvent } from "../native/core/views/filesavebutton/native-filesavebutton.ts";
 import type {
@@ -16,8 +17,10 @@ import type {
   ImageStretch,
 } from "../native/core/views/image/image.ts";
 import type { MenuItemClickEvent } from "../native/core/views/menu/menu-item.ts";
+import type { OutlineViewItemSelectedEvent } from "../native/core/views/outline/outline.ts";
 import type { ScrollChangeEvent } from "../native/core/views/scroll-view/scroll-view.ts";
 import type { SliderChangeEvent } from "../native/core/views/slider/slider.ts";
+import type { SwitchClickEvent } from "../native/core/views/switch/switch.ts";
 import type { TableCellSelectedEvent } from "../native/core/views/table/table-cell.ts";
 import type {
   TextChangeEvent,
@@ -34,18 +37,24 @@ import type {
   WebViewMessageEvent,
 } from "../native/core/views/webview/webview.ts";
 import { WindowResizeEvent } from "../native/core/views/window/native-window.ts";
-import type { OutlineViewItemSelectedEvent } from "../native/core/views/outline/outline.ts";
-import type { SwitchClickEvent } from "../native/core/views/switch/switch.ts";
-import type { DatePickerChangeEvent } from "../native/core/views/date-picker/date-picker.ts";
+import type {
+  LayoutEvent,
+  LoadedEvent,
+} from "../native/core/views/view/view-base.ts";
 
-interface ViewAttributes {
+interface ViewBaseAttributes {
   ref?: unknown | ((e: unknown) => void);
-  style?: ViewStyle;
+  onLoaded?: (event: LoadedEvent) => void;
+  onLayout?: (event: LayoutEvent) => void;
   [name: string]: any;
+}
+
+interface ViewAttributes extends ViewBaseAttributes {
+  style?: ViewStyle;
   enableSafeAreaPaddings?: boolean;
 }
 
-interface TextAttributes {
+interface TextAttributes extends ViewBaseAttributes {
   ref?: unknown | ((e: unknown) => void);
   style?: TextStyle;
   [name: string]: any;
@@ -129,7 +138,7 @@ interface SplitViewAttributes extends ViewAttributes {
   vertical?: boolean;
 }
 
-interface SplitViewItemAttributes {
+interface SplitViewItemAttributes extends ViewBaseAttributes {
   ref?: unknown | ((e: unknown) => void);
   style?: ViewStyle;
   minWidth?: number;

@@ -4,6 +4,26 @@ import { Layout, YogaNode, YogaNodeLayout } from "../../layout/index.ts";
 import { CombinedStyle, Style } from "../../style/index.ts";
 import { native, type NativePropertyConfig } from "../decorators/native.ts";
 import { overrides } from "../decorators/overrides.ts";
+import { Event } from "../../dom/dom-utils.ts";
+
+export class LoadedEvent extends Event {
+  constructor(eventInitDict?: EventInit) {
+    super("loaded", eventInitDict);
+  }
+}
+
+export type Layout = {
+  left: number;
+  top: number;
+  width: number;
+  height: number;
+};
+
+export class LayoutEvent extends Event {
+  constructor(public layout: Layout, eventInitDict?: EventInit) {
+    super("layout", eventInitDict);
+  }
+}
 
 export class ViewBase extends HTMLElement {
   static _nativeProperties: Set<string> = new Set();
@@ -95,7 +115,7 @@ export class ViewBase extends HTMLElement {
 
       const isAbsolute = this.style.position === "absolute";
 
-      (this.nativeView as NSView).frame = {
+      const frame = {
         origin: {
           x: layout.left,
           // Reverse the origin so that view's are rendered from
@@ -110,6 +130,16 @@ export class ViewBase extends HTMLElement {
           height,
         },
       };
+      (this.nativeView as NSView).frame = frame;
+
+      this.dispatchEvent(
+        new LayoutEvent({
+          left: frame.origin.x,
+          top: frame.origin.y,
+          width: width,
+          height: height,
+        })
+      );
 
       this.applyLayoutToChildern(layout);
     }
@@ -337,6 +367,8 @@ export class ViewBase extends HTMLElement {
     }
 
     this.prepareNativeView(this.nativeView);
+
+    this.dispatchEvent(new LoadedEvent());
 
     if (pausedUpdates && this._rootView?.pauseLayoutUpdates) {
       this._rootView.pauseLayoutUpdates = false;
