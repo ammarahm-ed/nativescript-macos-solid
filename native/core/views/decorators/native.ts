@@ -47,10 +47,12 @@ export type NativePropertyConfig<T = any> = {
 export function native(config: NativePropertyConfig) {
   return function (_target: any, property: string) {
     if (config.defaultValue !== undefined) {
-      _target._nativePropertyDefaults.set(property, config.defaultValue);
+      _target.constructor._nativePropertyDefaults.set(property, config.defaultValue);
     }
+    _target.constructor._nativeProperties.add(property);
     Object.defineProperty(_target, property, {
       get() {
+
         if (config.getNative && config.converter?.fromNative) {
           return config.converter.fromNative(property, config.getNative(this));
         }
