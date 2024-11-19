@@ -45,21 +45,32 @@ export class WebViewMessageEvent extends Event {
   }
 }
 
-const NSWebViewBridge = `
-(() => {
+const NSWebViewBridge = `(() => {
+  const listenerMap = new Map();
   window.nsWebViewBridge = {
-    postMessage: function(data) {
-     window.webkit.messageHandlers.nsNativeBridge.postMessage(JSON.stringify(data));
+    emit: function(type, data) {
+      window.webkit.messageHandlers.nsNativeBridge.postMessage(JSON.stringify({
+        type: type,
+        data: data
+      }));
+      window.dispatchEvent(new MessageEvent(type, { data: data }));
     },
-    addEventListener: function(type, listener) {
-      window.addEventListener(type, listener);
-      return listener;
+    on: function(type, listener) {
+      const customListener = (event) => {
+        listener(event.data);
+      };
+      listenerMap.set(listener, customListener);
+      window.addEventListener(type, customListener);
     },
-    removeEventListener: function(type, listener) {
-      window.removeEventListener(type, listener);
+    off: function(type, listener) {
+      const customListener = listenerMap.get(listener);
+      if (customListener) {
+        window.removeEventListener(type, customListener);
+        listenerMap.delete(listener);
+      }
     }
   }
- })();
+})();
 `;
 
 type WebViewNavigationType =
@@ -272,6 +283,14 @@ export class WebView extends View {
           console.error(error);
         }
       }
+    );
+  }
+
+  sendEvent(type: string, data: any) {
+    this.executeJavaScript(
+      `window.dispatchEvent(new MessageEvent("${type}", { data: ${JSON.stringify(
+        data
+      )} }))`
     );
   }
 
