@@ -92,7 +92,7 @@ function RunLoop() {
   setTimeout(loop, 0);
 }
 
-export default class Application {
+export class Application {
   static delegate: AppDelegate;
   static application: NSApplication;
   static rootView: HTMLViewElement;
