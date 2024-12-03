@@ -126,7 +126,14 @@ export default class Application {
     Application.createMenu();
     NSApp.delegate = Application.delegate;
     NSApp.setActivationPolicy(NSApplicationActivationPolicy.Regular);
-    NSApp.run();
+
+    if (typeof App === "undefined") {
+      NSApp.run();
+    } else {
+      console.log("App.run");
+      App.run();
+      console.log("App.run end");
+    }
   }
 
   static createMenu() {
