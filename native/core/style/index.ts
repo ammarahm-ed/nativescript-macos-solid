@@ -8,6 +8,7 @@ import {
   ColorStyle,
   FontSizeStyle,
   FontStyleStyle,
+  FontWeightStyle,
   OpacityStyle,
   TextAlignStyle,
   ZIndexStyle,
@@ -122,6 +123,7 @@ export interface TextStyle extends ViewStyle {
   fontFamily?: string;
   fontStyle?: string;
   textAlign?: "center" | "left" | "right" | "justified";
+  fontWeight?: "100" | "200" | "300" | "400" | "500" | "600" | "700" | "800" | "ultralight" | "light" | "normal" | "bold" | "medium" | "semibold" | "extrabold" | "black";
 }
 
 export interface CombinedStyle extends ViewStyle, TextStyle {}
@@ -381,4 +383,7 @@ export class Style extends Map {
 
   @style(TextAlignStyle)
   declare textAlign: TextStyle["textAlign"];
+
+  @style(FontWeightStyle)
+  declare fontWeight: TextStyle["fontWeight"]
 }

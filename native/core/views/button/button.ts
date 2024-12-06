@@ -23,7 +23,7 @@ export type ButtonEvents = "click";
   tagName: "button",
 })
 export class Button extends TextBase {
-  override supportedNodeTypes = [Node.TEXT_NODE];
+
   declare nativeView?: NativeButton;
 
   override get isLeaf(): boolean {
@@ -38,7 +38,6 @@ export class Button extends TextBase {
   public override prepareNativeView(nativeView: NativeButton): void {
     nativeView.target = this.nativeView;
     nativeView.action = "clicked";
-    nativeView.bezelStyle = NSBezelStyle.Automatic;
   }
 
   override updateTextContent() {
@@ -69,11 +68,10 @@ export class Button extends TextBase {
   ) {
     if (this.nativeView) {
       const nativeValue = !value ? undefined : new Color(value).toNSColor();
-      this.nativeView.bezelColor = nativeValue || NSColor.lightGrayColor;
-
+      this.nativeView.bezelColor = nativeValue!;
       if (
         this.nativeView.bezelStyle === NSBezelStyle.TexturedSquare ||
-        this.nativeView.bezelStyle === NSBezelStyle.Rounded
+        this.nativeView.bezelStyle === NSBezelStyle.TexturedRounded
       ) {
         this.nativeView.wantsLayer = true;
         this.nativeView.layer.backgroundColor = nativeValue?.CGColor as any;
@@ -102,6 +100,35 @@ export class Button extends TextBase {
   @native({
     setNative(view: Button, _key, value) {
       if (view.nativeView) {
+        let img: NSImage;
+        if (typeof value === "string" && value?.indexOf("<svg") > -1) {
+          const svgData =
+            NSString.stringWithCString(value).dataUsingEncoding(
+              NSUTF8StringEncoding
+            );
+          img = NSImage.alloc().initWithData(svgData);
+        } else if (typeof value === "string" && value?.indexOf("http") > -1) {
+          img = NSImage.alloc().initWithContentsOfURL(
+            NSURL.URLWithString(value)
+          );
+        } else {
+          img = NSImage.alloc().initWithContentsOfFile(
+            (value instanceof URL ? value.pathname : value).replace(
+              "file://",
+              ""
+            )
+          );
+        }
+        view.nativeView.image = img;
+        view.nativeView.imageScaling = NSImageScaling.ImageScaleProportionallyDown;
+      }
+    },
+  })
+  declare image: string;
+
+  @native({
+    setNative(view: Button, _key, value) {
+      if (view.nativeView) {
         //@ts-expect-error can be null;
         view.nativeView.image = !value
           ? null
@@ -110,6 +137,7 @@ export class Button extends TextBase {
             null,
           );
       }
+      
     },
     shouldLayout: true,
   })

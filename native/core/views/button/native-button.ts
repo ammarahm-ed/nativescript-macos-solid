@@ -1,5 +1,6 @@
 import "@nativescript/macos-node-api";
 import { Event } from "../../dom/dom-utils.ts";
+import { MouseDownEvent } from "../view/native-view.ts";
 import type { Button } from "./button.ts";
 
 export class ButtonClickEvent extends Event {
@@ -32,6 +33,19 @@ export class NativeButton extends NSButton {
     }
   }
 
+  mouseDown(event: NSEvent): void {
+    this._owner?.deref()?.dispatchEvent(new MouseDownEvent(event));
+   this.clicked(this);  
+  }
+
+  otherMouseDown(event: NSEvent): void {
+    this._owner?.deref()?.dispatchEvent(new MouseDownEvent(event));
+  }
+
+  rightMouseDown(event: NSEvent): void {
+    this._owner?.deref()?.dispatchEvent(new MouseDownEvent(event));
+  }
+
   setTitle(title: string) {
     this._title = title;
     this.updateButtonTitleStyle();
@@ -52,7 +66,7 @@ export class NativeButton extends NSButton {
       {
         [NSForegroundColorAttributeName]: this._color,
       },
-      { location: 0, length: this._title?.length || 0 },
+      { location: 0, length: this._title?.length || 0 }
     );
 
     this.attributedTitle = this._attributedTitle;

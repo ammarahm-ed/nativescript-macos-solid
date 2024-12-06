@@ -31,16 +31,17 @@ import type {
   ToolbarGroupSelectionMode,
 } from "../native/core/views/toolbar/toolbar-group.ts";
 import type { ToolbarItemClickEvent } from "../native/core/views/toolbar/toolbar-item.ts";
+import type { MouseDownEvent, MouseDraggedEvent, MouseEnterEvent, MouseLeaveEvent, MouseMoveEvent, MouseUpEvent } from "../native/core/views/view/native-view.ts";
+import type {
+  LayoutEvent,
+  LoadedEvent,
+} from "../native/core/views/view/view-base.ts";
 import type {
   LoadFinishedEvent,
   LoadStartedEvent,
   WebViewMessageEvent,
 } from "../native/core/views/webview/webview.ts";
 import { WindowResizeEvent } from "../native/core/views/window/native-window.ts";
-import type {
-  LayoutEvent,
-  LoadedEvent,
-} from "../native/core/views/view/view-base.ts";
 
 interface ViewBaseAttributes {
   ref?: unknown | ((e: unknown) => void);
@@ -52,6 +53,12 @@ interface ViewBaseAttributes {
 interface ViewAttributes extends ViewBaseAttributes {
   style?: ViewStyle;
   enableSafeAreaPaddings?: boolean;
+  onMouseDown?: (event: MouseDownEvent) => void;
+  onMouseUp?: (event: MouseUpEvent) => void;
+  onMouseEnter?: (event: MouseEnterEvent) => void;
+  onMousLeave?: (event: MouseLeaveEvent) => void;
+  onMouseDragged?: (event: MouseDraggedEvent) => void;
+  onMouseMove?: (event: MouseMoveEvent) => void;
 }
 
 interface TextAttributes extends ViewBaseAttributes {
@@ -74,7 +81,9 @@ interface ButtonAttributes extends TextAttributes {
    * SF Symbol name
    */
   icon?: string;
+  image?: string;
   onClick?: (event: ButtonClickEvent) => void;
+  onMouseDown?: (event: MouseDownEvent) => void;
 }
 
 interface ColorOpenButtonAttributes extends ButtonAttributes {
@@ -247,6 +256,7 @@ interface CheckboxAttributes extends ButtonAttributes {
 }
 
 interface MenuAttributes extends ViewAttributes {
+  ref: HTMLNSMenuElement | ((e: HTMLNSMenuElement) => void);
   title?: string;
   attachToMainMenu?: boolean;
 }
