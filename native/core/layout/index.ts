@@ -906,6 +906,9 @@ const Setters = {
   overflow(yogaNode: YogaNode, overflow: Overflow) {
     yogaNode.setOverflow(overflow);
   },
+  position(yogaNode: YogaNode, position: PositionType) {
+    yogaNode.setPositionType(position);
+  },
   paddingLeft(yogaNode: YogaNode, padding: number | `${number}%` | undefined) {
     yogaNode.setPadding(Edge.Left, padding);
   },

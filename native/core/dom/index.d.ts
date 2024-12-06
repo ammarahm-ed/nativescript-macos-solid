@@ -9,6 +9,7 @@ import type { Popover } from "../views/popover/popover.ts";
 import type { Switch } from "../views/switch/switch.ts";
 import type { DatePicker } from "../views/date-picker/date-picker.ts";
 import type { WebView } from "../views/webview/webview.ts";
+import type { Menu } from "../views/menu/menu.ts";
 
 declare global {
   // undom
@@ -136,6 +137,12 @@ declare global {
   var HTMLDatePickerElement: {
     new (): HTMLDatePickerElement;
     prototype: HTMLDatePickerElement;
+  };
+
+  interface HTMLNSMenuElement extends Menu {}
+  var HTMLContextMenuElement: {
+    new (): HTMLNSMenuElement;
+    prototype: HTMLNSMenuElement;
   };
 
   interface HTMLElementTagNameMap {

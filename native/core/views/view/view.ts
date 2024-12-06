@@ -11,7 +11,8 @@ export class View extends ViewBase {
   override nativeView?: NSView = undefined;
   public override initNativeView(): NSView | undefined {
     // @ts-ignore type
-    this.nativeView = NativeView.new();
+    this.nativeView = NativeView.initWithOwner(new WeakRef(this));
+
     return this.nativeView;
   }
 }

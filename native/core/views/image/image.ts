@@ -54,16 +54,22 @@ export class Image extends ViewBase {
     setNative(view: Image, _key, value) {
       setTimeout(() => {
         let img: NSImage;
-        if (typeof value === "string" && value?.indexOf("http") > -1) {
+        if (typeof value === "string" && value?.indexOf("<svg") > -1) {
+          const svgData =
+            NSString.stringWithCString(value).dataUsingEncoding(
+              NSUTF8StringEncoding
+            );
+          img = NSImage.alloc().initWithData(svgData);
+        } else if (typeof value === "string" && (value?.indexOf("http") > -1 || value?.startsWith("data:"))) {
           img = NSImage.alloc().initWithContentsOfURL(
-            NSURL.URLWithString(value),
+            NSURL.URLWithString(value)
           );
         } else {
           img = NSImage.alloc().initWithContentsOfFile(
             (value instanceof URL ? value.pathname : value).replace(
               "file://",
-              "",
-            ),
+              ""
+            )
           );
         }
         view.setImage(img);
@@ -76,7 +82,7 @@ export class Image extends ViewBase {
     setNative(view: Image, _key, value) {
       const img = NSImage.imageWithSystemSymbolNameAccessibilityDescription(
         value,
-        null,
+        null
       );
 
       view.setImage(img);
